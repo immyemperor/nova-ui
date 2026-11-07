@@ -1,0 +1,2 @@
+:host { display: block; overflow: hidden; border: 1px solid var(--nova-color-border); border-radius: var(--nova-radius-surface); background: var(--nova-color-surface); }
+:host([variant='flush']) { border: 0; border-radius: 0; background: transparent; overflow: visible; }

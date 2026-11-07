@@ -1,0 +1,2 @@
+:host { display: block; }
+:host([data-pending]) ::slotted(*) { opacity: 0; }

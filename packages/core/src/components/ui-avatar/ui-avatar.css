@@ -1,0 +1,13 @@
+:host {
+  --_s: 2.25rem;
+  display: inline-flex; align-items: center; justify-content: center; flex: none; overflow: hidden;
+  width: var(--_s); height: var(--_s); border-radius: 50%; box-sizing: border-box;
+  background: var(--nova-color-accent-soft); color: var(--nova-color-accent);
+  font-family: var(--nova-font-sans); font-size: calc(var(--_s) * 0.38); font-weight: var(--nova-weight-semibold);
+  user-select: none;
+}
+:host([size='sm']) { --_s: 1.75rem; }
+:host([size='lg']) { --_s: 3rem; }
+:host([size='xl']) { --_s: 4rem; }
+:host([shape='square']) { border-radius: var(--nova-radius-control); }
+img { width: 100%; height: 100%; object-fit: cover; display: block; }

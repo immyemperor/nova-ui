@@ -1,0 +1,3 @@
+:host { display: block; outline: none; border-radius: var(--nova-radius-control); }
+:host([hidden]) { display: none; }
+:host(:focus-visible) { box-shadow: var(--nova-focus-ring); }

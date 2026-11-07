@@ -1,0 +1,27 @@
+{
+  "name": "nova-ui-monorepo",
+  "private": true,
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "pnpm -r --filter \"./packages/*\" run build",
+    "dev:vite": "pnpm --filter playground-vite dev",
+    "dev:next": "pnpm --filter playground-next dev",
+    "test": "pnpm -r --filter \"./packages/*\" run test",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "pnpm build && changeset publish",
+    "rename-scope": "node scripts/rename-scope.mjs"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.0",
+    "typescript": "^5.6.0"
+  },
+  "dependencies": {
+    "@stencil/angular-output-target": "^1.5.3",
+    "@stencil/react-output-target": "^1.7.0",
+    "pnpm": "^12.18.0"
+  }
+}

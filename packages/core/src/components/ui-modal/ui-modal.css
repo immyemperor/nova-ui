@@ -1,0 +1,52 @@
+:host { display: contents; --_w: 32rem; }
+:host([size='sm']) { --_w: 24rem; }
+:host([size='lg']) { --_w: 48rem; }
+
+dialog {
+  --_anim: modal-in;
+  padding: 0; border: 0; background: transparent; color: var(--nova-color-fg);
+  max-width: none; max-height: none; overflow: visible; font-family: var(--nova-font-sans);
+}
+dialog::backdrop { background: rgb(8 14 12 / 0.55); backdrop-filter: blur(2px); }
+dialog[open] { animation: var(--_anim) var(--nova-duration-base) var(--nova-ease-emphasized); }
+dialog[open]::backdrop { animation: fade-in var(--nova-duration-base) var(--nova-ease-standard); }
+dialog.closing { animation: var(--_anim) var(--nova-duration-base) var(--nova-ease-standard) reverse forwards; }
+dialog.closing::backdrop { animation: fade-in var(--nova-duration-base) var(--nova-ease-standard) reverse forwards; }
+
+.surface {
+  display: flex; flex-direction: column; box-sizing: border-box;
+  width: min(92vw, var(--_w)); max-height: min(85dvh, 44rem);
+  background: var(--nova-color-surface-raised); border: 1px solid var(--nova-color-border);
+  border-radius: var(--nova-radius-surface); box-shadow: var(--nova-shadow-lg); overflow: hidden;
+}
+.header { display: flex; align-items: center; gap: var(--nova-space-3); padding: var(--nova-space-4) var(--nova-space-5); border-bottom: 1px solid var(--nova-color-border); }
+.title { flex: 1; margin: 0; font-size: var(--nova-text-lg); font-weight: var(--nova-weight-semibold); line-height: var(--nova-leading-tight); }
+.body { flex: 1; overflow: auto; padding: var(--nova-space-5); }
+.footer { display: flex; justify-content: flex-end; gap: var(--nova-space-2); padding: var(--nova-space-3) var(--nova-space-5); border-top: 1px solid var(--nova-color-border); background: var(--nova-color-surface-sunken); }
+.footer[hidden] { display: none; }
+
+:host([size='full']) .surface { width: 100vw; height: 100dvh; max-height: none; border-radius: 0; border: 0; }
+
+/* Drawer placements */
+:host([placement='right']) dialog { margin: 0 0 0 auto; --_anim: from-right; }
+:host([placement='left']) dialog { margin: 0 auto 0 0; --_anim: from-left; }
+:host([placement='top']) dialog { margin: 0 0 auto 0; --_anim: from-top; }
+:host([placement='bottom']) dialog { margin: auto 0 0 0; --_anim: from-bottom; }
+:host([placement='right']) .surface, :host([placement='left']) .surface { height: 100dvh; max-height: none; border-radius: 0; }
+:host([placement='right']) .surface { border-right: 0; border-top: 0; border-bottom: 0; }
+:host([placement='left']) .surface { border-left: 0; border-top: 0; border-bottom: 0; }
+:host([placement='top']) .surface, :host([placement='bottom']) .surface { width: 100vw; max-height: 85dvh; border-radius: 0; }
+:host([placement='bottom']) .surface { border-bottom: 0; border-left: 0; border-right: 0; }
+:host([placement='top']) .surface { border-top: 0; border-left: 0; border-right: 0; }
+
+/* Command palette */
+:host([placement='palette']) dialog { margin: 12vh auto auto; }
+:host([placement='palette']) .surface { width: min(92vw, 40rem); max-height: 70dvh; }
+:host([placement='palette']) .body { padding: 0; }
+
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes modal-in { from { opacity: 0; transform: translateY(8px) scale(0.98); } to { opacity: 1; transform: none; } }
+@keyframes from-right { from { transform: translateX(100%); } to { transform: none; } }
+@keyframes from-left { from { transform: translateX(-100%); } to { transform: none; } }
+@keyframes from-top { from { transform: translateY(-100%); } to { transform: none; } }
+@keyframes from-bottom { from { transform: translateY(100%); } to { transform: none; } }

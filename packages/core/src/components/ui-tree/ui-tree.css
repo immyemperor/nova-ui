@@ -1,0 +1,10 @@
+:host { display: block; color: var(--nova-color-fg); font: var(--nova-text-sm) var(--nova-font-sans); }
+.tree, ul[role='group'] { list-style: none; margin: 0; padding: 0; }
+ul[role='group'] { padding-inline-start: 1.25rem; }
+.item { display: flex; align-items: center; gap: var(--nova-space-2); min-height: 2rem; padding: 0 var(--nova-space-2); border-radius: var(--nova-radius-control); cursor: pointer; }
+.item:hover { background: var(--nova-color-surface-sunken); }
+.item:focus-visible { outline: 2px solid var(--nova-color-accent); outline-offset: 1px; }
+.item.selected { background: var(--nova-color-accent-soft); color: var(--nova-color-accent); }
+.item.disabled { opacity: .55; cursor: not-allowed; }
+.disclosure { width: 1rem; text-align: center; color: var(--nova-color-fg-muted); }
+.blank { visibility: hidden; }

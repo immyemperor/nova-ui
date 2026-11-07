@@ -1,0 +1,6 @@
+.control { display: flex; align-items: center; gap: var(--nova-space-2); }
+.swatch { width: 2.75rem; height: 2.5rem; padding: 3px; border: 1px solid var(--nova-color-border-strong); border-radius: var(--nova-radius-control); background: var(--nova-color-surface); cursor: pointer; }
+.swatch:focus-visible, .hex:focus-visible { outline: none; border-color: var(--nova-color-accent); box-shadow: var(--nova-focus-ring); }
+.swatch:disabled, .hex:disabled { opacity: .55; cursor: not-allowed; }
+.hex { box-sizing: border-box; width: 7.5rem; min-height: var(--nova-control-md); padding: 0 var(--nova-space-2); border: 1px solid var(--nova-color-border-strong); border-radius: var(--nova-radius-control); color: var(--nova-color-fg); background: var(--nova-color-surface); font: var(--nova-text-sm) var(--nova-font-mono); text-transform: uppercase; }
+.form-value { display: none; }

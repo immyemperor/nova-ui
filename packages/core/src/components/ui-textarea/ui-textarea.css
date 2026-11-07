@@ -1,0 +1,5 @@
+.control { align-items: stretch; padding: 0 var(--nova-space-3); }
+.native { resize: vertical; line-height: var(--nova-leading-normal); padding: var(--nova-space-2) 0; }
+:host([autoresize]) .native { resize: none; overflow: hidden; }
+.foot { display: flex; justify-content: space-between; gap: var(--nova-space-3); }
+.count { margin-top: var(--nova-space-1); font-size: var(--nova-text-xs); color: var(--nova-color-fg-subtle); font-variant-numeric: tabular-nums; }

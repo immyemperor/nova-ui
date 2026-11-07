@@ -1,0 +1,17 @@
+:host { display: inline-flex; align-items: center; gap: var(--nova-space-2); cursor: pointer; font-size: var(--nova-text-sm); outline: none; border-radius: var(--nova-radius-control); }
+:host([disabled]) { opacity: 0.55; cursor: not-allowed; }
+.dot {
+  flex: none; width: 1.125rem; height: 1.125rem; box-sizing: border-box; border-radius: 50%;
+  border: 1.5px solid var(--nova-color-border-strong); background: var(--nova-color-surface);
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: border-color var(--nova-duration-fast) var(--nova-ease-standard);
+}
+.dot::after {
+  content: ''; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--nova-color-accent);
+  transform: scale(0); transition: transform var(--nova-duration-base) var(--nova-ease-emphasized);
+}
+:host([checked]) .dot { border-color: var(--nova-color-accent); }
+:host([checked]) .dot::after { transform: scale(1); }
+:host(:hover:not([disabled])) .dot { border-color: var(--nova-color-fg-subtle); }
+:host(:hover[checked]:not([disabled])) .dot { border-color: var(--nova-color-accent); }
+:host(:focus-visible) .dot { box-shadow: var(--nova-focus-ring); }

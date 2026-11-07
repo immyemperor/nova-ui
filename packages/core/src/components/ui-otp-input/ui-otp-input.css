@@ -1,0 +1,6 @@
+.cells { display: flex; gap: var(--nova-space-2); }
+.cell { box-sizing: border-box; width: 2.75rem; height: 3rem; padding: 0; border: 1px solid var(--nova-color-border-strong); border-radius: var(--nova-radius-control); color: var(--nova-color-fg); background: var(--nova-color-surface); font: var(--nova-text-lg) var(--nova-font-mono); text-align: center; }
+.cell:focus { outline: none; border-color: var(--nova-color-accent); box-shadow: var(--nova-focus-ring); }
+.cell:disabled { opacity: .55; cursor: not-allowed; }
+.form-value { display: none; }
+@media (max-width: 24rem) { .cells { gap: var(--nova-space-1); } .cell { width: 2.25rem; height: 2.75rem; } }

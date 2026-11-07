@@ -1,0 +1,40 @@
+:host { display: contents; }
+
+/* Don't set display on the popover itself: it would override the browser's closed state. */
+.region {
+  position: fixed; inset: auto; margin: 0; padding: 0; border: 0; background: transparent; overflow: visible;
+  width: min(24rem, calc(100vw - 2rem)); color: var(--nova-color-fg); font-family: var(--nova-font-sans);
+  pointer-events: none; z-index: var(--nova-z-toast);
+}
+.stack { display: flex; flex-direction: column; gap: var(--nova-space-2); }
+
+:host([placement='bottom-right']) .region { right: 1rem; bottom: 1rem; }
+:host([placement='bottom-left']) .region { left: 1rem; bottom: 1rem; }
+:host([placement='bottom-center']) .region { left: 50%; bottom: 1rem; transform: translateX(-50%); }
+:host([placement='top-right']) .region { right: 1rem; top: 1rem; }
+:host([placement='top-left']) .region { left: 1rem; top: 1rem; }
+:host([placement='top-center']) .region { left: 50%; top: 1rem; transform: translateX(-50%); }
+:host([placement^='top']) .stack { flex-direction: column-reverse; }
+
+.toast {
+  --_c: var(--nova-color-border-strong);
+  display: flex; align-items: flex-start; gap: var(--nova-space-3); box-sizing: border-box;
+  padding: var(--nova-space-3) var(--nova-space-3) var(--nova-space-3) var(--nova-space-4);
+  background: var(--nova-color-surface-raised); border: 1px solid var(--nova-color-border); border-left: 4px solid var(--_c);
+  border-radius: var(--nova-radius-control); box-shadow: var(--nova-shadow-md);
+  font-size: var(--nova-text-sm); pointer-events: auto;
+}
+.toast.info { --_c: var(--nova-color-info); }
+.toast.success { --_c: var(--nova-color-success); }
+.toast.warning { --_c: var(--nova-color-warning); }
+.toast.danger { --_c: var(--nova-color-danger); }
+.icon { color: var(--_c); margin-top: 0.1em; }
+.content { flex: 1; min-width: 0; padding-top: 0.1em; }
+.title { margin: 0; font-weight: var(--nova-weight-semibold); }
+.desc { margin: 0; color: var(--nova-color-fg-muted); }
+.title + .desc { margin-top: var(--nova-space-1); }
+
+.toast.enter { animation: toast-in var(--nova-duration-base) var(--nova-ease-emphasized); }
+.toast.leave { animation: toast-out 160ms var(--nova-ease-standard) forwards; }
+@keyframes toast-in { from { opacity: 0; transform: translateY(8px) scale(0.98); } to { opacity: 1; transform: none; } }
+@keyframes toast-out { to { opacity: 0; transform: scale(0.96); } }

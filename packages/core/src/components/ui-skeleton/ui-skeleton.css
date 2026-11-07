@@ -1,0 +1,13 @@
+:host { display: block; width: 100%; }
+:host([shape='text']) { display: flex; flex-direction: column; gap: 0.5em; }
+:host([shape='circle']) { display: inline-block; }
+.bar {
+  display: block; height: 0.9em; border-radius: var(--nova-radius-control);
+  background: linear-gradient(90deg, var(--nova-color-surface-sunken) 0%, var(--nova-color-border) 50%, var(--nova-color-surface-sunken) 100%);
+  background-size: 200% 100%;
+}
+.bar.fill { height: 100%; width: 100%; border-radius: var(--nova-radius-surface); }
+:host([shape='circle']) .bar { border-radius: 50%; }
+:host([animated]) .bar { animation: shimmer 1.6s ease-in-out infinite; }
+@keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+@media (prefers-reduced-motion: reduce) { :host([animated]) .bar { animation: none; } }

@@ -1,0 +1,53 @@
+{
+  "name": "@nova-ui/core",
+  "version": "0.1.0",
+  "description": "Framework-agnostic UI components, tokens, theming and motion built with Stencil web components.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.js",
+  "types": "./dist/types/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "components": ["dist/components/index.d.ts"],
+      "components/*": ["dist/components/*"]
+    }
+  },
+  "collection": "./dist/collection/collection-manifest.json",
+  "collection:main": "./dist/collection/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs.js"
+    },
+    "./components": {
+      "types": "./dist/components/index.d.ts",
+      "import": "./dist/components/index.js"
+    },
+    "./components/*": "./dist/components/*",
+    "./loader": {
+      "types": "./loader/index.d.ts",
+      "import": "./loader/index.js",
+      "require": "./loader/index.cjs.js"
+    },
+    "./styles.css": "./dist/nova-ui/nova-ui.css",
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "loader"],
+  "scripts": {
+    "build": "stencil build",
+    "start": "stencil build --dev --watch",
+    "test": "stencil test --spec"
+  },
+  "dependencies": {
+    "@stencil/core": "^4.0.0"
+  },
+  "devDependencies": {
+    "@stencil/angular-output-target": "latest",
+    "@stencil/react-output-target": "latest",
+    "typescript": "^5.6.0"
+  },
+  "publishConfig": { "access": "public" },
+  "keywords": ["web-components", "stencil", "ui", "react", "angular", "vite", "nextjs", "design-system"]
+}

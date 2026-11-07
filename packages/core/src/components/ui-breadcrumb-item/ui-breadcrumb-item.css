@@ -1,0 +1,10 @@
+:host { display: inline-flex; align-items: center; gap: var(--nova-space-1); }
+:host([collapsed]:not([ellipsis])) { display: none; }
+.link { color: var(--nova-color-fg-muted); text-decoration: none; border-radius: var(--nova-radius-control); padding: 0 var(--nova-space-1); }
+.link:hover { color: var(--nova-color-accent); text-decoration: underline; }
+.link:focus-visible, .ellipsis:focus-visible { outline: none; box-shadow: var(--nova-focus-ring); }
+.text { color: var(--nova-color-fg-muted); padding: 0 var(--nova-space-1); }
+.text[aria-current='page'] { color: var(--nova-color-fg); font-weight: var(--nova-weight-medium); }
+.ellipsis { all: unset; cursor: pointer; padding: 0 var(--nova-space-2); border-radius: var(--nova-radius-control); color: var(--nova-color-fg-muted); }
+.ellipsis:hover { background: var(--nova-color-surface-sunken); color: var(--nova-color-fg); }
+.sep { color: var(--nova-color-fg-subtle); }

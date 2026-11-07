@@ -1,0 +1,11 @@
+@import './tokens.css';
+
+/* Opt-in page defaults: add class="nova-base" to <body> (or any root). */
+.nova-base {
+  background: var(--nova-color-bg);
+  color: var(--nova-color-fg);
+  font-family: var(--nova-font-sans);
+  font-size: var(--nova-text-md);
+  line-height: var(--nova-leading-normal);
+  -webkit-font-smoothing: antialiased;
+}

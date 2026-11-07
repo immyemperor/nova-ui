@@ -1,0 +1,29 @@
+:host { --_m: 2rem; display: flex; flex: 1; min-width: 0; flex-direction: column; gap: var(--nova-space-2); font-size: var(--nova-text-sm); color: var(--nova-color-fg); }
+:host([last]) { flex: 0 0 auto; }
+:host([orientation='vertical']) { flex-direction: row; flex: none; gap: var(--nova-space-3); }
+
+.rail { display: flex; align-items: center; }
+:host([orientation='vertical']) .rail { flex-direction: column; }
+.marker {
+  all: unset; box-sizing: border-box; flex: none; display: inline-flex; align-items: center; justify-content: center;
+  width: var(--_m); height: var(--_m); border-radius: 50%;
+  border: 2px solid var(--nova-color-border-strong); background: var(--nova-color-surface); color: var(--nova-color-fg-muted);
+  font-weight: var(--nova-weight-semibold); font-variant-numeric: tabular-nums;
+}
+button.marker { cursor: pointer; }
+button.marker:focus-visible { box-shadow: var(--nova-focus-ring); }
+button.marker:hover { border-color: var(--nova-color-accent); }
+:host([status='complete']) .marker { background: var(--nova-color-accent); border-color: var(--nova-color-accent); color: var(--nova-color-fg-on-accent); }
+:host([status='current']) .marker { border-color: var(--nova-color-accent); color: var(--nova-color-accent); box-shadow: 0 0 0 4px var(--nova-color-accent-soft); }
+:host([status='error']) .marker { background: var(--nova-color-danger); border-color: var(--nova-color-danger); color: #fff; }
+
+.line { flex: 1; height: 2px; min-width: var(--nova-space-4); margin: 0 var(--nova-space-2); border-radius: 2px; background: var(--nova-color-border); }
+:host([orientation='vertical']) .line { width: 2px; height: auto; min-height: var(--nova-space-5); margin: var(--nova-space-1) 0; }
+:host([status='complete']) .line { background: var(--nova-color-accent); }
+
+.body { padding-right: var(--nova-space-3); }
+:host([orientation='vertical']) .body { padding: 0 0 var(--nova-space-5); }
+.title { margin: 0; font-weight: var(--nova-weight-medium); }
+:host([status='upcoming']) .title { color: var(--nova-color-fg-muted); }
+:host([status='error']) .title { color: var(--nova-color-danger); }
+.desc { margin: var(--nova-space-1) 0 0; color: var(--nova-color-fg-muted); font-size: var(--nova-text-xs); }

@@ -1,0 +1,52 @@
+:host {
+  display: block;
+  font-family: var(--nova-font-sans);
+  color: var(--nova-color-fg);
+}
+.label {
+  display: block;
+  margin-bottom: var(--nova-space-1);
+  font-size: var(--nova-text-sm);
+  font-weight: var(--nova-weight-medium);
+}
+.req { color: var(--nova-color-danger); }
+.control {
+  display: flex;
+  align-items: center;
+  gap: var(--nova-space-2);
+  box-sizing: border-box;
+  min-height: var(--nova-control-md);
+  padding: 0 var(--nova-space-3);
+  background: var(--nova-color-surface);
+  border: 1px solid var(--nova-color-border-strong);
+  border-radius: var(--nova-radius-control);
+  transition: border-color var(--nova-duration-fast) var(--nova-ease-standard),
+    box-shadow var(--nova-duration-fast) var(--nova-ease-standard);
+}
+:host([size='sm']) .control { min-height: var(--nova-control-sm); font-size: var(--nova-text-xs); }
+:host([size='lg']) .control { min-height: var(--nova-control-lg); font-size: var(--nova-text-md); }
+.control:hover { border-color: var(--nova-color-fg-subtle); }
+.control:focus-within { border-color: var(--nova-color-accent); box-shadow: var(--nova-focus-ring); }
+.control[data-invalid='true'] { border-color: var(--nova-color-danger); }
+.control[data-invalid='true']:focus-within { box-shadow: 0 0 0 3px color-mix(in srgb, var(--nova-color-danger) 35%, transparent); }
+:host([disabled]) .control { opacity: 0.55; background: var(--nova-color-surface-sunken); cursor: not-allowed; }
+
+.native {
+  all: unset;
+  box-sizing: border-box;
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: var(--nova-space-2) 0;
+  font: inherit;
+  color: inherit;
+}
+.native::placeholder { color: var(--nova-color-fg-subtle); }
+.native:disabled { cursor: not-allowed; }
+
+.msg {
+  margin: var(--nova-space-1) 0 0;
+  font-size: var(--nova-text-xs);
+  color: var(--nova-color-fg-muted);
+}
+.msg.error { color: var(--nova-color-danger); }

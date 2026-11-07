@@ -1,0 +1,10 @@
+:host { --_s: 1.5rem; display: inline-flex; color: var(--nova-color-accent); }
+:host([size='sm']) { --_s: 1rem; }
+:host([size='lg']) { --_s: 2.5rem; }
+.ring {
+  width: var(--_s); height: var(--_s); box-sizing: border-box; border-radius: 50%;
+  border: calc(var(--_s) / 8) solid color-mix(in srgb, currentColor 25%, transparent);
+  border-top-color: currentColor; animation: spin 700ms linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .ring { animation-duration: 2.4s; } }

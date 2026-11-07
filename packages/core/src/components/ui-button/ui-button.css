@@ -1,0 +1,78 @@
+:host {
+  display: inline-block;
+  vertical-align: middle;
+  --_height: var(--nova-control-md);
+  --_pad: var(--nova-space-4);
+  --_bg: var(--nova-color-accent);
+  --_bg-hover: var(--nova-color-accent-hover);
+  --_bg-active: var(--nova-color-accent-active);
+  --_fg: var(--nova-color-fg-on-accent);
+  --_border: transparent;
+}
+:host([size='sm']) { --_height: var(--nova-control-sm); --_pad: var(--nova-space-3); font-size: var(--nova-text-xs); }
+:host([size='lg']) { --_height: var(--nova-control-lg); --_pad: var(--nova-space-5); font-size: var(--nova-text-md); }
+
+:host([variant='secondary']) {
+  --_bg: var(--nova-color-surface);
+  --_bg-hover: var(--nova-color-surface-sunken);
+  --_bg-active: var(--nova-color-border);
+  --_fg: var(--nova-color-fg);
+  --_border: var(--nova-color-border-strong);
+}
+:host([variant='ghost']) {
+  --_bg: transparent;
+  --_bg-hover: var(--nova-color-surface-sunken);
+  --_bg-active: var(--nova-color-border);
+  --_fg: var(--nova-color-fg);
+}
+:host([variant='danger']) {
+  --_bg: var(--nova-color-danger);
+  --_bg-hover: color-mix(in srgb, var(--nova-color-danger) 88%, black);
+  --_bg-active: color-mix(in srgb, var(--nova-color-danger) 76%, black);
+  --_fg: #fff;
+}
+
+.control {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--nova-space-2);
+  height: var(--_height);
+  min-width: var(--_height);
+  padding: 0 var(--_pad);
+  border: 1px solid var(--_border);
+  border-radius: var(--nova-radius-control);
+  background: var(--_bg);
+  color: var(--_fg);
+  font-family: var(--nova-font-sans);
+  font-size: inherit;
+  font-weight: var(--nova-weight-medium);
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition: background var(--nova-duration-fast) var(--nova-ease-standard),
+    box-shadow var(--nova-duration-fast) var(--nova-ease-standard);
+}
+.control:hover { background: var(--_bg-hover); }
+.control:active { background: var(--_bg-active); }
+.control:focus-visible { box-shadow: var(--nova-focus-ring); }
+
+:host([icon-only]) .control { padding: 0; }
+:host([disabled]) .control { opacity: 0.5; cursor: not-allowed; }
+:host([loading]) .control { cursor: progress; }
+
+.spinner {
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 700ms linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .spinner { animation-duration: 2s; }
+}

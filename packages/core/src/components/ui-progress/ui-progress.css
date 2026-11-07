@@ -1,0 +1,12 @@
+:host { --_c: var(--nova-color-accent); display: block; font-family: var(--nova-font-sans); color: var(--nova-color-fg); }
+:host([tone='success']) { --_c: var(--nova-color-success); }
+:host([tone='warning']) { --_c: var(--nova-color-warning); }
+:host([tone='danger']) { --_c: var(--nova-color-danger); }
+.head { display: flex; justify-content: space-between; margin-bottom: var(--nova-space-1); font-size: var(--nova-text-sm); }
+.label { font-weight: var(--nova-weight-medium); }
+.value { color: var(--nova-color-fg-muted); font-variant-numeric: tabular-nums; }
+.track { position: relative; height: 0.5rem; overflow: hidden; border-radius: var(--nova-radius-pill); background: var(--nova-color-surface-sunken); border: 1px solid var(--nova-color-border); box-sizing: border-box; }
+.bar { height: 100%; background: var(--_c); border-radius: inherit; transition: width var(--nova-duration-slow) var(--nova-ease-standard); }
+.track[data-indeterminate='true'] .bar { position: absolute; width: 40%; animation: slide 1.3s var(--nova-ease-standard) infinite; }
+@keyframes slide { from { left: -40%; } to { left: 100%; } }
+@media (prefers-reduced-motion: reduce) { .track[data-indeterminate='true'] .bar { animation: none; left: 30%; } }

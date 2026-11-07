@@ -1,0 +1,1 @@
+:host { display: inline-flex; align-items: center; gap: 2px; padding: 2px; border: 1px solid var(--nova-color-border); border-radius: var(--nova-radius-control); background: var(--nova-color-surface); font-family: var(--nova-font-sans); }

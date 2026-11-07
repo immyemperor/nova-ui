@@ -1,0 +1,152 @@
+/*
+  Nova UI design tokens.
+  Identity: "verdigris and ink" - cool paper neutrals, a single oxidised-copper accent,
+  tight radii on controls and softer radii on surfaces. Everything is overridable.
+*/
+:root,
+[data-theme='light'] {
+  /* Surfaces */
+  --nova-color-bg: #f6f8f7;
+  --nova-color-surface: #ffffff;
+  --nova-color-surface-raised: #ffffff;
+  --nova-color-surface-sunken: #edf1ef;
+  --nova-color-border: #d5ddd9;
+  --nova-color-border-strong: #aeb9b4;
+
+  /* Text */
+  --nova-color-fg: #14201c;
+  --nova-color-fg-muted: #4d5c56;
+  --nova-color-fg-subtle: #6d7b75;
+  --nova-color-fg-on-accent: #ffffff;
+
+  /* Accent (verdigris) */
+  --nova-color-accent: #0b7a6c;
+  --nova-color-accent-hover: #09655a;
+  --nova-color-accent-active: #07524a;
+  --nova-color-accent-soft: #d9efeb;
+
+  /* Status */
+  --nova-color-success: #1a7f4b;
+  --nova-color-warning: #a35f00;
+  --nova-color-danger: #c0362c;
+  --nova-color-info: #2563b8;
+  --nova-color-success-soft: #dcf2e5;
+  --nova-color-warning-soft: #fbecd0;
+  --nova-color-danger-soft: #fbe1de;
+  --nova-color-info-soft: #dce9fa;
+
+  --nova-shadow-sm: 0 1px 2px rgb(20 32 28 / 0.08);
+  --nova-shadow-md: 0 4px 14px rgb(20 32 28 / 0.1);
+  --nova-shadow-lg: 0 16px 40px rgb(20 32 28 / 0.16);
+  --nova-focus-ring: 0 0 0 3px rgb(11 122 108 / 0.35);
+}
+
+[data-theme='dark'] {
+  --nova-color-bg: #0d1412;
+  --nova-color-surface: #141d1a;
+  --nova-color-surface-raised: #1a2521;
+  --nova-color-surface-sunken: #0a100e;
+  --nova-color-border: #263430;
+  --nova-color-border-strong: #3a4c46;
+
+  --nova-color-fg: #e8efec;
+  --nova-color-fg-muted: #a6b5af;
+  --nova-color-fg-subtle: #7f908a;
+  --nova-color-fg-on-accent: #06201b;
+
+  --nova-color-accent: #3fd1bb;
+  --nova-color-accent-hover: #67e0cd;
+  --nova-color-accent-active: #8aebdc;
+  --nova-color-accent-soft: #12302b;
+
+  --nova-color-success: #4cc98a;
+  --nova-color-warning: #e8a73c;
+  --nova-color-danger: #f0766b;
+  --nova-color-info: #6aa4f0;
+  --nova-color-success-soft: #123022;
+  --nova-color-warning-soft: #33260c;
+  --nova-color-danger-soft: #3a1815;
+  --nova-color-info-soft: #112844;
+
+  --nova-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.5);
+  --nova-shadow-md: 0 4px 14px rgb(0 0 0 / 0.5);
+  --nova-shadow-lg: 0 16px 40px rgb(0 0 0 / 0.6);
+  --nova-focus-ring: 0 0 0 3px rgb(63 209 187 / 0.4);
+}
+
+/* No-JS fallback: follow the OS until the theme manager sets data-theme. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --nova-color-bg: #0d1412;
+    --nova-color-surface: #141d1a;
+    --nova-color-surface-raised: #1a2521;
+    --nova-color-surface-sunken: #0a100e;
+    --nova-color-border: #263430;
+    --nova-color-border-strong: #3a4c46;
+    --nova-color-fg: #e8efec;
+    --nova-color-fg-muted: #a6b5af;
+    --nova-color-fg-subtle: #7f908a;
+    --nova-color-fg-on-accent: #06201b;
+    --nova-color-accent: #3fd1bb;
+    --nova-color-accent-hover: #67e0cd;
+    --nova-color-accent-active: #8aebdc;
+    --nova-color-accent-soft: #12302b;
+    --nova-focus-ring: 0 0 0 3px rgb(63 209 187 / 0.4);
+  }
+}
+
+:root {
+  /* Type */
+  --nova-font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --nova-font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --nova-text-xs: 0.75rem;
+  --nova-text-sm: 0.875rem;
+  --nova-text-md: 1rem;
+  --nova-text-lg: 1.125rem;
+  --nova-text-xl: 1.375rem;
+  --nova-leading-tight: 1.25;
+  --nova-leading-normal: 1.5;
+  --nova-weight-regular: 400;
+  --nova-weight-medium: 500;
+  --nova-weight-semibold: 600;
+
+  /* Space (4px base) */
+  --nova-space-1: 0.25rem;
+  --nova-space-2: 0.5rem;
+  --nova-space-3: 0.75rem;
+  --nova-space-4: 1rem;
+  --nova-space-5: 1.5rem;
+  --nova-space-6: 2rem;
+  --nova-space-8: 3rem;
+
+  /* Radius: controls are tighter than surfaces */
+  --nova-radius-control: 6px;
+  --nova-radius-surface: 12px;
+  --nova-radius-pill: 999px;
+
+  /* Control sizing */
+  --nova-control-sm: 1.75rem;
+  --nova-control-md: 2.25rem;
+  --nova-control-lg: 2.75rem;
+
+  /* Motion */
+  --nova-duration-fast: 120ms;
+  --nova-duration-base: 200ms;
+  --nova-duration-slow: 400ms;
+  --nova-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --nova-ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Layering */
+  --nova-z-dropdown: 1000;
+  --nova-z-overlay: 1100;
+  --nova-z-modal: 1200;
+  --nova-z-toast: 1300;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --nova-duration-fast: 0.01ms;
+    --nova-duration-base: 0.01ms;
+    --nova-duration-slow: 0.01ms;
+  }
+}

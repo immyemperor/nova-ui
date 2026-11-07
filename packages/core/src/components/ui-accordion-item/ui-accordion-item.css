@@ -1,0 +1,24 @@
+:host { display: block; font-family: var(--nova-font-sans); color: var(--nova-color-fg); }
+:host(:not(:last-child)) { border-bottom: 1px solid var(--nova-color-border); }
+
+.heading { margin: 0; }
+.trigger {
+  all: unset; box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; gap: var(--nova-space-3);
+  width: 100%; padding: var(--nova-space-4) var(--nova-space-5); cursor: pointer;
+  font-size: var(--nova-text-md); font-weight: var(--nova-weight-medium);
+  transition: background var(--nova-duration-fast) var(--nova-ease-standard);
+}
+.trigger:hover:not(:disabled) { background: var(--nova-color-surface-sunken); }
+.trigger:focus-visible { box-shadow: inset var(--nova-focus-ring); }
+.trigger:disabled { opacity: 0.5; cursor: not-allowed; }
+.chevron { flex: none; color: var(--nova-color-fg-subtle); transition: transform var(--nova-duration-base) var(--nova-ease-standard); }
+:host([open]) .chevron { transform: rotate(180deg); }
+
+/* Animate height with grid rows: no JS measuring, and collapsed content is unfocusable. */
+.panel {
+  display: grid; grid-template-rows: 0fr; visibility: hidden;
+  transition: grid-template-rows var(--nova-duration-base) var(--nova-ease-standard), visibility 0s linear var(--nova-duration-base);
+}
+:host([open]) .panel { grid-template-rows: 1fr; visibility: visible; transition-delay: 0s; }
+.inner { overflow: hidden; min-height: 0; }
+.content { padding: 0 var(--nova-space-5) var(--nova-space-5); color: var(--nova-color-fg-muted); font-size: var(--nova-text-sm); line-height: var(--nova-leading-normal); }
