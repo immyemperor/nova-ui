@@ -5,9 +5,10 @@ import { ValueAccessor } from './value-accessor';
 
 @Directive({
   /* tslint:disable-next-line:directive-selector */
-  selector: 'ui-input, ui-textarea',
+  selector: 'ui-input, ui-textarea, ui-otp-input, ui-date-picker, ui-color-picker',
   host: {
-    '(uiInput)': 'handleChangeEvent($event.target?.["value"])'
+    '(uiInput)': 'handleChangeEvent($event.target?.["value"])',
+    '(uiChange)': 'handleChangeEvent($event.target?.["value"])'
   },
   providers: [
     {

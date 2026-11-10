@@ -1,8 +1,11 @@
-import { AttachInternals, Component, Element, Event, EventEmitter, Host, Prop, State, Watch, h } from '@stencil/core';
+import { AttachInternals, Component, Element, Event, EventEmitter, Host, Method, Prop, Watch, h } from '@stencil/core';
 
+let uid = 0;
+
+/** One-time-code entry: separate boxes, auto-advance, paste and SMS autofill support. */
 @Component({
   tag: 'ui-otp-input',
-  styleUrls: ['../../global/field.css', 'ui-otp-input.css'],
+  styleUrl: 'ui-otp-input.css',
   shadow: true,
   formAssociated: true,
 })
@@ -10,31 +13,42 @@ export class UiOtpInput {
   @Element() host!: HTMLElement;
   @AttachInternals() internals!: ElementInternals;
 
+  private uid = `ui-otp-${++uid}`;
+  private cells: HTMLInputElement[] = [];
+  private initialValue = '';
+
   @Prop({ mutable: true }) value = '';
   @Prop() length = 6;
-  @Prop() label = 'Verification code';
-  @Prop() name?: string;
   @Prop() type: 'numeric' | 'alphanumeric' = 'numeric';
+  /** Hide the characters, like a password. */
   @Prop() mask = false;
-  @Prop() required = false;
+  @Prop() label?: string;
+  @Prop() hint?: string;
+  @Prop() error?: string;
+  @Prop() name?: string;
   @Prop({ mutable: true, reflect: true }) disabled = false;
+  @Prop() required = false;
+  @Prop({ reflect: true }) size: 'sm' | 'md' | 'lg' = 'md';
 
-  @State() initialValue = '';
-
+  /** Fires on every change with the characters entered so far. */
   @Event() uiInput!: EventEmitter<string>;
-  @Event() uiChange!: EventEmitter<string>;
+  /** Fires once, when every box is filled. */
   @Event() uiComplete!: EventEmitter<string>;
 
-  private inputs: HTMLInputElement[] = [];
+  @Method() async focusInput() {
+    this.cells[Math.min(this.value.length, this.length - 1)]?.focus();
+  }
 
   @Watch('value')
   @Watch('required')
+  @Watch('length')
   syncForm() {
-    if (!this.internals) return;
-    const complete = this.value.length === this.length;
-    this.internals.setFormValue(this.value || null);
-    if (this.required && !complete) this.internals.setValidity({ valueMissing: true }, `Enter all ${this.length} characters.`, this.inputs[0]);
-    else this.internals.setValidity({});
+    this.internals?.setFormValue(this.value);
+    if (this.required && this.value.length < this.length) {
+      this.internals?.setValidity({ valueMissing: true }, 'Enter the full code.', this.cells[0]);
+    } else {
+      this.internals?.setValidity({});
+    }
   }
 
   componentWillLoad() {
@@ -44,91 +58,112 @@ export class UiOtpInput {
 
   formResetCallback() {
     this.value = this.initialValue;
-    this.syncForm();
   }
-
   formDisabledCallback(disabled: boolean) {
     this.disabled = disabled;
   }
 
-  private sanitize(value: string): string {
-    return (this.type === 'numeric' ? value.replace(/\D/g, '') : value.replace(/[^\da-z]/gi, '')).slice(0, Math.max(1, this.length));
+  private clean(raw: string): string {
+    const re = this.type === 'numeric' ? /[^0-9]/g : /[^a-zA-Z0-9]/g;
+    return raw.replace(re, '');
   }
 
-  private setValue(value: string, startIndex: number) {
-    const clean = this.sanitize(value).slice(0, Math.max(0, this.length - startIndex));
-    const next = (this.value.slice(0, startIndex) + clean + this.value.slice(startIndex + Math.max(1, clean.length))).slice(0, this.length);
-    this.value = next;
-    this.syncForm();
-    this.uiInput.emit(next);
-    this.uiChange.emit(next);
-    if (next.length === this.length) this.uiComplete.emit(next);
-    const focusIndex = Math.min(startIndex + clean.length, this.length - 1);
-    requestAnimationFrame(() => this.inputs[focusIndex]?.focus());
-  }
-
-  private onInput(index: number, event: Event) {
-    const input = event.target as HTMLInputElement;
-    const chars = this.sanitize(input.value);
-    if (!chars) {
-      const next = this.value.slice(0, index) + this.value.slice(index + 1);
-      this.value = next;
-      this.syncForm();
-      this.uiInput.emit(next);
-      this.uiChange.emit(next);
-      return;
+  private commit(next: string, focusIndex?: number) {
+    const was = this.value;
+    this.value = next.slice(0, this.length);
+    if (this.value !== was) {
+      this.uiInput.emit(this.value);
+      if (this.value.length === this.length) this.uiComplete.emit(this.value);
     }
-    this.setValue(chars, index);
+    if (focusIndex != null) requestAnimationFrame(() => this.cells[Math.max(0, Math.min(focusIndex, this.length - 1))]?.focus());
   }
 
-  private onPaste = (event: ClipboardEvent) => {
-    event.preventDefault();
-    const target = event.target as HTMLInputElement;
-    const index = Number(target.dataset.index ?? 0);
-    this.setValue(event.clipboardData?.getData('text') ?? '', index);
+  /** Typing, SMS autofill and paste all arrive here as one or more characters. */
+  private onInput = (e: Event, i: number) => {
+    const el = e.target as HTMLInputElement;
+    const chars = this.clean(el.value);
+    el.value = this.value[i] ?? ''; // re-render decides the real content
+    if (!chars) return;
+    const before = this.value.slice(0, i).padEnd(i, ' ');
+    const next = (before + chars + this.value.slice(i + chars.length)).replace(/ /g, '');
+    this.commit(next, i + chars.length);
   };
 
-  private onKeyDown(index: number, event: KeyboardEvent) {
-    if (event.key === 'Backspace' && !this.value[index] && index > 0) {
-      event.preventDefault();
-      const next = this.value.slice(0, index - 1) + this.value.slice(index);
-      this.value = next;
-      this.syncForm();
-      this.uiInput.emit(next);
-      this.uiChange.emit(next);
-      this.inputs[index - 1]?.focus();
-    } else if (event.key === 'ArrowLeft' && index > 0) {
-      event.preventDefault();
-      this.inputs[index - 1]?.focus();
-    } else if (event.key === 'ArrowRight' && index < this.length - 1) {
-      event.preventDefault();
-      this.inputs[index + 1]?.focus();
+  private onKeyDown = (e: KeyboardEvent, i: number) => {
+    switch (e.key) {
+      case 'Backspace':
+        e.preventDefault();
+        if (this.value[i]) this.commit(this.value.slice(0, i) + this.value.slice(i + 1), i);
+        else if (i > 0) this.commit(this.value.slice(0, i - 1) + this.value.slice(i), i - 1);
+        break;
+      case 'Delete':
+        e.preventDefault();
+        this.commit(this.value.slice(0, i) + this.value.slice(i + 1), i);
+        break;
+      case 'ArrowLeft':
+        e.preventDefault();
+        this.cells[Math.max(0, i - 1)]?.focus();
+        break;
+      case 'ArrowRight':
+        e.preventDefault();
+        this.cells[Math.min(this.length - 1, i + 1)]?.focus();
+        break;
+      case 'Home':
+        e.preventDefault();
+        this.cells[0]?.focus();
+        break;
+      case 'End':
+        e.preventDefault();
+        this.cells[this.length - 1]?.focus();
+        break;
     }
-  }
+  };
+
+  private onPaste = (e: ClipboardEvent, i: number) => {
+    e.preventDefault();
+    const chars = this.clean(e.clipboardData?.getData('text') ?? '');
+    if (!chars) return;
+    this.commit(this.value.slice(0, i) + chars, i + chars.length);
+  };
 
   render() {
-    const count = Math.max(1, Math.min(12, Math.floor(this.length)));
+    const message = this.error ?? this.hint;
+    const msgId = `${this.uid}-msg`;
     return (
       <Host>
-        <label class="label">{this.label}{this.required && <span class="req" aria-hidden="true"> *</span>}</label>
-        <div class="cells" role="group" aria-label={this.label}>
-          {Array.from({ length: count }, (_, index) => <input
-            class="cell"
-            type={this.mask ? 'password' : 'text'}
-            inputMode={this.type === 'numeric' ? 'numeric' : 'text'}
-            autoComplete={index === 0 ? 'one-time-code' : 'off'}
-            aria-label={`${this.label}, character ${index + 1} of ${count}`}
-            data-index={index}
-            maxLength={index === 0 ? count : 1}
-            value={this.value[index] ?? ''}
-            disabled={this.disabled}
-            ref={(el) => { if (el) this.inputs[index] = el; }}
-            onInput={(event) => this.onInput(index, event)}
-            onPaste={this.onPaste}
-            onKeyDown={(event) => this.onKeyDown(index, event)}
-            key={index}
-          />)}
+        {this.label && (
+          <span class="label" id={`${this.uid}-label`}>
+            {this.label}
+            {this.required && <span class="req" aria-hidden="true"> *</span>}
+          </span>
+        )}
+        <div class="cells" role="group" aria-labelledby={this.label ? `${this.uid}-label` : undefined} aria-describedby={message ? msgId : undefined}>
+          {Array.from({ length: this.length }, (_, i) => (
+            <input
+              key={i}
+              class={{ cell: true, invalid: !!this.error, filled: !!this.value[i] }}
+              ref={(el) => el && (this.cells[i] = el)}
+              type={this.mask ? 'password' : 'text'}
+              inputMode={this.type === 'numeric' ? 'numeric' : 'text'}
+              autocomplete={i === 0 ? 'one-time-code' : 'off'}
+              autocapitalize="off"
+              spellcheck={false}
+              aria-label={`Character ${i + 1} of ${this.length}`}
+              aria-invalid={this.error ? 'true' : undefined}
+              disabled={this.disabled}
+              value={this.value[i] ?? ''}
+              onInput={(e) => this.onInput(e, i)}
+              onKeyDown={(e) => this.onKeyDown(e, i)}
+              onPaste={(e) => this.onPaste(e, i)}
+              onFocus={(e) => (e.target as HTMLInputElement).select()}
+            />
+          ))}
         </div>
+        {message && (
+          <p class={{ msg: true, error: !!this.error }} id={msgId} role={this.error ? 'alert' : undefined}>
+            {message}
+          </p>
+        )}
       </Host>
     );
   }

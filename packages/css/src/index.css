@@ -1,0 +1,15 @@
+/*
+  Nova CSS: everything in one import. Order matters little (cascade layers decide precedence):
+  reset < tokens < base < layout < components < utilities. Your own unlayered CSS beats all of it.
+*/
+@layer nova.reset, nova.tokens, nova.base, nova.layout, nova.components, nova.utilities;
+
+/* Colour, type, radius, shadow and motion tokens come from @nova-ui/core, the single source of truth. */
+@import url('../../core/src/global/tokens.css') layer(nova.tokens);
+@import url('./tokens.css');
+@import url('./reset.css');
+@import url('./typography.css');
+@import url('./layout.css');
+@import url('./components.css');
+@import url('./generated/utilities.css');
+@import url('./print.css');

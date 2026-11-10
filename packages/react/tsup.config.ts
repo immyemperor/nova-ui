@@ -17,4 +17,13 @@ export default defineConfig([
     dts: true,
     clean: false,
   },
+  {
+    // Optional editor entry: "@nova-ui/react/editor". Kept separate so the editor (and Tiptap) is never pulled in by accident.
+    entry: { editor: 'src/editor.ts' },
+    format: ['esm', 'cjs'],
+    dts: true,
+    clean: false,
+    external: ['react', 'react-dom', /^@nova-ui\//],
+    banner: { js: '"use client";' },
+  },
 ]);

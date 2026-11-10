@@ -1,7 +1,12 @@
-import { AttachInternals, Component, Element, Event, EventEmitter, Host, Prop, State, Watch, h } from '@stencil/core';
+import { AttachInternals, Component, Element, Event, EventEmitter, Host, Method, Prop, State, Watch, h } from '@stencil/core';
+import { parseISO } from '../../utils/date';
 
-let datePickerId = 0;
+let uid = 0;
 
+/**
+ * Date field with a calendar popup. Type a date as YYYY-MM-DD, or pick one.
+ * The value is always a plain "YYYY-MM-DD" string.
+ */
 @Component({
   tag: 'ui-date-picker',
   styleUrls: ['../../global/field.css', 'ui-date-picker.css'],
@@ -12,133 +17,167 @@ export class UiDatePicker {
   @Element() host!: HTMLElement;
   @AttachInternals() internals!: ElementInternals;
 
+  private uid = `ui-date-${++uid}`;
+  private inputEl?: HTMLInputElement;
+  private calendar?: HTMLElement & { focusDay: () => Promise<void> };
+  private initialValue = '';
+
   @Prop({ mutable: true }) value = '';
-  @Prop() label = 'Choose date';
-  @Prop() name?: string;
   @Prop() min?: string;
   @Prop() max?: string;
-  @Prop() required = false;
-  @Prop({ mutable: true, reflect: true }) disabled = false;
+  @Prop() label?: string;
+  @Prop() hint?: string;
+  @Prop() error?: string;
   @Prop() placeholder = 'YYYY-MM-DD';
+  @Prop() name?: string;
+  @Prop({ mutable: true, reflect: true }) disabled = false;
+  @Prop() required = false;
+  @Prop() clearable = false;
   @Prop() locale?: string;
+  @Prop() firstDayOfWeek = 0;
+  @Prop({ reflect: true }) size: 'sm' | 'md' | 'lg' = 'md';
 
   @State() open = false;
-  @State() month = this.monthKey(this.value ? this.parseDate(this.value) ?? new Date() : new Date());
+  @State() editing = false;
+  @State() text = '';
 
+  /** Fires with "YYYY-MM-DD", or "" when cleared. */
   @Event() uiChange!: EventEmitter<string>;
 
-  private readonly uid = `ui-date-picker-${++datePickerId}`;
-  private trigger?: HTMLButtonElement;
-
-  @Watch('required')
-  syncForm() {
-    if (!this.internals) return;
-    this.internals.setFormValue(this.value || null);
-    if (this.required && !this.value) this.internals.setValidity({ valueMissing: true }, 'Choose a date.', this.trigger);
-    else this.internals.setValidity({});
+  @Method() async focusInput() {
+    this.inputEl?.focus();
   }
 
   @Watch('value')
-  onValueChange(value: string) {
-    this.syncForm();
-    const date = this.parseDate(value);
-    if (date) this.month = this.monthKey(date);
+  @Watch('required')
+  syncForm() {
+    this.internals?.setFormValue(this.value || null);
+    if (this.required && !this.value) this.internals?.setValidity({ valueMissing: true }, 'Choose a date.', this.inputEl);
+    else this.internals?.setValidity({});
   }
 
   componentWillLoad() {
+    this.initialValue = this.value;
     this.syncForm();
   }
 
   formResetCallback() {
-    this.value = '';
-    this.syncForm();
+    this.value = this.initialValue;
   }
-
   formDisabledCallback(disabled: boolean) {
     this.disabled = disabled;
   }
 
-  private parseDate(value: string): Date | undefined {
-    const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
-    if (!match) return;
-    const date = new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
-    if (date.getFullYear() !== Number(match[1]) || date.getMonth() !== Number(match[2]) - 1 || date.getDate() !== Number(match[3])) return;
-    return date;
+  private display(): string {
+    const d = parseISO(this.value);
+    return d ? new Intl.DateTimeFormat(this.locale, { dateStyle: 'medium' }).format(d) : '';
   }
 
-  private monthKey(date: Date): string {
-    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+  private inRange(iso: string): boolean {
+    return (!this.min || iso >= this.min) && (!this.max || iso <= this.max);
   }
 
-  private monthDate(): Date {
-    const [year, month] = this.month.split('-').map(Number);
-    return new Date(year, month - 1, 1);
+  private set(iso: string) {
+    if (iso === this.value) return;
+    this.value = iso;
+    this.uiChange.emit(iso);
   }
 
-  private dateValue(date: Date): string {
-    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+  /** Typed text becomes the value only if it's a real, in-range date. */
+  private commitText() {
+    const t = this.text.trim();
+    if (!t) this.set('');
+    else if (parseISO(t) && this.inRange(t)) this.set(t);
+    this.editing = false;
   }
 
-  private shiftMonth(amount: number) {
-    const date = this.monthDate();
-    date.setMonth(date.getMonth() + amount);
-    this.month = this.monthKey(date);
+  private openCalendar() {
+    if (this.disabled) return;
+    this.open = true;
   }
 
-  private choose(date: Date) {
-    const next = this.dateValue(date);
-    if (this.min && next < this.min || this.max && next > this.max) return;
-    this.value = next;
-    this.syncForm();
-    this.uiChange.emit(next);
+  private onPick = (e: CustomEvent<string>) => {
+    e.stopPropagation();
+    this.set(e.detail);
     this.open = false;
-  }
+    this.inputEl?.focus();
+  };
 
-  private isDisabled(date: Date): boolean {
-    const value = this.dateValue(date);
-    return !!(this.min && value < this.min || this.max && value > this.max);
-  }
-
-  private displayValue(): string {
-    const date = this.parseDate(this.value);
-    return date ? new Intl.DateTimeFormat(this.locale, { dateStyle: 'medium' }).format(date) : '';
-  }
+  private onKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (this.editing) this.commitText();
+      else this.openCalendar();
+    } else if (e.key === 'ArrowDown' && !this.open) {
+      e.preventDefault();
+      this.openCalendar();
+    }
+  };
 
   render() {
-    const monthDate = this.monthDate();
-    const year = monthDate.getFullYear();
-    const month = monthDate.getMonth();
-    const offset = new Date(year, month, 1).getDay();
-    const days = new Date(year, month + 1, 0).getDate();
-    const cells = Array.from({ length: 42 }, (_, index) => {
-      const day = index - offset + 1;
-      return day > 0 && day <= days ? new Date(year, month, day) : undefined;
-    });
-    const weekdays = Array.from({ length: 7 }, (_, index) => new Intl.DateTimeFormat(this.locale, { weekday: 'short' }).format(new Date(2024, 0, index + 7)));
-    const monthLabel = new Intl.DateTimeFormat(this.locale, { month: 'long', year: 'numeric' }).format(monthDate);
-
+    const message = this.error ?? this.hint;
+    const msgId = `${this.uid}-msg`;
+    const shown = this.editing ? this.text : this.display();
     return (
       <Host>
-        <label class="label" htmlFor={`${this.uid}-trigger`}>{this.label}{this.required && <span class="req" aria-hidden="true"> *</span>}</label>
-        <ui-popover open={this.open} trigger="manual" placement="bottom-start" panelRole="dialog" label={this.label} onUiOpenChange={(event) => (this.open = event.detail)}>
-          <button id={`${this.uid}-trigger`} slot="trigger" class="control" type="button" disabled={this.disabled} aria-haspopup="dialog" aria-expanded={String(this.open)} ref={(el) => (this.trigger = el)} onClick={() => { this.open = !this.open; }}>
-            <span class={this.value ? '' : 'placeholder'}>{this.displayValue() || this.placeholder}</span>
-            <ui-icon name="calendar" aria-hidden="true" />
-          </button>
-          <section class="calendar" aria-label={monthLabel}>
-            <header class="month-nav">
-              <button type="button" aria-label="Previous month" onClick={() => this.shiftMonth(-1)}><ui-icon name="chevron-left" /></button>
-              <strong aria-live="polite">{monthLabel}</strong>
-              <button type="button" aria-label="Next month" onClick={() => this.shiftMonth(1)}><ui-icon name="chevron-right" /></button>
-            </header>
-            <div class="grid" role="grid" aria-label={monthLabel}>
-              {weekdays.map((weekday) => <span class="weekday" role="columnheader" key={weekday}>{weekday}</span>)}
-              {cells.map((date, index) => date ? (
-                <button type="button" class={{ day: true, today: this.dateValue(date) === this.dateValue(new Date()), selected: this.value === this.dateValue(date) }} role="gridcell" aria-label={new Intl.DateTimeFormat(this.locale, { dateStyle: 'full' }).format(date)} aria-selected={String(this.value === this.dateValue(date))} disabled={this.isDisabled(date)} key={index} onClick={() => this.choose(date)}>{date.getDate()}</button>
-              ) : <span class="blank" aria-hidden="true" key={index} />)}
-            </div>
-          </section>
+        {this.label && (
+          <label class="label" htmlFor={this.uid}>
+            {this.label}
+            {this.required && <span class="req" aria-hidden="true"> *</span>}
+          </label>
+        )}
+        <ui-popover
+          open={this.open}
+          trigger="manual"
+          placement="bottom-start"
+          panelRole="dialog"
+          label="Choose date"
+          onUiOpenChange={(e) => (this.open = e.detail)}
+          onUiShow={() => this.calendar?.focusDay()}
+        >
+          <div slot="trigger" class="control" data-invalid={this.error ? 'true' : 'false'}>
+            <input
+              id={this.uid}
+              class="native"
+              ref={(el) => (this.inputEl = el)}
+              value={shown}
+              placeholder={this.placeholder}
+              disabled={this.disabled}
+              autocomplete="off"
+              aria-invalid={this.error ? 'true' : undefined}
+              aria-describedby={message ? msgId : undefined}
+              onFocus={() => {
+                this.editing = true;
+                this.text = this.value;
+              }}
+              onInput={(e) => (this.text = (e.target as HTMLInputElement).value)}
+              onBlur={() => this.commitText()}
+              onKeyDown={this.onKeyDown}
+            />
+            {this.clearable && this.value && !this.disabled && (
+              <button type="button" class="icon-btn" aria-label="Clear date" tabindex={-1} onClick={() => this.set('')}>
+                <ui-icon name="x" />
+              </button>
+            )}
+            <button type="button" class="icon-btn" aria-label={this.open ? 'Close calendar' : 'Open calendar'} disabled={this.disabled} onClick={() => (this.open ? (this.open = false) : this.openCalendar())}>
+              <ui-icon name="chevron-down" />
+            </button>
+          </div>
+          <ui-calendar
+            ref={(el) => (this.calendar = el as any)}
+            value={this.value}
+            min={this.min}
+            max={this.max}
+            locale={this.locale}
+            firstDayOfWeek={this.firstDayOfWeek}
+            onUiChange={this.onPick}
+          />
         </ui-popover>
+        {message && (
+          <p class={{ msg: true, error: !!this.error }} id={msgId} role={this.error ? 'alert' : undefined}>
+            {message}
+          </p>
+        )}
       </Host>
     );
   }

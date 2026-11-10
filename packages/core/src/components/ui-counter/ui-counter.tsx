@@ -14,8 +14,10 @@ export class UiCounter {
   /** ms */
   @Prop() duration = 1200;
   @Prop() decimals = 0;
-  @Prop() prefix = '';
-  @Prop() suffix = '';
+  /** Text before the number, e.g. "$". (Not `prefix`: that is a built-in read-only DOM property.) */
+  @Prop() prefixText = '';
+  /** Text after the number, e.g. "%". */
+  @Prop() suffixText = '';
   /** BCP 47 locale for digit grouping, e.g. "en-IN". Defaults to the browser's. */
   @Prop() locale?: string;
   /** "visible" waits until the counter scrolls into view. */
@@ -72,7 +74,7 @@ export class UiCounter {
 
   private format(n: number) {
     const opts = { minimumFractionDigits: this.decimals, maximumFractionDigits: this.decimals };
-    return `${this.prefix}${new Intl.NumberFormat(this.locale, opts).format(n)}${this.suffix}`;
+    return `${this.prefixText}${new Intl.NumberFormat(this.locale, opts).format(n)}${this.suffixText}`;
   }
 
   render() {

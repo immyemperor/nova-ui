@@ -1,0 +1,20 @@
+@layer nova.reset, nova.tokens, nova.base, nova.layout, nova.components, nova.utilities;
+
+@layer nova.utilities {
+  .nova-print-only { display: none; }
+
+  @media print {
+    .nova-print-hidden { display: none !important; }
+    .nova-print-only { display: block; }
+    .nova-print-only.nova-d-inline { display: inline; }
+    /* Ink-friendly defaults */
+    .nova-base { background: #fff; color: #000; }
+    :where(.nova-card, .nova-alert, .nova-table-wrap) { box-shadow: none !important; }
+    :where(.nova-card, tr, figure, blockquote, pre) { break-inside: avoid; }
+    :where(h1, h2, h3, h4) { break-after: avoid; }
+    .nova-prose a[href^='http']::after { content: ' (' attr(href) ')'; font-size: 0.85em; color: #444; }
+    .nova-container { max-inline-size: none; padding-inline: 0; }
+    .nova-shell { display: block; min-block-size: 0; }
+    .nova-shell__sidebar, .nova-shell__aside { display: none; }
+  }
+}

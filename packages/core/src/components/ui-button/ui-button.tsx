@@ -19,6 +19,8 @@ export class UiButton {
   /** Square button for a single icon. Provide `label` for screen readers. */
   @Prop({ reflect: true }) iconOnly = false;
   @Prop() type: 'button' | 'submit' | 'reset' = 'button';
+  /** Toggle state for toolbar-style buttons. Leave unset for a normal button. */
+  @Prop({ reflect: true }) pressed?: boolean;
   /** Accessible name; required when iconOnly is set. */
   @Prop() label?: string;
   /** Render as a link when set. */
@@ -51,6 +53,7 @@ export class UiButton {
           part="control"
           class="control"
           aria-label={this.label}
+          aria-pressed={this.pressed === undefined ? undefined : this.pressed ? 'true' : 'false'}
           aria-busy={this.loading ? 'true' : undefined}
           aria-disabled={inert ? 'true' : undefined}
           onClick={this.handleClick}

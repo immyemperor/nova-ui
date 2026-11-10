@@ -6,6 +6,8 @@ components with [Stencil](https://stenciljs.com); typed React and Angular wrappe
 ```
 packages/
   core/      @nova-ui/core     web components, design tokens, theme manager, icons, motion
+  editor/    @nova-ui/editor   optional rich text editor (Tiptap), kept out of core on purpose
+  css/       @nova-ui/css      responsive CSS library: layout, grids, containers, utilities, guidelines
   react/     @nova-ui/react    generated React wrappers + useTheme()  (Next.js ready)
   angular/   @nova-ui/angular  generated standalone proxies + ThemeService
 apps/
@@ -13,7 +15,7 @@ apps/
   playground-next/             Next.js App Router demo
 ```
 
-## Status: Phases 1 to 4
+## Status: Phases 1 to 5
 
 | Area | Included |
 | --- | --- |
@@ -22,7 +24,6 @@ apps/
 | Components (1) | `ui-button`, `ui-icon`, `ui-theme-toggle` |
 | Form controls (2) | `ui-input`, `ui-textarea`, `ui-checkbox`, `ui-radio-group` + `ui-radio`, `ui-switch`, `ui-slider`, `ui-rating` |
 | Display (2) | `ui-card`, `ui-badge`, `ui-avatar`, `ui-alert`, `ui-skeleton`, `ui-spinner`, `ui-progress`, `ui-counter` |
-| Data and complex inputs (4) | `ui-table`, `ui-tree`, `ui-carousel`, `ui-marquee`, `ui-date-picker`, `ui-color-picker`, `ui-otp-input`, `ui-tag-input` |
 
 Form controls are form-associated: they submit with a native `<form>`, honour `reset`, and report
 `required` validity. Angular forms (`ngModel`, `formControl`) work through generated value accessors.
@@ -62,21 +63,87 @@ Parent components manage their children (selection, ordering, tab stops), so chi
 
 | Component | Notes |
 | --- | --- |
-| `ui-table` | Sortable columns, row selection and an accessible empty state; supply `columns` and `rows` as properties. |
-| `ui-tree` | Nested `TreeNode[]`, keyboard navigation, selection and controlled expansion. |
-| `ui-carousel` | Default-slot slides, loop control, indicators and optional autoplay. |
-| `ui-marquee` | Duplicated decorative slot content, configurable direction/speed and reduced-motion support. |
-| `ui-date-picker` | Calendar popover with ISO `YYYY-MM-DD` value, min/max bounds and form participation. |
-| `ui-color-picker` | Native color well with editable 3- or 6-digit hex value and form participation. |
-| `ui-otp-input` | Segmented numeric/alphanumeric entry, one-time-code autofill and paste distribution. |
-| `ui-tag-input` | Token entry, comma/Enter commit, keyboard removal and optional suggestions. |
+| `ui-table` | Sorting, search, row selection, built-in pagination, loading skeletons, sticky header, custom cells via slots |
+| `ui-tree` | ARIA tree: expand/collapse, single selection, full keyboard support |
+| `ui-carousel` | Scroll-snap; swipe, arrows, dots, multiple slides per view, autoplay with a pause button |
+| `ui-marquee` | Seamless endless ticker; stops for reduced-motion users |
+| `ui-otp-input` | Auto-advance, paste, SMS autofill, mask option; form-associated |
+| `ui-tag-input` | Enter/comma/paste to add, `validate` hook, duplicate and max limits; form-associated |
+| `ui-calendar`, `ui-date-picker` | `YYYY-MM-DD` values, min/max, grid keyboard model, month and year selects, type a date or pick one |
+| `ui-color-picker` | Area + hue + hex + swatches + eyedropper where supported; popup or `inline` |
 
-The table takes `{ key, label, sortable?, align? }` columns and object rows. The tree takes
-`{ id, label, children?, disabled? }` nodes. Complex arrays are passed as JavaScript properties,
-not serialized HTML attributes. `uiChange` emits the new value or selection; data widgets also
-emit `uiSort`, `uiSelectionChange`, `uiSelect`, or `uiExpandChange` where relevant.
+**Table data model**
 
-Phase 5 (rich text editor) remains planned.
+```ts
+const columns = [
+  { key: 'name', label: 'Name', sortable: true },
+  { key: 'salary', label: 'Salary', sortable: true, align: 'end', format: (v) => `$${v}` },
+];
+```
+- Browser mode: pass every row; sorting, search and paging happen in the component.
+- Server mode: set `manual`, pass the current page as `rows` and the full count as `total`, and fetch in
+  response to `uiQueryChange`, which carries `{ page, pageSize, sort, search }` (search is debounced).
+- Custom cell markup: add a child with `slot="cell:<rowKey>:<columnKey>"`. Selection survives page changes
+  and is reported through `uiSelectionChange`.
+
+### Rich text editor (Phase 5): `@nova-ui/editor`
+
+A separate, optional package, so apps that don't need it never download Tiptap.
+
+```tsx
+import { UiEditor } from '@nova-ui/react/editor';      // Angular: '@nova-ui/angular/editor'
+
+<UiEditor
+  label="Description"
+  preset="full"                       // "minimal" | "standard" | "full"
+  value={html}
+  onUiChange={(e) => setHtml(e.detail)}
+  uploadHandler={async (file) => (await myStorage.upload(file)).url}
+  mentionProvider={(q) => searchUsers(q)}
+/>
+```
+Plain HTML works too: `import '@nova-ui/editor'` then `<ui-editor preset="standard"></ui-editor>`.
+
+| Option | What it does |
+| --- | --- |
+| `preset` / `toolbar` | Pick a preset, or list your own items in order: `['bold','italic','\|','link','image']` (`'\|'` is a separator). Items: `undo redo heading bold italic underline strike code textColor highlight alignLeft alignCenter alignRight bulletList orderedList taskList blockquote codeBlock hr link image attachment table` |
+| `slashCommands` | "/" quick-insert menu. It only offers blocks your toolbar allows |
+| `mentionProvider` | Turns on "@" mentions; return `{ id, label, description? }[]` (sync or async) |
+| `uploadHandler` | `(file) => Promise<url \| { url, alt }>`. Used for pasted, dropped and chosen files. Without it, images are embedded as data URLs and attachments are refused |
+| `accept`, `attachmentAccept`, `maxFileSize` | Allowed image types, allowed attachment types, size limit in bytes |
+| `maxLength` | Character limit with a live counter |
+| `readonly`, `disabled`, `required`, `name` | Works in a `<form>`: `name` submits the HTML, `required` uses the browser's own validation |
+| `minHeight`, `maxHeight` | Sizing; the area scrolls past `maxHeight` |
+
+Methods: `getContentHTML()`, `getContentJSON()`, `getContentText()`, `setContent()`, `insertContent()`, `clear()`, `focusEditor()`,
+and `getEditor()`, which returns the underlying Tiptap editor for anything not exposed here.
+Events: `uiChange` (HTML), `uiFocus`, `uiBlur`, `uiReady`, `uiUploadStart`, `uiUploadComplete`, `uiUploadError`.
+
+The toolbar is built from Nova buttons, tooltips, menus, popovers and icons, so it follows your theme
+and dark mode. Toolbar keyboard use: one tab stop, arrow keys move between buttons. Tables get a contextual
+"Table" menu (insert/delete rows and columns, header row).
+
+**Security: the value is HTML. Sanitise it on your server before you store or render it elsewhere**
+(for example with DOMPurify or your backend's sanitiser). The editor blocks `javascript:` links and unsafe
+image sources on the way in, but you should never trust HTML that came from a browser.
+
+Design notes: the editor renders in light DOM (not a shadow root) because ProseMirror's selection, IME and
+spellcheck behave best there; all its CSS is prefixed `nova-ed` so it can't leak into your page. Tiptap is
+pinned to v2.
+
+## CSS library: `@nova-ui/css`
+
+Use Nova as a plain CSS library, with or without the web components. Layout primitives
+(`nova-container`, `nova-grid`, `nova-grid-auto`, `nova-stack`, `nova-sidebar`, `nova-switcher`, `nova-shell`...),
+responsive utilities (`nova-md-cols-3`, `nova-hide-below-md`), container queries (`nova-cq-md-cols-2`), CSS-only
+components and print styles, all mobile first and cascade-layered so your CSS always wins.
+
+```html
+<link rel="stylesheet" href="/node_modules/@nova-ui/css/dist/nova.min.css">
+<div class="nova-container"><ul class="nova-grid-auto nova-grid-auto-md" role="list">...</ul></div>
+```
+Start with `packages/css/GUIDELINES.md` (breakpoints, which layout tool to use, recipes, accessibility), or open
+`packages/css/docs/index.html` for a live, resizable version. Light-theme colours are verified to WCAG AA by the build.
 
 ## First run
 

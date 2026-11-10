@@ -32,6 +32,14 @@
   --_fg: #fff;
 }
 
+/* Toggled-on state (editor toolbars, segmented controls) */
+:host([pressed]) {
+  --_bg: var(--nova-color-accent-soft);
+  --_bg-hover: var(--nova-color-accent-soft);
+  --_bg-active: var(--nova-color-accent-soft);
+  --_fg: var(--nova-color-accent);
+}
+
 .control {
   all: unset;
   box-sizing: border-box;

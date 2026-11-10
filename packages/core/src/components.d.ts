@@ -6,11 +6,11 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ButtonSize, ButtonVariant } from "./components/ui-button/ui-button";
-import { Command, SelectOption, TableColumn, TableRow, ToastOptions, TreeNode } from "./types";
+import { Command, SelectOption, TableColumn, TableQuery, TableRow, TableSort, ToastOptions, TreeNode } from "./types";
 import { Placement } from "./utils/position";
 import { AnimationName } from "./utils/animation";
 export { ButtonSize, ButtonVariant } from "./components/ui-button/ui-button";
-export { Command, SelectOption, TableColumn, TableRow, ToastOptions, TreeNode } from "./types";
+export { Command, SelectOption, TableColumn, TableQuery, TableRow, TableSort, ToastOptions, TreeNode } from "./types";
 export { Placement } from "./utils/position";
 export { AnimationName } from "./utils/animation";
 export namespace Components {
@@ -157,6 +157,10 @@ export namespace Components {
          */
         "loading": boolean;
         /**
+          * Toggle state for toolbar-style buttons. Leave unset for a normal button.
+         */
+        "pressed"?: boolean;
+        /**
           * @default 'md'
          */
         "size": ButtonSize;
@@ -170,6 +174,34 @@ export namespace Components {
          */
         "variant": ButtonVariant;
     }
+    /**
+     * Month calendar. Follows the ARIA grid pattern: arrows move by day or week, Home/End jump to the
+     * week's edges, PageUp/PageDown change month (with Shift: year), Enter or Space selects.
+     */
+    interface UiCalendar {
+        /**
+          * 0 = Sunday, 1 = Monday.
+          * @default 0
+         */
+        "firstDayOfWeek": number;
+        /**
+          * Move keyboard focus onto the active day.
+         */
+        "focusDay": () => Promise<void>;
+        /**
+          * BCP 47 locale for month and weekday names. Defaults to the browser's.
+         */
+        "locale"?: string;
+        "max"?: string;
+        /**
+          * Earliest selectable date, "YYYY-MM-DD".
+         */
+        "min"?: string;
+        /**
+          * Selected date, "YYYY-MM-DD".
+         */
+        "value"?: string;
+    }
     interface UiCard {
         /**
           * Adds hover and focus states. Wrap the card in a link or button for the actual action.
@@ -181,31 +213,44 @@ export namespace Components {
          */
         "variant": 'outlined' | 'raised' | 'flat';
     }
+    /**
+     * Scroll-snap carousel. Slides are any child elements. Swipe, scroll, use the buttons or the dots.
+     * Autoplay pauses on hover and focus, can be paused with a button, and is off for reduced-motion users.
+     */
     interface UiCarousel {
         /**
-          * @default false
-         */
-        "autoplay": boolean;
-        /**
+          * Auto-advance every N ms. 0 turns it off.
           * @default 0
          */
-        "index": number;
+        "autoplay": number;
         /**
-          * @default true
+          * Space between slides, in px.
+          * @default 16
          */
-        "indicators": boolean;
+        "gap": number;
         /**
-          * @default 5000
-         */
-        "interval": number;
-        /**
+          * Accessible name.
           * @default 'Carousel'
          */
         "label": string;
         /**
-          * @default true
+          * Wrap from the last slide back to the first.
+          * @default false
          */
         "loop": boolean;
+        /**
+          * @default true
+         */
+        "showArrows": boolean;
+        /**
+          * @default true
+         */
+        "showDots": boolean;
+        /**
+          * Slides visible at once.
+          * @default 1
+         */
+        "slidesPerView": number;
     }
     interface UiCheckbox {
         /**
@@ -221,6 +266,10 @@ export namespace Components {
           * @default false
          */
         "indeterminate": boolean;
+        /**
+          * Accessible name when there is no visible label text.
+         */
+        "label"?: string;
         "name"?: string;
         /**
           * @default false
@@ -232,25 +281,28 @@ export namespace Components {
          */
         "value": string;
     }
+    /**
+     * Colour picker: saturation/brightness area, hue slider, hex field, swatches and (where the browser
+     * supports it) an eyedropper. Value is a hex string like "#0b7a6c". Use `inline` to skip the popup.
+     */
     interface UiColorPicker {
         /**
           * @default false
          */
         "disabled": boolean;
         /**
-          * @default 'Choose color'
-         */
-        "label": string;
-        "name"?: string;
-        /**
+          * Show the panel directly instead of behind a button.
           * @default false
          */
-        "required": boolean;
+        "inline": boolean;
+        "label"?: string;
+        "name"?: string;
         /**
-          * @default true
+          * @default ['#0b7a6c', '#1a7f4b', '#2563b8', '#7c3aed', '#c0362c', '#a35f00', '#14201c', '#6d7b75']
          */
-        "showValue": boolean;
+        "swatches": string[];
         /**
+          * Hex colour, "#rrggbb".
           * @default '#0b7a6c'
          */
         "value": string;
@@ -312,13 +364,15 @@ export namespace Components {
          */
         "locale"?: string;
         /**
+          * Text before the number, e.g. "$". (Not `prefix`: that is a built-in read-only DOM property.)
           * @default ''
          */
-        "prefix": string;
+        "prefixText": string;
         /**
+          * Text after the number, e.g. "%".
           * @default ''
          */
-        "suffix": string;
+        "suffixText": string;
         /**
           * "visible" waits until the counter scrolls into view.
           * @default 'visible'
@@ -329,15 +383,27 @@ export namespace Components {
          */
         "value": number;
     }
+    /**
+     * Date field with a calendar popup. Type a date as YYYY-MM-DD, or pick one.
+     * The value is always a plain "YYYY-MM-DD" string.
+     */
     interface UiDatePicker {
         /**
           * @default false
          */
-        "disabled": boolean;
+        "clearable": boolean;
         /**
-          * @default 'Choose date'
+          * @default false
          */
-        "label": string;
+        "disabled": boolean;
+        "error"?: string;
+        /**
+          * @default 0
+         */
+        "firstDayOfWeek": number;
+        "focusInput": () => Promise<void>;
+        "hint"?: string;
+        "label"?: string;
         "locale"?: string;
         "max"?: string;
         "min"?: string;
@@ -350,6 +416,10 @@ export namespace Components {
           * @default false
          */
         "required": boolean;
+        /**
+          * @default 'md'
+         */
+        "size": 'sm' | 'md' | 'lg';
         /**
           * @default ''
          */
@@ -427,6 +497,11 @@ export namespace Components {
         "error"?: string;
         "focusInput": () => Promise<void>;
         /**
+          * Keep the label for screen readers but don't show it.
+          * @default false
+         */
+        "hideLabel": boolean;
+        /**
           * Helper text shown under the field.
          */
         "hint"?: string;
@@ -455,21 +530,27 @@ export namespace Components {
          */
         "value": string;
     }
+    /**
+     * Endless horizontal ticker for logos or short text. Content is cloned (hidden from assistive tech)
+     * until it fills the width, so the loop has no gap. Stops for reduced-motion users.
+     */
     interface UiMarquee {
         /**
           * @default 'left'
          */
         "direction": 'left' | 'right';
         /**
+          * Space between repeated items, px.
+          * @default 32
+         */
+        "gap": number;
+        /**
           * @default true
          */
         "pauseOnHover": boolean;
         /**
-          * @default false
-         */
-        "paused": boolean;
-        /**
-          * @default 40
+          * Pixels per second.
+          * @default 50
          */
         "speed": number;
     }
@@ -595,20 +676,24 @@ export namespace Components {
          */
         "label": string;
     }
+    /**
+     * One-time-code entry: separate boxes, auto-advance, paste and SMS autofill support.
+     */
     interface UiOtpInput {
         /**
           * @default false
          */
         "disabled": boolean;
-        /**
-          * @default 'Verification code'
-         */
-        "label": string;
+        "error"?: string;
+        "focusInput": () => Promise<void>;
+        "hint"?: string;
+        "label"?: string;
         /**
           * @default 6
          */
         "length": number;
         /**
+          * Hide the characters, like a password.
           * @default false
          */
         "mask": boolean;
@@ -617,6 +702,10 @@ export namespace Components {
           * @default false
          */
         "required": boolean;
+        /**
+          * @default 'md'
+         */
+        "size": 'sm' | 'md' | 'lg';
         /**
           * @default 'numeric'
          */
@@ -1055,17 +1144,65 @@ export namespace Components {
          */
         "value": string;
     }
+    /**
+     * Data table with sorting, search, row selection and built-in pagination.
+     * Works on all your rows in the browser, or in `manual` mode where you fetch each page
+     * from a server in response to `uiQueryChange`.
+     */
     interface UiTable {
+        /**
+          * Accessible title for the table.
+         */
         "caption"?: string;
         /**
           * @default []
          */
         "columns": TableColumn[];
         /**
-          * @default 'No data to display'
+          * @default 'comfortable'
+         */
+        "density": 'comfortable' | 'compact';
+        /**
+          * @default 'No results found'
          */
         "emptyText": string;
         /**
+          * @default false
+         */
+        "loading": boolean;
+        /**
+          * Server mode: `rows` is just the current page and `total` is the full count.
+          * @default false
+         */
+        "manual": boolean;
+        /**
+          * Scroll the body inside this height (any CSS length). The header stays pinned.
+         */
+        "maxHeight"?: string;
+        /**
+          * @default 1
+         */
+        "page": number;
+        /**
+          * @default 10
+         */
+        "pageSize": number;
+        /**
+          * @default [10, 25, 50, 100]
+         */
+        "pageSizeOptions": number[];
+        /**
+          * Turn pagination off to show every row.
+          * @default true
+         */
+        "paginate": boolean;
+        /**
+          * Make rows focusable and fire uiRowClick on click or Enter.
+          * @default false
+         */
+        "rowClickable": boolean;
+        /**
+          * Property that uniquely identifies a row (used for selection and custom cell slots).
           * @default 'id'
          */
         "rowKey": string;
@@ -1074,13 +1211,28 @@ export namespace Components {
          */
         "rows": TableRow[];
         /**
+          * @default 'Search'
+         */
+        "searchPlaceholder": string;
+        /**
+          * @default false
+         */
+        "searchable": boolean;
+        /**
           * @default false
          */
         "selectable": boolean;
         /**
+          * Selected row keys. Survives page changes.
           * @default []
          */
         "selected": string[];
+        "sort"?: TableSort;
+        /**
+          * @default false
+         */
+        "striped": boolean;
+        "total"?: number;
     }
     /**
      * Tabs. Put <ui-tab value> and <ui-tab-panel value> as direct children; matching values pair them.
@@ -1106,6 +1258,10 @@ export namespace Components {
          */
         "variant": 'underline' | 'pills';
     }
+    /**
+     * Free-form tags: type and press Enter or comma, or paste a list. Backspace removes the last tag.
+     * Pass `validate` to reject entries (emails, ids...); rejected text stays in the box and uiReject fires.
+     */
     interface UiTagInput {
         /**
           * @default false
@@ -1115,27 +1271,33 @@ export namespace Components {
           * @default false
          */
         "disabled": boolean;
+        "error"?: string;
+        "focusInput": () => Promise<void>;
+        "hint"?: string;
+        "label"?: string;
         /**
-          * @default 'Tags'
+          * Maximum number of tags.
          */
-        "label": string;
-        /**
-          * @default 0
-         */
-        "maxTags": number;
+        "max"?: number;
         "name"?: string;
-        /**
-          * @default []
-         */
-        "options": string[];
-        /**
-          * @default 'Add a tag'
-         */
-        "placeholder": string;
+        "placeholder"?: string;
         /**
           * @default false
          */
         "required": boolean;
+        /**
+          * Characters that end a tag, besides Enter.
+          * @default [',']
+         */
+        "separators": string[];
+        /**
+          * @default 'md'
+         */
+        "size": 'sm' | 'md' | 'lg';
+        /**
+          * Return false (or an error string) to reject a tag.
+         */
+        "validate"?: (tag: string) => boolean | string;
         /**
           * @default []
          */
@@ -1228,8 +1390,13 @@ export namespace Components {
          */
         "placement": Placement;
     }
+    /**
+     * Expandable tree with single selection. Follows the ARIA tree pattern:
+     * Up/Down move, Right expands or enters, Left collapses or goes to the parent, Home/End jump.
+     */
     interface UiTree {
         /**
+          * Ids of the expanded nodes.
           * @default []
          */
         "expanded": string[];
@@ -1241,6 +1408,9 @@ export namespace Components {
           * @default []
          */
         "nodes": TreeNode[];
+        /**
+          * Id of the selected node.
+         */
         "selected"?: string;
     }
 }
@@ -1255,6 +1425,10 @@ export interface UiAlertCustomEvent<T> extends CustomEvent<T> {
 export interface UiBreadcrumbItemCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLUiBreadcrumbItemElement;
+}
+export interface UiCalendarCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLUiCalendarElement;
 }
 export interface UiCarouselCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1452,6 +1626,27 @@ declare global {
         prototype: HTMLUiButtonElement;
         new (): HTMLUiButtonElement;
     };
+    interface HTMLUiCalendarElementEventMap {
+        "uiChange": string;
+    }
+    /**
+     * Month calendar. Follows the ARIA grid pattern: arrows move by day or week, Home/End jump to the
+     * week's edges, PageUp/PageDown change month (with Shift: year), Enter or Space selects.
+     */
+    interface HTMLUiCalendarElement extends Components.UiCalendar, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLUiCalendarElementEventMap>(type: K, listener: (this: HTMLUiCalendarElement, ev: UiCalendarCustomEvent<HTMLUiCalendarElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLUiCalendarElementEventMap>(type: K, listener: (this: HTMLUiCalendarElement, ev: UiCalendarCustomEvent<HTMLUiCalendarElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLUiCalendarElement: {
+        prototype: HTMLUiCalendarElement;
+        new (): HTMLUiCalendarElement;
+    };
     interface HTMLUiCardElement extends Components.UiCard, HTMLStencilElement {
     }
     var HTMLUiCardElement: {
@@ -1461,6 +1656,10 @@ declare global {
     interface HTMLUiCarouselElementEventMap {
         "uiChange": number;
     }
+    /**
+     * Scroll-snap carousel. Slides are any child elements. Swipe, scroll, use the buttons or the dots.
+     * Autoplay pauses on hover and focus, can be paused with a button, and is off for reduced-motion users.
+     */
     interface HTMLUiCarouselElement extends Components.UiCarousel, HTMLStencilElement {
         addEventListener<K extends keyof HTMLUiCarouselElementEventMap>(type: K, listener: (this: HTMLUiCarouselElement, ev: UiCarouselCustomEvent<HTMLUiCarouselElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
         addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
@@ -1496,6 +1695,10 @@ declare global {
         "uiInput": string;
         "uiChange": string;
     }
+    /**
+     * Colour picker: saturation/brightness area, hue slider, hex field, swatches and (where the browser
+     * supports it) an eyedropper. Value is a hex string like "#0b7a6c". Use `inline` to skip the popup.
+     */
     interface HTMLUiColorPickerElement extends Components.UiColorPicker, HTMLStencilElement {
         addEventListener<K extends keyof HTMLUiColorPickerElementEventMap>(type: K, listener: (this: HTMLUiColorPickerElement, ev: UiColorPickerCustomEvent<HTMLUiColorPickerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
         addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
@@ -1563,6 +1766,10 @@ declare global {
     interface HTMLUiDatePickerElementEventMap {
         "uiChange": string;
     }
+    /**
+     * Date field with a calendar popup. Type a date as YYYY-MM-DD, or pick one.
+     * The value is always a plain "YYYY-MM-DD" string.
+     */
     interface HTMLUiDatePickerElement extends Components.UiDatePicker, HTMLStencilElement {
         addEventListener<K extends keyof HTMLUiDatePickerElementEventMap>(type: K, listener: (this: HTMLUiDatePickerElement, ev: UiDatePickerCustomEvent<HTMLUiDatePickerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
         addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
@@ -1648,6 +1855,10 @@ declare global {
         prototype: HTMLUiInputElement;
         new (): HTMLUiInputElement;
     };
+    /**
+     * Endless horizontal ticker for logos or short text. Content is cloned (hidden from assistive tech)
+     * until it fills the width, so the loop has no gap. Stops for reduced-motion users.
+     */
     interface HTMLUiMarqueeElement extends Components.UiMarquee, HTMLStencilElement {
     }
     var HTMLUiMarqueeElement: {
@@ -1742,9 +1953,11 @@ declare global {
     };
     interface HTMLUiOtpInputElementEventMap {
         "uiInput": string;
-        "uiChange": string;
         "uiComplete": string;
     }
+    /**
+     * One-time-code entry: separate boxes, auto-advance, paste and SMS autofill support.
+     */
     interface HTMLUiOtpInputElement extends Components.UiOtpInput, HTMLStencilElement {
         addEventListener<K extends keyof HTMLUiOtpInputElementEventMap>(type: K, listener: (this: HTMLUiOtpInputElement, ev: UiOtpInputCustomEvent<HTMLUiOtpInputElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
         addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
@@ -1992,9 +2205,15 @@ declare global {
         new (): HTMLUiTabPanelElement;
     };
     interface HTMLUiTableElementEventMap {
-        "uiSort": { key: string; direction: 'ascending' | 'descending' };
+        "uiQueryChange": TableQuery;
         "uiSelectionChange": string[];
+        "uiRowClick": TableRow;
     }
+    /**
+     * Data table with sorting, search, row selection and built-in pagination.
+     * Works on all your rows in the browser, or in `manual` mode where you fetch each page
+     * from a server in response to `uiQueryChange`.
+     */
     interface HTMLUiTableElement extends Components.UiTable, HTMLStencilElement {
         addEventListener<K extends keyof HTMLUiTableElementEventMap>(type: K, listener: (this: HTMLUiTableElement, ev: UiTableCustomEvent<HTMLUiTableElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
         addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
@@ -2031,9 +2250,13 @@ declare global {
         new (): HTMLUiTabsElement;
     };
     interface HTMLUiTagInputElementEventMap {
-        "uiInput": string;
         "uiChange": string[];
+        "uiReject": { tag: string; reason: string };
     }
+    /**
+     * Free-form tags: type and press Enter or comma, or paste a list. Backspace removes the last tag.
+     * Pass `validate` to reject entries (emails, ids...); rejected text stays in the box and uiReject fires.
+     */
     interface HTMLUiTagInputElement extends Components.UiTagInput, HTMLStencilElement {
         addEventListener<K extends keyof HTMLUiTagInputElementEventMap>(type: K, listener: (this: HTMLUiTagInputElement, ev: UiTagInputCustomEvent<HTMLUiTagInputElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
         addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
@@ -2094,9 +2317,13 @@ declare global {
         new (): HTMLUiTooltipElement;
     };
     interface HTMLUiTreeElementEventMap {
-        "uiExpandChange": string[];
-        "uiSelect": string;
+        "uiSelect": { id: string; node: TreeNode };
+        "uiToggle": { id: string; expanded: boolean };
     }
+    /**
+     * Expandable tree with single selection. Follows the ARIA tree pattern:
+     * Up/Down move, Right expands or enters, Left collapses or goes to the parent, Home/End jump.
+     */
     interface HTMLUiTreeElement extends Components.UiTree, HTMLStencilElement {
         addEventListener<K extends keyof HTMLUiTreeElementEventMap>(type: K, listener: (this: HTMLUiTreeElement, ev: UiTreeCustomEvent<HTMLUiTreeElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
         addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
@@ -2120,6 +2347,7 @@ declare global {
         "ui-breadcrumb": HTMLUiBreadcrumbElement;
         "ui-breadcrumb-item": HTMLUiBreadcrumbItemElement;
         "ui-button": HTMLUiButtonElement;
+        "ui-calendar": HTMLUiCalendarElement;
         "ui-card": HTMLUiCardElement;
         "ui-carousel": HTMLUiCarouselElement;
         "ui-checkbox": HTMLUiCheckboxElement;
@@ -2321,6 +2549,10 @@ declare namespace LocalJSX {
          */
         "loading"?: boolean;
         /**
+          * Toggle state for toolbar-style buttons. Leave unset for a normal button.
+         */
+        "pressed"?: boolean;
+        /**
           * @default 'md'
          */
         "size"?: ButtonSize;
@@ -2334,6 +2566,31 @@ declare namespace LocalJSX {
          */
         "variant"?: ButtonVariant;
     }
+    /**
+     * Month calendar. Follows the ARIA grid pattern: arrows move by day or week, Home/End jump to the
+     * week's edges, PageUp/PageDown change month (with Shift: year), Enter or Space selects.
+     */
+    interface UiCalendar {
+        /**
+          * 0 = Sunday, 1 = Monday.
+          * @default 0
+         */
+        "firstDayOfWeek"?: number;
+        /**
+          * BCP 47 locale for month and weekday names. Defaults to the browser's.
+         */
+        "locale"?: string;
+        "max"?: string;
+        /**
+          * Earliest selectable date, "YYYY-MM-DD".
+         */
+        "min"?: string;
+        "onUiChange"?: (event: UiCalendarCustomEvent<string>) => void;
+        /**
+          * Selected date, "YYYY-MM-DD".
+         */
+        "value"?: string;
+    }
     interface UiCard {
         /**
           * Adds hover and focus states. Wrap the card in a link or button for the actual action.
@@ -2345,32 +2602,48 @@ declare namespace LocalJSX {
          */
         "variant"?: 'outlined' | 'raised' | 'flat';
     }
+    /**
+     * Scroll-snap carousel. Slides are any child elements. Swipe, scroll, use the buttons or the dots.
+     * Autoplay pauses on hover and focus, can be paused with a button, and is off for reduced-motion users.
+     */
     interface UiCarousel {
         /**
-          * @default false
-         */
-        "autoplay"?: boolean;
-        /**
+          * Auto-advance every N ms. 0 turns it off.
           * @default 0
          */
-        "index"?: number;
+        "autoplay"?: number;
         /**
-          * @default true
+          * Space between slides, in px.
+          * @default 16
          */
-        "indicators"?: boolean;
+        "gap"?: number;
         /**
-          * @default 5000
-         */
-        "interval"?: number;
-        /**
+          * Accessible name.
           * @default 'Carousel'
          */
         "label"?: string;
         /**
-          * @default true
+          * Wrap from the last slide back to the first.
+          * @default false
          */
         "loop"?: boolean;
+        /**
+          * Fires with the index of the first visible slide.
+         */
         "onUiChange"?: (event: UiCarouselCustomEvent<number>) => void;
+        /**
+          * @default true
+         */
+        "showArrows"?: boolean;
+        /**
+          * @default true
+         */
+        "showDots"?: boolean;
+        /**
+          * Slides visible at once.
+          * @default 1
+         */
+        "slidesPerView"?: number;
     }
     interface UiCheckbox {
         /**
@@ -2390,6 +2663,10 @@ declare namespace LocalJSX {
           * @default false
          */
         "indeterminate"?: boolean;
+        /**
+          * Accessible name when there is no visible label text.
+         */
+        "label"?: string;
         "name"?: string;
         "onUiChange"?: (event: UiCheckboxCustomEvent<boolean>) => void;
         /**
@@ -2402,6 +2679,10 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
+    /**
+     * Colour picker: saturation/brightness area, hue slider, hex field, swatches and (where the browser
+     * supports it) an eyedropper. Value is a hex string like "#0b7a6c". Use `inline` to skip the popup.
+     */
     interface UiColorPicker {
         /**
           * @default false
@@ -2412,21 +2693,26 @@ declare namespace LocalJSX {
          */
         "form"?: string;
         /**
-          * @default 'Choose color'
-         */
-        "label"?: string;
-        "name"?: string;
-        "onUiChange"?: (event: UiColorPickerCustomEvent<string>) => void;
-        "onUiInput"?: (event: UiColorPickerCustomEvent<string>) => void;
-        /**
+          * Show the panel directly instead of behind a button.
           * @default false
          */
-        "required"?: boolean;
+        "inline"?: boolean;
+        "label"?: string;
+        "name"?: string;
         /**
-          * @default true
+          * Fires when a colour is committed: release, key press, hex entry or swatch click.
          */
-        "showValue"?: boolean;
+        "onUiChange"?: (event: UiColorPickerCustomEvent<string>) => void;
         /**
+          * Fires continuously while dragging or typing.
+         */
+        "onUiInput"?: (event: UiColorPickerCustomEvent<string>) => void;
+        /**
+          * @default ['#0b7a6c', '#1a7f4b', '#2563b8', '#7c3aed', '#c0362c', '#a35f00', '#14201c', '#6d7b75']
+         */
+        "swatches"?: string[];
+        /**
+          * Hex colour, "#rrggbb".
           * @default '#0b7a6c'
          */
         "value"?: string;
@@ -2494,13 +2780,15 @@ declare namespace LocalJSX {
          */
         "locale"?: string;
         /**
+          * Text before the number, e.g. "$". (Not `prefix`: that is a built-in read-only DOM property.)
           * @default ''
          */
-        "prefix"?: string;
+        "prefixText"?: string;
         /**
+          * Text after the number, e.g. "%".
           * @default ''
          */
-        "suffix"?: string;
+        "suffixText"?: string;
         /**
           * "visible" waits until the counter scrolls into view.
           * @default 'visible'
@@ -2511,23 +2799,37 @@ declare namespace LocalJSX {
          */
         "value"?: number;
     }
+    /**
+     * Date field with a calendar popup. Type a date as YYYY-MM-DD, or pick one.
+     * The value is always a plain "YYYY-MM-DD" string.
+     */
     interface UiDatePicker {
         /**
           * @default false
          */
+        "clearable"?: boolean;
+        /**
+          * @default false
+         */
         "disabled"?: boolean;
+        "error"?: string;
+        /**
+          * @default 0
+         */
+        "firstDayOfWeek"?: number;
         /**
           * The `id` of a `<form>` element to associate this element with.
          */
         "form"?: string;
-        /**
-          * @default 'Choose date'
-         */
+        "hint"?: string;
         "label"?: string;
         "locale"?: string;
         "max"?: string;
         "min"?: string;
         "name"?: string;
+        /**
+          * Fires with "YYYY-MM-DD", or "" when cleared.
+         */
         "onUiChange"?: (event: UiDatePickerCustomEvent<string>) => void;
         /**
           * @default 'YYYY-MM-DD'
@@ -2537,6 +2839,10 @@ declare namespace LocalJSX {
           * @default false
          */
         "required"?: boolean;
+        /**
+          * @default 'md'
+         */
+        "size"?: 'sm' | 'md' | 'lg';
         /**
           * @default ''
          */
@@ -2624,6 +2930,11 @@ declare namespace LocalJSX {
          */
         "form"?: string;
         /**
+          * Keep the label for screen readers but don't show it.
+          * @default false
+         */
+        "hideLabel"?: boolean;
+        /**
           * Helper text shown under the field.
          */
         "hint"?: string;
@@ -2660,21 +2971,27 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
+    /**
+     * Endless horizontal ticker for logos or short text. Content is cloned (hidden from assistive tech)
+     * until it fills the width, so the loop has no gap. Stops for reduced-motion users.
+     */
     interface UiMarquee {
         /**
           * @default 'left'
          */
         "direction"?: 'left' | 'right';
         /**
+          * Space between repeated items, px.
+          * @default 32
+         */
+        "gap"?: number;
+        /**
           * @default true
          */
         "pauseOnHover"?: boolean;
         /**
-          * @default false
-         */
-        "paused"?: boolean;
-        /**
-          * @default 40
+          * Pixels per second.
+          * @default 50
          */
         "speed"?: number;
     }
@@ -2817,35 +3134,47 @@ declare namespace LocalJSX {
          */
         "label"?: string;
     }
+    /**
+     * One-time-code entry: separate boxes, auto-advance, paste and SMS autofill support.
+     */
     interface UiOtpInput {
         /**
           * @default false
          */
         "disabled"?: boolean;
+        "error"?: string;
         /**
           * The `id` of a `<form>` element to associate this element with.
          */
         "form"?: string;
-        /**
-          * @default 'Verification code'
-         */
+        "hint"?: string;
         "label"?: string;
         /**
           * @default 6
          */
         "length"?: number;
         /**
+          * Hide the characters, like a password.
           * @default false
          */
         "mask"?: boolean;
         "name"?: string;
-        "onUiChange"?: (event: UiOtpInputCustomEvent<string>) => void;
+        /**
+          * Fires once, when every box is filled.
+         */
         "onUiComplete"?: (event: UiOtpInputCustomEvent<string>) => void;
+        /**
+          * Fires on every change with the characters entered so far.
+         */
         "onUiInput"?: (event: UiOtpInputCustomEvent<string>) => void;
         /**
           * @default false
          */
         "required"?: boolean;
+        /**
+          * @default 'md'
+         */
+        "size"?: 'sm' | 'md' | 'lg';
         /**
           * @default 'numeric'
          */
@@ -3329,19 +3658,71 @@ declare namespace LocalJSX {
          */
         "value": string;
     }
+    /**
+     * Data table with sorting, search, row selection and built-in pagination.
+     * Works on all your rows in the browser, or in `manual` mode where you fetch each page
+     * from a server in response to `uiQueryChange`.
+     */
     interface UiTable {
+        /**
+          * Accessible title for the table.
+         */
         "caption"?: string;
         /**
           * @default []
          */
         "columns"?: TableColumn[];
         /**
-          * @default 'No data to display'
+          * @default 'comfortable'
+         */
+        "density"?: 'comfortable' | 'compact';
+        /**
+          * @default 'No results found'
          */
         "emptyText"?: string;
-        "onUiSelectionChange"?: (event: UiTableCustomEvent<string[]>) => void;
-        "onUiSort"?: (event: UiTableCustomEvent<{ key: string; direction: 'ascending' | 'descending' }>) => void;
         /**
+          * @default false
+         */
+        "loading"?: boolean;
+        /**
+          * Server mode: `rows` is just the current page and `total` is the full count.
+          * @default false
+         */
+        "manual"?: boolean;
+        /**
+          * Scroll the body inside this height (any CSS length). The header stays pinned.
+         */
+        "maxHeight"?: string;
+        /**
+          * Fires whenever page, page size, sort or search changes. In manual mode, fetch from this.
+         */
+        "onUiQueryChange"?: (event: UiTableCustomEvent<TableQuery>) => void;
+        "onUiRowClick"?: (event: UiTableCustomEvent<TableRow>) => void;
+        "onUiSelectionChange"?: (event: UiTableCustomEvent<string[]>) => void;
+        /**
+          * @default 1
+         */
+        "page"?: number;
+        /**
+          * @default 10
+         */
+        "pageSize"?: number;
+        /**
+          * @default [10, 25, 50, 100]
+         */
+        "pageSizeOptions"?: number[];
+        /**
+          * Turn pagination off to show every row.
+          * @default true
+         */
+        "paginate"?: boolean;
+        /**
+          * Make rows focusable and fire uiRowClick on click or Enter.
+          * @default false
+         */
+        "rowClickable"?: boolean;
+        /**
+          * Property that uniquely identifies a row (used for selection and custom cell slots).
           * @default 'id'
          */
         "rowKey"?: string;
@@ -3350,13 +3731,28 @@ declare namespace LocalJSX {
          */
         "rows"?: TableRow[];
         /**
+          * @default 'Search'
+         */
+        "searchPlaceholder"?: string;
+        /**
+          * @default false
+         */
+        "searchable"?: boolean;
+        /**
           * @default false
          */
         "selectable"?: boolean;
         /**
+          * Selected row keys. Survives page changes.
           * @default []
          */
         "selected"?: string[];
+        "sort"?: TableSort;
+        /**
+          * @default false
+         */
+        "striped"?: boolean;
+        "total"?: number;
     }
     /**
      * Tabs. Put <ui-tab value> and <ui-tab-panel value> as direct children; matching values pair them.
@@ -3383,6 +3779,10 @@ declare namespace LocalJSX {
          */
         "variant"?: 'underline' | 'pills';
     }
+    /**
+     * Free-form tags: type and press Enter or comma, or paste a list. Backspace removes the last tag.
+     * Pass `validate` to reject entries (emails, ids...); rejected text stays in the box and uiReject fires.
+     */
     interface UiTagInput {
         /**
           * @default false
@@ -3392,33 +3792,41 @@ declare namespace LocalJSX {
           * @default false
          */
         "disabled"?: boolean;
+        "error"?: string;
         /**
           * The `id` of a `<form>` element to associate this element with.
          */
         "form"?: string;
-        /**
-          * @default 'Tags'
-         */
+        "hint"?: string;
         "label"?: string;
         /**
-          * @default 0
+          * Maximum number of tags.
          */
-        "maxTags"?: number;
+        "max"?: number;
         "name"?: string;
         "onUiChange"?: (event: UiTagInputCustomEvent<string[]>) => void;
-        "onUiInput"?: (event: UiTagInputCustomEvent<string>) => void;
         /**
-          * @default []
+          * Fires when a tag is refused, with the reason.
          */
-        "options"?: string[];
-        /**
-          * @default 'Add a tag'
-         */
+        "onUiReject"?: (event: UiTagInputCustomEvent<{ tag: string; reason: string }>) => void;
         "placeholder"?: string;
         /**
           * @default false
          */
         "required"?: boolean;
+        /**
+          * Characters that end a tag, besides Enter.
+          * @default [',']
+         */
+        "separators"?: string[];
+        /**
+          * @default 'md'
+         */
+        "size"?: 'sm' | 'md' | 'lg';
+        /**
+          * Return false (or an error string) to reject a tag.
+         */
+        "validate"?: (tag: string) => boolean | string;
         /**
           * @default []
          */
@@ -3513,8 +3921,13 @@ declare namespace LocalJSX {
          */
         "placement"?: Placement;
     }
+    /**
+     * Expandable tree with single selection. Follows the ARIA tree pattern:
+     * Up/Down move, Right expands or enters, Left collapses or goes to the parent, Home/End jump.
+     */
     interface UiTree {
         /**
+          * Ids of the expanded nodes.
           * @default []
          */
         "expanded"?: string[];
@@ -3526,8 +3939,11 @@ declare namespace LocalJSX {
           * @default []
          */
         "nodes"?: TreeNode[];
-        "onUiExpandChange"?: (event: UiTreeCustomEvent<string[]>) => void;
-        "onUiSelect"?: (event: UiTreeCustomEvent<string>) => void;
+        "onUiSelect"?: (event: UiTreeCustomEvent<{ id: string; node: TreeNode }>) => void;
+        "onUiToggle"?: (event: UiTreeCustomEvent<{ id: string; expanded: boolean }>) => void;
+        /**
+          * Id of the selected node.
+         */
         "selected"?: string;
     }
 
@@ -3577,21 +3993,30 @@ declare namespace LocalJSX {
         "loading": boolean;
         "iconOnly": boolean;
         "type": 'button' | 'submit' | 'reset';
+        "pressed": boolean;
         "label": string;
         "href": string;
         "target": string;
+    }
+    interface UiCalendarAttributes {
+        "value": string;
+        "min": string;
+        "max": string;
+        "locale": string;
+        "firstDayOfWeek": number;
     }
     interface UiCardAttributes {
         "variant": 'outlined' | 'raised' | 'flat';
         "interactive": boolean;
     }
     interface UiCarouselAttributes {
-        "index": number;
+        "slidesPerView": number;
+        "gap": number;
         "loop": boolean;
-        "autoplay": boolean;
-        "interval": number;
+        "autoplay": number;
+        "showDots": boolean;
+        "showArrows": boolean;
         "label": string;
-        "indicators": boolean;
     }
     interface UiCheckboxAttributes {
         "checked": boolean;
@@ -3600,14 +4025,14 @@ declare namespace LocalJSX {
         "name": string;
         "disabled": boolean;
         "required": boolean;
+        "label": string;
     }
     interface UiColorPickerAttributes {
         "value": string;
         "label": string;
         "name": string;
-        "required": boolean;
         "disabled": boolean;
-        "showValue": boolean;
+        "inline": boolean;
     }
     interface UiCommandPaletteAttributes {
         "open": boolean;
@@ -3623,21 +4048,26 @@ declare namespace LocalJSX {
         "value": number;
         "duration": number;
         "decimals": number;
-        "prefix": string;
-        "suffix": string;
+        "prefixText": string;
+        "suffixText": string;
         "locale": string;
         "trigger": 'load' | 'visible';
     }
     interface UiDatePickerAttributes {
         "value": string;
-        "label": string;
-        "name": string;
         "min": string;
         "max": string;
-        "required": boolean;
-        "disabled": boolean;
+        "label": string;
+        "hint": string;
+        "error": string;
         "placeholder": string;
+        "name": string;
+        "disabled": boolean;
+        "required": boolean;
+        "clearable": boolean;
         "locale": string;
+        "firstDayOfWeek": number;
+        "size": 'sm' | 'md' | 'lg';
     }
     interface UiDrawerAttributes {
         "open": boolean;
@@ -3660,6 +4090,7 @@ declare namespace LocalJSX {
     interface UiInputAttributes {
         "value": string;
         "label": string;
+        "hideLabel": boolean;
         "hint": string;
         "error": string;
         "type": 'text' | 'email' | 'password' | 'number' | 'search' | 'tel' | 'url';
@@ -3675,8 +4106,8 @@ declare namespace LocalJSX {
     interface UiMarqueeAttributes {
         "speed": number;
         "direction": 'left' | 'right';
-        "paused": boolean;
         "pauseOnHover": boolean;
+        "gap": number;
     }
     interface UiMenuItemAttributes {
         "value": string;
@@ -3715,12 +4146,15 @@ declare namespace LocalJSX {
     interface UiOtpInputAttributes {
         "value": string;
         "length": number;
-        "label": string;
-        "name": string;
         "type": 'numeric' | 'alphanumeric';
         "mask": boolean;
-        "required": boolean;
+        "label": string;
+        "hint": string;
+        "error": string;
+        "name": string;
         "disabled": boolean;
+        "required": boolean;
+        "size": 'sm' | 'md' | 'lg';
     }
     interface UiPaginationAttributes {
         "page": number;
@@ -3854,8 +4288,20 @@ declare namespace LocalJSX {
     interface UiTableAttributes {
         "rowKey": string;
         "caption": string;
-        "emptyText": string;
+        "page": number;
+        "pageSize": number;
+        "paginate": boolean;
+        "manual": boolean;
+        "total": number;
+        "searchable": boolean;
+        "searchPlaceholder": string;
         "selectable": boolean;
+        "loading": boolean;
+        "emptyText": string;
+        "rowClickable": boolean;
+        "striped": boolean;
+        "density": 'comfortable' | 'compact';
+        "maxHeight": string;
     }
     interface UiTabsAttributes {
         "value": string;
@@ -3866,12 +4312,15 @@ declare namespace LocalJSX {
     }
     interface UiTagInputAttributes {
         "label": string;
+        "hint": string;
+        "error": string;
         "placeholder": string;
         "name": string;
-        "maxTags": number;
-        "allowDuplicates": boolean;
-        "required": boolean;
         "disabled": boolean;
+        "required": boolean;
+        "max": number;
+        "allowDuplicates": boolean;
+        "size": 'sm' | 'md' | 'lg';
     }
     interface UiTextareaAttributes {
         "value": string;
@@ -3913,6 +4362,7 @@ declare namespace LocalJSX {
         "ui-breadcrumb": Omit<UiBreadcrumb, keyof UiBreadcrumbAttributes> & { [K in keyof UiBreadcrumb & keyof UiBreadcrumbAttributes]?: UiBreadcrumb[K] } & { [K in keyof UiBreadcrumb & keyof UiBreadcrumbAttributes as `attr:${K}`]?: UiBreadcrumbAttributes[K] } & { [K in keyof UiBreadcrumb & keyof UiBreadcrumbAttributes as `prop:${K}`]?: UiBreadcrumb[K] };
         "ui-breadcrumb-item": Omit<UiBreadcrumbItem, keyof UiBreadcrumbItemAttributes> & { [K in keyof UiBreadcrumbItem & keyof UiBreadcrumbItemAttributes]?: UiBreadcrumbItem[K] } & { [K in keyof UiBreadcrumbItem & keyof UiBreadcrumbItemAttributes as `attr:${K}`]?: UiBreadcrumbItemAttributes[K] } & { [K in keyof UiBreadcrumbItem & keyof UiBreadcrumbItemAttributes as `prop:${K}`]?: UiBreadcrumbItem[K] };
         "ui-button": Omit<UiButton, keyof UiButtonAttributes> & { [K in keyof UiButton & keyof UiButtonAttributes]?: UiButton[K] } & { [K in keyof UiButton & keyof UiButtonAttributes as `attr:${K}`]?: UiButtonAttributes[K] } & { [K in keyof UiButton & keyof UiButtonAttributes as `prop:${K}`]?: UiButton[K] };
+        "ui-calendar": Omit<UiCalendar, keyof UiCalendarAttributes> & { [K in keyof UiCalendar & keyof UiCalendarAttributes]?: UiCalendar[K] } & { [K in keyof UiCalendar & keyof UiCalendarAttributes as `attr:${K}`]?: UiCalendarAttributes[K] } & { [K in keyof UiCalendar & keyof UiCalendarAttributes as `prop:${K}`]?: UiCalendar[K] };
         "ui-card": Omit<UiCard, keyof UiCardAttributes> & { [K in keyof UiCard & keyof UiCardAttributes]?: UiCard[K] } & { [K in keyof UiCard & keyof UiCardAttributes as `attr:${K}`]?: UiCardAttributes[K] } & { [K in keyof UiCard & keyof UiCardAttributes as `prop:${K}`]?: UiCard[K] };
         "ui-carousel": Omit<UiCarousel, keyof UiCarouselAttributes> & { [K in keyof UiCarousel & keyof UiCarouselAttributes]?: UiCarousel[K] } & { [K in keyof UiCarousel & keyof UiCarouselAttributes as `attr:${K}`]?: UiCarouselAttributes[K] } & { [K in keyof UiCarousel & keyof UiCarouselAttributes as `prop:${K}`]?: UiCarousel[K] };
         "ui-checkbox": Omit<UiCheckbox, keyof UiCheckboxAttributes> & { [K in keyof UiCheckbox & keyof UiCheckboxAttributes]?: UiCheckbox[K] } & { [K in keyof UiCheckbox & keyof UiCheckboxAttributes as `attr:${K}`]?: UiCheckboxAttributes[K] } & { [K in keyof UiCheckbox & keyof UiCheckboxAttributes as `prop:${K}`]?: UiCheckbox[K] };
@@ -3978,9 +4428,22 @@ declare module "@stencil/core" {
             "ui-breadcrumb": LocalJSX.IntrinsicElements["ui-breadcrumb"] & JSXBase.HTMLAttributes<HTMLUiBreadcrumbElement>;
             "ui-breadcrumb-item": LocalJSX.IntrinsicElements["ui-breadcrumb-item"] & JSXBase.HTMLAttributes<HTMLUiBreadcrumbItemElement>;
             "ui-button": LocalJSX.IntrinsicElements["ui-button"] & JSXBase.HTMLAttributes<HTMLUiButtonElement>;
+            /**
+             * Month calendar. Follows the ARIA grid pattern: arrows move by day or week, Home/End jump to the
+             * week's edges, PageUp/PageDown change month (with Shift: year), Enter or Space selects.
+             */
+            "ui-calendar": LocalJSX.IntrinsicElements["ui-calendar"] & JSXBase.HTMLAttributes<HTMLUiCalendarElement>;
             "ui-card": LocalJSX.IntrinsicElements["ui-card"] & JSXBase.HTMLAttributes<HTMLUiCardElement>;
+            /**
+             * Scroll-snap carousel. Slides are any child elements. Swipe, scroll, use the buttons or the dots.
+             * Autoplay pauses on hover and focus, can be paused with a button, and is off for reduced-motion users.
+             */
             "ui-carousel": LocalJSX.IntrinsicElements["ui-carousel"] & JSXBase.HTMLAttributes<HTMLUiCarouselElement>;
             "ui-checkbox": LocalJSX.IntrinsicElements["ui-checkbox"] & JSXBase.HTMLAttributes<HTMLUiCheckboxElement>;
+            /**
+             * Colour picker: saturation/brightness area, hue slider, hex field, swatches and (where the browser
+             * supports it) an eyedropper. Value is a hex string like "#0b7a6c". Use `inline` to skip the popup.
+             */
             "ui-color-picker": LocalJSX.IntrinsicElements["ui-color-picker"] & JSXBase.HTMLAttributes<HTMLUiColorPickerElement>;
             /**
              * Ctrl/Cmd+K style launcher. Pass a list of commands; listen for uiSelect.
@@ -3994,6 +4457,10 @@ declare module "@stencil/core" {
              * Counts up (or down) to a number. Screen readers get the final value, never the in-between frames.
              */
             "ui-counter": LocalJSX.IntrinsicElements["ui-counter"] & JSXBase.HTMLAttributes<HTMLUiCounterElement>;
+            /**
+             * Date field with a calendar popup. Type a date as YYYY-MM-DD, or pick one.
+             * The value is always a plain "YYYY-MM-DD" string.
+             */
             "ui-date-picker": LocalJSX.IntrinsicElements["ui-date-picker"] & JSXBase.HTMLAttributes<HTMLUiDatePickerElement>;
             /**
              * Side panel (or bottom sheet). Same behaviour as <ui-modal>, anchored to an edge.
@@ -4010,6 +4477,10 @@ declare module "@stencil/core" {
              */
             "ui-icon": LocalJSX.IntrinsicElements["ui-icon"] & JSXBase.HTMLAttributes<HTMLUiIconElement>;
             "ui-input": LocalJSX.IntrinsicElements["ui-input"] & JSXBase.HTMLAttributes<HTMLUiInputElement>;
+            /**
+             * Endless horizontal ticker for logos or short text. Content is cloned (hidden from assistive tech)
+             * until it fills the width, so the loop has no gap. Stops for reduced-motion users.
+             */
             "ui-marquee": LocalJSX.IntrinsicElements["ui-marquee"] & JSXBase.HTMLAttributes<HTMLUiMarqueeElement>;
             /**
              * One entry in a <ui-dropdown> or <ui-context-menu>.
@@ -4032,6 +4503,9 @@ declare module "@stencil/core" {
              * button that opens a panel of links. Left/Right/Home/End move between top-level items.
              */
             "ui-nav-menu": LocalJSX.IntrinsicElements["ui-nav-menu"] & JSXBase.HTMLAttributes<HTMLUiNavMenuElement>;
+            /**
+             * One-time-code entry: separate boxes, auto-advance, paste and SMS autofill support.
+             */
             "ui-otp-input": LocalJSX.IntrinsicElements["ui-otp-input"] & JSXBase.HTMLAttributes<HTMLUiOtpInputElement>;
             "ui-pagination": LocalJSX.IntrinsicElements["ui-pagination"] & JSXBase.HTMLAttributes<HTMLUiPaginationElement>;
             /**
@@ -4077,12 +4551,21 @@ declare module "@stencil/core" {
              */
             "ui-tab": LocalJSX.IntrinsicElements["ui-tab"] & JSXBase.HTMLAttributes<HTMLUiTabElement>;
             "ui-tab-panel": LocalJSX.IntrinsicElements["ui-tab-panel"] & JSXBase.HTMLAttributes<HTMLUiTabPanelElement>;
+            /**
+             * Data table with sorting, search, row selection and built-in pagination.
+             * Works on all your rows in the browser, or in `manual` mode where you fetch each page
+             * from a server in response to `uiQueryChange`.
+             */
             "ui-table": LocalJSX.IntrinsicElements["ui-table"] & JSXBase.HTMLAttributes<HTMLUiTableElement>;
             /**
              * Tabs. Put <ui-tab value> and <ui-tab-panel value> as direct children; matching values pair them.
              * Arrow keys move between tabs, Home/End jump, and a sliding indicator follows the selection.
              */
             "ui-tabs": LocalJSX.IntrinsicElements["ui-tabs"] & JSXBase.HTMLAttributes<HTMLUiTabsElement>;
+            /**
+             * Free-form tags: type and press Enter or comma, or paste a list. Backspace removes the last tag.
+             * Pass `validate` to reject entries (emails, ids...); rejected text stays in the box and uiReject fires.
+             */
             "ui-tag-input": LocalJSX.IntrinsicElements["ui-tag-input"] & JSXBase.HTMLAttributes<HTMLUiTagInputElement>;
             "ui-textarea": LocalJSX.IntrinsicElements["ui-textarea"] & JSXBase.HTMLAttributes<HTMLUiTextareaElement>;
             /**
@@ -4097,6 +4580,10 @@ declare module "@stencil/core" {
              * Short, non-interactive hint on hover or keyboard focus. Wrap the element it describes.
              */
             "ui-tooltip": LocalJSX.IntrinsicElements["ui-tooltip"] & JSXBase.HTMLAttributes<HTMLUiTooltipElement>;
+            /**
+             * Expandable tree with single selection. Follows the ARIA tree pattern:
+             * Up/Down move, Right expands or enters, Left collapses or goes to the parent, Home/End jump.
+             */
             "ui-tree": LocalJSX.IntrinsicElements["ui-tree"] & JSXBase.HTMLAttributes<HTMLUiTreeElement>;
         }
     }

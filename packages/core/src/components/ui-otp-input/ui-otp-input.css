@@ -1,6 +1,19 @@
-.cells { display: flex; gap: var(--nova-space-2); }
-.cell { box-sizing: border-box; width: 2.75rem; height: 3rem; padding: 0; border: 1px solid var(--nova-color-border-strong); border-radius: var(--nova-radius-control); color: var(--nova-color-fg); background: var(--nova-color-surface); font: var(--nova-text-lg) var(--nova-font-mono); text-align: center; }
-.cell:focus { outline: none; border-color: var(--nova-color-accent); box-shadow: var(--nova-focus-ring); }
-.cell:disabled { opacity: .55; cursor: not-allowed; }
-.form-value { display: none; }
-@media (max-width: 24rem) { .cells { gap: var(--nova-space-1); } .cell { width: 2.25rem; height: 2.75rem; } }
+:host { --_cell: 2.75rem; display: block; font-family: var(--nova-font-sans); color: var(--nova-color-fg); }
+:host([size='sm']) { --_cell: 2.25rem; }
+:host([size='lg']) { --_cell: 3.25rem; }
+.label { display: block; margin-bottom: var(--nova-space-2); font-size: var(--nova-text-sm); font-weight: var(--nova-weight-medium); }
+.req { color: var(--nova-color-danger); }
+.cells { display: inline-flex; gap: var(--nova-space-2); }
+.cell {
+  all: unset; box-sizing: border-box; width: var(--_cell); height: calc(var(--_cell) * 1.15); text-align: center;
+  border: 1px solid var(--nova-color-border-strong); border-radius: var(--nova-radius-control); background: var(--nova-color-surface);
+  font-size: calc(var(--_cell) * 0.5); font-weight: var(--nova-weight-semibold); font-variant-numeric: tabular-nums; caret-color: var(--nova-color-accent);
+  transition: border-color var(--nova-duration-fast) var(--nova-ease-standard), box-shadow var(--nova-duration-fast) var(--nova-ease-standard);
+}
+.cell:hover:not(:disabled) { border-color: var(--nova-color-fg-subtle); }
+.cell:focus { border-color: var(--nova-color-accent); box-shadow: var(--nova-focus-ring); }
+.cell.filled { border-color: var(--nova-color-fg-muted); }
+.cell.invalid { border-color: var(--nova-color-danger); }
+.cell:disabled { opacity: 0.55; background: var(--nova-color-surface-sunken); cursor: not-allowed; }
+.msg { margin: var(--nova-space-2) 0 0; font-size: var(--nova-text-xs); color: var(--nova-color-fg-muted); }
+.msg.error { color: var(--nova-color-danger); }

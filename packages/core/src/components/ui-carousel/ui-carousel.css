@@ -1,13 +1,20 @@
-:host { display: block; color: var(--nova-color-fg); font-family: var(--nova-font-sans); }
-.frame { position: relative; }
-.slides { overflow: hidden; }
-::slotted([hidden]) { display: none !important; }
-::slotted(*) { display: block; width: 100%; }
-.controls { position: absolute; inset: auto var(--nova-space-3) var(--nova-space-3); display: flex; align-items: center; justify-content: space-between; gap: var(--nova-space-3); pointer-events: none; }
-.arrow, .dot { pointer-events: auto; color: var(--nova-color-fg); background: var(--nova-color-surface); border: 1px solid var(--nova-color-border); box-shadow: var(--nova-shadow-sm); cursor: pointer; }
-.arrow { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: var(--nova-radius-control); }
-.arrow:hover { background: var(--nova-color-surface-sunken); }
-.arrow:focus-visible, .dot:focus-visible { outline: 2px solid var(--nova-color-accent); outline-offset: 2px; }
-.indicators { display: flex; justify-content: center; gap: var(--nova-space-2); }
-.dot { width: .65rem; height: .65rem; padding: 0; border-radius: 50%; }
-.dot.active { background: var(--nova-color-accent); border-color: var(--nova-color-accent); }
+:host { display: block; font-family: var(--nova-font-sans); }
+.stage { position: relative; }
+.track {
+  display: flex; gap: var(--_gap, 16px); overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
+  scrollbar-width: none; border-radius: var(--nova-radius-surface);
+}
+.track::-webkit-scrollbar { display: none; }
+.track:focus-visible { outline: none; box-shadow: var(--nova-focus-ring); }
+::slotted(*) {
+  flex: 0 0 calc((100% - (var(--_per-view, 1) - 1) * var(--_gap, 16px)) / var(--_per-view, 1));
+  min-width: 0; box-sizing: border-box; scroll-snap-align: start;
+}
+.arrows { position: absolute; inset: 50% 0 auto 0; display: flex; justify-content: space-between; padding: 0 var(--nova-space-2); transform: translateY(-50%); pointer-events: none; }
+.arrow { pointer-events: auto; box-shadow: var(--nova-shadow-md); border-radius: var(--nova-radius-pill); }
+.controls { display: flex; align-items: center; justify-content: center; gap: var(--nova-space-3); margin-top: var(--nova-space-3); }
+.dots { display: flex; gap: var(--nova-space-2); }
+.dot { all: unset; box-sizing: border-box; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--nova-color-border-strong); cursor: pointer; transition: width var(--nova-duration-base) var(--nova-ease-emphasized), background var(--nova-duration-base) var(--nova-ease-standard); }
+.dot.on { width: 1.5rem; border-radius: var(--nova-radius-pill); background: var(--nova-color-accent); }
+.dot:focus-visible { box-shadow: var(--nova-focus-ring); }
+@media (prefers-reduced-motion: reduce) { .track { scroll-behavior: auto; } }

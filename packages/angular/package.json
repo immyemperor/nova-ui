@@ -5,15 +5,16 @@
   "license": "MIT",
   "sideEffects": false,
   "scripts": {
-    "build": "ng-packagr -p ng-package.json"
+    "build": "ng-packagr -p ng-package.json -c tsconfig.lib.json"
   },
   "dependencies": {
-    "@nova-ui/core": "workspace:*",
     "tslib": "^2.6.0"
   },
   "peerDependencies": {
     "@angular/common": ">=17",
-    "@angular/core": ">=17"
+    "@angular/core": ">=17",
+    "@nova-ui/core": "workspace:^",
+    "@nova-ui/editor": "workspace:^"
   },
   "devDependencies": {
     "@angular/common": "^19.0.0",
@@ -23,7 +24,16 @@
     "ng-packagr": "^19.0.0",
     "rxjs": "^7.8.0",
     "typescript": "~5.6.0",
-    "zone.js": "^0.15.0"
+    "zone.js": "^0.15.0",
+    "@nova-ui/core": "workspace:*",
+    "@nova-ui/editor": "workspace:*"
   },
-  "publishConfig": { "access": "public" }
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependenciesMeta": {
+    "@nova-ui/editor": {
+      "optional": true
+    }
+  }
 }

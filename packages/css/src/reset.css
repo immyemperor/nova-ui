@@ -1,0 +1,57 @@
+@layer nova.reset, nova.tokens, nova.base, nova.layout, nova.components, nova.utilities;
+
+/* A small, modern reset. It lives in the lowest layer, so any rule you write wins without a specificity fight. */
+@layer nova.reset {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    tab-size: 4;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+
+  body { margin: 0; }
+
+  /* Spacing between blocks is opt-in (see .nova-flow and .nova-stack), so default margins go. */
+  :where(h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd, pre) { margin: 0; }
+  :where(ul, ol) { margin: 0; }
+  /* Lists used as navigation or card rows opt out of bullets and indent with role="list" */
+  :where(ul[role='list'], ol[role='list']) { list-style: none; padding: 0; }
+
+  /* Media never overflows its container */
+  :where(img, picture, video, canvas) { display: block; max-inline-size: 100%; }
+  :where(img, video) { block-size: auto; }
+  :where(svg) { max-inline-size: 100%; }
+
+  /* Form controls inherit type instead of using tiny system defaults (and iOS won't zoom on focus at 16px+) */
+  :where(input, button, textarea, select) { font: inherit; color: inherit; letter-spacing: inherit; }
+  :where(textarea:not([rows])) { min-block-size: 8em; }
+
+  /* Better line breaks */
+  :where(p, li, figcaption, dd) { text-wrap: pretty; overflow-wrap: break-word; }
+  :where(h1, h2, h3, h4, h5, h6) { text-wrap: balance; overflow-wrap: break-word; }
+
+  /* Anchor links should not hide under a sticky header */
+  :where(:target) { scroll-margin-block: 5rem; }
+
+  /* One consistent, visible keyboard focus style.
+     Nova web components (Stencil adds .hydrated) draw their own focus indicator. Without this exclusion a focusable
+     host (menu item, tab, radio) would show this outline on top of its own, because a document rule beats a
+     component's :host rule in the shadow-DOM cascade. */
+  :where(:focus-visible:not(.hydrated)) { outline: 2px solid var(--nova-color-accent, currentColor); outline-offset: 2px; }
+
+  /* !important so the hidden attribute still wins over a display utility or component rule */
+  [hidden]:not([hidden='until-found']) { display: none !important; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

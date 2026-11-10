@@ -12,4 +12,9 @@ export type {
   ToastOptions,
   ToastTone,
   Placement,
+  TableColumn,
+  TableRow,
+  TableSort,
+  TableQuery,
+  TreeNode,
 } from '@nova-ui/core';

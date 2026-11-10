@@ -18,6 +18,7 @@ import { UiBadge as UiBadgeElement, defineCustomElement as defineUiBadge } from 
 import { UiBreadcrumb as UiBreadcrumbElement, defineCustomElement as defineUiBreadcrumb } from '@nova-ui/core/components/ui-breadcrumb.js';
 import { UiBreadcrumbItem as UiBreadcrumbItemElement, defineCustomElement as defineUiBreadcrumbItem } from '@nova-ui/core/components/ui-breadcrumb-item.js';
 import { UiButton as UiButtonElement, defineCustomElement as defineUiButton } from '@nova-ui/core/components/ui-button.js';
+import { UiCalendar as UiCalendarElement, defineCustomElement as defineUiCalendar } from '@nova-ui/core/components/ui-calendar.js';
 import { UiCard as UiCardElement, defineCustomElement as defineUiCard } from '@nova-ui/core/components/ui-card.js';
 import { UiCarousel as UiCarouselElement, defineCustomElement as defineUiCarousel } from '@nova-ui/core/components/ui-carousel.js';
 import { UiCheckbox as UiCheckboxElement, defineCustomElement as defineUiCheckbox } from '@nova-ui/core/components/ui-checkbox.js';
@@ -63,7 +64,7 @@ import { UiThemeToggle as UiThemeToggleElement, defineCustomElement as defineUiT
 import { UiToaster as UiToasterElement, defineCustomElement as defineUiToaster } from '@nova-ui/core/components/ui-toaster.js';
 import { UiTooltip as UiTooltipElement, defineCustomElement as defineUiTooltip } from '@nova-ui/core/components/ui-tooltip.js';
 import { UiTree as UiTreeElement, defineCustomElement as defineUiTree } from '@nova-ui/core/components/ui-tree.js';
-import type { UiAccordionItemCustomEvent, UiAlertCustomEvent, UiBreadcrumbItemCustomEvent, UiCarouselCustomEvent, UiCheckboxCustomEvent, UiColorPickerCustomEvent, Command, UiCommandPaletteCustomEvent, UiContextMenuCustomEvent, UiDatePickerCustomEvent, UiDrawerCustomEvent, UiDropdownCustomEvent, UiInputCustomEvent, UiMenubarMenuCustomEvent, UiModalCustomEvent, UiNavItemCustomEvent, UiOtpInputCustomEvent, UiPaginationCustomEvent, UiPopoverCustomEvent, UiRadioGroupCustomEvent, UiRatingCustomEvent, UiRevealCustomEvent, UiSelectCustomEvent, UiSliderCustomEvent, UiStepperCustomEvent, UiSwitchCustomEvent, UiTableCustomEvent, UiTabsCustomEvent, UiTagInputCustomEvent, UiTextareaCustomEvent, UiTreeCustomEvent } from '@nova-ui/core';
+import type { UiAccordionItemCustomEvent, UiAlertCustomEvent, UiBreadcrumbItemCustomEvent, UiCalendarCustomEvent, UiCarouselCustomEvent, UiCheckboxCustomEvent, UiColorPickerCustomEvent, Command, UiCommandPaletteCustomEvent, UiContextMenuCustomEvent, UiDatePickerCustomEvent, UiDrawerCustomEvent, UiDropdownCustomEvent, UiInputCustomEvent, UiMenubarMenuCustomEvent, UiModalCustomEvent, UiNavItemCustomEvent, UiOtpInputCustomEvent, UiPaginationCustomEvent, UiPopoverCustomEvent, UiRadioGroupCustomEvent, UiRatingCustomEvent, UiRevealCustomEvent, UiSelectCustomEvent, UiSliderCustomEvent, UiStepperCustomEvent, UiSwitchCustomEvent, TableQuery, TableRow, UiTableCustomEvent, UiTabsCustomEvent, UiTagInputCustomEvent, UiTextareaCustomEvent, TreeNode, UiTreeCustomEvent } from '@nova-ui/core';
 import type { StencilReactComponent, EventName } from '@stencil/react-output-target/runtime';
 
 export type UiAccordionEvents = NonNullable<unknown>;
@@ -164,6 +165,21 @@ export const UiButton: StencilReactComponent<UiButtonElement, UiButtonEvents, Co
     react: React,
     events: {} as UiButtonEvents,
     defineCustomElement: defineUiButton,
+});
+
+export type UiCalendarEvents = {
+  onUiChange: EventName<UiCalendarCustomEvent<string>>
+};
+
+export const UiCalendar: StencilReactComponent<UiCalendarElement, UiCalendarEvents, Components.UiCalendar> = /*@__PURE__*/ createComponent<UiCalendarElement, UiCalendarEvents, Components.UiCalendar>({
+    tagName: 'ui-calendar',
+    elementClass: UiCalendarElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: {
+      onUiChange: 'uiChange'
+    } as UiCalendarEvents,
+    defineCustomElement: defineUiCalendar,
 });
 
 export type UiCardEvents = NonNullable<unknown>;
@@ -439,7 +455,6 @@ export const UiNavMenu: StencilReactComponent<UiNavMenuElement, UiNavMenuEvents,
 
 export type UiOtpInputEvents = {
   onUiInput: EventName<UiOtpInputCustomEvent<string>>,
-  onUiChange: EventName<UiOtpInputCustomEvent<string>>,
   onUiComplete: EventName<UiOtpInputCustomEvent<string>>
 };
 
@@ -450,7 +465,6 @@ export const UiOtpInput: StencilReactComponent<UiOtpInputElement, UiOtpInputEven
     react: React,
     events: {
       onUiInput: 'uiInput',
-      onUiChange: 'uiChange',
       onUiComplete: 'uiComplete'
     } as UiOtpInputEvents,
     defineCustomElement: defineUiOtpInput,
@@ -688,8 +702,9 @@ export const UiTabPanel: StencilReactComponent<UiTabPanelElement, UiTabPanelEven
 });
 
 export type UiTableEvents = {
-  onUiSort: EventName<UiTableCustomEvent<{ key: string; direction: 'ascending' | 'descending' }>>,
-  onUiSelectionChange: EventName<UiTableCustomEvent<string[]>>
+  onUiQueryChange: EventName<UiTableCustomEvent<TableQuery>>,
+  onUiSelectionChange: EventName<UiTableCustomEvent<string[]>>,
+  onUiRowClick: EventName<UiTableCustomEvent<TableRow>>
 };
 
 export const UiTable: StencilReactComponent<UiTableElement, UiTableEvents, Components.UiTable> = /*@__PURE__*/ createComponent<UiTableElement, UiTableEvents, Components.UiTable>({
@@ -698,8 +713,9 @@ export const UiTable: StencilReactComponent<UiTableElement, UiTableEvents, Compo
     // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
     react: React,
     events: {
-      onUiSort: 'uiSort',
-      onUiSelectionChange: 'uiSelectionChange'
+      onUiQueryChange: 'uiQueryChange',
+      onUiSelectionChange: 'uiSelectionChange',
+      onUiRowClick: 'uiRowClick'
     } as UiTableEvents,
     defineCustomElement: defineUiTable,
 });
@@ -720,8 +736,8 @@ export const UiTabs: StencilReactComponent<UiTabsElement, UiTabsEvents, Componen
 });
 
 export type UiTagInputEvents = {
-  onUiInput: EventName<UiTagInputCustomEvent<string>>,
-  onUiChange: EventName<UiTagInputCustomEvent<string[]>>
+  onUiChange: EventName<UiTagInputCustomEvent<string[]>>,
+  onUiReject: EventName<UiTagInputCustomEvent<{ tag: string; reason: string }>>
 };
 
 export const UiTagInput: StencilReactComponent<UiTagInputElement, UiTagInputEvents, Components.UiTagInput> = /*@__PURE__*/ createComponent<UiTagInputElement, UiTagInputEvents, Components.UiTagInput>({
@@ -730,8 +746,8 @@ export const UiTagInput: StencilReactComponent<UiTagInputElement, UiTagInputEven
     // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
     react: React,
     events: {
-      onUiInput: 'uiInput',
-      onUiChange: 'uiChange'
+      onUiChange: 'uiChange',
+      onUiReject: 'uiReject'
     } as UiTagInputEvents,
     defineCustomElement: defineUiTagInput,
 });
@@ -787,8 +803,8 @@ export const UiTooltip: StencilReactComponent<UiTooltipElement, UiTooltipEvents,
 });
 
 export type UiTreeEvents = {
-  onUiExpandChange: EventName<UiTreeCustomEvent<string[]>>,
-  onUiSelect: EventName<UiTreeCustomEvent<string>>
+  onUiSelect: EventName<UiTreeCustomEvent<{ id: string; node: TreeNode }>>,
+  onUiToggle: EventName<UiTreeCustomEvent<{ id: string; expanded: boolean }>>
 };
 
 export const UiTree: StencilReactComponent<UiTreeElement, UiTreeEvents, Components.UiTree> = /*@__PURE__*/ createComponent<UiTreeElement, UiTreeEvents, Components.UiTree>({
@@ -797,8 +813,8 @@ export const UiTree: StencilReactComponent<UiTreeElement, UiTreeEvents, Componen
     // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
     react: React,
     events: {
-      onUiExpandChange: 'uiExpandChange',
-      onUiSelect: 'uiSelect'
+      onUiSelect: 'uiSelect',
+      onUiToggle: 'uiToggle'
     } as UiTreeEvents,
     defineCustomElement: defineUiTree,
 });

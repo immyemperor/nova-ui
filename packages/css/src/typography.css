@@ -1,0 +1,71 @@
+@layer nova.reset, nova.tokens, nova.base, nova.layout, nova.components, nova.utilities;
+
+@layer nova.base {
+  /* Opt in on <body> (or any wrapper): colours, font and a readable line-height */
+  .nova-base {
+    background: var(--nova-color-bg);
+    color: var(--nova-color-fg);
+    font-family: var(--nova-font-sans);
+    font-size: var(--nova-text-md);
+    line-height: var(--nova-leading-normal);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  :where(.nova-base, .nova-prose) :is(h1, h2, h3, h4, h5, h6) {
+    font-weight: var(--nova-weight-semibold);
+    line-height: var(--nova-leading-tight);
+    letter-spacing: var(--nova-tracking-tight);
+  }
+  :where(.nova-base, .nova-prose) h1 { font-size: var(--nova-text-4xl); }
+  :where(.nova-base, .nova-prose) h2 { font-size: var(--nova-text-3xl); }
+  :where(.nova-base, .nova-prose) h3 { font-size: var(--nova-text-2xl); }
+  :where(.nova-base, .nova-prose) h4 { font-size: var(--nova-text-xl); }
+  :where(.nova-base, .nova-prose) h5 { font-size: var(--nova-text-lg); }
+  :where(.nova-base, .nova-prose) h6 { font-size: var(--nova-text-md); }
+
+  :where(.nova-base) a:not([class]) {
+    color: var(--nova-color-accent);
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
+  }
+  :where(.nova-base) a:not([class]):hover { color: var(--nova-color-accent-hover); }
+
+  :where(.nova-base) :is(code, kbd, samp, pre) { font-family: var(--nova-font-mono); font-size: 0.9em; }
+  :where(.nova-base) hr { border: 0; border-block-start: 1px solid var(--nova-color-border); margin-block: var(--nova-space-6); }
+  :where(.nova-base) ::selection { background: var(--nova-color-accent-soft); }
+}
+
+@layer nova.components {
+  /* Type classes: use them when the visual size should differ from the semantic heading level */
+  .nova-display { font-size: var(--nova-text-5xl); font-weight: var(--nova-weight-bold); line-height: 1.05; letter-spacing: var(--nova-tracking-tight); text-wrap: balance; }
+  .nova-h1 { font-size: var(--nova-text-4xl); font-weight: var(--nova-weight-semibold); line-height: var(--nova-leading-tight); letter-spacing: var(--nova-tracking-tight); }
+  .nova-h2 { font-size: var(--nova-text-3xl); font-weight: var(--nova-weight-semibold); line-height: var(--nova-leading-tight); letter-spacing: var(--nova-tracking-tight); }
+  .nova-h3 { font-size: var(--nova-text-2xl); font-weight: var(--nova-weight-semibold); line-height: var(--nova-leading-tight); }
+  .nova-h4 { font-size: var(--nova-text-xl); font-weight: var(--nova-weight-semibold); line-height: var(--nova-leading-snug); }
+  .nova-h5 { font-size: var(--nova-text-lg); font-weight: var(--nova-weight-semibold); line-height: var(--nova-leading-snug); }
+  .nova-h6 { font-size: var(--nova-text-md); font-weight: var(--nova-weight-semibold); }
+  .nova-lead { font-size: var(--nova-text-lg); line-height: var(--nova-leading-relaxed); color: var(--nova-color-fg-muted); max-inline-size: var(--nova-measure); }
+  .nova-small { font-size: var(--nova-text-sm); }
+  .nova-caption { font-size: var(--nova-text-xs); color: var(--nova-color-fg-muted); }
+  .nova-eyebrow { font-size: var(--nova-text-xs); font-weight: var(--nova-weight-semibold); letter-spacing: var(--nova-tracking-wide); text-transform: uppercase; color: var(--nova-color-accent); }
+
+  /* Long-form content. Wrap CMS or markdown output in .nova-prose */
+  .nova-prose { max-inline-size: var(--nova-measure); line-height: var(--nova-leading-relaxed); color: var(--nova-color-fg); }
+  .nova-prose > * + * { margin-block-start: 1.1em; }
+  .nova-prose :is(h2, h3, h4) { margin-block-start: 1.8em; }
+  .nova-prose :is(h2, h3, h4) + * { margin-block-start: 0.6em; }
+  .nova-prose :is(ul, ol) { padding-inline-start: 1.5em; }
+  .nova-prose li + li { margin-block-start: 0.35em; }
+  .nova-prose a { color: var(--nova-color-accent); text-decoration-thickness: 0.08em; text-underline-offset: 0.18em; }
+  .nova-prose a:hover { color: var(--nova-color-accent-hover); }
+  .nova-prose blockquote { padding-inline-start: var(--nova-space-4); border-inline-start: 3px solid var(--nova-color-accent); color: var(--nova-color-fg-muted); }
+  .nova-prose code { padding: 0.1em 0.35em; border: 1px solid var(--nova-color-border); border-radius: 4px; background: var(--nova-color-surface-sunken); font-family: var(--nova-font-mono); font-size: 0.9em; }
+  .nova-prose pre { padding: var(--nova-space-3) var(--nova-space-4); overflow-x: auto; border-radius: var(--nova-radius-control); background: var(--nova-color-surface-sunken); border: 1px solid var(--nova-color-border); }
+  .nova-prose pre code { padding: 0; border: 0; background: none; }
+  .nova-prose img { border-radius: var(--nova-radius-control); }
+  .nova-prose hr { border: 0; border-block-start: 1px solid var(--nova-color-border); margin-block: 2em; }
+  .nova-prose table { inline-size: 100%; border-collapse: collapse; font-size: var(--nova-text-sm); display: block; overflow-x: auto; }
+  .nova-prose :is(th, td) { padding: var(--nova-space-2) var(--nova-space-3); border: 1px solid var(--nova-color-border); text-align: start; }
+  .nova-prose th { background: var(--nova-color-surface-sunken); font-weight: var(--nova-weight-semibold); }
+}

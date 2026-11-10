@@ -13,15 +13,12 @@
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "pnpm build && changeset publish",
-    "rename-scope": "node scripts/rename-scope.mjs"
+    "rename-scope": "node scripts/rename-scope.mjs",
+    "check:names": "node scripts/check-prop-names.mjs"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.0",
-    "typescript": "^5.6.0"
-  },
-  "dependencies": {
-    "@stencil/angular-output-target": "^1.5.3",
-    "@stencil/react-output-target": "^1.7.0",
-    "pnpm": "^12.18.0"
+    "typescript": "^5.6.0",
+    "playwright": "^1.50.0"
   }
 }

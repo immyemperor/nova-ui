@@ -1,0 +1,266 @@
+@layer nova.reset, nova.tokens, nova.base, nova.layout, nova.components, nova.utilities;
+
+/*
+  LAYOUT PRIMITIVES
+  Small, composable boxes that adapt to the space they are given (intrinsic design), so most layouts
+  need no breakpoints. Base rules use :where() (zero specificity) so modifiers and utilities always win.
+  Spacing between children comes from --nova-gap, which any primitive reads; set it on the element or use .nova-gap-N.
+*/
+@layer nova.layout {
+
+  /* ---------- Container: centred, capped width, safe gutters ---------- */
+  :where(.nova-container) {
+    --_max: var(--nova-container);
+    box-sizing: border-box;
+    inline-size: 100%;
+    max-inline-size: var(--_max);
+    margin-inline: auto;
+    /* max() keeps content clear of notches and rounded corners on phones (needs viewport-fit=cover) */
+    padding-inline-start: max(var(--nova-gutter), env(safe-area-inset-left, 0px));
+    padding-inline-end: max(var(--nova-gutter), env(safe-area-inset-right, 0px));
+  }
+  .nova-container-sm { --_max: var(--nova-container-sm); }
+  .nova-container-md { --_max: var(--nova-container-md); }
+  .nova-container-lg { --_max: var(--nova-container-lg); }
+  .nova-container-xl { --_max: var(--nova-container-xl); }
+  .nova-container-2xl { --_max: var(--nova-container-2xl); }
+  .nova-container-prose { --_max: var(--nova-measure); }
+  .nova-container-fluid { --_max: none; }
+
+  /* ---------- Page: a container that lets chosen children break out to full width ---------- */
+  :where(.nova-page) {
+    --_max: var(--nova-container);
+    display: grid;
+    grid-template-columns:
+      [full-start] minmax(max(var(--nova-gutter), env(safe-area-inset-left, 0px)), 1fr)
+      [content-start] minmax(0, min(100% - 2 * var(--nova-gutter), var(--_max)))
+      [content-end] minmax(max(var(--nova-gutter), env(safe-area-inset-right, 0px)), 1fr)
+      [full-end];
+  }
+  :where(.nova-page) > * { grid-column: content; }
+  :where(.nova-page) > .nova-bleed { grid-column: full; }
+  .nova-page-sm { --_max: var(--nova-container-sm); }
+  .nova-page-md { --_max: var(--nova-container-md); }
+  .nova-page-lg { --_max: var(--nova-container-lg); }
+  .nova-page-prose { --_max: var(--nova-measure); }
+
+  /* ---------- Section: vertical rhythm between page bands ---------- */
+  :where(.nova-section) { padding-block: var(--nova-section-space); }
+  .nova-section-sm { padding-block: var(--nova-space-fluid-m); }
+  .nova-section-lg { padding-block: var(--nova-space-fluid-xl); }
+
+  /* ---------- Stack: vertical flow with consistent gaps ---------- */
+  :where(.nova-stack) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--nova-gap, var(--nova-space-4));
+  }
+  /* Modifiers set `gap` itself (not --nova-gap), so a big stack never changes the spacing of primitives nested inside it */
+  .nova-stack-xs { gap: var(--nova-space-1); }
+  .nova-stack-sm { gap: var(--nova-space-2); }
+  .nova-stack-lg { gap: var(--nova-space-6); }
+  .nova-stack-xl { gap: var(--nova-space-8); }
+
+  /* Flow: margin-based rhythm for content you don't control (CMS, markdown) */
+  :where(.nova-flow) { --_flow: var(--nova-flow-space, 1em); }
+  :where(.nova-flow) > * + * { margin-block-start: var(--_flow); }
+
+  /* ---------- Cluster: wrapping row of items (tags, buttons, toolbars) ---------- */
+  :where(.nova-cluster) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--nova-gap, var(--nova-space-3));
+  }
+  .nova-cluster-start { justify-content: flex-start; }
+  .nova-cluster-center { justify-content: center; }
+  .nova-cluster-end { justify-content: flex-end; }
+  .nova-cluster-between { justify-content: space-between; }
+
+  /* ---------- Grid: 12 explicit columns. Use with .nova-col-N and responsive .nova-md-col-N ---------- */
+  :where(.nova-grid) {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--nova-gap, var(--nova-gutter));
+  }
+
+  /* ---------- Auto grid: as many columns as fit, no breakpoints. Cards, galleries, dashboards ---------- */
+  :where(.nova-grid-auto) {
+    --_min: var(--nova-grid-min, 16rem);
+    display: grid;
+    /* min(...,100%) lets a single column shrink below the minimum on very narrow screens instead of overflowing */
+    grid-template-columns: repeat(auto-fit, minmax(min(var(--_min), 100%), 1fr));
+    gap: var(--nova-gap, var(--nova-space-5));
+  }
+  .nova-grid-auto-xs { --_min: 9rem; }
+  .nova-grid-auto-sm { --_min: 12rem; }
+  .nova-grid-auto-md { --_min: 16rem; }
+  .nova-grid-auto-lg { --_min: 22rem; }
+  .nova-grid-auto-xl { --_min: 30rem; }
+  /* auto-fill keeps empty tracks, so a lone item doesn't stretch across the row */
+  .nova-grid-fill { grid-template-columns: repeat(auto-fill, minmax(min(var(--_min), 100%), 1fr)); }
+
+  /* ---------- Sidebar: fixed-width side + fluid content; stacks when the content would get cramped ---------- */
+  :where(.nova-sidebar) {
+    --_side: var(--nova-sidebar-width, 16rem);
+    --_content-min: var(--nova-content-min, 50%);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--nova-gap, var(--nova-space-5));
+  }
+  :where(.nova-sidebar) > :first-child {
+    flex-basis: var(--_side);
+    flex-grow: 1;
+  }
+  :where(.nova-sidebar) > :last-child {
+    flex-basis: 0;
+    flex-grow: 999;
+    min-inline-size: var(--_content-min);
+  }
+  /* Put the side on the other end without changing the HTML order (keep the sidebar first in the DOM) */
+  .nova-sidebar-end > :first-child { order: 2; }
+
+  /* ---------- Switcher: a row that flips to a column below a threshold width, for 2-4 items ---------- */
+  :where(.nova-switcher) {
+    --_threshold: var(--nova-threshold, 40rem);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--nova-gap, var(--nova-space-5));
+  }
+  :where(.nova-switcher) > * {
+    flex-grow: 1;
+    flex-basis: calc((var(--_threshold) - 100%) * 999);
+  }
+
+  /* ---------- Cover: fill the screen, with a centred focal child ---------- */
+  :where(.nova-cover) {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-block-size: var(--nova-cover-min, 100vh);
+    padding: var(--nova-gutter);
+  }
+  @supports (min-height: 100dvh) {
+    /* dvh follows the mobile browser's collapsing address bar; vh does not */
+    :where(.nova-cover) { min-block-size: var(--nova-cover-min, 100dvh); }
+  }
+  :where(.nova-cover) > .nova-cover__center { margin-block: auto; }
+  :where(.nova-cover) > :where(:first-child:not(.nova-cover__center)) { margin-block-end: auto; }
+  :where(.nova-cover) > :where(:last-child:not(.nova-cover__center)) { margin-block-start: auto; }
+
+  /* ---------- Center: readable column in the middle of its parent ---------- */
+  :where(.nova-center) {
+    box-sizing: content-box;
+    max-inline-size: var(--nova-measure);
+    margin-inline: auto;
+  }
+  .nova-center-text { text-align: center; }
+
+  /* ---------- Frame: crop media to an aspect ratio ---------- */
+  :where(.nova-frame) {
+    aspect-ratio: var(--nova-ratio, 16 / 9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  :where(.nova-frame) > :is(img, video, picture, iframe) {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
+  /* ---------- Reel: horizontal scroll rail with snapping (swipeable on touch, scrollable with a keyboard) ---------- */
+  :where(.nova-reel) {
+    --_item: var(--nova-reel-item, min(80%, 20rem));
+    display: flex;
+    gap: var(--nova-gap, var(--nova-space-4));
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    padding-block-end: var(--nova-space-2);
+    scrollbar-width: thin;
+  }
+  :where(.nova-reel) > * {
+    flex: 0 0 var(--_item);
+    scroll-snap-align: start;
+  }
+
+  /* ---------- Columns: newspaper/masonry-style flow ---------- */
+  :where(.nova-columns) {
+    --_gap: var(--nova-gap, var(--nova-space-5));
+    columns: var(--nova-column-width, 18rem);
+    column-gap: var(--_gap);
+  }
+  :where(.nova-columns) > * { break-inside: avoid; margin-block-end: var(--_gap); }
+
+  /* ---------- Shell: app layout (header, optional sidebar, main, optional aside, footer) ----------
+     Phones: everything stacks in reading order.  md+: sidebar becomes a column.  xl+: aside becomes a column.
+     Add .nova-shell-sidebar and/or .nova-shell-aside only when you use those regions.  */
+  :where(.nova-shell) {
+    display: grid;
+    min-block-size: 100vh;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-template-areas: 'header' 'main' 'footer';
+  }
+  @supports (min-height: 100dvh) {
+    :where(.nova-shell) { min-block-size: 100dvh; }
+  }
+  .nova-shell-sidebar {
+    grid-template-rows: auto auto minmax(0, 1fr) auto;
+    grid-template-areas: 'header' 'sidebar' 'main' 'footer';
+  }
+  .nova-shell-aside {
+    grid-template-rows: auto minmax(0, 1fr) auto auto;
+    grid-template-areas: 'header' 'main' 'aside' 'footer';
+  }
+  .nova-shell-sidebar.nova-shell-aside {
+    grid-template-rows: auto auto minmax(0, 1fr) auto auto;
+    grid-template-areas: 'header' 'sidebar' 'main' 'aside' 'footer';
+  }
+  .nova-shell__header { grid-area: header; min-inline-size: 0; }
+  .nova-shell__sidebar { grid-area: sidebar; min-inline-size: 0; }
+  .nova-shell__main { grid-area: main; min-inline-size: 0; }
+  .nova-shell__aside { grid-area: aside; min-inline-size: 0; }
+  .nova-shell__footer { grid-area: footer; min-inline-size: 0; }
+
+  @media (min-width: 48em) {
+    .nova-shell-sidebar {
+      grid-template-columns: var(--nova-shell-sidebar) minmax(0, 1fr);
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      grid-template-areas: 'header header' 'sidebar main' 'footer footer';
+    }
+    .nova-shell-sidebar.nova-shell-aside {
+      grid-template-rows: auto auto minmax(0, 1fr) auto;
+      grid-template-areas: 'header header' 'sidebar main' 'sidebar aside' 'footer footer';
+    }
+  }
+  @media (min-width: 80em) {
+    .nova-shell-aside:not(.nova-shell-sidebar) {
+      grid-template-columns: minmax(0, 1fr) var(--nova-shell-aside);
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      grid-template-areas: 'header header' 'main aside' 'footer footer';
+    }
+    .nova-shell-sidebar.nova-shell-aside {
+      grid-template-columns: var(--nova-shell-sidebar) minmax(0, 1fr) var(--nova-shell-aside);
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      grid-template-areas: 'header header header' 'sidebar main aside' 'footer footer footer';
+    }
+  }
+  /* Keep side regions in view while the main column scrolls (md+ only: on phones they're in the flow) */
+  @media (min-width: 48em) {
+    .nova-shell-sticky-side > .nova-shell__sidebar,
+    .nova-shell-sticky-side > .nova-shell__aside {
+      position: sticky;
+      inset-block-start: var(--nova-sticky-offset, 0);
+      align-self: start;
+      max-block-size: calc(100vh - var(--nova-sticky-offset, 0px));
+      overflow-y: auto;
+    }
+  }
+
+  /* ---------- Container queries: components that respond to their own width, not the screen ---------- */
+  .nova-cq { container-type: inline-size; }
+  .nova-cq-named { container-type: inline-size; container-name: nova; }
+}

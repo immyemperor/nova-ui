@@ -1,0 +1,70 @@
+{
+  "name": "@nova-ui/editor",
+  "version": "0.1.0",
+  "description": "Rich text editor web component for Nova UI: configurable toolbar, slash commands, mentions, tables, uploads. Built on Tiptap.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.js",
+  "types": "./dist/types/index.d.ts",
+  "collection": "./dist/collection/collection-manifest.json",
+  "collection:main": "./dist/collection/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs.js"
+    },
+    "./components": {
+      "types": "./dist/components/index.d.ts",
+      "import": "./dist/components/index.js"
+    },
+    "./components/*": "./dist/components/*",
+    "./loader": {
+      "types": "./loader/index.d.ts",
+      "import": "./loader/index.js",
+      "require": "./loader/index.cjs.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "loader"],
+  "scripts": {
+    "build": "stencil build",
+    "start": "stencil build --dev --watch",
+    "test": "stencil test --spec"
+  },
+  "dependencies": {
+    "@stencil/core": "^4.0.0",
+    "@tiptap/core": "^2.10.0",
+    "@tiptap/pm": "^2.10.0",
+    "@tiptap/starter-kit": "^2.10.0",
+    "@tiptap/suggestion": "^2.10.0",
+    "@tiptap/extension-character-count": "^2.10.0",
+    "@tiptap/extension-color": "^2.10.0",
+    "@tiptap/extension-highlight": "^2.10.0",
+    "@tiptap/extension-image": "^2.10.0",
+    "@tiptap/extension-link": "^2.10.0",
+    "@tiptap/extension-mention": "^2.10.0",
+    "@tiptap/extension-placeholder": "^2.10.0",
+    "@tiptap/extension-table": "^2.10.0",
+    "@tiptap/extension-table-cell": "^2.10.0",
+    "@tiptap/extension-table-header": "^2.10.0",
+    "@tiptap/extension-table-row": "^2.10.0",
+    "@tiptap/extension-task-item": "^2.10.0",
+    "@tiptap/extension-task-list": "^2.10.0",
+    "@tiptap/extension-text-align": "^2.10.0",
+    "@tiptap/extension-text-style": "^2.10.0",
+    "@tiptap/extension-underline": "^2.10.0"
+  },
+  "peerDependencies": {
+    "@nova-ui/core": "workspace:^"
+  },
+  "devDependencies": {
+    "@nova-ui/core": "workspace:*",
+    "@stencil/angular-output-target": "latest",
+    "@stencil/react-output-target": "latest",
+    "typescript": "^5.6.0"
+  },
+  "publishConfig": { "access": "public" },
+  "keywords": ["rich-text-editor", "wysiwyg", "tiptap", "web-components", "stencil", "react", "angular"]
+}

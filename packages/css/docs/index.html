@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <!-- viewport-fit=cover lets the safe-area padding keep content clear of notches. Never block zoom. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Nova CSS: layout, grid and responsive guidelines</title>
+  <script>
+    // Set the theme before first paint to avoid a flash.
+    document.documentElement.dataset.theme =
+      localStorage.getItem('nova-doc-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  </script>
+  <link rel="stylesheet" href="../dist/nova.min.css" />
+  <style>
+    /* Page chrome for this guide only. Unlayered, so it beats Nova's layers without specificity tricks. */
+    .doc-section { scroll-margin-block-start: 5rem; }
+    .doc-demo { padding: var(--nova-space-4); border: 1px dashed var(--nova-color-border-strong); border-radius: var(--nova-radius-surface); background: var(--nova-color-surface); }
+    .doc-resizable { resize: horizontal; overflow: auto; min-inline-size: 15rem; max-inline-size: 100%; padding: var(--nova-space-4); border: 1px dashed var(--nova-color-border-strong); border-radius: var(--nova-radius-surface); background: var(--nova-color-surface); }
+    .doc-box { padding: var(--nova-space-2) var(--nova-space-3); border: 1px solid color-mix(in srgb, var(--nova-color-accent) 35%, transparent); border-radius: var(--nova-radius-control); background: var(--nova-color-accent-soft); color: var(--nova-color-accent); font-size: var(--nova-text-sm); text-align: center; }
+    .doc-box-tall { min-block-size: 5rem; display: grid; place-items: center; }
+    .doc-code { margin: 0; padding: var(--nova-space-3) var(--nova-space-4); overflow-x: auto; border-radius: var(--nova-radius-control); background: var(--nova-color-surface-sunken); border: 1px solid var(--nova-color-border); font-family: var(--nova-font-mono); font-size: 0.8125rem; line-height: 1.55; white-space: pre; }
+    .doc-bar { block-size: 1rem; border-radius: 2px; background: var(--nova-color-accent); }
+    .doc-tip { margin: 0; font-size: var(--nova-text-sm); color: var(--nova-color-fg-muted); }
+    .doc-nav a { display: block; padding: var(--nova-space-1) var(--nova-space-3); border-radius: var(--nova-radius-control); color: var(--nova-color-fg-muted); text-decoration: none; font-size: var(--nova-text-sm); }
+    .doc-nav a:hover { background: var(--nova-color-surface-sunken); color: var(--nova-color-fg); }
+    .doc-live { font-variant-numeric: tabular-nums; }
+    .doc-swatch { display: inline-grid; place-items: center; inline-size: 2.5rem; block-size: 1.75rem; border-radius: 4px; border: 1px solid var(--nova-color-border); font-weight: 600; }
+    .doc-cover { --nova-cover-min: 14rem; border-radius: var(--nova-radius-surface); background: var(--nova-color-accent-soft); }
+    .doc-tile { display: grid; place-items: center; min-block-size: 3.25rem; }
+  </style>
+</head>
+<body class="nova-base">
+  <a class="nova-skip-link" href="#main">Skip to content</a>
+
+  <div class="nova-shell nova-shell-sidebar nova-shell-sticky-side">
+    <header class="nova-shell__header nova-sticky-top nova-z-20 nova-bg-surface nova-border-b">
+      <div class="nova-cluster nova-cluster-between nova-px-4 nova-py-3">
+        <div class="nova-cluster">
+          <strong>Nova CSS</strong>
+          <span class="nova-small nova-text-muted nova-hide-below-sm">layout, grid and responsive guidelines</span>
+        </div>
+        <div class="nova-cluster">
+          <span class="nova-small nova-text-muted doc-live" aria-live="off"><span id="live-width">0</span>px</span>
+          <span class="nova-badge nova-badge-accent nova-hide-sm-up">base</span>
+          <span class="nova-badge nova-badge-accent nova-hide-below-sm nova-hide-md-up">sm</span>
+          <span class="nova-badge nova-badge-accent nova-hide-below-md nova-hide-lg-up">md</span>
+          <span class="nova-badge nova-badge-accent nova-hide-below-lg nova-hide-xl-up">lg</span>
+          <span class="nova-badge nova-badge-accent nova-hide-below-xl nova-hide-2xl-up">xl</span>
+          <span class="nova-badge nova-badge-accent nova-hide-below-2xl">2xl</span>
+          <button class="nova-btn nova-btn-ghost nova-btn-sm" id="theme-toggle" type="button">Toggle theme</button>
+        </div>
+      </div>
+    </header>
+
+    <nav class="nova-shell__sidebar nova-hide-below-md nova-p-4 nova-border-e doc-nav" aria-label="Sections">
+      <div class="nova-stack nova-stack-xs">
+        <a href="#start">Getting started</a>
+        <a href="#breakpoints">Breakpoints</a>
+        <a href="#containers">Containers</a>
+        <a href="#grids">Grids</a>
+        <a href="#primitives">Layout primitives</a>
+        <a href="#shell">App shell</a>
+        <a href="#container-queries">Container queries</a>
+        <a href="#spacing">Spacing</a>
+        <a href="#type">Typography</a>
+        <a href="#utilities">Utilities</a>
+        <a href="#components">Components</a>
+        <a href="#a11y">Accessibility</a>
+        <a href="#checklist">Checklist</a>
+      </div>
+    </nav>
+
+    <main class="nova-shell__main nova-p-4 nova-md-p-6" id="main">
+      <details class="nova-hide-md-up nova-mb-6">
+        <summary>Sections</summary>
+        <div class="nova-stack nova-stack-xs nova-pt-2 doc-nav">
+          <a href="#start">Getting started</a><a href="#breakpoints">Breakpoints</a><a href="#containers">Containers</a>
+          <a href="#grids">Grids</a><a href="#primitives">Layout primitives</a><a href="#shell">App shell</a>
+          <a href="#container-queries">Container queries</a><a href="#spacing">Spacing</a><a href="#type">Typography</a>
+          <a href="#utilities">Utilities</a><a href="#components">Components</a><a href="#a11y">Accessibility</a><a href="#checklist">Checklist</a>
+        </div>
+      </details>
+
+      <div class="nova-container-lg nova-stack nova-stack-xl nova-ps-0 nova-pe-0">
+
+        <!-- ============================================================ START -->
+        <section class="doc-section nova-stack" id="start" aria-labelledby="start-h">
+          <p class="nova-eyebrow">@nova-ui/css</p>
+          <h1 class="nova-display" id="start-h">Layouts that fit every screen</h1>
+          <p class="nova-lead">Mobile-first, cascade-layered CSS with layout primitives, a 12-column grid, container queries, a responsive utility set and CSS-only components. This page is built with it: resize the window, or drag the corner of any dashed box.</p>
+          <pre class="doc-code">pnpm add @nova-ui/css
+
+&lt;meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"&gt;
+&lt;link rel="stylesheet" href="/node_modules/@nova-ui/css/dist/nova.min.css"&gt;
+&lt;body class="nova-base"&gt;</pre>
+          <div class="nova-cluster">
+            <span class="nova-badge nova-badge-success">Mobile first</span>
+            <span class="nova-badge nova-badge-success">Logical properties (RTL ready)</span>
+            <span class="nova-badge nova-badge-success">Dark mode</span>
+            <span class="nova-badge nova-badge-success">Reduced motion</span>
+            <span class="nova-badge nova-badge-success">Print styles</span>
+          </div>
+        </section>
+
+        <!-- ============================================================ BREAKPOINTS -->
+        <section class="doc-section nova-stack" id="breakpoints" aria-labelledby="bp-h">
+          <h2 class="nova-h2" id="bp-h">Breakpoints</h2>
+          <p>Every breakpoint is <code>min-width</code>, in <code>em</code> so it follows the user's font size. <code>nova-md-col-6</code> means "from 768px up". The badge in the header shows which range you are in.</p>
+          <div class="nova-table-wrap">
+            <table class="nova-table">
+              <thead><tr><th>Name</th><th>From</th><th>Typical devices</th><th>Typical change</th></tr></thead>
+              <tbody>
+                <tr><td>base</td><td>0</td><td>Phones, portrait</td><td>One column, stacked</td></tr>
+                <tr><td><code>sm</code></td><td>40em (640px)</td><td>Large phones, landscape</td><td>2-up cards, side-by-side fields</td></tr>
+                <tr><td><code>md</code></td><td>48em (768px)</td><td>Tablets</td><td>Sidebar column, inline navigation</td></tr>
+                <tr><td><code>lg</code></td><td>64em (1024px)</td><td>Small laptops</td><td>3-4 column grids</td></tr>
+                <tr><td><code>xl</code></td><td>80em (1280px)</td><td>Desktops</td><td>Third column (shell aside)</td></tr>
+                <tr><td><code>2xl</code></td><td>96em (1536px)</td><td>Large desktops</td><td>Wider containers</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="doc-demo nova-stack nova-stack-sm">
+            <strong class="nova-small">Visibility utilities: only the matching tag shows</strong>
+            <div class="nova-cluster">
+              <span class="nova-badge nova-badge-info nova-hide-sm-up">base only (nova-hide-sm-up)</span>
+              <span class="nova-badge nova-badge-info nova-hide-below-md">md and up (nova-hide-below-md)</span>
+              <span class="nova-badge nova-badge-info nova-hide-md-up">below md (nova-hide-md-up)</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================ CONTAINERS -->
+        <section class="doc-section nova-stack" id="containers" aria-labelledby="c-h">
+          <h2 class="nova-h2" id="c-h">Containers and gutters</h2>
+          <p><code>nova-container</code> centres content, caps its width and adds a gutter that grows from 16px to 32px and never goes under a notch.</p>
+          <div class="doc-demo nova-stack nova-stack-sm">
+            <div class="nova-container-sm doc-box">nova-container-sm (36rem)</div>
+            <div class="nova-container-md doc-box">nova-container-md (46rem)</div>
+            <div class="nova-container-lg doc-box">nova-container-lg (62rem)</div>
+            <div class="nova-container-prose doc-box">nova-container-prose (65ch)</div>
+          </div>
+          <p class="doc-tip">Full-bleed bands: use <code>nova-page</code> on the wrapper and <code>nova-bleed</code> on the child that should touch the edges. Put a <code>nova-container</code> inside the band to line its content back up.</p>
+          <pre class="doc-code">&lt;div class="nova-page"&gt;
+  &lt;section class="nova-bleed nova-bg-accent-soft nova-section"&gt;
+    &lt;div class="nova-container"&gt;…&lt;/div&gt;
+  &lt;/section&gt;
+&lt;/div&gt;</pre>
+        </section>
+
+        <!-- ============================================================ GRIDS -->
+        <section class="doc-section nova-stack" id="grids" aria-labelledby="g-h">
+          <h2 class="nova-h2" id="g-h">Grids</h2>
+
+          <h3 class="nova-h4">12 columns, mobile first</h3>
+          <div class="doc-demo">
+            <div class="nova-grid nova-gap-3">
+              <div class="doc-box nova-col-12 nova-md-col-8">col-12, md: 8</div>
+              <div class="doc-box nova-col-12 nova-md-col-4">col-12, md: 4</div>
+              <div class="doc-box nova-col-6 nova-md-col-3">6, md: 3</div>
+              <div class="doc-box nova-col-6 nova-md-col-3">6, md: 3</div>
+              <div class="doc-box nova-col-6 nova-md-col-3">6, md: 3</div>
+              <div class="doc-box nova-col-6 nova-md-col-3">6, md: 3</div>
+            </div>
+          </div>
+          <pre class="doc-code">&lt;div class="nova-grid"&gt;
+  &lt;main class="nova-col-12 nova-md-col-8"&gt;…&lt;/main&gt;
+  &lt;aside class="nova-col-12 nova-md-col-4"&gt;…&lt;/aside&gt;
+&lt;/div&gt;</pre>
+
+          <h3 class="nova-h4">Equal columns, count changes by size</h3>
+          <div class="doc-demo">
+            <div class="nova-d-grid nova-cols-1 nova-sm-cols-2 nova-lg-cols-4 nova-gap-3">
+              <div class="doc-box">1</div><div class="doc-box">2</div><div class="doc-box">3</div><div class="doc-box">4</div>
+            </div>
+          </div>
+          <pre class="doc-code">&lt;div class="nova-d-grid nova-cols-1 nova-sm-cols-2 nova-lg-cols-4 nova-gap-3"&gt;…&lt;/div&gt;</pre>
+
+          <h3 class="nova-h4">Auto grid: no breakpoints at all</h3>
+          <p class="doc-tip">Drag the corner to resize. Columns appear and disappear as space allows.</p>
+          <div class="doc-resizable">
+            <div class="nova-grid-auto nova-grid-auto-sm nova-gap-3">
+              <div class="doc-box doc-box-tall">A</div><div class="doc-box doc-box-tall">B</div><div class="doc-box doc-box-tall">C</div>
+              <div class="doc-box doc-box-tall">D</div><div class="doc-box doc-box-tall">E</div><div class="doc-box doc-box-tall">F</div>
+            </div>
+          </div>
+          <pre class="doc-code">&lt;ul class="nova-grid-auto nova-grid-auto-sm" role="list"&gt;…&lt;/ul&gt;
+&lt;!-- -xs 9rem · -sm 12rem · -md 16rem · -lg 22rem · -xl 30rem · or set --nova-grid-min --&gt;</pre>
+        </section>
+
+        <!-- ============================================================ PRIMITIVES -->
+        <section class="doc-section nova-stack nova-stack-lg" id="primitives" aria-labelledby="p-h">
+          <h2 class="nova-h2" id="p-h">Layout primitives</h2>
+          <p>Small boxes that adapt to the space they're given. Most layouts need no breakpoints at all.</p>
+
+          <div class="nova-stack">
+            <h3 class="nova-h4">Stack: vertical rhythm</h3>
+            <div class="doc-demo">
+              <div class="nova-stack nova-stack-sm"><div class="doc-box">one</div><div class="doc-box">two</div><div class="doc-box">three</div></div>
+            </div>
+            <pre class="doc-code">&lt;div class="nova-stack nova-stack-sm"&gt;…&lt;/div&gt;   &lt;!-- xs, sm, (default 16px), lg, xl --&gt;</pre>
+          </div>
+
+          <div class="nova-stack">
+            <h3 class="nova-h4">Cluster: wrapping row</h3>
+            <div class="doc-resizable">
+              <div class="nova-cluster nova-cluster-between">
+                <div class="nova-cluster"><span class="nova-badge">alpha</span><span class="nova-badge nova-badge-accent">beta</span><span class="nova-badge nova-badge-success">gamma</span><span class="nova-badge nova-badge-warning">delta</span></div>
+                <button class="nova-btn nova-btn-sm" type="button">Action</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="nova-stack">
+            <h3 class="nova-h4">Sidebar: stacks when the content would get cramped</h3>
+            <div class="doc-resizable">
+              <div class="nova-sidebar nova-gap-3" style="--nova-sidebar-width: 11rem">
+                <div class="doc-box doc-box-tall">Side (11rem)</div>
+                <div class="doc-box doc-box-tall">Content takes the rest</div>
+              </div>
+            </div>
+            <pre class="doc-code">&lt;div class="nova-sidebar" style="--nova-sidebar-width: 18rem"&gt;&lt;nav&gt;…&lt;/nav&gt;&lt;article&gt;…&lt;/article&gt;&lt;/div&gt;</pre>
+          </div>
+
+          <div class="nova-stack">
+            <h3 class="nova-h4">Switcher: row, then column below a threshold</h3>
+            <div class="doc-resizable">
+              <div class="nova-switcher nova-gap-3" style="--nova-threshold: 32rem">
+                <div class="doc-box doc-box-tall">Free</div><div class="doc-box doc-box-tall">Team</div><div class="doc-box doc-box-tall">Enterprise</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="nova-stack">
+            <h3 class="nova-h4">Reel: swipeable rail</h3>
+            <ul class="nova-reel" role="list" style="--nova-reel-item: min(70%, 12rem)">
+              <li class="doc-box doc-tile">1</li><li class="doc-box doc-tile">2</li><li class="doc-box doc-tile">3</li><li class="doc-box doc-tile">4</li><li class="doc-box doc-tile">5</li><li class="doc-box doc-tile">6</li>
+            </ul>
+          </div>
+
+          <div class="nova-stack">
+            <h3 class="nova-h4">Frame, columns and cover</h3>
+            <div class="nova-grid-auto nova-grid-auto-md nova-gap-3">
+              <div class="nova-frame nova-rounded doc-box" style="--nova-ratio: 16 / 9">16 / 9 frame</div>
+              <div class="nova-frame nova-rounded doc-box" style="--nova-ratio: 1 / 1">1 / 1 frame</div>
+              <div class="nova-cover doc-cover"><p class="nova-cover__center nova-text-center">nova-cover: fills the screen height (here capped for the demo) with a centred focal point</p></div>
+            </div>
+            <div class="doc-demo">
+              <div class="nova-columns" style="--nova-column-width: 9rem">
+                <div class="doc-box nova-mb-3">short</div><div class="doc-box nova-mb-3 doc-box-tall">tall</div><div class="doc-box nova-mb-3">short</div>
+                <div class="doc-box nova-mb-3 doc-box-tall">tall</div><div class="doc-box nova-mb-3">short</div><div class="doc-box nova-mb-3">short</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================ SHELL -->
+        <section class="doc-section nova-stack" id="shell" aria-labelledby="s-h">
+          <h2 class="nova-h2" id="s-h">App shell</h2>
+          <p>This page is a <code>nova-shell</code>. On phones the regions stack in reading order. From <code>md</code> the sidebar becomes a column; from <code>xl</code> an aside can join it. Resize to watch it happen.</p>
+          <pre class="doc-code">&lt;div class="nova-shell nova-shell-sidebar nova-shell-aside nova-shell-sticky-side"&gt;
+  &lt;header class="nova-shell__header"&gt;…&lt;/header&gt;
+  &lt;nav    class="nova-shell__sidebar"&gt;…&lt;/nav&gt;
+  &lt;main   class="nova-shell__main"&gt;…&lt;/main&gt;
+  &lt;aside  class="nova-shell__aside"&gt;…&lt;/aside&gt;
+  &lt;footer class="nova-shell__footer"&gt;…&lt;/footer&gt;
+&lt;/div&gt;</pre>
+          <p class="doc-tip">Only add <code>nova-shell-sidebar</code> / <code>nova-shell-aside</code> for the regions you use. Set <code>--nova-shell-sidebar</code> and <code>--nova-shell-aside</code> to change their widths.</p>
+        </section>
+
+        <!-- ============================================================ CONTAINER QUERIES -->
+        <section class="doc-section nova-stack" id="container-queries" aria-labelledby="cq-h">
+          <h2 class="nova-h2" id="cq-h">Container queries</h2>
+          <p>The same component, in a wide and a narrow box. It responds to <em>its container</em>, not the screen. Drag the corner.</p>
+          <div class="doc-resizable">
+            <div class="nova-cq">
+              <div class="nova-d-grid nova-cols-1 nova-cq-sm-cols-2 nova-cq-lg-cols-3 nova-gap-3">
+                <div class="doc-box doc-box-tall">1</div><div class="doc-box doc-box-tall">2</div><div class="doc-box doc-box-tall">3</div>
+              </div>
+            </div>
+          </div>
+          <pre class="doc-code">&lt;div class="nova-cq"&gt;
+  &lt;div class="nova-d-grid nova-cols-1 nova-cq-sm-cols-2 nova-cq-lg-cols-3"&gt;…&lt;/div&gt;
+&lt;/div&gt;
+/* 24rem · 32rem · 48rem · 64rem  =  sm · md · lg · xl (container width) */</pre>
+        </section>
+
+        <!-- ============================================================ SPACING -->
+        <section class="doc-section nova-stack" id="spacing" aria-labelledby="sp-h">
+          <h2 class="nova-h2" id="sp-h">Spacing</h2>
+          <p>A 4px scale. Use <code>var(--nova-space-4)</code> in CSS and <code>nova-p-4</code>, <code>nova-gap-4</code> in markup. Prefer <code>gap</code> over margins.</p>
+          <div class="doc-demo nova-stack nova-stack-xs" style="font-size: var(--nova-text-xs)">
+            <div class="nova-cluster"><code style="inline-size:5ch">1</code><span class="doc-bar" style="inline-size: var(--nova-space-1)"></span><span class="nova-text-muted">4px</span></div>
+            <div class="nova-cluster"><code style="inline-size:5ch">2</code><span class="doc-bar" style="inline-size: var(--nova-space-2)"></span><span class="nova-text-muted">8px</span></div>
+            <div class="nova-cluster"><code style="inline-size:5ch">3</code><span class="doc-bar" style="inline-size: var(--nova-space-3)"></span><span class="nova-text-muted">12px</span></div>
+            <div class="nova-cluster"><code style="inline-size:5ch">4</code><span class="doc-bar" style="inline-size: var(--nova-space-4)"></span><span class="nova-text-muted">16px</span></div>
+            <div class="nova-cluster"><code style="inline-size:5ch">5</code><span class="doc-bar" style="inline-size: var(--nova-space-5)"></span><span class="nova-text-muted">24px</span></div>
+            <div class="nova-cluster"><code style="inline-size:5ch">6</code><span class="doc-bar" style="inline-size: var(--nova-space-6)"></span><span class="nova-text-muted">32px</span></div>
+            <div class="nova-cluster"><code style="inline-size:5ch">8</code><span class="doc-bar" style="inline-size: var(--nova-space-8)"></span><span class="nova-text-muted">48px</span></div>
+            <div class="nova-cluster"><code style="inline-size:5ch">10</code><span class="doc-bar" style="inline-size: var(--nova-space-10)"></span><span class="nova-text-muted">64px</span></div>
+            <div class="nova-cluster"><code style="inline-size:5ch">12</code><span class="doc-bar" style="inline-size: var(--nova-space-12)"></span><span class="nova-text-muted">96px</span></div>
+            <div class="nova-cluster"><code style="inline-size:5ch">16</code><span class="doc-bar" style="inline-size: var(--nova-space-16)"></span><span class="nova-text-muted">128px</span></div>
+          </div>
+          <p class="doc-tip">Fluid steps <code>--nova-space-fluid-s | m | l | xl</code> grow with the screen. <code>nova-section</code> uses one for page bands. Responsive variants exist for <code>p</code>, <code>px</code>, <code>py</code>, <code>m</code>, <code>mx</code>, <code>my</code> and <code>gap</code>: <code>nova-px-4 nova-md-px-8</code>.</p>
+        </section>
+
+        <!-- ============================================================ TYPE -->
+        <section class="doc-section nova-stack" id="type" aria-labelledby="t-h">
+          <h2 class="nova-h2" id="t-h">Typography</h2>
+          <p>Sizes above <code>xl</code> are fluid: they scale with the screen so headings never need a breakpoint. Resize and watch.</p>
+          <div class="doc-demo nova-stack nova-stack-sm">
+            <p class="nova-eyebrow">Eyebrow</p>
+            <p class="nova-display">Display</p>
+            <p class="nova-h1">Heading 1</p>
+            <p class="nova-h2">Heading 2</p>
+            <p class="nova-h3">Heading 3</p>
+            <p class="nova-h4">Heading 4</p>
+            <p class="nova-lead">Lead paragraph: larger, calmer, capped at a comfortable line length.</p>
+            <p>Body text at 16px with a 1.5 line height. Never go smaller than 16px on form fields, or iOS will zoom the page when they are focused.</p>
+            <p class="nova-small">Small text for secondary information.</p>
+            <p class="nova-caption">Caption text.</p>
+          </div>
+          <p class="doc-tip">Heading level is structure, size is style: <code>&lt;h2 class="nova-h4"&gt;</code> is a level-2 heading that looks like a level-4.</p>
+          <div class="doc-demo nova-prose">
+            <h3>nova-prose for long-form content</h3>
+            <p>Wrap CMS or markdown output in <code>nova-prose</code>. It caps the line length at 65 characters and adds a calm vertical rhythm, so you never style each element.</p>
+            <ul><li>Lists keep their indent</li><li>Links use the accent colour</li></ul>
+            <blockquote>Quotes get an accent rule on the start edge, which flips in right-to-left languages.</blockquote>
+          </div>
+        </section>
+
+        <!-- ============================================================ UTILITIES -->
+        <section class="doc-section nova-stack" id="utilities" aria-labelledby="u-h">
+          <h2 class="nova-h2" id="u-h">Utilities</h2>
+          <p>About 1,300 single-purpose classes. Pattern: <code>nova-{utility}</code> at all sizes, <code>nova-{bp}-{utility}</code> from that size up.</p>
+          <div class="doc-demo nova-stack">
+            <div class="nova-d-flex nova-flex-col nova-md-flex-row nova-gap-3 nova-items-stretch">
+              <div class="doc-box nova-grow">flex-col, then flex-row from md</div>
+              <div class="doc-box nova-grow">nova-grow</div>
+              <div class="doc-box nova-md-order-first nova-grow">order-first from md</div>
+            </div>
+          </div>
+          <div class="nova-table-wrap">
+            <table class="nova-table">
+              <thead><tr><th>Family</th><th>Examples</th><th>Responsive</th></tr></thead>
+              <tbody>
+                <tr><td>Display, flex, grid</td><td><code>nova-d-grid</code> <code>nova-flex-col</code> <code>nova-cols-3</code> <code>nova-col-6</code></td><td>Yes</td></tr>
+                <tr><td>Gap, padding, margin</td><td><code>nova-gap-4</code> <code>nova-px-6</code> <code>nova-mt-8</code></td><td>Mostly</td></tr>
+                <tr><td>Show / hide</td><td><code>nova-hide-md-up</code> <code>nova-hide-below-md</code></td><td>Per size</td></tr>
+                <tr><td>Size, position</td><td><code>nova-w-full</code> <code>nova-max-w-prose</code> <code>nova-sticky-top</code></td><td>No</td></tr>
+                <tr><td>Type, colour</td><td><code>nova-text-lg</code> <code>nova-font-semibold</code> <code>nova-text-muted</code> <code>nova-bg-surface</code></td><td>No (theme aware)</td></tr>
+                <tr><td>Border, radius, shadow</td><td><code>nova-border</code> <code>nova-rounded-lg</code> <code>nova-shadow-md</code></td><td>No</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ============================================================ COMPONENTS -->
+        <section class="doc-section nova-stack nova-stack-lg" id="components" aria-labelledby="co-h">
+          <h2 class="nova-h2" id="co-h">CSS-only components</h2>
+          <p>For static pages and server-rendered templates. Same look as the web components; use those when you need behaviour.</p>
+
+          <div class="doc-demo nova-stack">
+            <div class="nova-cluster">
+              <button class="nova-btn" type="button">Primary</button>
+              <button class="nova-btn nova-btn-secondary" type="button">Secondary</button>
+              <button class="nova-btn nova-btn-ghost" type="button">Ghost</button>
+              <button class="nova-btn nova-btn-danger" type="button">Danger</button>
+              <button class="nova-btn nova-btn-sm" type="button">Small</button>
+              <button class="nova-btn nova-btn-lg" type="button">Large</button>
+              <button class="nova-btn" type="button" disabled>Disabled</button>
+            </div>
+            <div class="nova-cluster">
+              <span class="nova-badge">Neutral</span><span class="nova-badge nova-badge-accent">Accent</span><span class="nova-badge nova-badge-success">Success</span>
+              <span class="nova-badge nova-badge-warning">Warning</span><span class="nova-badge nova-badge-danger">Danger</span><span class="nova-badge nova-badge-info">Info</span>
+            </div>
+          </div>
+
+          <div class="nova-grid-auto nova-grid-auto-md nova-gap-4">
+            <article class="nova-card nova-card-raised">
+              <div class="nova-card__header">Card title</div>
+              <div class="nova-card__body nova-stack nova-stack-sm"><p>Cards fill grid cells and keep their padding.</p><p class="nova-caption">Caption</p></div>
+              <div class="nova-card__footer nova-cluster nova-cluster-end"><button class="nova-btn nova-btn-sm" type="button">Open</button></div>
+            </article>
+            <div class="nova-stack nova-stack-sm">
+              <div class="nova-alert nova-alert-success" role="status"><p class="nova-alert__title">Saved</p>Your changes are live.</div>
+              <div class="nova-alert nova-alert-danger" role="alert"><p class="nova-alert__title">Could not save</p>Check your connection and try again.</div>
+            </div>
+          </div>
+
+          <form class="nova-stack doc-demo" onsubmit="return false">
+            <div class="nova-form-row">
+              <div class="nova-field"><label class="nova-label" for="f-first">First name</label><input class="nova-input" id="f-first" autocomplete="given-name" /><span class="nova-hint">As on your ID</span></div>
+              <div class="nova-field"><label class="nova-label" for="f-email">Email</label><input class="nova-input" id="f-email" type="email" autocomplete="email" aria-invalid="true" aria-describedby="f-email-err" /><span class="nova-error" id="f-email-err">Enter a valid email address.</span></div>
+            </div>
+            <label class="nova-check"><input type="checkbox" /> Subscribe to updates</label>
+            <button class="nova-btn nova-btn-block" type="submit">Save</button>
+          </form>
+
+          <h3 class="nova-h4">Tables: scroll, or stack on phones</h3>
+          <p class="doc-tip">Below 640px the second table turns each row into a labelled card. Add <code>data-label</code> to every cell and keep the <code>role</code> attributes so assistive tech still announces a table.</p>
+          <div class="nova-table-wrap">
+            <table class="nova-table nova-table-stack nova-table-hover" role="table">
+              <thead role="rowgroup"><tr role="row"><th role="columnheader">Plan</th><th role="columnheader">Seats</th><th role="columnheader">Price</th><th role="columnheader">Support</th></tr></thead>
+              <tbody role="rowgroup">
+                <tr role="row"><td role="cell" data-label="Plan">Free</td><td role="cell" data-label="Seats">1</td><td role="cell" data-label="Price">$0</td><td role="cell" data-label="Support">Community</td></tr>
+                <tr role="row"><td role="cell" data-label="Plan">Team</td><td role="cell" data-label="Seats">10</td><td role="cell" data-label="Price">$24</td><td role="cell" data-label="Support">Email</td></tr>
+                <tr role="row"><td role="cell" data-label="Plan">Enterprise</td><td role="cell" data-label="Seats">Unlimited</td><td role="cell" data-label="Price">Custom</td><td role="cell" data-label="Support">Dedicated</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ============================================================ A11Y -->
+        <section class="doc-section nova-stack" id="a11y" aria-labelledby="a-h">
+          <h2 class="nova-h2" id="a-h">Accessibility</h2>
+          <p>Contrast is computed live from the active theme's tokens, so toggle the theme above and watch it recompute. Text pairs need 4.5:1; control borders need 3:1.</p>
+          <div class="nova-table-wrap">
+            <table class="nova-table" id="contrast">
+              <thead><tr><th>Sample</th><th>Pair</th><th>Ratio</th><th>Needs</th><th>Result</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ============================================================ CHECKLIST -->
+        <section class="doc-section nova-stack" id="checklist" aria-labelledby="ck-h">
+          <h2 class="nova-h2" id="ck-h">Before you ship</h2>
+          <ul class="nova-stack nova-stack-sm" role="list">
+            <li class="nova-alert">Works at <strong>320px</strong> wide and at 400% zoom with no sideways scrolling (except tables and code).</li>
+            <li class="nova-alert">Tested at 320, 390, 768, 1024, 1280 and 1536px, and phones in landscape.</li>
+            <li class="nova-alert">Viewport tag allows zoom. No <code>user-scalable=no</code>.</li>
+            <li class="nova-alert">Touch targets are at least 44px on touch screens, with room between them.</li>
+            <li class="nova-alert">Keyboard: every control reachable, focus always visible, DOM order matches reading order.</li>
+            <li class="nova-alert">Light and dark themes checked; any brand colour re-verified for contrast.</li>
+            <li class="nova-alert">Reduced motion respected; nothing depends on animation.</li>
+            <li class="nova-alert">Prints sensibly (<code>nova-print-hidden</code> on chrome you don't want on paper).</li>
+          </ul>
+          <p class="doc-tip">The full written guide, with recipes for navigation, cards, forms, tables and dashboards, is in <code>GUIDELINES.md</code>.</p>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="nova-shell__footer nova-border-t nova-p-4 nova-small nova-text-muted">
+      @nova-ui/css · MIT · Colour and type tokens come from @nova-ui/core.
+    </footer>
+  </div>
+
+  <script>
+    // Live viewport width
+    const widthEl = document.getElementById('live-width');
+    const updateWidth = () => (widthEl.textContent = Math.round(window.innerWidth));
+    updateWidth();
+    addEventListener('resize', updateWidth);
+
+    // Theme toggle
+    const root = document.documentElement;
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+      const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      root.dataset.theme = next;
+      localStorage.setItem('nova-doc-theme', next);
+      renderContrast();
+    });
+
+    // Contrast table, computed from the live tokens
+    const lin = (c) => { const s = c / 255; return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4); };
+    const lum = (hex) => { const n = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16)); return 0.2126 * lin(n[0]) + 0.7152 * lin(n[1]) + 0.0722 * lin(n[2]); };
+    const ratio = (a, b) => { const x = lum(a), y = lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); };
+    const PAIRS = [
+      ['fg', 'bg', 4.5], ['fg-muted', 'surface', 4.5], ['fg-subtle', 'bg', 4.5], ['accent', 'surface', 4.5], ['fg-on-accent', 'accent', 4.5],
+      ['accent', 'accent-soft', 4.5], ['danger', 'surface', 4.5], ['success', 'surface', 4.5], ['warning', 'surface', 4.5], ['info', 'surface', 4.5],
+      ['danger', 'danger-soft', 4.5], ['success', 'success-soft', 4.5], ['warning', 'warning-soft', 4.5], ['info', 'info-soft', 4.5],
+      ['border-strong', 'surface', 3],
+    ];
+    function renderContrast() {
+      const cs = getComputedStyle(root);
+      const get = (n) => cs.getPropertyValue('--nova-color-' + n).trim();
+      const body = document.querySelector('#contrast tbody');
+      body.textContent = '';
+      for (const [f, b, min] of PAIRS) {
+        const fv = get(f), bv = get(b);
+        if (!/^#[0-9a-f]{6}$/i.test(fv) || !/^#[0-9a-f]{6}$/i.test(bv)) continue;
+        const r = ratio(fv, bv);
+        const tr = document.createElement('tr');
+        tr.innerHTML =
+          '<td><span class="doc-swatch" style="color:' + fv + ';background:' + bv + '">Aa</span></td>' +
+          '<td>' + f + ' on ' + b + '</td><td>' + r.toFixed(2) + ':1</td><td>' + min + ':1</td>' +
+          '<td><span class="nova-badge ' + (r >= min ? 'nova-badge-success' : 'nova-badge-danger') + '">' + (r >= min ? 'Pass' : 'Fail') + '</span></td>';
+        body.appendChild(tr);
+      }
+    }
+    renderContrast();
+  </script>
+</body>
+</html>

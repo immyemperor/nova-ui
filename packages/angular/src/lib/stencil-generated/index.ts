@@ -10,6 +10,7 @@ export const DIRECTIVES = [
   d.UiBreadcrumb,
   d.UiBreadcrumbItem,
   d.UiButton,
+  d.UiCalendar,
   d.UiCard,
   d.UiCarousel,
   d.UiCheckbox,

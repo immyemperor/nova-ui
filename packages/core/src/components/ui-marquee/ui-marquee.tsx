@@ -1,5 +1,9 @@
-import { Component, Element, Host, Prop, State, Watch, h } from '@stencil/core';
+import { Component, Element, Host, Prop, Watch, h } from '@stencil/core';
 
+/**
+ * Endless horizontal ticker for logos or short text. Content is cloned (hidden from assistive tech)
+ * until it fills the width, so the loop has no gap. Stops for reduced-motion users.
+ */
 @Component({
   tag: 'ui-marquee',
   styleUrl: 'ui-marquee.css',
@@ -8,57 +12,68 @@ import { Component, Element, Host, Prop, State, Watch, h } from '@stencil/core';
 export class UiMarquee {
   @Element() host!: HTMLElement;
 
-  @Prop() speed = 40;
-  @Prop() direction: 'left' | 'right' = 'left';
-  @Prop({ reflect: true, mutable: true }) paused = false;
+  /** Pixels per second. */
+  @Prop() speed = 50;
+  @Prop({ reflect: true }) direction: 'left' | 'right' = 'left';
   @Prop() pauseOnHover = true;
+  /** Space between repeated items, px. */
+  @Prop() gap = 32;
 
-  @State() duration = 20;
+  private viewport?: HTMLElement;
+  private track?: HTMLElement;
+  private group?: HTMLElement;
+  private clones?: HTMLElement;
+  private ro?: ResizeObserver;
 
-  private sourceSlot?: HTMLSlotElement;
-  private duplicate?: HTMLDivElement;
-  private resizeObserver?: ResizeObserver;
+  @Watch('speed')
+  @Watch('gap')
+  @Watch('direction')
+  rebuild() {
+    const { viewport, track, group, clones } = this;
+    if (!viewport || !track || !group || !clones) return;
+    while (clones.firstChild) clones.removeChild(clones.firstChild);
+
+    const groupWidth = group.getBoundingClientRect().width;
+    const viewWidth = viewport.getBoundingClientRect().width;
+    if (groupWidth <= 0 || viewWidth <= 0 || this.speed <= 0) return;
+
+    // Enough copies to cover the viewport, plus one so the loop point is off-screen.
+    const copies = Math.ceil(viewWidth / groupWidth);
+    const source = Array.from(this.host.children);
+    for (let i = 0; i < copies; i++) {
+      const copy = document.createElement('div');
+      copy.className = 'group';
+      copy.setAttribute('aria-hidden', 'true');
+      (copy as any).inert = true;
+      source.forEach((el) => copy.appendChild(el.cloneNode(true)));
+      clones.appendChild(copy);
+    }
+    track.style.setProperty('--_shift', `${groupWidth}px`);
+    track.style.setProperty('--_dur', `${groupWidth / this.speed}s`);
+  }
 
   componentDidLoad() {
-    this.cloneContent();
+    this.rebuild();
     if (typeof ResizeObserver !== 'undefined') {
-      this.resizeObserver = new ResizeObserver(() => this.measure());
-      this.resizeObserver.observe(this.host);
-      if (this.duplicate) this.resizeObserver.observe(this.duplicate);
+      this.ro = new ResizeObserver(() => this.rebuild());
+      if (this.viewport) this.ro.observe(this.viewport);
+      if (this.group) this.ro.observe(this.group);
     }
   }
 
   disconnectedCallback() {
-    this.resizeObserver?.disconnect();
+    this.ro?.disconnect();
   }
-
-  @Watch('speed')
-  measure() {
-    const width = this.duplicate?.getBoundingClientRect().width ?? 0;
-    this.duration = width > 0 ? width / Math.max(1, this.speed) : 20;
-  }
-
-  private cloneContent = () => {
-    if (!this.duplicate) return;
-    const elements = this.sourceSlot?.assignedElements({ flatten: true }) ?? [];
-    this.duplicate.replaceChildren(...elements.map((element) => {
-      const clone = element.cloneNode(true) as HTMLElement;
-      clone.removeAttribute('id');
-      clone.querySelectorAll('[id]').forEach((child) => child.removeAttribute('id'));
-      return clone;
-    }));
-    this.duplicate.setAttribute('aria-hidden', 'true');
-    this.duplicate.setAttribute('inert', '');
-    this.measure();
-  };
 
   render() {
     return (
-      <Host>
-        <div class={{ viewport: true, hoverable: this.pauseOnHover }}>
-          <div class={{ track: true, reverse: this.direction === 'right' }} style={{ '--marquee-duration': `${this.duration}s` }}>
-            <div class="segment"><slot ref={(el) => (this.sourceSlot = el)} onSlotchange={this.cloneContent} /></div>
-            <div class="segment duplicate" ref={(el) => (this.duplicate = el)} />
+      <Host style={{ '--_gap': `${this.gap}px` }} data-pause={this.pauseOnHover ? '' : undefined}>
+        <div class="viewport" ref={(el) => (this.viewport = el)}>
+          <div class="track" ref={(el) => (this.track = el)}>
+            <div class="group" ref={(el) => (this.group = el)}>
+              <slot onSlotchange={() => this.rebuild()} />
+            </div>
+            <div class="clones" ref={(el) => (this.clones = el)} />
           </div>
         </div>
       </Host>

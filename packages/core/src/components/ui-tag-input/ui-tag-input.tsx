@@ -1,7 +1,11 @@
-import { AttachInternals, Component, Element, Event, EventEmitter, Host, Prop, State, Watch, h } from '@stencil/core';
+import { AttachInternals, Component, Element, Event, EventEmitter, Host, Method, Prop, State, Watch, h } from '@stencil/core';
 
-let tagInputId = 0;
+let uid = 0;
 
+/**
+ * Free-form tags: type and press Enter or comma, or paste a list. Backspace removes the last tag.
+ * Pass `validate` to reject entries (emails, ids...); rejected text stays in the box and uiReject fires.
+ */
 @Component({
   tag: 'ui-tag-input',
   styleUrls: ['../../global/field.css', 'ui-tag-input.css'],
@@ -12,34 +16,46 @@ export class UiTagInput {
   @Element() host!: HTMLElement;
   @AttachInternals() internals!: ElementInternals;
 
-  @Prop({ mutable: true }) value: string[] = [];
-  @Prop() options: string[] = [];
-  @Prop() label = 'Tags';
-  @Prop() placeholder = 'Add a tag';
-  @Prop() name?: string;
-  @Prop() maxTags = 0;
-  @Prop() allowDuplicates = false;
-  @Prop() required = false;
-  @Prop({ mutable: true, reflect: true }) disabled = false;
-
-  @State() query = '';
-  @State() active = -1;
-
-  @Event() uiInput!: EventEmitter<string>;
-  @Event() uiChange!: EventEmitter<string[]>;
-
-  private readonly uid = `ui-tag-input-${++tagInputId}`;
-  private input?: HTMLInputElement;
+  private uid = `ui-tag-input-${++uid}`;
+  private inputEl?: HTMLInputElement;
   private initialValue: string[] = [];
+
+  @Prop({ mutable: true }) value: string[] = [];
+  @Prop() label?: string;
+  @Prop() hint?: string;
+  @Prop() error?: string;
+  @Prop() placeholder?: string;
+  @Prop() name?: string;
+  @Prop({ mutable: true, reflect: true }) disabled = false;
+  @Prop() required = false;
+  /** Maximum number of tags. */
+  @Prop() max?: number;
+  @Prop() allowDuplicates = false;
+  /** Return false (or an error string) to reject a tag. */
+  @Prop() validate?: (tag: string) => boolean | string;
+  /** Characters that end a tag, besides Enter. */
+  @Prop() separators = [','];
+  @Prop({ reflect: true }) size: 'sm' | 'md' | 'lg' = 'md';
+
+  @State() draft = '';
+  @State() rejected?: string;
+
+  @Event() uiChange!: EventEmitter<string[]>;
+  /** Fires when a tag is refused, with the reason. */
+  @Event() uiReject!: EventEmitter<{ tag: string; reason: string }>;
+
+  @Method() async focusInput() {
+    this.inputEl?.focus();
+  }
 
   @Watch('value')
   @Watch('required')
   syncForm() {
     if (!this.internals) return;
-    const data = new FormData();
-    if (this.name) this.value.forEach((tag) => data.append(this.name as string, tag));
-    this.internals.setFormValue(data);
-    if (this.required && this.value.length === 0) this.internals.setValidity({ valueMissing: true }, 'Add at least one tag.', this.input);
+    const fd = new FormData();
+    if (this.name) this.value.forEach((v) => fd.append(this.name as string, v));
+    this.internals.setFormValue(fd);
+    if (this.required && this.value.length === 0) this.internals.setValidity({ valueMissing: true }, 'Add at least one entry.', this.inputEl);
     else this.internals.setValidity({});
   }
 
@@ -50,82 +66,128 @@ export class UiTagInput {
 
   formResetCallback() {
     this.value = [...this.initialValue];
-    this.syncForm();
   }
-
   formDisabledCallback(disabled: boolean) {
     this.disabled = disabled;
   }
 
-  private suggestions(): string[] {
-    const query = this.query.trim().toLocaleLowerCase();
-    return this.options.filter((option) => (!query || option.toLocaleLowerCase().includes(query)) && (this.allowDuplicates || !this.value.includes(option))).slice(0, 8);
+  private reject(tag: string, reason: string) {
+    this.rejected = reason;
+    this.uiReject.emit({ tag, reason });
   }
 
-  private add(raw: string) {
+  /** Try to add one tag. Returns true when it was accepted. */
+  private add(raw: string): boolean {
     const tag = raw.trim();
-    if (!tag || (this.maxTags > 0 && this.value.length >= this.maxTags) || (!this.allowDuplicates && this.value.includes(tag))) return;
-    const next = [...this.value, tag];
-    this.value = next;
-    this.query = '';
-    this.active = -1;
-    this.syncForm();
-    this.uiChange.emit(next);
-  }
-
-  private remove(tag: string) {
-    const next = this.value.filter((item) => item !== tag);
-    this.value = next;
-    this.syncForm();
-    this.uiChange.emit(next);
-    this.input?.focus();
-  }
-
-  private onInput = (event: Event) => {
-    const value = (event.target as HTMLInputElement).value;
-    const delimiter = value.indexOf(',');
-    if (delimiter >= 0) {
-      value.slice(0, delimiter).split(',').forEach((tag) => this.add(tag));
-      this.query = value.slice(delimiter + 1).trimStart();
-      this.uiInput.emit(this.query);
-      return;
+    if (!tag) return true;
+    if (this.max != null && this.value.length >= this.max) {
+      this.reject(tag, `You can add up to ${this.max}.`);
+      return false;
     }
-    this.query = value;
-    this.active = -1;
-    this.uiInput.emit(value);
+    if (!this.allowDuplicates && this.value.some((v) => v.toLowerCase() === tag.toLowerCase())) {
+      this.reject(tag, `"${tag}" is already added.`);
+      return false;
+    }
+    if (this.validate) {
+      const verdict = this.validate(tag);
+      if (verdict !== true && verdict !== undefined) {
+        this.reject(tag, typeof verdict === 'string' ? verdict : `"${tag}" isn't valid.`);
+        return false;
+      }
+    }
+    this.rejected = undefined;
+    this.value = [...this.value, tag];
+    this.uiChange.emit(this.value);
+    return true;
+  }
+
+  private remove(index: number) {
+    this.value = this.value.filter((_, i) => i !== index);
+    this.uiChange.emit(this.value);
+    this.inputEl?.focus();
+  }
+
+  private commitDraft() {
+    if (this.add(this.draft)) this.draft = '';
+  }
+
+  private onInput = (e: Event) => {
+    const text = (e.target as HTMLInputElement).value;
+    this.rejected = undefined;
+    const sep = this.separators.find((s) => s && text.includes(s));
+    if (sep) {
+      // Typing or pasting a separator ends one or more tags.
+      const parts = text.split(sep);
+      const tail = parts.pop() ?? '';
+      let leftover = '';
+      for (const part of parts) if (!this.add(part)) leftover += (leftover ? sep : '') + part;
+      this.draft = leftover ? leftover + (tail ? sep + tail : '') : tail;
+      if (leftover) (e.target as HTMLInputElement).value = this.draft;
+    } else {
+      this.draft = text;
+    }
   };
 
-  private onKeyDown = (event: KeyboardEvent) => {
-    const options = this.suggestions();
-    if (event.key === 'ArrowDown' && options.length) {
-      event.preventDefault();
-      this.active = (this.active + 1) % options.length;
-    } else if (event.key === 'ArrowUp' && options.length) {
-      event.preventDefault();
-      this.active = (this.active - 1 + options.length) % options.length;
-    } else if (event.key === 'Enter' || event.key === ',') {
-      event.preventDefault();
-      this.add(options[this.active] ?? this.query);
-    } else if (event.key === 'Backspace' && !this.query && this.value.length) this.remove(this.value[this.value.length - 1]);
-    else if (event.key === 'Escape') this.active = -1;
+  private onKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      if (this.draft.trim()) {
+        e.preventDefault(); // don't submit the form while building the list
+        this.commitDraft();
+      }
+    } else if (e.key === 'Backspace' && !this.draft && this.value.length) {
+      this.remove(this.value.length - 1);
+    }
+  };
+
+  private onBlur = () => {
+    if (this.draft.trim()) this.commitDraft();
   };
 
   render() {
-    const options = this.suggestions();
-    const listId = `${this.uid}-list`;
+    const message = this.rejected ?? this.error ?? this.hint;
+    const isError = !!(this.rejected || this.error);
+    const msgId = `${this.uid}-msg`;
     return (
       <Host>
-        <label class="label" htmlFor={`${this.uid}-input`}>{this.label}{this.required && <span class="req" aria-hidden="true"> *</span>}</label>
-        <div class="control" data-disabled={String(this.disabled)}>
-          {this.value.map((tag, index) => <span class="chip" key={`${tag}-${index}`}>
-            {tag}
-            <button type="button" class="remove" aria-label={`Remove ${tag}`} disabled={this.disabled} onClick={() => this.remove(tag)}>×</button>
-          </span>)}
-          <input id={`${this.uid}-input`} class="native" ref={(el) => (this.input = el)} role="combobox" aria-label={this.label} aria-expanded={String(options.length > 0 && !!this.query)} aria-controls={listId} aria-activedescendant={this.active >= 0 ? `${this.uid}-option-${this.active}` : undefined} aria-autocomplete="list" value={this.query} placeholder={this.value.length ? '' : this.placeholder} disabled={this.disabled || (this.maxTags > 0 && this.value.length >= this.maxTags)} onInput={this.onInput} onKeyDown={this.onKeyDown} />
+        {this.label && (
+          <label class="label" htmlFor={this.uid}>
+            {this.label}
+            {this.required && <span class="req" aria-hidden="true"> *</span>}
+          </label>
+        )}
+        <div class="control" data-invalid={isError ? 'true' : 'false'} onClick={() => this.inputEl?.focus()}>
+          <ul class="tags" aria-label={this.label ? `${this.label} entries` : 'Entries'}>
+            {this.value.map((tag, i) => (
+              <li class="chip" key={`${tag}-${i}`}>
+                <span class="chip-text">{tag}</span>
+                {!this.disabled && (
+                  <button type="button" class="chip-x" tabindex={-1} aria-label={`Remove ${tag}`} onClick={(e) => (e.stopPropagation(), this.remove(i))}>
+                    <ui-icon name="x" />
+                  </button>
+                )}
+              </li>
+            ))}
+          </ul>
+          <input
+            id={this.uid}
+            class="native"
+            ref={(el) => (this.inputEl = el)}
+            value={this.draft}
+            placeholder={this.value.length ? '' : this.placeholder}
+            disabled={this.disabled}
+            autocomplete="off"
+            aria-invalid={isError ? 'true' : undefined}
+            aria-describedby={message ? msgId : undefined}
+            onInput={this.onInput}
+            onKeyDown={this.onKeyDown}
+            onBlur={this.onBlur}
+          />
         </div>
-        {this.query && options.length > 0 && <ul id={listId} class="suggestions" role="listbox" aria-label="Suggestions">
-          {options.map((option, index) => <li id={`${this.uid}-option-${index}`} role="option" aria-selected={String(index === this.active)} class={{ option: true, active: index === this.active }} key={option} onMouseDown={(event) => event.preventDefault()} onClick={() => this.add(option)}>{option}</li>)}
-        </ul>}
+        {message && (
+          <p class={{ msg: true, error: isError }} id={msgId} role={isError ? 'alert' : undefined}>
+            {message}
+          </p>
+        )}
       </Host>
     );
   }

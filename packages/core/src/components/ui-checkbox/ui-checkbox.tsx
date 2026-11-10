@@ -18,6 +18,8 @@ export class UiCheckbox {
   @Prop() name?: string;
   @Prop({ mutable: true, reflect: true }) disabled = false;
   @Prop() required = false;
+  /** Accessible name when there is no visible label text. */
+  @Prop() label?: string;
 
   @Event() uiChange!: EventEmitter<boolean>;
 
@@ -58,6 +60,7 @@ export class UiCheckbox {
             indeterminate={this.indeterminate}
             disabled={this.disabled}
             required={this.required}
+            aria-label={this.label}
             aria-checked={this.indeterminate ? 'mixed' : undefined}
             onChange={this.onChange}
           />

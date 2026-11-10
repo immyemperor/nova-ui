@@ -17,6 +17,8 @@ export class UiInput {
 
   @Prop({ mutable: true }) value = '';
   @Prop() label?: string;
+  /** Keep the label for screen readers but don't show it. */
+  @Prop() hideLabel = false;
   /** Helper text shown under the field. */
   @Prop() hint?: string;
   /** Error text. Also marks the field invalid. */
@@ -76,7 +78,7 @@ export class UiInput {
     return (
       <Host>
         {this.label && (
-          <label class="label" htmlFor={this.uid}>
+          <label class={{ label: true, sr: this.hideLabel }} htmlFor={this.uid}>
             {this.label}
             {this.required && <span class="req" aria-hidden="true"> *</span>}
           </label>

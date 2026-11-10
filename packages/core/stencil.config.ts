@@ -22,10 +22,11 @@ export const config: Config = {
       includeImportCustomElements: true,
       // Lets Angular forms (ngModel, formControl) work with the form components.
       valueAccessorConfigs: [
-        { elementSelectors: ['ui-input', 'ui-textarea'], event: 'uiInput', targetAttr: 'value', type: 'text' },
+        { elementSelectors: ['ui-input', 'ui-textarea', 'ui-otp-input'], event: 'uiInput', targetAttr: 'value', type: 'text' },
+        { elementSelectors: ['ui-date-picker', 'ui-color-picker'], event: 'uiChange', targetAttr: 'value', type: 'text' },
         { elementSelectors: ['ui-slider', 'ui-rating'], event: 'uiChange', targetAttr: 'value', type: 'number' },
         { elementSelectors: ['ui-checkbox', 'ui-switch'], event: 'uiChange', targetAttr: 'checked', type: 'boolean' },
-        { elementSelectors: ['ui-radio-group', 'ui-select'], event: 'uiChange', targetAttr: 'value', type: 'select' },
+        { elementSelectors: ['ui-radio-group', 'ui-select', 'ui-tag-input'], event: 'uiChange', targetAttr: 'value', type: 'select' },
       ],
     }),
   ],

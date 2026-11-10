@@ -1,20 +1,5 @@
-ui-popover { display: block; --ui-popover-anchor-display: block; --ui-popover-padding: var(--nova-space-2); }
-.control { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: var(--nova-space-3); min-height: var(--nova-control-md); padding: 0 var(--nova-space-3); color: var(--nova-color-fg); background: var(--nova-color-surface); border: 1px solid var(--nova-color-border-strong); border-radius: var(--nova-radius-control); font: inherit; text-align: start; cursor: pointer; }
-.control:hover { border-color: var(--nova-color-fg-subtle); }
-.control:focus-visible { outline: none; border-color: var(--nova-color-accent); box-shadow: var(--nova-focus-ring); }
-.control:disabled { opacity: .55; cursor: not-allowed; }
-.placeholder { color: var(--nova-color-fg-subtle); }
-.calendar { width: 18rem; color: var(--nova-color-fg); font: var(--nova-text-sm) var(--nova-font-sans); }
-.month-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--nova-space-3); }
-.month-nav button { display: grid; place-items: center; width: 2rem; height: 2rem; border: 0; border-radius: var(--nova-radius-control); background: transparent; color: inherit; cursor: pointer; }
-.month-nav button:hover { background: var(--nova-color-surface-sunken); }
-.month-nav button:focus-visible, .day:focus-visible { outline: 2px solid var(--nova-color-accent); outline-offset: 1px; }
-.grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 2px; text-align: center; }
-.weekday { padding: var(--nova-space-1) 0; color: var(--nova-color-fg-muted); font-size: var(--nova-text-xs); }
-.day, .blank { aspect-ratio: 1; display: grid; place-items: center; }
-.day { border: 0; border-radius: 50%; color: var(--nova-color-fg); background: transparent; font: inherit; cursor: pointer; }
-.day:hover { background: var(--nova-color-surface-sunken); }
-.day.today { box-shadow: inset 0 0 0 1px var(--nova-color-accent); }
-.day.selected { color: var(--nova-color-fg-on-accent); background: var(--nova-color-accent); }
-.day:disabled { opacity: .35; cursor: not-allowed; }
-.form-value { display: none; }
+ui-popover { display: block; --ui-popover-anchor-display: block; --ui-popover-padding: var(--nova-space-3); }
+.icon-btn { all: unset; display: inline-flex; padding: 0.25em; border-radius: var(--nova-radius-control); color: var(--nova-color-fg-subtle); cursor: pointer; }
+.icon-btn:hover:not(:disabled) { color: var(--nova-color-fg); background: var(--nova-color-surface-sunken); }
+.icon-btn:focus-visible { box-shadow: var(--nova-focus-ring); }
+.icon-btn:disabled { cursor: not-allowed; }

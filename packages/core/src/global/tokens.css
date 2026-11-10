@@ -1,5 +1,6 @@
 /*
-  Nova UI design tokens.
+  Nova UI design tokens. Text pairs meet WCAG AA (4.5:1) and control borders meet 3:1 in both themes;
+  packages/css runs a contrast check on every build, so keep it green when you retune colours.
   Identity: "verdigris and ink" - cool paper neutrals, a single oxidised-copper accent,
   tight radii on controls and softer radii on surfaces. Everything is overridable.
 */
@@ -11,28 +12,28 @@
   --nova-color-surface-raised: #ffffff;
   --nova-color-surface-sunken: #edf1ef;
   --nova-color-border: #d5ddd9;
-  --nova-color-border-strong: #aeb9b4;
+  --nova-color-border-strong: #88908c; /* 3:1 against surfaces: form-control boundaries (WCAG 1.4.11) */
 
   /* Text */
   --nova-color-fg: #14201c;
   --nova-color-fg-muted: #4d5c56;
-  --nova-color-fg-subtle: #6d7b75;
+  --nova-color-fg-subtle: #626f69;
   --nova-color-fg-on-accent: #ffffff;
 
   /* Accent (verdigris) */
   --nova-color-accent: #0b7a6c;
   --nova-color-accent-hover: #09655a;
   --nova-color-accent-active: #07524a;
-  --nova-color-accent-soft: #d9efeb;
+  --nova-color-accent-soft: #e1f3ef;
 
   /* Status */
   --nova-color-success: #1a7f4b;
   --nova-color-warning: #a35f00;
   --nova-color-danger: #c0362c;
   --nova-color-info: #2563b8;
-  --nova-color-success-soft: #dcf2e5;
-  --nova-color-warning-soft: #fbecd0;
-  --nova-color-danger-soft: #fbe1de;
+  --nova-color-success-soft: #eaf7ef;
+  --nova-color-warning-soft: #fdf3e2;
+  --nova-color-danger-soft: #fbe5e2;
   --nova-color-info-soft: #dce9fa;
 
   --nova-shadow-sm: 0 1px 2px rgb(20 32 28 / 0.08);
@@ -47,7 +48,7 @@
   --nova-color-surface-raised: #1a2521;
   --nova-color-surface-sunken: #0a100e;
   --nova-color-border: #263430;
-  --nova-color-border-strong: #3a4c46;
+  --nova-color-border-strong: #63726d;
 
   --nova-color-fg: #e8efec;
   --nova-color-fg-muted: #a6b5af;
@@ -82,7 +83,7 @@
     --nova-color-surface-raised: #1a2521;
     --nova-color-surface-sunken: #0a100e;
     --nova-color-border: #263430;
-    --nova-color-border-strong: #3a4c46;
+    --nova-color-border-strong: #63726d;
     --nova-color-fg: #e8efec;
     --nova-color-fg-muted: #a6b5af;
     --nova-color-fg-subtle: #7f908a;

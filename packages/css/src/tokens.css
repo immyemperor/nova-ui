@@ -1,0 +1,82 @@
+@layer nova.reset, nova.tokens, nova.base, nova.layout, nova.components, nova.utilities;
+
+
+/*
+  Tuning variables for layout primitives. Registered as NON-inheriting, so setting one on an element
+  (style="--nova-gap: 2rem") affects that element only and never leaks into primitives nested inside it.
+*/
+@property --nova-gap { syntax: '*'; inherits: false; }
+@property --nova-grid-min { syntax: '*'; inherits: false; }
+@property --nova-sidebar-width { syntax: '*'; inherits: false; }
+@property --nova-content-min { syntax: '*'; inherits: false; }
+@property --nova-threshold { syntax: '*'; inherits: false; }
+@property --nova-cover-min { syntax: '*'; inherits: false; }
+@property --nova-reel-item { syntax: '*'; inherits: false; }
+@property --nova-column-width { syntax: '*'; inherits: false; }
+@property --nova-ratio { syntax: '*'; inherits: false; }
+@property --nova-flow-space { syntax: '*'; inherits: false; }
+
+@layer nova.tokens {
+  :root {
+    /*
+      BREAKPOINTS (mobile-first, min-width, in em so they respect the user's font-size).
+      Media queries cannot read custom properties, so these are documented here and written out in CSS.
+        sm  40em  (640px)   large phones, landscape
+        md  48em  (768px)   tablets
+        lg  64em  (1024px)  small laptops
+        xl  80em  (1280px)  desktops
+        2xl 96em  (1536px)  large desktops
+      Container-query sizes (for @container): sm 24rem | md 32rem | lg 48rem | xl 64rem
+    */
+
+    /* Page gutter: 16px on a phone, growing to 32px. Never touches the screen edge. */
+    --nova-gutter: clamp(1rem, 0.6rem + 2vw, 2rem);
+
+    /* Container max widths */
+    --nova-container-sm: 36rem;
+    --nova-container-md: 46rem;
+    --nova-container-lg: 62rem;
+    --nova-container-xl: 76rem;
+    --nova-container-2xl: 90rem;
+    --nova-container: var(--nova-container-xl);
+    /* Comfortable reading width */
+    --nova-measure: 65ch;
+
+    /* Extra steps on the 4px space scale (core defines 1-6 and 8) */
+    --nova-space-0: 0;
+    --nova-space-10: 4rem;
+    --nova-space-12: 6rem;
+    --nova-space-16: 8rem;
+
+    /* Fluid space: scales smoothly between a 320px phone and a 1440px desktop */
+    --nova-space-fluid-s: clamp(1rem, 0.8rem + 1vw, 1.5rem);
+    --nova-space-fluid-m: clamp(1.5rem, 1rem + 2.5vw, 3rem);
+    --nova-space-fluid-l: clamp(2rem, 1.2rem + 4vw, 5rem);
+    --nova-space-fluid-xl: clamp(3rem, 1.5rem + 7.5vw, 8rem);
+    --nova-section-space: var(--nova-space-fluid-l);
+
+    /* Fluid type steps above the core scale (xs-xl) */
+    --nova-text-2xl: clamp(1.5rem, 1.25rem + 1.1vw, 1.875rem);
+    --nova-text-3xl: clamp(1.75rem, 1.35rem + 1.9vw, 2.5rem);
+    --nova-text-4xl: clamp(2.125rem, 1.5rem + 3vw, 3.5rem);
+    --nova-text-5xl: clamp(2.5rem, 1.6rem + 4.4vw, 4.5rem);
+
+    --nova-weight-bold: 700;
+    --nova-leading-snug: 1.375;
+    --nova-leading-relaxed: 1.65;
+    --nova-tracking-tight: -0.015em;
+    --nova-tracking-wide: 0.04em;
+
+    /* App shell */
+    --nova-shell-sidebar: 16rem;
+    --nova-shell-aside: 18rem;
+
+    /* Minimum comfortable touch target (WCAG 2.5.8 asks for 24px; 44px is the better target) */
+    --nova-touch-target: 2.75rem;
+  }
+
+  /* Native controls, scrollbars and form fields follow the theme */
+  :root { color-scheme: light dark; }
+  [data-theme='light'] { color-scheme: light; }
+  [data-theme='dark'] { color-scheme: dark; }
+}

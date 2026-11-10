@@ -1,5 +1,10 @@
-import { Component, Element, Event, EventEmitter, Host, Listen, Prop, State, Watch, h } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Host, Prop, State, Watch, h } from '@stencil/core';
+import { prefersReducedMotion } from '../../utils/animation';
 
+/**
+ * Scroll-snap carousel. Slides are any child elements. Swipe, scroll, use the buttons or the dots.
+ * Autoplay pauses on hover and focus, can be paused with a button, and is off for reduced-motion users.
+ */
 @Component({
   tag: 'ui-carousel',
   styleUrl: 'ui-carousel.css',
@@ -8,83 +13,181 @@ import { Component, Element, Event, EventEmitter, Host, Listen, Prop, State, Wat
 export class UiCarousel {
   @Element() host!: HTMLElement;
 
-  @Prop({ mutable: true }) index = 0;
-  @Prop() loop = true;
-  @Prop() autoplay = false;
-  @Prop() interval = 5000;
+  /** Slides visible at once. */
+  @Prop() slidesPerView = 1;
+  /** Space between slides, in px. */
+  @Prop() gap = 16;
+  /** Wrap from the last slide back to the first. */
+  @Prop() loop = false;
+  /** Auto-advance every N ms. 0 turns it off. */
+  @Prop() autoplay = 0;
+  @Prop() showDots = true;
+  @Prop() showArrows = true;
+  /** Accessible name. */
   @Prop() label = 'Carousel';
-  @Prop() indicators = true;
 
+  @State() index = 0;
   @State() count = 0;
+  @State() playing = true;
+  @State() hovering = false;
+
+  /** Fires with the index of the first visible slide. */
   @Event() uiChange!: EventEmitter<number>;
 
-  private slotEl?: HTMLSlotElement;
+  private track?: HTMLElement;
   private timer?: ReturnType<typeof setInterval>;
+  private raf?: number;
 
-  componentDidLoad() {
-    this.syncSlides();
-    this.syncTimer();
+  private slides(): HTMLElement[] {
+    return Array.from(this.host.children) as HTMLElement[];
   }
 
-  disconnectedCallback() {
-    this.clearTimer();
+  /** Number of distinct positions to snap to. */
+  private positions(): number {
+    return Math.max(1, this.count - Math.max(1, Math.floor(this.slidesPerView)) + 1);
   }
 
   @Watch('autoplay')
-  @Watch('interval')
-  syncTimer() {
-    this.clearTimer();
-    if (this.autoplay && this.interval > 0) this.timer = setInterval(() => this.go(this.index + 1), this.interval);
-  }
-
-  private clearTimer() {
+  @Watch('playing')
+  @Watch('hovering')
+  syncAutoplay() {
     if (this.timer) clearInterval(this.timer);
     this.timer = undefined;
+    if (this.autoplay > 0 && this.playing && !this.hovering && !prefersReducedMotion() && this.positions() > 1) {
+      this.timer = setInterval(() => this.next(true), this.autoplay);
+    }
   }
 
   private syncSlides = () => {
-    const slides = this.slotEl?.assignedElements({ flatten: true }) ?? [];
+    const slides = this.slides();
     this.count = slides.length;
-    slides.forEach((slide, slideIndex) => {
-      slide.toggleAttribute('hidden', slideIndex !== this.index);
-      slide.setAttribute('aria-roledescription', 'slide');
-      slide.setAttribute('aria-label', `${slideIndex + 1} of ${slides.length}`);
+    slides.forEach((s, i) => {
+      s.setAttribute('role', 'group');
+      s.setAttribute('aria-roledescription', 'slide');
+      s.setAttribute('aria-label', `${i + 1} of ${slides.length}`);
     });
-    if (this.index >= slides.length && slides.length) this.go(slides.length - 1);
+    this.syncAutoplay();
   };
 
-  private go(nextIndex: number) {
-    if (!this.count) return;
-    let next = nextIndex;
-    if (this.loop) next = (next + this.count) % this.count;
-    else next = Math.max(0, Math.min(this.count - 1, next));
-    if (next === this.index) return;
-    this.index = next;
+  componentDidLoad() {
     this.syncSlides();
-    this.uiChange.emit(next);
   }
 
-  @Listen('keydown')
-  onKeyDown(event: KeyboardEvent) {
-    if (event.key === 'ArrowRight') this.go(this.index + 1);
-    else if (event.key === 'ArrowLeft') this.go(this.index - 1);
-    else return;
-    event.preventDefault();
+  disconnectedCallback() {
+    if (this.timer) clearInterval(this.timer);
+    if (this.raf) cancelAnimationFrame(this.raf);
   }
+
+  private goTo(i: number) {
+    const slides = this.slides();
+    const track = this.track;
+    const target = slides[Math.max(0, Math.min(i, this.positions() - 1))];
+    if (!target || !track) return;
+    const left = target.getBoundingClientRect().left - track.getBoundingClientRect().left + track.scrollLeft;
+    track.scrollTo({ left, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+  }
+
+  private next(auto = false) {
+    const last = this.positions() - 1;
+    if (this.index >= last) {
+      if (this.loop || auto) this.goTo(0);
+    } else {
+      this.goTo(this.index + 1);
+    }
+  }
+
+  private prev() {
+    if (this.index <= 0) {
+      if (this.loop) this.goTo(this.positions() - 1);
+    } else {
+      this.goTo(this.index - 1);
+    }
+  }
+
+  private onScroll = () => {
+    if (this.raf) cancelAnimationFrame(this.raf);
+    this.raf = requestAnimationFrame(() => {
+      const track = this.track;
+      const slides = this.slides();
+      if (!track || !slides.length) return;
+      const t = track.getBoundingClientRect().left;
+      let best = 0;
+      let bestDist = Infinity;
+      slides.forEach((s, i) => {
+        const d = Math.abs(s.getBoundingClientRect().left - t);
+        if (d < bestDist) {
+          bestDist = d;
+          best = i;
+        }
+      });
+      best = Math.min(best, this.positions() - 1);
+      if (best !== this.index) {
+        this.index = best;
+        this.uiChange.emit(best);
+      }
+    });
+  };
 
   render() {
+    const positions = this.positions();
+    const perView = Math.max(1, Math.floor(this.slidesPerView));
+    const atStart = !this.loop && this.index <= 0;
+    const atEnd = !this.loop && this.index >= positions - 1;
     return (
-      <Host>
-        <section class="frame" aria-roledescription="carousel" aria-label={this.label}>
-          <div class="slides"><slot ref={(el) => (this.slotEl = el)} onSlotchange={this.syncSlides} /></div>
-          {this.count > 1 && <div class="controls">
-            <button type="button" class="arrow" aria-label="Previous slide" onClick={() => this.go(this.index - 1)}><ui-icon name="chevron-left" /></button>
-            {this.indicators && <div class="indicators" role="group" aria-label="Choose slide">
-              {Array.from({ length: this.count }, (_, i) => <button type="button" class={{ dot: true, active: i === this.index }} aria-label={`Go to slide ${i + 1}`} aria-current={i === this.index ? 'true' : undefined} onClick={() => this.go(i)} key={i} />)}
-            </div>}
-            <button type="button" class="arrow" aria-label="Next slide" onClick={() => this.go(this.index + 1)}><ui-icon name="chevron-right" /></button>
-          </div>}
-        </section>
+      <Host
+        role="region"
+        aria-roledescription="carousel"
+        aria-label={this.label}
+        style={{ '--_per-view': String(perView), '--_gap': `${this.gap}px` }}
+        onMouseEnter={() => (this.hovering = true)}
+        onMouseLeave={() => (this.hovering = false)}
+        onFocusin={() => (this.hovering = true)}
+        onFocusout={() => (this.hovering = false)}
+      >
+        <div class="stage">
+          <div
+            class="track"
+            ref={(el) => (this.track = el)}
+            tabindex="0"
+            aria-live={this.timer ? 'off' : 'polite'}
+            onScroll={this.onScroll}
+          >
+            <slot onSlotchange={this.syncSlides} />
+          </div>
+          {this.showArrows && positions > 1 && (
+            <div class="arrows">
+              <ui-button class="arrow" variant="secondary" icon-only label="Previous slide" disabled={atStart} onClick={() => this.prev()}>
+                <ui-icon name="chevron-left" />
+              </ui-button>
+              <ui-button class="arrow" variant="secondary" icon-only label="Next slide" disabled={atEnd} onClick={() => this.next()}>
+                <ui-icon name="chevron-right" />
+              </ui-button>
+            </div>
+          )}
+        </div>
+        {(this.showDots && positions > 1) || this.autoplay > 0 ? (
+          <div class="controls">
+            {this.autoplay > 0 && (
+              <ui-button variant="ghost" size="sm" icon-only label={this.playing ? 'Pause autoplay' : 'Start autoplay'} onClick={() => (this.playing = !this.playing)}>
+                <ui-icon name={this.playing ? 'minus' : 'chevron-right'} />
+              </ui-button>
+            )}
+            {this.showDots && positions > 1 && (
+              <div class="dots" role="group" aria-label="Choose slide">
+                {Array.from({ length: positions }, (_, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    class={{ dot: true, on: i === this.index }}
+                    aria-label={`Go to slide ${i + 1}`}
+                    aria-current={i === this.index ? 'true' : undefined}
+                    onClick={() => this.goTo(i)}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        ) : null}
       </Host>
     );
   }

@@ -9,8 +9,8 @@ export function NavDemo() {
   const [page, setPage] = useState(4);
 
   return (
-    <section style={{ display: 'grid', gap: '1.75rem' }}>
-      <h2 style={{ margin: 0, fontSize: '1.125rem' }}>Navigation</h2>
+    <section className="nova-stack nova-stack-lg" id="navigation">
+      <h2 className="nova-h3">Navigation</h2>
 
       <UiMenubar>
         <UiMenubarMenu label="File" onUiSelect={(e) => toast(`File: ${e.detail.label}`)}>
@@ -78,22 +78,22 @@ export function NavDemo() {
         </UiAccordionItem>
       </UiAccordion>
 
-      <div style={{ display: 'grid', gap: '1rem' }}>
+      <div className="nova-stack">
         <UiStepper current={step} clickable onUiChange={(e) => setStep(e.detail)}>
           <UiStep heading="Account" description="Your details" />
           <UiStep heading="Workspace" description="Name it" />
           <UiStep heading="Invite" description="Add teammates" />
           <UiStep heading="Done" />
         </UiStepper>
-        <div style={{ display: 'flex', gap: '0.5rem' }}>
+        <div className="nova-cluster">
           <UiButton variant="secondary" size="sm" onClick={() => setStep((s) => Math.max(0, s - 1))}>Back</UiButton>
           <UiButton size="sm" onClick={() => setStep((s) => Math.min(3, s + 1))}>Next</UiButton>
         </div>
       </div>
 
-      <div style={{ display: 'grid', gap: '0.5rem' }}>
+      <div className="nova-stack nova-stack-sm">
         <UiPagination page={page} total={240} pageSize={10} onUiChange={(e) => setPage(e.detail)} />
-        <span style={{ fontSize: '0.875rem', color: 'var(--nova-color-fg-muted)' }}>Page {page} of 24</span>
+        <span className="nova-small nova-text-muted">Page {page} of 24</span>
       </div>
     </section>
   );

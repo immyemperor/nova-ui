@@ -33,18 +33,39 @@ export interface ToastOptions {
   onAction?: () => void;
 }
 
+/* ---------- Data components ---------- */
+export type TableRow = Record<string, unknown>;
+
 export interface TableColumn {
+  /** Property read from each row. */
   key: string;
   label: string;
   sortable?: boolean;
   align?: 'start' | 'center' | 'end';
+  /** Any CSS width, e.g. "8rem" or "20%". */
+  width?: string;
+  /** Turn the raw value into display text. */
+  format?: (value: unknown, row: TableRow) => string;
 }
 
-export type TableRow = Record<string, unknown>;
+export interface TableSort {
+  key: string;
+  dir: 'asc' | 'desc';
+}
+
+/** Everything a server needs to produce the next page of a table. */
+export interface TableQuery {
+  page: number;
+  pageSize: number;
+  sort?: TableSort;
+  search: string;
+}
 
 export interface TreeNode {
   id: string;
   label: string;
-  children?: TreeNode[];
+  /** Icon name from the registry. */
+  icon?: string;
   disabled?: boolean;
+  children?: TreeNode[];
 }

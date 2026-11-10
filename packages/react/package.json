@@ -17,9 +17,16 @@
       "types": "./dist/server.d.ts",
       "import": "./dist/server.js",
       "require": "./dist/server.cjs"
+    },
+    "./editor": {
+      "types": "./dist/editor.d.ts",
+      "import": "./dist/editor.js",
+      "require": "./dist/editor.cjs"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "sideEffects": false,
   "scripts": {
     "build": "tsup"
@@ -29,14 +36,23 @@
   },
   "peerDependencies": {
     "react": ">=18",
-    "react-dom": ">=18"
+    "react-dom": ">=18",
+    "@nova-ui/editor": "workspace:^"
   },
   "devDependencies": {
     "@types/react": "^19.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tsup": "^8.0.0",
-    "typescript": "^5.6.0"
+    "typescript": "^5.6.0",
+    "@nova-ui/editor": "workspace:*"
   },
-  "publishConfig": { "access": "public" }
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependenciesMeta": {
+    "@nova-ui/editor": {
+      "optional": true
+    }
+  }
 }

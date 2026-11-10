@@ -3,37 +3,7 @@ export * from './utils/animation';
 export * from './utils/toast';
 export * from './types';
 export type { Placement } from './utils/position';
+// Low-level helpers reused by @nova-ui/editor for its suggestion popups.
+export { computePosition, autoUpdate, showFloating, hideFloating, supportsPopover } from './utils/position';
 export * from './components/ui-icon/icons';
-export type { Components, JSX } from './components';
-export type {
-	UiAccordionItemCustomEvent,
-	UiAlertCustomEvent,
-	UiBreadcrumbItemCustomEvent,
-	UiCarouselCustomEvent,
-	UiCheckboxCustomEvent,
-	UiColorPickerCustomEvent,
-	UiCommandPaletteCustomEvent,
-	UiContextMenuCustomEvent,
-	UiDatePickerCustomEvent,
-	UiDrawerCustomEvent,
-	UiDropdownCustomEvent,
-	UiInputCustomEvent,
-	UiMenubarMenuCustomEvent,
-	UiModalCustomEvent,
-	UiNavItemCustomEvent,
-	UiOtpInputCustomEvent,
-	UiPaginationCustomEvent,
-	UiPopoverCustomEvent,
-	UiRadioGroupCustomEvent,
-	UiRatingCustomEvent,
-	UiRevealCustomEvent,
-	UiSelectCustomEvent,
-	UiSliderCustomEvent,
-	UiStepperCustomEvent,
-	UiSwitchCustomEvent,
-	UiTableCustomEvent,
-	UiTagInputCustomEvent,
-	UiTabsCustomEvent,
-	UiTextareaCustomEvent,
-	UiTreeCustomEvent,
-} from './components';
+export type * from './components';

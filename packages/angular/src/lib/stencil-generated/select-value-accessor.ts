@@ -5,7 +5,7 @@ import { ValueAccessor } from './value-accessor';
 
 @Directive({
   /* tslint:disable-next-line:directive-selector */
-  selector: 'ui-radio-group, ui-select',
+  selector: 'ui-radio-group, ui-select, ui-tag-input',
   host: {
     '(uiChange)': 'handleChangeEvent($event.target?.["value"])'
   },
