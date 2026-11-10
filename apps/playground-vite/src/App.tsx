@@ -1,11 +1,13 @@
-import { FormEvent, useState } from 'react';
+import { createElement, FormEvent, useState } from 'react';
 import {
-  UiAlert, UiAvatar, UiBadge, UiButton, UiCard, UiCheckbox, UiCounter, UiIcon, UiInput, UiProgress,
+  UiAlert, UiAvatar, UiBadge, UiButton, UiCard, UiCheckbox, UiCounter, UiInput, UiProgress,
   UiRadio, UiRadioGroup, UiRating, UiReveal, UiSkeleton, UiSlider, UiSpinner, UiStagger, UiSwitch,
   UiTextarea, UiThemeToggle, useTheme,
 } from '@nova-ui/react';
 import { DataDemo } from './DataDemo';
+import { ComponentExplorer } from './ComponentExplorer';
 import { EditorDemo } from './EditorDemo';
+import { IconDemo } from './IconDemo';
 import { LayoutDemo } from './LayoutDemo';
 import { NavDemo } from './NavDemo';
 import { OverlayDemo } from './OverlayDemo';
@@ -13,11 +15,13 @@ import { OverlayDemo } from './OverlayDemo';
 const SECTIONS = [
   ['forms', 'Forms'],
   ['display', 'Display'],
+  ['icons', 'Icons'],
   ['layout', 'Layout + components'],
+  ['overlays', 'Overlays'],
+  ['component-explorer', 'Component explorer'],
   ['editor', 'Rich text editor'],
   ['data', 'Data'],
   ['navigation', 'Navigation'],
-  ['overlays', 'Overlays'],
 ] as const;
 
 export function App() {
@@ -87,7 +91,7 @@ export function App() {
                     hint="We only use this for receipts." error={emailError}
                     onUiInput={(e) => setEmail(e.detail)}
                   >
-                    <UiIcon slot="prefix" name="search" />
+                    {createElement('ui-icon', { slot: 'prefix', name: 'search', 'aria-hidden': 'true' })}
                   </UiInput>
                   <UiTextarea name="bio" label="Short bio" maxlength={160} autoresize rows={2} />
                   <UiRadioGroup name="plan" label="Plan" value="team">
@@ -141,10 +145,12 @@ export function App() {
             </section>
 
             <LayoutDemo />
+            <OverlayDemo />
+            <ComponentExplorer />
+            <IconDemo />
             <EditorDemo />
             <DataDemo />
             <NavDemo />
-            <OverlayDemo />
 
             <section className="nova-section-lg">
               <UiReveal animation="fade">

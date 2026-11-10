@@ -11,5 +11,6 @@
 @import url('./typography.css');
 @import url('./layout.css');
 @import url('./components.css');
+@import url('./generated/material-icons.css');
 @import url('./generated/utilities.css');
 @import url('./print.css');

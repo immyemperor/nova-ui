@@ -28,7 +28,7 @@
     "./styles.css": "./dist/nova-ui/nova-ui.css",
     "./package.json": "./package.json"
   },
-  "files": ["dist", "loader"],
+  "files": ["dist", "loader", "README.md", "LICENSE"],
   "scripts": {
     "build": "stencil build",
     "start": "stencil build --dev --watch",

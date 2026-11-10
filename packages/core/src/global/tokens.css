@@ -18,13 +18,25 @@
   --nova-color-fg: #14201c;
   --nova-color-fg-muted: #4d5c56;
   --nova-color-fg-subtle: #626f69;
-  --nova-color-fg-on-accent: #ffffff;
 
   /* Accent (verdigris) */
-  --nova-color-accent: #0b7a6c;
-  --nova-color-accent-hover: #09655a;
-  --nova-color-accent-active: #07524a;
-  --nova-color-accent-soft: #e1f3ef;
+  /* Brand palette roles. Existing accent tokens remain aliases for primary. */
+  --nova-color-primary: #0b7a6c;
+  --nova-color-primary-hover: #09655a;
+  --nova-color-primary-active: #07524a;
+  --nova-color-primary-soft: #e1f3ef;
+  --nova-color-on-primary: #ffffff;
+  --nova-color-secondary: #526579;
+  --nova-color-secondary-soft: #e8edf2;
+  --nova-color-on-secondary: #ffffff;
+  --nova-color-tertiary: #a34f35;
+  --nova-color-tertiary-soft: #f7e9e3;
+  --nova-color-on-tertiary: #ffffff;
+  --nova-color-accent: var(--nova-color-primary);
+  --nova-color-accent-hover: var(--nova-color-primary-hover);
+  --nova-color-accent-active: var(--nova-color-primary-active);
+  --nova-color-accent-soft: var(--nova-color-primary-soft);
+  --nova-color-fg-on-accent: var(--nova-color-on-primary);
 
   /* Status */
   --nova-color-success: #1a7f4b;
@@ -53,12 +65,23 @@
   --nova-color-fg: #e8efec;
   --nova-color-fg-muted: #a6b5af;
   --nova-color-fg-subtle: #7f908a;
-  --nova-color-fg-on-accent: #06201b;
+  --nova-color-fg-on-accent: var(--nova-color-on-primary);
+  --nova-color-accent: var(--nova-color-primary);
+  --nova-color-accent-hover: var(--nova-color-primary-hover);
+  --nova-color-accent-active: var(--nova-color-primary-active);
+  --nova-color-accent-soft: var(--nova-color-primary-soft);
 
-  --nova-color-accent: #3fd1bb;
-  --nova-color-accent-hover: #67e0cd;
-  --nova-color-accent-active: #8aebdc;
-  --nova-color-accent-soft: #12302b;
+  --nova-color-primary: #3fd1bb;
+  --nova-color-primary-hover: #67e0cd;
+  --nova-color-primary-active: #8aebdc;
+  --nova-color-primary-soft: #12302b;
+  --nova-color-on-primary: #06201b;
+  --nova-color-secondary: #b7c8dc;
+  --nova-color-secondary-soft: #202c38;
+  --nova-color-on-secondary: #17212b;
+  --nova-color-tertiary: #f1a184;
+  --nova-color-tertiary-soft: #35231e;
+  --nova-color-on-tertiary: #2a1712;
 
   --nova-color-success: #4cc98a;
   --nova-color-warning: #e8a73c;
@@ -87,13 +110,133 @@
     --nova-color-fg: #e8efec;
     --nova-color-fg-muted: #a6b5af;
     --nova-color-fg-subtle: #7f908a;
-    --nova-color-fg-on-accent: #06201b;
-    --nova-color-accent: #3fd1bb;
-    --nova-color-accent-hover: #67e0cd;
-    --nova-color-accent-active: #8aebdc;
-    --nova-color-accent-soft: #12302b;
+    --nova-color-fg-on-accent: var(--nova-color-on-primary);
+    --nova-color-accent: var(--nova-color-primary);
+    --nova-color-accent-hover: var(--nova-color-primary-hover);
+    --nova-color-accent-active: var(--nova-color-primary-active);
+    --nova-color-accent-soft: var(--nova-color-primary-soft);
+    --nova-color-primary: #3fd1bb;
+    --nova-color-primary-hover: #67e0cd;
+    --nova-color-primary-active: #8aebdc;
+    --nova-color-primary-soft: #12302b;
+    --nova-color-on-primary: #06201b;
+    --nova-color-secondary: #b7c8dc;
+    --nova-color-secondary-soft: #202c38;
+    --nova-color-on-secondary: #17212b;
+    --nova-color-tertiary: #f1a184;
+    --nova-color-tertiary-soft: #35231e;
+    --nova-color-on-tertiary: #2a1712;
     --nova-focus-ring: 0 0 0 3px rgb(63 209 187 / 0.4);
   }
+}
+
+/* Optional coordinated brand palettes. Set data-palette on the document or any subtree. */
+[data-palette='ocean'] {
+  --nova-color-primary: #006d77;
+  --nova-color-primary-hover: #005861;
+  --nova-color-primary-active: #00464e;
+  --nova-color-primary-soft: #d9f0f1;
+  --nova-color-on-primary: #ffffff;
+  --nova-color-secondary: #386641;
+  --nova-color-secondary-soft: #e5f0e5;
+  --nova-color-on-secondary: #ffffff;
+  --nova-color-tertiary: #bc6c25;
+    --nova-color-tertiary: #a35b1d;
+  --nova-color-tertiary-soft: #f8eadb;
+  --nova-color-on-tertiary: #ffffff;
+}
+[data-palette='forest'] {
+  --nova-color-primary: #386641;
+  --nova-color-primary-hover: #2c5234;
+  --nova-color-primary-active: #23422a;
+  --nova-color-primary-soft: #e5f0e5;
+  --nova-color-on-primary: #ffffff;
+  --nova-color-secondary: #006d77;
+  --nova-color-secondary-soft: #d9f0f1;
+  --nova-color-on-secondary: #ffffff;
+  --nova-color-tertiary: #9c6644;
+  --nova-color-tertiary-soft: #f3e8df;
+  --nova-color-on-tertiary: #ffffff;
+}
+[data-palette='sunset'] {
+  --nova-color-primary: #a23e48;
+  --nova-color-primary-hover: #85313a;
+  --nova-color-primary-active: #6d2830;
+  --nova-color-primary-soft: #f8e4e6;
+  --nova-color-on-primary: #ffffff;
+  --nova-color-secondary: #5c4d7d;
+  --nova-color-secondary-soft: #eee9f6;
+  --nova-color-on-secondary: #ffffff;
+  --nova-color-tertiary: #b36a2e;
+    --nova-color-tertiary: #9f5925;
+  --nova-color-tertiary-soft: #f8ebdf;
+  --nova-color-on-tertiary: #ffffff;
+}
+[data-palette='berry'] {
+  --nova-color-primary: #8b3a62;
+  --nova-color-primary-hover: #71304f;
+  --nova-color-primary-active: #5c2741;
+  --nova-color-primary-soft: #f4e4ec;
+  --nova-color-on-primary: #ffffff;
+  --nova-color-secondary: #465775;
+  --nova-color-secondary-soft: #e7ebf2;
+  --nova-color-on-secondary: #ffffff;
+  --nova-color-tertiary: #826b24;
+  --nova-color-tertiary-soft: #f2eedf;
+  --nova-color-on-tertiary: #ffffff;
+}
+[data-palette='slate'] {
+  --nova-color-primary: #475569;
+  --nova-color-primary-hover: #374151;
+  --nova-color-primary-active: #27303d;
+  --nova-color-primary-soft: #e8ebef;
+  --nova-color-on-primary: #ffffff;
+  --nova-color-secondary: #536d54;
+  --nova-color-secondary-soft: #e8eee8;
+  --nova-color-on-secondary: #ffffff;
+  --nova-color-tertiary: #865c45;
+  --nova-color-tertiary-soft: #f0e8e2;
+  --nova-color-on-tertiary: #ffffff;
+}
+
+/* Re-alias semantic accent tokens at palette scope so nested palettes work too. */
+[data-palette] {
+  --nova-color-accent: var(--nova-color-primary);
+  --nova-color-accent-hover: var(--nova-color-primary-hover);
+  --nova-color-accent-active: var(--nova-color-primary-active);
+  --nova-color-accent-soft: var(--nova-color-primary-soft);
+  --nova-color-fg-on-accent: var(--nova-color-on-primary);
+  --nova-focus-ring: 0 0 0 3px color-mix(in srgb, var(--nova-color-primary) 35%, transparent);
+}
+[data-theme='dark'][data-palette='ocean'],
+[data-theme='dark'] [data-palette='ocean'] {
+  --nova-color-primary: #52c7cf; --nova-color-primary-hover: #7bd8de; --nova-color-primary-active: #a0e5e9; --nova-color-primary-soft: #123236; --nova-color-on-primary: #082326;
+  --nova-color-secondary: #8bd19a; --nova-color-secondary-soft: #1b3021; --nova-color-on-secondary: #102015;
+  --nova-color-tertiary: #f0ad70; --nova-color-tertiary-soft: #382719; --nova-color-on-tertiary: #291a0e;
+}
+[data-theme='dark'][data-palette='forest'],
+[data-theme='dark'] [data-palette='forest'] {
+  --nova-color-primary: #8bd19a; --nova-color-primary-hover: #a8dfb2; --nova-color-primary-active: #c4ebca; --nova-color-primary-soft: #1b3021; --nova-color-on-primary: #102015;
+  --nova-color-secondary: #52c7cf; --nova-color-secondary-soft: #123236; --nova-color-on-secondary: #082326;
+  --nova-color-tertiary: #dca47f; --nova-color-tertiary-soft: #33251d; --nova-color-on-tertiary: #24170f;
+}
+[data-theme='dark'][data-palette='sunset'],
+[data-theme='dark'] [data-palette='sunset'] {
+  --nova-color-primary: #f09aa3; --nova-color-primary-hover: #f5b5bb; --nova-color-primary-active: #f9cdd1; --nova-color-primary-soft: #3b2025; --nova-color-on-primary: #291115;
+  --nova-color-secondary: #c4b0e8; --nova-color-secondary-soft: #2c2538; --nova-color-on-secondary: #1d1728;
+  --nova-color-tertiary: #f0b37c; --nova-color-tertiary-soft: #38281b; --nova-color-on-tertiary: #291a0e;
+}
+[data-theme='dark'][data-palette='berry'],
+[data-theme='dark'] [data-palette='berry'] {
+  --nova-color-primary: #e59abc; --nova-color-primary-hover: #edb3cc; --nova-color-primary-active: #f3c9da; --nova-color-primary-soft: #38212d; --nova-color-on-primary: #27131d;
+  --nova-color-secondary: #aab9dc; --nova-color-secondary-soft: #222b3b; --nova-color-on-secondary: #141d2a;
+  --nova-color-tertiary: #d6c27a; --nova-color-tertiary-soft: #322e1d; --nova-color-on-tertiary: #211d0d;
+}
+[data-theme='dark'][data-palette='slate'],
+[data-theme='dark'] [data-palette='slate'] {
+  --nova-color-primary: #b5c3d6; --nova-color-primary-hover: #cbd5e2; --nova-color-primary-active: #e0e6ee; --nova-color-primary-soft: #242d39; --nova-color-on-primary: #151d28;
+  --nova-color-secondary: #a5c5a7; --nova-color-secondary-soft: #222f24; --nova-color-on-secondary: #142016;
+  --nova-color-tertiary: #d0a990; --nova-color-tertiary-soft: #30251f; --nova-color-on-tertiary: #20150f;
 }
 
 :root {

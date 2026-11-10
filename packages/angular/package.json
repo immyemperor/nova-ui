@@ -3,6 +3,22 @@
   "version": "0.1.0",
   "description": "Angular standalone component proxies and theme service for Nova UI.",
   "license": "MIT",
+  "module": "./dist/fesm2022/nova-ui-angular.mjs",
+  "typings": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/fesm2022/nova-ui-angular.mjs"
+    },
+    "./editor": {
+      "types": "./dist/editor/index.d.ts",
+      "default": "./dist/fesm2022/nova-ui-angular-editor.mjs"
+    },
+    "./package.json": {
+      "default": "./package.json"
+    }
+  },
+  "files": ["dist", "README.md", "LICENSE"],
   "sideEffects": false,
   "scripts": {
     "build": "ng-packagr -p ng-package.json -c tsconfig.lib.json"

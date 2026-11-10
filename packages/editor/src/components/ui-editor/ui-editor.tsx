@@ -14,14 +14,11 @@ import '@nova-ui/core/components/ui-tab.js';
 import '@nova-ui/core/components/ui-tab-panel.js';
 import '@nova-ui/core/components/ui-tabs.js';
 import '@nova-ui/core/components/ui-tooltip.js';
-import { registerEditorIcons } from '../../icons';
 import { EDITOR_PRESETS } from '../../presets';
 import type { MentionItem, ToolbarItem, UploadHandler } from '../../types';
 import { buildExtensions } from './extensions';
 import type { SlashItem } from './suggestion';
 import { acceptsFile, formatBytes, readAsDataURL, safeHref, safeImageSrc } from './uploads';
-
-registerEditorIcons();
 
 let uid = 0;
 const MOD = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform) ? '\u2318' : 'Ctrl';

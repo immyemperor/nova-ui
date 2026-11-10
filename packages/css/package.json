@@ -1,7 +1,7 @@
 {
   "name": "@nova-ui/css",
   "version": "0.1.0",
-  "description": "Responsive CSS library for Nova UI: design tokens, reset, layout primitives (container, grid, stack, sidebar, shell), utilities and CSS-only components. Mobile-first, cascade-layered, logical properties.",
+  "description": "Responsive CSS library for Nova UI: design tokens, layout primitives, Material Symbols, animations, utilities and CSS-only components. Mobile-first and cascade-layered.",
   "license": "MIT",
   "type": "module",
   "style": "./dist/nova.css",
@@ -18,21 +18,26 @@
     "./typography.css": "./dist/typography.css",
     "./layout.css": "./dist/layout.css",
     "./components.css": "./dist/components.css",
+    "./icons.css": "./dist/icons.css",
+    "./icons.json": "./dist/icons.json",
     "./utilities.css": "./dist/utilities.css",
     "./print.css": "./dist/print.css",
     "./GUIDELINES.md": "./GUIDELINES.md",
     "./package.json": "./package.json"
   },
   "sideEffects": [
-    "*.css"
+    "**/*.css"
   ],
   "files": [
     "dist",
     "docs",
-    "GUIDELINES.md"
+    "GUIDELINES.md",
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "generate": "node scripts/generate-utilities.mjs",
+    "icons:update": "node scripts/download-material-icons.mjs",
     "build": "node scripts/generate-utilities.mjs && node scripts/build.mjs",
     "test": "node scripts/check.mjs",
     "test:browser": "node scripts/browser-test.mjs && node scripts/browser-test.mjs --compat"
