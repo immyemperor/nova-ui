@@ -26,13 +26,31 @@
       "require": "./loader/index.cjs.js"
     },
     "./styles.css": "./dist/nova-ui/nova-ui.css",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./dist/collection/collection-manifest.json": "./dist/collection/collection-manifest.json"
   },
-  "files": ["dist", "loader", "README.md", "LICENSE"],
+  "typesVersions": {
+  "*": {
+    "components": [
+      "dist/components/index.d.ts"
+    ],
+    "components/*.js": [
+      "dist/components/*.d.ts"
+    ],
+    "components/*": [
+      "dist/components/*"
+    ]
+  }
+},
+  "files": [
+    "dist",
+    "loader"
+  ],
   "scripts": {
     "build": "stencil build",
     "start": "stencil build --dev --watch",
-    "test": "stencil test --spec"
+    "test": "node --test test/*.test.mjs",
+    "docs": "node scripts/generate-docs.mjs"
   },
   "dependencies": {
     "@stencil/core": "^4.0.0"
@@ -42,6 +60,17 @@
     "@stencil/react-output-target": "latest",
     "typescript": "^5.6.0"
   },
-  "publishConfig": { "access": "public" },
-  "keywords": ["web-components", "stencil", "ui", "react", "angular", "vite", "nextjs", "design-system"]
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "web-components",
+    "stencil",
+    "ui",
+    "react",
+    "angular",
+    "vite",
+    "nextjs",
+    "design-system"
+  ]
 }

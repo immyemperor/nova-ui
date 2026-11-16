@@ -2,6 +2,9 @@
 export * from './components/stencil-generated/components';
 
 export { useTheme } from './theme';
+export * from '@nova-ui/core';
+export type { Components, JSX } from '@nova-ui/core/components';
+
 export {
   registerIcons,
   listIcons,
@@ -29,3 +32,6 @@ export type {
   TableQuery,
   TreeNode,
 } from '@nova-ui/core';
+
+export { usePresence } from './presence';
+export * from './blocks';

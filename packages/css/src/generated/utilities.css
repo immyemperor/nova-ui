@@ -379,28 +379,16 @@
 .nova-text-fg{color:var(--nova-color-fg)}
 .nova-text-muted{color:var(--nova-color-fg-muted)}
 .nova-text-subtle{color:var(--nova-color-fg-subtle)}
-.nova-text-primary{color:var(--nova-color-primary)}
-.nova-text-secondary{color:var(--nova-color-secondary)}
-.nova-text-tertiary{color:var(--nova-color-tertiary)}
 .nova-text-accent{color:var(--nova-color-accent)}
 .nova-text-success{color:var(--nova-color-success)}
 .nova-text-warning{color:var(--nova-color-warning)}
 .nova-text-danger{color:var(--nova-color-danger)}
 .nova-text-info{color:var(--nova-color-info)}
-.nova-text-on-primary{color:var(--nova-color-on-primary)}
-.nova-text-on-secondary{color:var(--nova-color-on-secondary)}
-.nova-text-on-tertiary{color:var(--nova-color-on-tertiary)}
 .nova-text-on-accent{color:var(--nova-color-fg-on-accent)}
 .nova-bg-page{background-color:var(--nova-color-bg)}
 .nova-bg-surface{background-color:var(--nova-color-surface)}
 .nova-bg-raised{background-color:var(--nova-color-surface-raised)}
 .nova-bg-sunken{background-color:var(--nova-color-surface-sunken)}
-.nova-bg-primary{background-color:var(--nova-color-primary)}
-.nova-bg-primary-soft{background-color:var(--nova-color-primary-soft)}
-.nova-bg-secondary{background-color:var(--nova-color-secondary)}
-.nova-bg-secondary-soft{background-color:var(--nova-color-secondary-soft)}
-.nova-bg-tertiary{background-color:var(--nova-color-tertiary)}
-.nova-bg-tertiary-soft{background-color:var(--nova-color-tertiary-soft)}
 .nova-bg-accent{background-color:var(--nova-color-accent)}
 .nova-bg-accent-soft{background-color:var(--nova-color-accent-soft)}
 .nova-bg-success-soft{background-color:var(--nova-color-success-soft)}
@@ -439,17 +427,6 @@
 .nova-transition{transition:color var(--nova-duration-fast) var(--nova-ease-standard),background-color var(--nova-duration-fast) var(--nova-ease-standard),border-color var(--nova-duration-fast) var(--nova-ease-standard),box-shadow var(--nova-duration-fast) var(--nova-ease-standard),opacity var(--nova-duration-fast) var(--nova-ease-standard),transform var(--nova-duration-fast) var(--nova-ease-standard)}
 .nova-sr-only{position:absolute;inline-size:1px;block-size:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .nova-not-sr-only{position:static;inline-size:auto;block-size:auto;margin:0;overflow:visible;clip:auto;white-space:normal}
-.nova-animate-spin{animation:nova-spin 1s linear infinite}
-.nova-animate-pulse{animation:nova-pulse 1.5s ease-in-out infinite}
-.nova-animate-bounce{animation:nova-bounce 1s infinite}
-.nova-animate-fade-in{animation:nova-fade-in var(--nova-duration-base) var(--nova-ease-standard) both}
-.nova-animate-slide-up{animation:nova-slide-up var(--nova-duration-base) var(--nova-ease-standard) both}
-@keyframes nova-spin{to{transform:rotate(360deg)}}
-@keyframes nova-pulse{50%{opacity:.5}}
-@keyframes nova-bounce{0%,100%{transform:translateY(-25%);animation-timing-function:cubic-bezier(.8,0,1,1)}50%{transform:translateY(0);animation-timing-function:cubic-bezier(0,0,.2,1)}}
-@keyframes nova-fade-in{from{opacity:0}to{opacity:1}}
-@keyframes nova-slide-up{from{opacity:0;transform:translateY(.5rem)}to{opacity:1;transform:translateY(0)}}
-@media (prefers-reduced-motion:reduce){.nova-animate-spin,.nova-animate-pulse,.nova-animate-bounce,.nova-animate-fade-in,.nova-animate-slide-up{animation:none}}
 /* ---- sm: min-width 40em ---- */
 @media (min-width:40em){
 .nova-sm-d-block{display:block}

@@ -57,3 +57,15 @@ tr.clickable:focus-visible { outline: none; box-shadow: inset var(--nova-focus-r
   border-radius: var(--nova-radius-control); background: var(--nova-color-surface); color: var(--nova-color-fg); font: inherit; cursor: pointer;
 }
 .size-select:focus-visible { outline: none; border-color: var(--nova-color-accent); box-shadow: var(--nova-focus-ring); }
+
+/* Column resizing and row expansion */
+th.resizable { position: relative; }
+.resize { position: absolute; inset-block: 0; inset-inline-end: -3px; inline-size: 6px; cursor: col-resize; touch-action: none; z-index: 2; }
+.resize:hover, .resize:focus-visible { background: var(--nova-color-accent); }
+.expand-col { width: 2.5rem; padding-inline-end: 0; }
+.expander { all: unset; display: inline-grid; place-items: center; inline-size: 1.5rem; block-size: 1.5rem; border-radius: var(--nova-radius-control); cursor: pointer; color: var(--nova-color-fg-subtle); }
+.expander ui-icon { transition: transform var(--nova-duration-base) var(--nova-ease-standard); }
+.expander[aria-expanded='true'] ui-icon { transform: rotate(90deg); }
+.expander:focus-visible { box-shadow: var(--nova-focus-ring); }
+.detail-row > td { background: var(--nova-color-surface-sunken); padding: var(--nova-space-4); }
+.pad td { padding: 0; border: 0; }

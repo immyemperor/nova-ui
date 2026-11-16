@@ -1,5 +1,6 @@
 import { Component, Element, Event, EventEmitter, Host, Method, Prop, State, Watch, h } from '@stencil/core';
 import { addDays, addMonths, clampISO, monthGrid, parseISO, sameDay, toISO } from '../../utils/date';
+import { t } from '../../i18n';
 
 /**
  * Month calendar. Follows the ARIA grid pattern: arrows move by day or week, Home/End jump to the
@@ -100,18 +101,18 @@ export class UiCalendar {
     return (
       <Host>
         <div class="head">
-          <ui-button variant="ghost" size="sm" icon-only label="Previous month" onClick={() => (this.cursor = addMonths(this.cursor, -1))}>
+          <ui-button variant="ghost" size="sm" icon-only label={t('previousMonth')} onClick={() => (this.cursor = addMonths(this.cursor, -1))}>
             <ui-icon name="chevron-left" />
           </ui-button>
           <div class="selects">
-            <select class="select" aria-label="Month" onChange={(e) => (this.cursor = new Date(year, Number((e.target as HTMLSelectElement).value), Math.min(this.cursor.getDate(), 28)))}>
+            <select class="select" aria-label={t('month')} onChange={(e) => (this.cursor = new Date(year, Number((e.target as HTMLSelectElement).value), Math.min(this.cursor.getDate(), 28)))}>
               {Array.from({ length: 12 }, (_, m) => (
                 <option key={m} value={m} selected={m === month}>
                   {fmt({ month: 'long' }, new Date(2023, m, 1))}
                 </option>
               ))}
             </select>
-            <select class="select" aria-label="Year" onChange={(e) => (this.cursor = new Date(Number((e.target as HTMLSelectElement).value), month, Math.min(this.cursor.getDate(), 28)))}>
+            <select class="select" aria-label={t('year')} onChange={(e) => (this.cursor = new Date(Number((e.target as HTMLSelectElement).value), month, Math.min(this.cursor.getDate(), 28)))}>
               {years.map((y) => (
                 <option key={y} value={y} selected={y === year}>
                   {y}
@@ -119,7 +120,7 @@ export class UiCalendar {
               ))}
             </select>
           </div>
-          <ui-button variant="ghost" size="sm" icon-only label="Next month" onClick={() => (this.cursor = addMonths(this.cursor, 1))}>
+          <ui-button variant="ghost" size="sm" icon-only label={t('nextMonth')} onClick={() => (this.cursor = addMonths(this.cursor, 1))}>
             <ui-icon name="chevron-right" />
           </ui-button>
         </div>

@@ -1,4 +1,5 @@
 import { Component, Event, EventEmitter, Host, Prop, h } from '@stencil/core';
+import { t } from '../../i18n';
 
 @Component({
   tag: 'ui-breadcrumb-item',
@@ -22,7 +23,7 @@ export class UiBreadcrumbItem {
     return (
       <Host role="listitem">
         {this.ellipsis ? (
-          <button type="button" class="ellipsis" aria-label="Show full path" onClick={() => this.uiExpand.emit()}>
+          <button type="button" class="ellipsis" aria-label={t('showFullPath')} onClick={() => this.uiExpand.emit()}>
             &hellip;
           </button>
         ) : isCurrent || !this.href ? (

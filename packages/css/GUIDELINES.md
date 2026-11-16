@@ -65,9 +65,6 @@ pnpm add @nova-ui/css
 ```
 
 In a bundler: `import '@nova-ui/css';` (resolves to `dist/nova.css`).
-In a bundler: `import '@nova-ui/css';` (resolves to `dist/nova.css`). The bundle can be used alongside `@nova-ui/core`
-components; icon classes apply to light-DOM content, including slotted content. For a smaller icon-only import, use
-`import '@nova-ui/css/icons.css';`.
 
 **Never** add `maximum-scale=1` or `user-scalable=no` to the viewport tag. It blocks pinch zoom and fails WCAG 1.4.4.
 
@@ -407,20 +404,6 @@ beat component and layout styles.
 | Colour | `nova-text-muted`, `nova-bg-surface`, `nova-bg-accent-soft` | No (theme-aware) |
 | Border, radius, shadow | `nova-border`, `nova-rounded-lg`, `nova-shadow-md` | No |
 | Accessibility | `nova-sr-only`, `nova-not-sr-only` | No |
-| Motion | `nova-animate-spin`, `nova-animate-fade-in`, `nova-animate-slide-up` | No |
-
-Spacing utilities use the shared token scale (`0`, `1`, `2`, `3`, `4`, `5`, `6`, `8`, `10`, `12`, `16`). Use logical
-directions so layouts also work in RTL: `nova-p-4`, `nova-px-4`, `nova-ps-4`, `nova-mt-3`, `nova-mx-auto`. The
-`sm` through `2xl` prefixes work on all- and two-axis spacing utilities, for example `nova-md-px-6`.
-
-Motion utilities include `spin`, `pulse`, `bounce`, `fade-in` and `slide-up`. They are disabled when the user requests
-reduced motion. Google Material Symbols Outlined are available as `nova-icon-{name}` classes; replace underscores in
-Google's icon names with hyphens, for example `nova-icon-arrow-back`. Add `nova-icon-filled` for the filled glyph and
-`nova-icon-sm`, `nova-icon-lg` or `nova-icon-xl` for sizing. Mark decorative icons `aria-hidden="true"`; provide an
-accessible label when an icon conveys meaning by itself.
-
-Refresh the complete icon catalog and bundled font with `pnpm --filter @nova-ui/css icons:update`. The font and its
-Apache 2.0 license are included in the published CSS package.
 
 Notes:
 
@@ -469,31 +452,20 @@ remembers the choice. For a pure-CSS page, a tiny script is enough:
 Put that in `<head>`, before the stylesheet's first paint, to avoid a flash of the wrong theme.
 
 **Brand colours.** Override the tokens in your own CSS:
-**Brand palettes.** Choose a coordinated preset on the document or any subtree with `data-palette="ocean|forest|sunset|berry|slate"`.
-Each preset supplies theme-aware primary, secondary, and tertiary colors, soft surfaces, and foreground colors. Existing
-accent tokens and components follow primary automatically.
-
-For a custom palette, set the three role tokens and their readable foregrounds. Add `data-palette="custom"` when scoping
-the palette below `:root`, so the legacy accent tokens re-alias to that element's primary color:
 
 ```css
 :root {
-  --nova-color-primary: #006d77;
-  --nova-color-primary-hover: #005861;
-  --nova-color-primary-active: #00464e;
-  --nova-color-primary-soft: #d9f0f1;
-  --nova-color-on-primary: #ffffff;
-  --nova-color-secondary: #386641;
-  --nova-color-secondary-soft: #e5f0e5;
-  --nova-color-on-secondary: #ffffff;
-  --nova-color-tertiary: #bc6c25;
-  --nova-color-tertiary-soft: #f8eadb;
-  --nova-color-on-tertiary: #ffffff;
+  --nova-color-accent: #5b3fd1;
+  --nova-color-accent-hover: #4a32b0;
+  --nova-color-accent-active: #3b2891;
+  --nova-color-accent-soft: #eeeafb;
+}
+[data-theme='dark'] {
+  --nova-color-accent: #a99bff;
+  --nova-color-accent-hover: #c1b7ff;
+  --nova-color-accent-soft: #231d4a;
 }
 ```
-
-Use `nova-text-primary`, `nova-text-secondary`, `nova-text-tertiary` and matching `nova-bg-*` utilities. Verify custom
-foreground/background pairs meet WCAG contrast requirements in both themes.
 
 Then check contrast for the pairs listed in `scripts/check.mjs`. Everything (web components, CSS components,
 utilities, the editor) follows automatically.

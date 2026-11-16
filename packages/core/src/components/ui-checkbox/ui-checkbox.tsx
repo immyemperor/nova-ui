@@ -1,4 +1,5 @@
 import { AttachInternals, Component, Event, EventEmitter, Host, Prop, Watch, h } from '@stencil/core';
+import { t } from '../../i18n';
 
 @Component({
   tag: 'ui-checkbox',
@@ -27,7 +28,7 @@ export class UiCheckbox {
   @Watch('required')
   syncForm() {
     this.internals?.setFormValue(this.checked ? this.value : null);
-    if (this.required && !this.checked) this.internals?.setValidity({ valueMissing: true }, 'Check this box to continue.');
+    if (this.required && !this.checked) this.internals?.setValidity({ valueMissing: true }, t('selectOption'));
     else this.internals?.setValidity({});
   }
 

@@ -152,9 +152,9 @@ base.push(
 );
 
 // Colour (tokens only, so light/dark theming needs no extra classes)
-const text = { fg: 'fg', muted: 'fg-muted', subtle: 'fg-subtle', primary: 'primary', secondary: 'secondary', tertiary: 'tertiary', accent: 'accent', success: 'success', warning: 'warning', danger: 'danger', info: 'info', 'on-primary': 'on-primary', 'on-secondary': 'on-secondary', 'on-tertiary': 'on-tertiary', 'on-accent': 'fg-on-accent' };
+const text = { fg: 'fg', muted: 'fg-muted', subtle: 'fg-subtle', accent: 'accent', success: 'success', warning: 'warning', danger: 'danger', info: 'info', 'on-accent': 'fg-on-accent' };
 for (const [k, v] of Object.entries(text)) base.push([`text-${k}`, `color:var(--nova-color-${v})`]);
-  const bg = { page: 'bg', surface: 'surface', raised: 'surface-raised', sunken: 'surface-sunken', primary: 'primary', 'primary-soft': 'primary-soft', secondary: 'secondary', 'secondary-soft': 'secondary-soft', tertiary: 'tertiary', 'tertiary-soft': 'tertiary-soft', accent: 'accent', 'accent-soft': 'accent-soft',
+const bg = { page: 'bg', surface: 'surface', raised: 'surface-raised', sunken: 'surface-sunken', accent: 'accent', 'accent-soft': 'accent-soft',
   'success-soft': 'success-soft', 'warning-soft': 'warning-soft', 'danger-soft': 'danger-soft', 'info-soft': 'info-soft' };
 for (const [k, v] of Object.entries(bg)) base.push([`bg-${k}`, `background-color:var(--nova-color-${v})`]);
 base.push(['bg-transparent', 'background-color:transparent']);
@@ -182,15 +182,6 @@ base.push(
   ['not-sr-only', 'position:static;inline-size:auto;block-size:auto;margin:0;overflow:visible;clip:auto;white-space:normal'],
 );
 
-// Motion helpers respect the user's reduced-motion preference.
-base.push(
-  ['animate-spin', 'animation:nova-spin 1s linear infinite'],
-  ['animate-pulse', 'animation:nova-pulse 1.5s ease-in-out infinite'],
-  ['animate-bounce', 'animation:nova-bounce 1s infinite'],
-  ['animate-fade-in', 'animation:nova-fade-in var(--nova-duration-base) var(--nova-ease-standard) both'],
-  ['animate-slide-up', 'animation:nova-slide-up var(--nova-duration-base) var(--nova-ease-standard) both'],
-);
-
 /* ------------------------------------------------------------------ output */
 const rule = (cls, decl) => `.nova-${cls}{${decl}}`;
 const lines = [];
@@ -202,12 +193,6 @@ lines.push('@layer nova.utilities {');
 
 lines.push('/* ---- base (all screen sizes) ---- */');
 for (const [k, d] of [...responsive, ...base]) { lines.push(rule(k, d)); count.base++; }
-lines.push('@keyframes nova-spin{to{transform:rotate(360deg)}}');
-lines.push('@keyframes nova-pulse{50%{opacity:.5}}');
-lines.push('@keyframes nova-bounce{0%,100%{transform:translateY(-25%);animation-timing-function:cubic-bezier(.8,0,1,1)}50%{transform:translateY(0);animation-timing-function:cubic-bezier(0,0,.2,1)}}');
-lines.push('@keyframes nova-fade-in{from{opacity:0}to{opacity:1}}');
-lines.push('@keyframes nova-slide-up{from{opacity:0;transform:translateY(.5rem)}to{opacity:1;transform:translateY(0)}}');
-lines.push('@media (prefers-reduced-motion:reduce){.nova-animate-spin,.nova-animate-pulse,.nova-animate-bounce,.nova-animate-fade-in,.nova-animate-slide-up{animation:none}}');
 
 for (const [bp, em] of Object.entries(BREAKPOINTS)) {
   lines.push(`/* ---- ${bp}: min-width ${em}em ---- */`);

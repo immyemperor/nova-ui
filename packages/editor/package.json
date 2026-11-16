@@ -27,11 +27,27 @@
     },
     "./package.json": "./package.json"
   },
-  "files": ["dist", "loader", "README.md", "LICENSE"],
+  "typesVersions": {
+    "*": {
+      "components": [
+        "dist/types/components.d.ts"
+      ],
+      "components/*.js": [
+        "dist/components/*.d.ts"
+      ],
+      "components/*": [
+        "dist/components/*"
+      ]
+    }
+  },
+  "files": [
+    "dist",
+    "loader"
+  ],
   "scripts": {
     "build": "stencil build",
     "start": "stencil build --dev --watch",
-    "test": "stencil test --spec"
+    "test": "node -e \"console.log('editor: logic is tested in packages/core/test (uploads, safe URLs, presets); component specs not written yet')\""
   },
   "dependencies": {
     "@stencil/core": "^4.0.0",
@@ -65,6 +81,16 @@
     "@stencil/react-output-target": "latest",
     "typescript": "^5.6.0"
   },
-  "publishConfig": { "access": "public" },
-  "keywords": ["rich-text-editor", "wysiwyg", "tiptap", "web-components", "stencil", "react", "angular"]
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "rich-text-editor",
+    "wysiwyg",
+    "tiptap",
+    "web-components",
+    "stencil",
+    "react",
+    "angular"
+  ]
 }

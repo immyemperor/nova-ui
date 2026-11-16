@@ -1,5 +1,6 @@
 import { Component, Element, Event, EventEmitter, Host, Prop, State, Watch, h } from '@stencil/core';
 import { prefersReducedMotion } from '../../utils/animation';
+import { t } from '../../i18n';
 
 /**
  * Scroll-snap carousel. Slides are any child elements. Swipe, scroll, use the buttons or the dots.
@@ -156,10 +157,10 @@ export class UiCarousel {
           </div>
           {this.showArrows && positions > 1 && (
             <div class="arrows">
-              <ui-button class="arrow" variant="secondary" icon-only label="Previous slide" disabled={atStart} onClick={() => this.prev()}>
+              <ui-button class="arrow" variant="secondary" icon-only label={t('previousSlide')} disabled={atStart} onClick={() => this.prev()}>
                 <ui-icon name="chevron-left" />
               </ui-button>
-              <ui-button class="arrow" variant="secondary" icon-only label="Next slide" disabled={atEnd} onClick={() => this.next()}>
+              <ui-button class="arrow" variant="secondary" icon-only label={t('nextSlide')} disabled={atEnd} onClick={() => this.next()}>
                 <ui-icon name="chevron-right" />
               </ui-button>
             </div>
@@ -173,7 +174,7 @@ export class UiCarousel {
               </ui-button>
             )}
             {this.showDots && positions > 1 && (
-              <div class="dots" role="group" aria-label="Choose slide">
+              <div class="dots" role="group" aria-label={t('chooseSlide')}>
                 {Array.from({ length: positions }, (_, i) => (
                   <button
                     key={i}

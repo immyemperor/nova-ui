@@ -63,14 +63,35 @@ export function normaliseHex(input: string): string | undefined {
   return rgb ? rgbToHex(rgb) : undefined;
 }
 
-/** Black or white, whichever reads better on top of `hex` (WCAG relative luminance). */
+/**
+ * Black or white, whichever has the higher WCAG contrast on `hex`.
+ * Black and white together always reach at least 4.5:1 on any colour, so this never fails AA for text.
+ */
 export function readableOn(hex: string): '#000000' | '#ffffff' {
+  if (!parseHex(hex)) return '#000000';
+  return contrastRatio(hex, '#000000') >= contrastRatio(hex, '#ffffff') ? '#000000' : '#ffffff';
+}
+
+/** WCAG relative luminance of a hex colour, 0 (black) to 1 (white). */
+export function luminance(hex: string): number {
   const rgb = parseHex(hex);
-  if (!rgb) return '#000000';
+  if (!rgb) return 0;
   const lin = (c: number) => {
     const s = c / 255;
     return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
   };
-  const lum = 0.2126 * lin(rgb.r) + 0.7152 * lin(rgb.g) + 0.0722 * lin(rgb.b);
-  return lum > 0.4 ? '#000000' : '#ffffff';
+  return 0.2126 * lin(rgb.r) + 0.7152 * lin(rgb.g) + 0.0722 * lin(rgb.b);
+}
+
+/** WCAG contrast ratio between two colours, 1 to 21. */
+export function contrastRatio(a: string, b: string): number {
+  const x = luminance(a), y = luminance(b);
+  return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05);
+}
+
+/** Mix `hex` toward `target` by `t` (0 = unchanged, 1 = target). */
+export function mix(hex: string, target: string, t: number): string {
+  const a = parseHex(hex), b = parseHex(target);
+  if (!a || !b) return hex;
+  return rgbToHex({ r: a.r + (b.r - a.r) * t, g: a.g + (b.g - a.g) * t, b: a.b + (b.b - a.b) * t });
 }

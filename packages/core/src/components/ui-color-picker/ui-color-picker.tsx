@@ -1,5 +1,6 @@
 import { AttachInternals, Component, Event, EventEmitter, Host, Prop, State, Watch, h } from '@stencil/core';
 import { HSV, hexToHsv, hsvToHex, normaliseHex, readableOn } from '../../utils/color';
+import { t } from '../../i18n';
 
 let uid = 0;
 
@@ -145,7 +146,7 @@ export class UiColorPicker {
           style={{ '--_hue': `hsl(${hue} 100% 50%)` }}
           role="slider"
           tabindex={this.disabled ? -1 : 0}
-          aria-label="Saturation and brightness"
+          aria-label={t('saturationBrightness')}
           aria-valuemin="0"
           aria-valuemax="100"
           aria-valuenow={Math.round(s)}
@@ -167,7 +168,7 @@ export class UiColorPicker {
           max="360"
           step="1"
           value={Math.round(hue)}
-          aria-label="Hue"
+          aria-label={t('hue')}
           disabled={this.disabled}
           onInput={(e) => this.setHsv({ ...this.hsv, h: Number((e.target as HTMLInputElement).value) }, false)}
           onChange={() => this.uiChange.emit(this.value)}
@@ -178,7 +179,7 @@ export class UiColorPicker {
           <ui-input
             class="hex"
             ref={(el) => (this.hexInput = el as any)}
-            label="Hex colour"
+            label={t('hexColour')}
             hideLabel
             size="sm"
             maxlength={7}
@@ -190,14 +191,14 @@ export class UiColorPicker {
             }}
           />
           {hasEyedropper && (
-            <ui-button variant="ghost" size="sm" icon-only label="Pick colour from screen" disabled={this.disabled} onClick={() => this.eyedrop()}>
+            <ui-button variant="ghost" size="sm" icon-only label={t('pickFromScreen')} disabled={this.disabled} onClick={() => this.eyedrop()}>
               <ui-icon name="search" />
             </ui-button>
           )}
         </div>
 
         {this.swatches.length > 0 && (
-          <div class="swatches" role="group" aria-label="Preset colours">
+          <div class="swatches" role="group" aria-label={t('presetColours')}>
             {this.swatches.map((c) => {
               const hex = normaliseHex(c) ?? c;
               const on = hex === this.value;

@@ -1,27 +1,31 @@
-import { createElement, FormEvent, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import {
-  UiAlert, UiAvatar, UiBadge, UiButton, UiCard, UiCheckbox, UiCounter, UiInput, UiProgress,
+  UiAlert, UiAvatar, UiBadge, UiButton, UiCard, UiCheckbox, UiCounter, UiIcon, UiInput, UiProgress,
   UiRadio, UiRadioGroup, UiRating, UiReveal, UiSkeleton, UiSlider, UiSpinner, UiStagger, UiSwitch,
   UiTextarea, UiThemeToggle, useTheme,
 } from '@nova-ui/react';
+import { BlocksDemo } from './BlocksDemo';
+import { ChartsDemo } from './ChartsDemo';
 import { DataDemo } from './DataDemo';
-import { ComponentExplorer } from './ComponentExplorer';
 import { EditorDemo } from './EditorDemo';
-import { IconDemo } from './IconDemo';
+import { FeaturesDemo } from './FeaturesDemo';
 import { LayoutDemo } from './LayoutDemo';
 import { NavDemo } from './NavDemo';
+import { NewFeaturesDemo } from './NewFeaturesDemo';
 import { OverlayDemo } from './OverlayDemo';
 
 const SECTIONS = [
   ['forms', 'Forms'],
   ['display', 'Display'],
-  ['icons', 'Icons'],
   ['layout', 'Layout + components'],
-  ['overlays', 'Overlays'],
-  ['component-explorer', 'Component explorer'],
+  ['features', 'New features'],
+  ['charts', 'Charts'],
+  ['blocks', 'Page blocks'],
+  ['new-features', 'Newest features'],
   ['editor', 'Rich text editor'],
   ['data', 'Data'],
   ['navigation', 'Navigation'],
+  ['overlays', 'Overlays'],
 ] as const;
 
 export function App() {
@@ -91,7 +95,7 @@ export function App() {
                     hint="We only use this for receipts." error={emailError}
                     onUiInput={(e) => setEmail(e.detail)}
                   >
-                    {createElement('ui-icon', { slot: 'prefix', name: 'search', 'aria-hidden': 'true' })}
+                    <UiIcon slot="prefix" name="search" />
                   </UiInput>
                   <UiTextarea name="bio" label="Short bio" maxlength={160} autoresize rows={2} />
                   <UiRadioGroup name="plan" label="Plan" value="team">
@@ -144,13 +148,15 @@ export function App() {
               </UiStagger>
             </section>
 
+            <FeaturesDemo />
+            <ChartsDemo />
+            <NewFeaturesDemo />
+            <BlocksDemo />
             <LayoutDemo />
-            <OverlayDemo />
-            <ComponentExplorer />
-            <IconDemo />
             <EditorDemo />
             <DataDemo />
             <NavDemo />
+            <OverlayDemo />
 
             <section className="nova-section-lg">
               <UiReveal animation="fade">

@@ -1,3 +1,4 @@
+export * from './i18n';
 export * from './utils/theme';
 export * from './utils/animation';
 export * from './utils/toast';
@@ -6,4 +7,19 @@ export type { Placement } from './utils/position';
 // Low-level helpers reused by @nova-ui/editor for its suggestion popups.
 export { computePosition, autoUpdate, showFloating, hideFloating, supportsPopover } from './utils/position';
 export * from './components/ui-icon/icons';
-export type * from './components';
+export type { Components, JSX } from './components';
+export * from './utils/sanitize';
+export * from './utils/confirm';
+export * from './utils/range';
+export * from './utils/time';
+export * from './utils/files';
+export * from './utils/chart';
+export * from './utils/theme-generate';
+export * from './utils/csv';
+export * from './utils/presence';
+export * from './utils/transition';
+export * from './utils/layout-math';
+export * from './utils/virtual';
+export * from './utils/reorder';
+export * from './utils/calendar-events';
+export * from './components';

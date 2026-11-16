@@ -2,7 +2,7 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false,
-    "declaration": false,
+    "declaration": true,
     "experimentalDecorators": true,
     "lib": ["dom", "es2020"],
     "moduleResolution": "node",
@@ -12,7 +12,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": false,
     "jsx": "react",
-    "jsxFactory": "h"
+    "jsxFactory": "h",
+    "noUncheckedSideEffectImports": false
   },
   "include": ["src"],
   "exclude": ["node_modules"]

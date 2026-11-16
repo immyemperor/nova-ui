@@ -1,0 +1,19 @@
+{
+  "name": "@nova-ui/tailwind",
+  "version": "0.1.0",
+  "description": "Tailwind CSS preset exposing Nova UI tokens (colours, radius, shadows, fonts) as utilities.",
+  "license": "MIT",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "test": "node --test test/preset.test.mjs"
+  },
+  "peerDependencies": {
+    "tailwindcss": ">=3.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

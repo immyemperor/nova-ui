@@ -1,0 +1,69 @@
+# Nova UI
+
+> Nova UI is a design system of 72 web components (Stencil) with wrappers for React, Next.js, Angular and Vue, a responsive CSS library, a Tailwind preset and an optional rich text editor. Components are framework-neutral, themed with CSS variables, accessible by default, and follow WCAG 2.2 AA.
+
+## Start here
+
+- [Getting started](docs/users/getting-started.md): install and first component in five minutes
+- [Concepts](docs/users/concepts.md): how props, events, slots and forms work
+- [Troubleshooting](docs/users/troubleshooting.md): common problems and fixes
+
+## Frameworks
+
+- [Frameworks index](docs/users/frameworks/README.md)
+- [Plain HTML](docs/users/frameworks/vanilla.md)
+- [React](docs/users/frameworks/react.md)
+- [Next.js](docs/users/frameworks/nextjs.md)
+- [Vite](docs/users/frameworks/vite.md)
+- [Angular](docs/users/frameworks/angular.md)
+- [Vue 3](docs/users/frameworks/vue.md)
+- [Tailwind preset](docs/users/frameworks/tailwind.md)
+- [CSS only](docs/users/frameworks/css-only.md)
+
+## Features
+
+- [Feature index](docs/users/features/README.md)
+- [Forms](docs/users/features/forms.md)
+- [Dates and times](docs/users/features/dates.md)
+- [Colour](docs/users/features/colour.md)
+- [Overlays, dialogs and toasts](docs/users/features/overlays.md)
+- [Navigation](docs/users/features/navigation.md)
+- [Data tables](docs/users/features/data-tables.md)
+- [Lists, boards and scheduling](docs/users/features/lists-boards-scheduling.md)
+- [Charts](docs/users/features/charts.md)
+- [File upload](docs/users/features/file-upload.md)
+- [Rich text editor](docs/users/features/editor.md)
+- [Safe HTML](docs/users/features/safe-html.md)
+- [Page blocks](docs/users/features/page-blocks.md)
+- [Motion](docs/users/features/motion.md)
+- [Theming](docs/users/features/theming.md)
+- [Icons](docs/users/features/icons.md)
+- [Internationalisation](docs/users/features/i18n.md)
+- [Layout and CSS](docs/users/features/layout-and-css.md)
+- [Accessibility](docs/users/features/accessibility.md)
+- [Utilities](docs/users/features/utilities.md)
+
+## Reference
+
+- [Component and API reference](packages/core/dist-docs/API.md): every component, prop, event, method and slot
+- [Machine-readable manifest](packages/core/dist-docs/custom-elements.json)
+- [Editor autocomplete data](packages/core/dist-docs/vscode-html-data.json)
+- [Layout guidelines](packages/css/GUIDELINES.md)
+
+## For AI agents
+
+- [AGENTS.md](AGENTS.md): rules for coding agents
+- [Agent conventions](docs/agents/conventions.md): which component to use, and common mistakes
+- [Full context in one file](docs/llms-full.txt)
+
+## Maintainers
+
+- [Architecture](docs/humans/architecture.md)
+- [Contributing](docs/humans/contributing.md)
+- [Testing](docs/humans/testing.md)
+- [Releasing](docs/humans/releasing.md)
+- [Project status](docs/humans/status.md)
+
+## Optional
+
+- [Documentation home](docs/README.md)

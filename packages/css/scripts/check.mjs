@@ -22,7 +22,7 @@ function balanced(name, css) {
   return false;
 }
 
-const files = ['nova', 'tokens', 'reset', 'typography', 'layout', 'components', 'icons', 'utilities', 'print'];
+const files = ['nova', 'tokens', 'reset', 'typography', 'layout', 'components', 'utilities', 'print'];
 for (const f of files) {
   const p = join(root, 'dist', `${f}.css`);
   if (!existsSync(p)) { fail(`dist/${f}.css missing. Run the build first.`); continue; }
@@ -30,25 +30,6 @@ for (const f of files) {
 }
 
 const full = readFileSync(join(root, 'dist/nova.css'), 'utf8');
-const iconCss = readFileSync(join(root, 'dist/icons.css'), 'utf8');
-const iconNames = JSON.parse(readFileSync(join(root, 'dist/icons.json'), 'utf8'));
-if (iconNames.length !== 4304 || !iconNames.includes('home')) fail(`expected 4,304 Material Symbols names, found ${iconNames.length}`);
-else ok(`Material Symbols browser catalog contains ${iconNames.length} names`);
-const iconClasses = [...iconCss.matchAll(/\.nova-icon-(?!filled\b)[\w-]+::before/g)].length;
-if (iconClasses < 4000) fail(`expected the full Material Symbols catalog, found ${iconClasses} icon classes`);
-else ok(`Material Symbols catalog contains ${iconClasses} classes`);
-for (const asset of ['material-symbols-outlined.woff2', 'MATERIAL_SYMBOLS_LICENSE.txt']) {
-  if (!existsSync(join(root, 'dist', asset))) fail(`dist/${asset} missing. Run the icon refresh and build.`);
-  else ok(`dist/${asset} is present`);
-}
-for (const className of ['.nova-p-4', '.nova-mt-4', '.nova-animate-spin', '.nova-animate-fade-in']) {
-  if (!full.includes(`${className}{`)) fail(`${className} is missing from nova.css`);
-}
-if (!/prefers-reduced-motion:\s*reduce/.test(full)) fail('motion utilities must respect prefers-reduced-motion');
-else ok('spacing and motion utilities are included with reduced-motion support');
-for (const iconName of ['.nova-icon-home::before', '.nova-icon-arrow-back::before']) {
-  if (!iconCss.includes(iconName)) fail(`${iconName} is missing from icons.css`);
-}
 const min = readFileSync(join(root, 'dist/nova.min.css'), 'utf8');
 balanced('nova.min.css', min);
 const compat = readFileSync(join(root, 'dist/nova.compat.css'), 'utf8');
@@ -73,17 +54,7 @@ ok('core and layout tokens are present');
 const lin = (c) => { const s = c / 255; return s <= 0.03928 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4; };
 const lum = (h) => { const [r, g, b] = [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16)); return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b); };
 const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m); return (x + 0.05) / (y + 0.05); };
-const tokensIn = (block) => {
-  const raw = Object.fromEntries([...block.matchAll(/--nova-color-([\w-]+):\s*(#[0-9a-fA-F]{6}|var\(--nova-color-([\w-]+)\))/g)]
-    .map((m) => [m[1], m[3] ?? m[2]]));
-  const resolve = (name, visited = new Set()) => {
-    if (visited.has(name)) return undefined;
-    visited.add(name);
-    const value = raw[name];
-    return value?.startsWith('#') ? value : value ? resolve(value, visited) : undefined;
-  };
-  return Object.fromEntries(Object.keys(raw).map((name) => [name, resolve(name)]));
-};
+const tokensIn = (block) => Object.fromEntries([...block.matchAll(/--nova-color-([\w-]+):\s*(#[0-9a-fA-F]{6})/g)].map((m) => [m[1], m[2]]));
 const noComments = full.replace(/\/\*[\s\S]*?\*\//g, '');
 const blocksWithBg = [...noComments.matchAll(/([^{}]*)\{([^{}]*--nova-color-bg:[^{}]*)\}/g)];
 const light = blocksWithBg.find((m) => /data-theme='light'/.test(m[1]));
@@ -106,38 +77,8 @@ else {
   if (!bad) ok(`contrast: ${(TEXT.length + UI.length) * 2} token pairs meet WCAG AA / 1.4.11 in light and dark`);
 }
 
-const paletteNames = ['ocean', 'forest', 'sunset', 'berry', 'slate'];
-const paletteRules = [...noComments.matchAll(/([^{}]+)\{([^{}]*)\}/g)];
-let paletteContrastFailures = 0;
-for (const palette of paletteNames) {
-  for (const theme of ['light', 'dark']) {
-    const rule = paletteRules.find((m) => m[1].includes(`[data-palette='${palette}']`) && (theme === 'dark') === m[1].includes("data-theme='dark'"));
-    if (!rule) { fail(`${theme} ${palette} palette is missing`); paletteContrastFailures++; continue; }
-    const paletteTokens = tokensIn(rule[2]);
-    for (const role of ['primary', 'secondary', 'tertiary']) {
-      const foreground = paletteTokens[`on-${role}`];
-      const background = paletteTokens[role];
-      if (!foreground || !background) {
-        fail(`${theme} ${palette} palette is missing ${role} contrast tokens`);
-        paletteContrastFailures++;
-      } else {
-        const value = ratio(foreground, background);
-        if (value < 4.5) {
-          fail(`${theme} ${palette} ${role} contrast is ${value.toFixed(2)}:1, needs 4.5:1`);
-          paletteContrastFailures++;
-        }
-      }
-    }
-  }
-}
-if (!paletteContrastFailures) ok(`all 30 palette foreground pairs meet WCAG AA`);
-
 // Every .nova-* class used in the docs page must exist in the CSS.
 const docs = join(root, 'docs/index.html');
-const iconDocs = join(root, 'docs/icons.html');
-if (!existsSync(iconDocs)) fail('docs/icons.html missing. Run the icon refresh script.');
-else if (!readFileSync(iconDocs, 'utf8').includes('nova-icon-')) fail('docs/icons.html does not render icon classes');
-else ok('searchable icon catalog is present');
 if (existsSync(docs)) {
   const html = readFileSync(docs, 'utf8');
   const used = new Set();

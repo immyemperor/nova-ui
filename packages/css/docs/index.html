@@ -7,12 +7,8 @@
   <title>Nova CSS: layout, grid and responsive guidelines</title>
   <script>
     // Set the theme before first paint to avoid a flash.
-    const savedMode = localStorage.getItem('nova-doc-theme');
-    const mode = ['system', 'light', 'dark'].includes(savedMode) ? savedMode : 'system';
-    const resolved = mode === 'system' ? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : mode;
-    document.documentElement.dataset.theme = resolved;
-    document.documentElement.dataset.themeMode = mode;
-    document.documentElement.style.colorScheme = resolved;
+    document.documentElement.dataset.theme =
+      localStorage.getItem('nova-doc-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   </script>
   <link rel="stylesheet" href="../dist/nova.min.css" />
   <style>
@@ -31,16 +27,6 @@
     .doc-swatch { display: inline-grid; place-items: center; inline-size: 2.5rem; block-size: 1.75rem; border-radius: 4px; border: 1px solid var(--nova-color-border); font-weight: 600; }
     .doc-cover { --nova-cover-min: 14rem; border-radius: var(--nova-radius-surface); background: var(--nova-color-accent-soft); }
     .doc-tile { display: grid; place-items: center; min-block-size: 3.25rem; }
-    .doc-palette { display: grid; gap: var(--nova-space-3); padding: var(--nova-space-4); border: 1px solid var(--nova-color-border); border-radius: var(--nova-radius-control); background: var(--nova-color-surface); }
-    .doc-palette-controls { display: flex; flex-wrap: wrap; align-items: end; gap: var(--nova-space-3); }
-    .doc-palette-control { display: grid; gap: var(--nova-space-1); font-size: var(--nova-text-sm); }
-    .doc-palette-control select { min-block-size: var(--nova-control-md); padding-inline: var(--nova-space-2); border: 1px solid var(--nova-color-border-strong); border-radius: var(--nova-radius-control); background: var(--nova-color-surface); color: var(--nova-color-fg); font: inherit; }
-    .doc-color-input { inline-size: 3rem; block-size: 2.5rem; padding: 2px; border: 1px solid var(--nova-color-border-strong); border-radius: var(--nova-radius-control); background: var(--nova-color-surface); }
-    .doc-palette-swatches { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--nova-space-2); }
-    .doc-palette-swatch { display: grid; min-block-size: 5rem; align-content: end; gap: var(--nova-space-1); padding: var(--nova-space-3); border-radius: var(--nova-radius-control); font-size: var(--nova-text-sm); }
-    .doc-palette-swatch code { font-size: var(--nova-text-xs); }
-    .doc-theme-control { font-size: var(--nova-text-sm); color: var(--nova-color-fg-muted); }
-    .doc-theme-select { min-block-size: var(--nova-control-sm); padding-inline: var(--nova-space-2); border: 1px solid var(--nova-color-border-strong); border-radius: var(--nova-radius-control); background: var(--nova-color-surface); color: var(--nova-color-fg); font: inherit; font-size: var(--nova-text-sm); }
   </style>
 </head>
 <body class="nova-base">
@@ -61,12 +47,7 @@
           <span class="nova-badge nova-badge-accent nova-hide-below-lg nova-hide-xl-up">lg</span>
           <span class="nova-badge nova-badge-accent nova-hide-below-xl nova-hide-2xl-up">xl</span>
           <span class="nova-badge nova-badge-accent nova-hide-below-2xl">2xl</span>
-          <label class="doc-theme-control" for="theme-mode">Theme</label>
-          <select class="doc-theme-select" id="theme-mode" aria-label="Color theme">
-            <option value="system">System</option>
-            <option value="light">Light</option>
-            <option value="dark">Dark</option>
-          </select>
+          <button class="nova-btn nova-btn-ghost nova-btn-sm" id="theme-toggle" type="button">Toggle theme</button>
         </div>
       </div>
     </header>
@@ -82,8 +63,6 @@
         <a href="#container-queries">Container queries</a>
         <a href="#spacing">Spacing</a>
         <a href="#type">Typography</a>
-          <a href="#palettes">Color palettes</a>
-        <a href="./icons.html">Icon catalog</a>
         <a href="#utilities">Utilities</a>
         <a href="#components">Components</a>
         <a href="#a11y">Accessibility</a>
@@ -98,9 +77,7 @@
           <a href="#start">Getting started</a><a href="#breakpoints">Breakpoints</a><a href="#containers">Containers</a>
           <a href="#grids">Grids</a><a href="#primitives">Layout primitives</a><a href="#shell">App shell</a>
           <a href="#container-queries">Container queries</a><a href="#spacing">Spacing</a><a href="#type">Typography</a>
-          <a href="./icons.html">Icon catalog</a>
           <a href="#utilities">Utilities</a><a href="#components">Components</a><a href="#a11y">Accessibility</a><a href="#checklist">Checklist</a>
-                  <a href="#palettes">Color palettes</a>
         </div>
       </details>
 
@@ -123,54 +100,6 @@
             <span class="nova-badge nova-badge-success">Reduced motion</span>
             <span class="nova-badge nova-badge-success">Print styles</span>
           </div>
-        </section>
-
-        <!-- ============================================================ PALETTES -->
-        <section class="doc-section nova-stack" id="palettes" aria-labelledby="palette-h">
-          <h2 class="nova-h2" id="palette-h">Color palettes</h2>
-          <p>Choose a coordinated preset or set your own primary, secondary, and tertiary brand colors. Existing accent styles follow primary automatically.</p>
-          <div class="doc-palette" id="palette-preview" data-palette="ocean">
-            <div class="doc-palette-controls">
-              <label class="doc-palette-control" for="palette-preset">Preset
-                <select id="palette-preset">
-                  <option value="default">Verdigris</option>
-                  <option value="ocean" selected>Ocean</option>
-                  <option value="forest">Forest</option>
-                  <option value="sunset">Sunset</option>
-                  <option value="berry">Berry</option>
-                  <option value="slate">Slate</option>
-                  <option value="custom">Custom colors</option>
-                </select>
-              </label>
-              <label class="doc-palette-control" for="palette-primary">Primary<input class="doc-color-input" id="palette-primary" type="color" value="#006d77" /></label>
-              <label class="doc-palette-control" for="palette-secondary">Secondary<input class="doc-color-input" id="palette-secondary" type="color" value="#386641" /></label>
-              <label class="doc-palette-control" for="palette-tertiary">Tertiary<input class="doc-color-input" id="palette-tertiary" type="color" value="#bc6c25" /></label>
-                          <label class="doc-palette-control" for="palette-tertiary">Tertiary<input class="doc-color-input" id="palette-tertiary" type="color" value="#a35b1d" /></label>
-            </div>
-            <div class="doc-palette-swatches" aria-live="polite">
-              <div class="doc-palette-swatch nova-bg-primary nova-text-on-primary"><strong>Primary</strong><code id="palette-primary-value">#006D77</code></div>
-              <div class="doc-palette-swatch nova-bg-secondary nova-text-on-secondary"><strong>Secondary</strong><code id="palette-secondary-value">#386641</code></div>
-              <div class="doc-palette-swatch nova-bg-tertiary nova-text-on-tertiary"><strong>Tertiary</strong><code id="palette-tertiary-value">#BC6C25</code></div>
-                          <div class="doc-palette-swatch nova-bg-tertiary nova-text-on-tertiary"><strong>Tertiary</strong><code id="palette-tertiary-value">#A35B1D</code></div>
-            </div>
-            <div class="nova-cluster">
-              <button class="nova-btn" type="button">Primary action</button>
-              <button class="nova-btn nova-btn-secondary" type="button">Secondary action</button>
-              <span class="nova-badge nova-badge-accent">Accent follows primary</span>
-            </div>
-          </div>
-          <pre class="doc-code">&lt;html data-palette="ocean"&gt;
-  &lt;!-- presets: ocean, forest, sunset, berry, slate --&gt;
-&lt;/html&gt;
-
-/* Custom roles; set these on :root or a subtree */
-:root {
-  --nova-color-primary: #006d77;
-  --nova-color-secondary: #386641;
-  --nova-color-tertiary: #bc6c25;
-  --nova-color-tertiary: #a35b1d;
-}</pre>
-          <p class="doc-tip">Custom colors also need matching <code>--nova-color-on-primary</code>, <code>--nova-color-on-secondary</code>, and <code>--nova-color-on-tertiary</code> foreground values. Coordinate hover and soft variants where those are used.</p>
         </section>
 
         <!-- ============================================================ BREAKPOINTS -->
@@ -526,70 +455,12 @@
 
     // Theme toggle
     const root = document.documentElement;
-    const themeMode = document.getElementById('theme-mode');
-    const getResolvedTheme = (mode) => mode === 'system'
-      ? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
-      : mode;
-    themeMode.value = root.dataset.themeMode || 'system';
-    function applyDocTheme(mode, persist = true) {
-      const resolvedTheme = getResolvedTheme(mode);
-      root.dataset.theme = resolvedTheme;
-      root.dataset.themeMode = mode;
-      root.style.colorScheme = resolvedTheme;
-      if (persist) localStorage.setItem('nova-doc-theme', mode);
-      updatePalettePreview();
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+      const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      root.dataset.theme = next;
+      localStorage.setItem('nova-doc-theme', next);
       renderContrast();
-    }
-    themeMode.addEventListener('change', () => applyDocTheme(themeMode.value));
-    matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-      if (themeMode.value === 'system') applyDocTheme('system', false);
     });
-
-    // Palette preview
-    const palettePreview = document.getElementById('palette-preview');
-    const palettePreset = document.getElementById('palette-preset');
-    const paletteInputs = ['primary', 'secondary', 'tertiary'].map((role) => document.getElementById('palette-' + role));
-    function updatePalettePreview() {
-      const preset = palettePreset.value;
-      if (preset === 'default') palettePreview.removeAttribute('data-palette');
-      else palettePreview.dataset.palette = preset;
-      for (const role of ['primary', 'secondary', 'tertiary']) {
-        palettePreview.style.removeProperty('--nova-color-' + role);
-        palettePreview.style.removeProperty('--nova-color-on-' + role);
-        palettePreview.style.removeProperty('--nova-color-' + role + '-soft');
-      }
-      palettePreview.style.removeProperty('--nova-color-primary-hover');
-      palettePreview.style.removeProperty('--nova-color-primary-active');
-      if (preset === 'custom') {
-        const dark = root.dataset.theme === 'dark';
-        for (const input of paletteInputs) {
-          const role = input.id.replace('palette-', '');
-          const [red, green, blue] = [1, 3, 5].map((index) => parseInt(input.value.slice(index, index + 2), 16) / 255)
-            .map((channel) => channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4);
-          const luminance = 0.2126 * red + 0.7152 * green + 0.0722 * blue;
-          palettePreview.style.setProperty('--nova-color-' + role, input.value);
-          palettePreview.style.setProperty('--nova-color-on-' + role, luminance > 0.179 ? '#14201c' : '#ffffff');
-          palettePreview.style.setProperty('--nova-color-' + role + '-soft', `color-mix(in srgb, ${input.value} 18%, ${dark ? '#141d1a' : '#ffffff'})`);
-          if (role === 'primary') {
-            palettePreview.style.setProperty('--nova-color-primary-hover', `color-mix(in srgb, ${input.value} 88%, ${dark ? 'white' : 'black'})`);
-            palettePreview.style.setProperty('--nova-color-primary-active', `color-mix(in srgb, ${input.value} 76%, ${dark ? 'white' : 'black'})`);
-          }
-        }
-      } else {
-        for (const input of paletteInputs) {
-          const role = input.id.replace('palette-', '');
-          input.value = getComputedStyle(palettePreview).getPropertyValue('--nova-color-' + role).trim();
-        }
-      }
-      for (const input of paletteInputs) {
-        document.getElementById(input.id + '-value').textContent = input.value.toUpperCase();
-      }
-    }
-    palettePreset.addEventListener('change', updatePalettePreview);
-    paletteInputs.forEach((input) => input.addEventListener('input', () => {
-      palettePreset.value = 'custom';
-      updatePalettePreview();
-    }));
 
     // Contrast table, computed from the live tokens
     const lin = (c) => { const s = c / 255; return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4); };

@@ -1,4 +1,5 @@
 import { AttachInternals, Component, Element, Event, EventEmitter, Host, Method, Prop, Watch, h } from '@stencil/core';
+import { t } from '../../i18n';
 
 let uid = 0;
 
@@ -45,7 +46,7 @@ export class UiOtpInput {
   syncForm() {
     this.internals?.setFormValue(this.value);
     if (this.required && this.value.length < this.length) {
-      this.internals?.setValidity({ valueMissing: true }, 'Enter the full code.', this.cells[0]);
+      this.internals?.setValidity({ valueMissing: true }, t('enterFullCode'), this.cells[0]);
     } else {
       this.internals?.setValidity({});
     }

@@ -17,16 +17,24 @@ import { defineCustomElement as defineUiButton } from '@nova-ui/core/components/
 import { defineCustomElement as defineUiCalendar } from '@nova-ui/core/components/ui-calendar.js';
 import { defineCustomElement as defineUiCard } from '@nova-ui/core/components/ui-card.js';
 import { defineCustomElement as defineUiCarousel } from '@nova-ui/core/components/ui-carousel.js';
+import { defineCustomElement as defineUiChart } from '@nova-ui/core/components/ui-chart.js';
 import { defineCustomElement as defineUiCheckbox } from '@nova-ui/core/components/ui-checkbox.js';
+import { defineCustomElement as defineUiCollapse } from '@nova-ui/core/components/ui-collapse.js';
 import { defineCustomElement as defineUiColorPicker } from '@nova-ui/core/components/ui-color-picker.js';
 import { defineCustomElement as defineUiCommandPalette } from '@nova-ui/core/components/ui-command-palette.js';
 import { defineCustomElement as defineUiContextMenu } from '@nova-ui/core/components/ui-context-menu.js';
 import { defineCustomElement as defineUiCounter } from '@nova-ui/core/components/ui-counter.js';
 import { defineCustomElement as defineUiDatePicker } from '@nova-ui/core/components/ui-date-picker.js';
+import { defineCustomElement as defineUiDateRangePicker } from '@nova-ui/core/components/ui-date-range-picker.js';
+import { defineCustomElement as defineUiDialogHost } from '@nova-ui/core/components/ui-dialog-host.js';
 import { defineCustomElement as defineUiDrawer } from '@nova-ui/core/components/ui-drawer.js';
 import { defineCustomElement as defineUiDropdown } from '@nova-ui/core/components/ui-dropdown.js';
+import { defineCustomElement as defineUiField } from '@nova-ui/core/components/ui-field.js';
+import { defineCustomElement as defineUiFileUpload } from '@nova-ui/core/components/ui-file-upload.js';
+import { defineCustomElement as defineUiHtml } from '@nova-ui/core/components/ui-html.js';
 import { defineCustomElement as defineUiIcon } from '@nova-ui/core/components/ui-icon.js';
 import { defineCustomElement as defineUiInput } from '@nova-ui/core/components/ui-input.js';
+import { defineCustomElement as defineUiKanban } from '@nova-ui/core/components/ui-kanban.js';
 import { defineCustomElement as defineUiMarquee } from '@nova-ui/core/components/ui-marquee.js';
 import { defineCustomElement as defineUiMenuItem } from '@nova-ui/core/components/ui-menu-item.js';
 import { defineCustomElement as defineUiMenubar } from '@nova-ui/core/components/ui-menubar.js';
@@ -42,10 +50,17 @@ import { defineCustomElement as defineUiRadio } from '@nova-ui/core/components/u
 import { defineCustomElement as defineUiRadioGroup } from '@nova-ui/core/components/ui-radio-group.js';
 import { defineCustomElement as defineUiRating } from '@nova-ui/core/components/ui-rating.js';
 import { defineCustomElement as defineUiReveal } from '@nova-ui/core/components/ui-reveal.js';
+import { defineCustomElement as defineUiScheduler } from '@nova-ui/core/components/ui-scheduler.js';
+import { defineCustomElement as defineUiScrollProgress } from '@nova-ui/core/components/ui-scroll-progress.js';
 import { defineCustomElement as defineUiSelect } from '@nova-ui/core/components/ui-select.js';
+import { defineCustomElement as defineUiSidebar } from '@nova-ui/core/components/ui-sidebar.js';
+import { defineCustomElement as defineUiSidebarItem } from '@nova-ui/core/components/ui-sidebar-item.js';
 import { defineCustomElement as defineUiSkeleton } from '@nova-ui/core/components/ui-skeleton.js';
 import { defineCustomElement as defineUiSlider } from '@nova-ui/core/components/ui-slider.js';
+import { defineCustomElement as defineUiSortable } from '@nova-ui/core/components/ui-sortable.js';
+import { defineCustomElement as defineUiSparkline } from '@nova-ui/core/components/ui-sparkline.js';
 import { defineCustomElement as defineUiSpinner } from '@nova-ui/core/components/ui-spinner.js';
+import { defineCustomElement as defineUiSplit } from '@nova-ui/core/components/ui-split.js';
 import { defineCustomElement as defineUiStagger } from '@nova-ui/core/components/ui-stagger.js';
 import { defineCustomElement as defineUiStep } from '@nova-ui/core/components/ui-step.js';
 import { defineCustomElement as defineUiStepper } from '@nova-ui/core/components/ui-stepper.js';
@@ -57,9 +72,11 @@ import { defineCustomElement as defineUiTabs } from '@nova-ui/core/components/ui
 import { defineCustomElement as defineUiTagInput } from '@nova-ui/core/components/ui-tag-input.js';
 import { defineCustomElement as defineUiTextarea } from '@nova-ui/core/components/ui-textarea.js';
 import { defineCustomElement as defineUiThemeToggle } from '@nova-ui/core/components/ui-theme-toggle.js';
+import { defineCustomElement as defineUiTimePicker } from '@nova-ui/core/components/ui-time-picker.js';
 import { defineCustomElement as defineUiToaster } from '@nova-ui/core/components/ui-toaster.js';
 import { defineCustomElement as defineUiTooltip } from '@nova-ui/core/components/ui-tooltip.js';
 import { defineCustomElement as defineUiTree } from '@nova-ui/core/components/ui-tree.js';
+import { defineCustomElement as defineUiVirtualList } from '@nova-ui/core/components/ui-virtual-list.js';
 @ProxyCmp({
   defineCustomElementFn: defineUiAccordion,
   inputs: ['multiple', 'variant']
@@ -357,6 +374,29 @@ export declare interface UiCarousel extends Components.UiCarousel {
 
 
 @ProxyCmp({
+  defineCustomElementFn: defineUiChart,
+  inputs: ['axes', 'compact', 'height', 'label', 'labels', 'series', 'showTable', 'type']
+})
+@Component({
+  selector: 'ui-chart',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['axes', 'compact', 'height', 'label', 'labels', 'series', 'showTable', 'type'],
+})
+export class UiChart {
+  protected el: HTMLUiChartElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface UiChart extends Components.UiChart {}
+
+
+@ProxyCmp({
   defineCustomElementFn: defineUiCheckbox,
   inputs: ['checked', 'disabled', 'indeterminate', 'label', 'name', 'required', 'value']
 })
@@ -383,6 +423,36 @@ import type { UiCheckboxCustomEvent } from '@nova-ui/core/components';
 export declare interface UiCheckbox extends Components.UiCheckbox {
 
   uiChange: EventEmitter<UiCheckboxCustomEvent<boolean>>;
+}
+
+
+@ProxyCmp({
+  defineCustomElementFn: defineUiCollapse,
+  inputs: ['open', 'peek']
+})
+@Component({
+  selector: 'ui-collapse',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['open', 'peek'],
+  outputs: ['uiToggle'],
+})
+export class UiCollapse {
+  protected el: HTMLUiCollapseElement;
+  @Output() uiToggle = new EventEmitter<UiCollapseCustomEvent<boolean>>();
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+import type { UiCollapseCustomEvent } from '@nova-ui/core/components';
+
+export declare interface UiCollapse extends Components.UiCollapse {
+
+  uiToggle: EventEmitter<UiCollapseCustomEvent<boolean>>;
 }
 
 
@@ -546,6 +616,61 @@ export declare interface UiDatePicker extends Components.UiDatePicker {
 
 
 @ProxyCmp({
+  defineCustomElementFn: defineUiDateRangePicker,
+  inputs: ['disabled', 'error', 'firstDayOfWeek', 'hint', 'label', 'locale', 'max', 'min', 'name', 'presets', 'required', 'today', 'value'],
+  methods: ['clear']
+})
+@Component({
+  selector: 'ui-date-range-picker',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['disabled', 'error', 'firstDayOfWeek', 'hint', 'label', 'locale', 'max', 'min', 'name', 'presets', 'required', 'today', 'value'],
+  outputs: ['uiChange'],
+})
+export class UiDateRangePicker {
+  protected el: HTMLUiDateRangePickerElement;
+  @Output() uiChange = new EventEmitter<UiDateRangePickerCustomEvent<IUiDateRangePickerDateRange>>();
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+import type { UiDateRangePickerCustomEvent } from '@nova-ui/core/components';
+import type { DateRange as IUiDateRangePickerDateRange } from '@nova-ui/core/components';
+
+export declare interface UiDateRangePicker extends Components.UiDateRangePicker {
+
+  uiChange: EventEmitter<UiDateRangePickerCustomEvent<IUiDateRangePickerDateRange>>;
+}
+
+
+@ProxyCmp({
+  defineCustomElementFn: defineUiDialogHost,
+  methods: ['openDialog']
+})
+@Component({
+  selector: 'ui-dialog-host',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [],
+})
+export class UiDialogHost {
+  protected el: HTMLUiDialogHostElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface UiDialogHost extends Components.UiDialogHost {}
+
+
+@ProxyCmp({
   defineCustomElementFn: defineUiDrawer,
   inputs: ['dismissible', 'heading', 'label', 'open', 'side', 'size']
 })
@@ -614,6 +739,99 @@ export declare interface UiDropdown extends Components.UiDropdown {
 
 
 @ProxyCmp({
+  defineCustomElementFn: defineUiField,
+  inputs: ['error', 'hint', 'inline', 'label', 'required']
+})
+@Component({
+  selector: 'ui-field',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['error', 'hint', 'inline', 'label', 'required'],
+})
+export class UiField {
+  protected el: HTMLUiFieldElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface UiField extends Components.UiField {}
+
+
+@ProxyCmp({
+  defineCustomElementFn: defineUiFileUpload,
+  inputs: ['accept', 'disabled', 'hint', 'label', 'maxFiles', 'maxSize', 'maxTotalSize', 'multiple', 'name', 'uploadFn'],
+  methods: ['clear']
+})
+@Component({
+  selector: 'ui-file-upload',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['accept', 'disabled', 'hint', 'label', 'maxFiles', 'maxSize', 'maxTotalSize', 'multiple', 'name', 'uploadFn'],
+  outputs: ['uiFiles', 'uiUploaded', 'uiRejected', 'uiRemove'],
+})
+export class UiFileUpload {
+  protected el: HTMLUiFileUploadElement;
+  @Output() uiFiles = new EventEmitter<UiFileUploadCustomEvent<File[]>>();
+  @Output() uiUploaded = new EventEmitter<UiFileUploadCustomEvent<{ file: File; url: string }>>();
+  @Output() uiRejected = new EventEmitter<UiFileUploadCustomEvent<IUiFileUploadFileProblem[]>>();
+  @Output() uiRemove = new EventEmitter<UiFileUploadCustomEvent<File>>();
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+import type { UiFileUploadCustomEvent } from '@nova-ui/core/components';
+import type { FileProblem as IUiFileUploadFileProblem } from '@nova-ui/core/components';
+
+export declare interface UiFileUpload extends Components.UiFileUpload {
+  /**
+   * Every file the user picks or drops (after validation).
+   */
+  uiFiles: EventEmitter<UiFileUploadCustomEvent<File[]>>;
+  /**
+   * Fires when a file finishes uploading.
+   */
+  uiUploaded: EventEmitter<UiFileUploadCustomEvent<{ file: File; url: string }>>;
+  /**
+   * Fires with every rejected file and why.
+   */
+  uiRejected: EventEmitter<UiFileUploadCustomEvent<IUiFileUploadFileProblem[]>>;
+
+  uiRemove: EventEmitter<UiFileUploadCustomEvent<File>>;
+}
+
+
+@ProxyCmp({
+  defineCustomElementFn: defineUiHtml,
+  inputs: ['allowImages', 'html', 'prose']
+})
+@Component({
+  selector: 'ui-html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['allowImages', 'html', 'prose'],
+})
+export class UiHtml {
+  protected el: HTMLUiHtmlElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface UiHtml extends Components.UiHtml {}
+
+
+@ProxyCmp({
   defineCustomElementFn: defineUiIcon,
   inputs: ['filled', 'label', 'name', 'size']
 })
@@ -671,6 +889,38 @@ export declare interface UiInput extends Components.UiInput {
    * Fires when the value is committed (blur or Enter).
    */
   uiChange: EventEmitter<UiInputCustomEvent<string>>;
+}
+
+
+@ProxyCmp({
+  defineCustomElementFn: defineUiKanban,
+  inputs: ['cards', 'columns', 'label', 'layout']
+})
+@Component({
+  selector: 'ui-kanban',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['cards', 'columns', 'label', 'layout'],
+  outputs: ['uiMove'],
+})
+export class UiKanban {
+  protected el: HTMLUiKanbanElement;
+  @Output() uiMove = new EventEmitter<UiKanbanCustomEvent<{ cardId: string; to: string; index: number; layout: Record<string, string[]> }>>();
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+import type { UiKanbanCustomEvent } from '@nova-ui/core/components';
+
+export declare interface UiKanban extends Components.UiKanban {
+  /**
+   * Fires after any move with the new layout.
+   */
+  uiMove: EventEmitter<UiKanbanCustomEvent<{ cardId: string; to: string; index: number; layout: Record<string, string[]> }>>;
 }
 
 
@@ -1122,6 +1372,66 @@ export declare interface UiReveal extends Components.UiReveal {
 
 
 @ProxyCmp({
+  defineCustomElementFn: defineUiScheduler,
+  inputs: ['date', 'dayEnd', 'dayStart', 'events', 'firstDayOfWeek', 'label', 'locale', 'view']
+})
+@Component({
+  selector: 'ui-scheduler',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['date', 'dayEnd', 'dayStart', 'events', 'firstDayOfWeek', 'label', 'locale', 'view'],
+  outputs: ['uiEventClick', 'uiDateChange', 'uiViewChange'],
+})
+export class UiScheduler {
+  protected el: HTMLUiSchedulerElement;
+  @Output() uiEventClick = new EventEmitter<UiSchedulerCustomEvent<IUiSchedulerCalEvent>>();
+  @Output() uiDateChange = new EventEmitter<UiSchedulerCustomEvent<string>>();
+  @Output() uiViewChange = new EventEmitter<UiSchedulerCustomEvent<'month' | 'week'>>();
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+import type { UiSchedulerCustomEvent } from '@nova-ui/core/components';
+import type { CalEvent as IUiSchedulerCalEvent } from '@nova-ui/core/components';
+
+export declare interface UiScheduler extends Components.UiScheduler {
+
+  uiEventClick: EventEmitter<UiSchedulerCustomEvent<IUiSchedulerCalEvent>>;
+
+  uiDateChange: EventEmitter<UiSchedulerCustomEvent<string>>;
+
+  uiViewChange: EventEmitter<UiSchedulerCustomEvent<'month' | 'week'>>;
+}
+
+
+@ProxyCmp({
+  defineCustomElementFn: defineUiScrollProgress,
+  inputs: ['label', 'position', 'target']
+})
+@Component({
+  selector: 'ui-scroll-progress',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['label', 'position', 'target'],
+})
+export class UiScrollProgress {
+  protected el: HTMLUiScrollProgressElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface UiScrollProgress extends Components.UiScrollProgress {}
+
+
+@ProxyCmp({
   defineCustomElementFn: defineUiSelect,
   inputs: ['clearable', 'disabled', 'emptyText', 'error', 'filter', 'hint', 'label', 'multiple', 'name', 'options', 'placeholder', 'required', 'searchable', 'size', 'value'],
   methods: ['focusInput']
@@ -1156,6 +1466,66 @@ export declare interface UiSelect extends Components.UiSelect {
    * Fires as the user types. Use it to fetch options when `filter` is off.
    */
   uiSearch: EventEmitter<UiSelectCustomEvent<string>>;
+}
+
+
+@ProxyCmp({
+  defineCustomElementFn: defineUiSidebar,
+  inputs: ['collapsed', 'label', 'storageKey']
+})
+@Component({
+  selector: 'ui-sidebar',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['collapsed', 'label', 'storageKey'],
+  outputs: ['uiCollapse'],
+})
+export class UiSidebar {
+  protected el: HTMLUiSidebarElement;
+  @Output() uiCollapse = new EventEmitter<UiSidebarCustomEvent<boolean>>();
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+import type { UiSidebarCustomEvent } from '@nova-ui/core/components';
+
+export declare interface UiSidebar extends Components.UiSidebar {
+
+  uiCollapse: EventEmitter<UiSidebarCustomEvent<boolean>>;
+}
+
+
+@ProxyCmp({
+  defineCustomElementFn: defineUiSidebarItem,
+  inputs: ['badge', 'current', 'group', 'href', 'icon', 'label', 'open', 'tooltip']
+})
+@Component({
+  selector: 'ui-sidebar-item',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['badge', 'current', 'group', 'href', 'icon', { name: 'label', required: true }, 'open', 'tooltip'],
+  outputs: ['uiSelect'],
+})
+export class UiSidebarItem {
+  protected el: HTMLUiSidebarItemElement;
+  @Output() uiSelect = new EventEmitter<UiSidebarItemCustomEvent<{ label: string; href?: string }>>();
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+import type { UiSidebarItemCustomEvent } from '@nova-ui/core/components';
+
+export declare interface UiSidebarItem extends Components.UiSidebarItem {
+
+  uiSelect: EventEmitter<UiSidebarItemCustomEvent<{ label: string; href?: string }>>;
 }
 
 
@@ -1220,6 +1590,62 @@ export declare interface UiSlider extends Components.UiSlider {
 
 
 @ProxyCmp({
+  defineCustomElementFn: defineUiSortable,
+  inputs: ['items', 'label']
+})
+@Component({
+  selector: 'ui-sortable',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['items', 'label'],
+  outputs: ['uiReorder'],
+})
+export class UiSortable {
+  protected el: HTMLUiSortableElement;
+  @Output() uiReorder = new EventEmitter<UiSortableCustomEvent<IUiSortableSortItem[]>>();
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+import type { UiSortableCustomEvent } from '@nova-ui/core/components';
+import type { SortItem as IUiSortableSortItem } from '@nova-ui/core/components';
+
+export declare interface UiSortable extends Components.UiSortable {
+  /**
+   * Fires with the new order after every change.
+   */
+  uiReorder: EventEmitter<UiSortableCustomEvent<IUiSortableSortItem[]>>;
+}
+
+
+@ProxyCmp({
+  defineCustomElementFn: defineUiSparkline,
+  inputs: ['area', 'height', 'label', 'values', 'width']
+})
+@Component({
+  selector: 'ui-sparkline',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['area', 'height', 'label', 'values', 'width'],
+})
+export class UiSparkline {
+  protected el: HTMLUiSparklineElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface UiSparkline extends Components.UiSparkline {}
+
+
+@ProxyCmp({
   defineCustomElementFn: defineUiSpinner,
   inputs: ['label', 'size']
 })
@@ -1240,6 +1666,36 @@ export class UiSpinner {
 
 
 export declare interface UiSpinner extends Components.UiSpinner {}
+
+
+@ProxyCmp({
+  defineCustomElementFn: defineUiSplit,
+  inputs: ['label', 'minA', 'minB', 'orientation', 'ratio', 'storageKey']
+})
+@Component({
+  selector: 'ui-split',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['label', 'minA', 'minB', 'orientation', 'ratio', 'storageKey'],
+  outputs: ['uiResize'],
+})
+export class UiSplit {
+  protected el: HTMLUiSplitElement;
+  @Output() uiResize = new EventEmitter<UiSplitCustomEvent<number>>();
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+import type { UiSplitCustomEvent } from '@nova-ui/core/components';
+
+export declare interface UiSplit extends Components.UiSplit {
+
+  uiResize: EventEmitter<UiSplitCustomEvent<number>>;
+}
 
 
 @ProxyCmp({
@@ -1398,14 +1854,15 @@ export declare interface UiTabPanel extends Components.UiTabPanel {}
 
 @ProxyCmp({
   defineCustomElementFn: defineUiTable,
-  inputs: ['caption', 'columns', 'density', 'emptyText', 'loading', 'manual', 'maxHeight', 'page', 'pageSize', 'pageSizeOptions', 'paginate', 'rowClickable', 'rowKey', 'rows', 'searchPlaceholder', 'searchable', 'selectable', 'selected', 'sort', 'striped', 'total']
+  inputs: ['caption', 'columns', 'density', 'emptyText', 'expandable', 'exportFilename', 'exportable', 'loading', 'manual', 'maxHeight', 'page', 'pageSize', 'pageSizeOptions', 'paginate', 'resizable', 'rowClickable', 'rowHeight', 'rowKey', 'rows', 'searchPlaceholder', 'searchable', 'selectable', 'selected', 'sort', 'striped', 'total', 'virtual'],
+  methods: ['exportCSV']
 })
 @Component({
   selector: 'ui-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['caption', 'columns', 'density', 'emptyText', 'loading', 'manual', 'maxHeight', 'page', 'pageSize', 'pageSizeOptions', 'paginate', 'rowClickable', 'rowKey', 'rows', 'searchPlaceholder', 'searchable', 'selectable', 'selected', 'sort', 'striped', 'total'],
+  inputs: ['caption', 'columns', 'density', 'emptyText', 'expandable', 'exportFilename', 'exportable', 'loading', 'manual', 'maxHeight', 'page', 'pageSize', 'pageSizeOptions', 'paginate', 'resizable', 'rowClickable', 'rowHeight', 'rowKey', 'rows', 'searchPlaceholder', 'searchable', 'selectable', 'selected', 'sort', 'striped', 'total', 'virtual'],
   outputs: ['uiQueryChange', 'uiSelectionChange', 'uiRowClick'],
 })
 export class UiTable {
@@ -1559,6 +2016,37 @@ export declare interface UiThemeToggle extends Components.UiThemeToggle {}
 
 
 @ProxyCmp({
+  defineCustomElementFn: defineUiTimePicker,
+  inputs: ['disabled', 'error', 'hint', 'label', 'locale', 'max', 'min', 'name', 'required', 'size', 'step', 'value'],
+  methods: ['focusInput']
+})
+@Component({
+  selector: 'ui-time-picker',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['disabled', 'error', 'hint', 'label', 'locale', 'max', 'min', 'name', 'required', 'size', 'step', 'value'],
+  outputs: ['uiChange'],
+})
+export class UiTimePicker {
+  protected el: HTMLUiTimePickerElement;
+  @Output() uiChange = new EventEmitter<UiTimePickerCustomEvent<string>>();
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+import type { UiTimePickerCustomEvent } from '@nova-ui/core/components';
+
+export declare interface UiTimePicker extends Components.UiTimePicker {
+
+  uiChange: EventEmitter<UiTimePickerCustomEvent<string>>;
+}
+
+
+@ProxyCmp({
   defineCustomElementFn: defineUiToaster,
   inputs: ['duration', 'max', 'placement'],
   methods: ['show', 'dismiss', 'clear']
@@ -1637,5 +2125,28 @@ export declare interface UiTree extends Components.UiTree {
 
   uiToggle: EventEmitter<UiTreeCustomEvent<{ id: string; expanded: boolean }>>;
 }
+
+
+@ProxyCmp({
+  defineCustomElementFn: defineUiVirtualList,
+  inputs: ['count', 'height', 'label', 'overscan', 'renderRow', 'rowHeight']
+})
+@Component({
+  selector: 'ui-virtual-list',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['count', 'height', 'label', 'overscan', 'renderRow', 'rowHeight'],
+})
+export class UiVirtualList {
+  protected el: HTMLUiVirtualListElement;
+  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }
+}
+
+
+export declare interface UiVirtualList extends Components.UiVirtualList {}
 
 

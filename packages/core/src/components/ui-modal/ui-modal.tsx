@@ -1,6 +1,7 @@
 import { Component, Element, Event, EventEmitter, Host, Prop, State, Watch, h } from '@stencil/core';
 import { prefersReducedMotion } from '../../utils/animation';
 import { lockScroll, unlockScroll } from '../../utils/scroll-lock';
+import { t } from '../../i18n';
 
 let uid = 0;
 
@@ -129,7 +130,7 @@ export class UiModal {
                   <slot name="header" onSlotchange={(e) => (this.hasHeaderSlot = (e.target as HTMLSlotElement).assignedNodes({ flatten: true }).length > 0)} />
                 </h2>
                 {this.dismissible && (
-                  <ui-button variant="ghost" size="sm" icon-only label="Close" onClick={() => (this.open = false)}>
+                  <ui-button variant="ghost" size="sm" icon-only label={t('close')} onClick={() => (this.open = false)}>
                     <ui-icon name="x" />
                   </ui-button>
                 )}

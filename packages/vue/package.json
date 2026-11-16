@@ -1,0 +1,19 @@
+{
+  "name": "@nova-ui/vue",
+  "version": "0.1.0",
+  "description": "Vue 3 wrappers for Nova UI web components (generated from the component manifest).",
+  "license": "MIT",
+  "type": "module",
+  "main": "./src/index.ts",
+  "scripts": {
+    "generate": "node scripts/generate.mjs",
+    "test": "node --test test/vue-wrappers.test.mjs"
+  },
+  "peerDependencies": {
+    "vue": ">=3.3.0",
+    "@nova-ui/core": "workspace:^"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

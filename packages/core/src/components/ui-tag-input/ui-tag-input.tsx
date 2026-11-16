@@ -1,4 +1,5 @@
 import { AttachInternals, Component, Element, Event, EventEmitter, Host, Method, Prop, State, Watch, h } from '@stencil/core';
+import { t } from '../../i18n';
 
 let uid = 0;
 
@@ -55,7 +56,7 @@ export class UiTagInput {
     const fd = new FormData();
     if (this.name) this.value.forEach((v) => fd.append(this.name as string, v));
     this.internals.setFormValue(fd);
-    if (this.required && this.value.length === 0) this.internals.setValidity({ valueMissing: true }, 'Add at least one entry.', this.inputEl);
+    if (this.required && this.value.length === 0) this.internals.setValidity({ valueMissing: true }, t('addOneEntry'), this.inputEl);
     else this.internals.setValidity({});
   }
 

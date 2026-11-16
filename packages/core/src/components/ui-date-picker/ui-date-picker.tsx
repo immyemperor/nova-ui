@@ -1,5 +1,6 @@
 import { AttachInternals, Component, Element, Event, EventEmitter, Host, Method, Prop, State, Watch, h } from '@stencil/core';
 import { parseISO } from '../../utils/date';
+import { t } from '../../i18n';
 
 let uid = 0;
 
@@ -52,7 +53,7 @@ export class UiDatePicker {
   @Watch('required')
   syncForm() {
     this.internals?.setFormValue(this.value || null);
-    if (this.required && !this.value) this.internals?.setValidity({ valueMissing: true }, 'Choose a date.', this.inputEl);
+    if (this.required && !this.value) this.internals?.setValidity({ valueMissing: true }, t('chooseDate'), this.inputEl);
     else this.internals?.setValidity({});
   }
 
@@ -131,7 +132,7 @@ export class UiDatePicker {
           trigger="manual"
           placement="bottom-start"
           panelRole="dialog"
-          label="Choose date"
+          label={t('chooseDateTitle')}
           onUiOpenChange={(e) => (this.open = e.detail)}
           onUiShow={() => this.calendar?.focusDay()}
         >
@@ -155,7 +156,7 @@ export class UiDatePicker {
               onKeyDown={this.onKeyDown}
             />
             {this.clearable && this.value && !this.disabled && (
-              <button type="button" class="icon-btn" aria-label="Clear date" tabindex={-1} onClick={() => this.set('')}>
+              <button type="button" class="icon-btn" aria-label={t('clearDate')} tabindex={-1} onClick={() => this.set('')}>
                 <ui-icon name="x" />
               </button>
             )}

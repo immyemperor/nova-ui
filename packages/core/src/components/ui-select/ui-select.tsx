@@ -1,6 +1,7 @@
 import { AttachInternals, Component, Element, Event, EventEmitter, Host, Method, Prop, State, Watch, h } from '@stencil/core';
 import type { SelectOption } from '../../types';
 import { fuzzyScore } from '../../utils/search';
+import { t } from '../../i18n';
 
 let uid = 0;
 
@@ -66,7 +67,7 @@ export class UiSelect {
     } else {
       this.internals.setFormValue(sel[0] ?? null);
     }
-    if (this.required && sel.length === 0) this.internals.setValidity({ valueMissing: true }, 'Select an option.', this.inputEl);
+    if (this.required && sel.length === 0) this.internals.setValidity({ valueMissing: true }, t('selectOption'), this.inputEl);
     else this.internals.setValidity({});
   }
 
@@ -286,7 +287,7 @@ export class UiSelect {
               onKeyDown={this.onKeyDown}
             />
             {this.clearable && sel.length > 0 && !this.disabled && (
-              <button type="button" class="icon-btn" aria-label="Clear selection" tabindex={-1} onClick={this.clear}>
+              <button type="button" class="icon-btn" aria-label={t('clearSelection')} tabindex={-1} onClick={this.clear}>
                 <ui-icon name="x" />
               </button>
             )}

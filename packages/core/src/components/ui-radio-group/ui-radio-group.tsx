@@ -1,4 +1,5 @@
 import { AttachInternals, Component, Element, Event, EventEmitter, Host, Listen, Prop, Watch, h } from '@stencil/core';
+import { t } from '../../i18n';
 
 interface RadioEl extends HTMLElement {
   value: string;
@@ -45,7 +46,7 @@ export class UiRadioGroup {
       r.setAttribute('tabindex', r === active && !this.disabled ? '0' : '-1');
     });
     this.internals?.setFormValue(this.value ?? null);
-    if (this.required && this.value == null) this.internals?.setValidity({ valueMissing: true }, 'Select an option.');
+    if (this.required && this.value == null) this.internals?.setValidity({ valueMissing: true }, t('selectOption'));
     else this.internals?.setValidity({});
   }
 

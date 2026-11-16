@@ -1,0 +1,14 @@
+:host { --_a: 50%; --_div: 8px; display: flex; block-size: 100%; min-block-size: 0; min-inline-size: 0; font-family: var(--nova-font-sans); color: var(--nova-color-fg); }
+:host([orientation='vertical']) { flex-direction: column; }
+.pane { min-inline-size: 0; min-block-size: 0; overflow: auto; }
+.pane.a { flex: 0 0 calc(var(--_a) - var(--_div) / 2); }
+.pane.b { flex: 1 1 0; }
+.divider {
+  position: relative; flex: 0 0 var(--_div); display: grid; place-items: center; cursor: col-resize; touch-action: none; user-select: none;
+  background: var(--nova-color-border); outline: none;
+}
+:host([orientation='vertical']) .divider { cursor: row-resize; }
+.divider:hover, .divider.dragging { background: var(--nova-color-accent); }
+.divider:focus-visible { box-shadow: var(--nova-focus-ring); }
+.grip { inline-size: 2px; block-size: 2rem; border-radius: 2px; background: var(--nova-color-fg-subtle); opacity: 0.6; }
+:host([orientation='vertical']) .grip { inline-size: 2rem; block-size: 2px; }

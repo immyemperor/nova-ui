@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import type { Viewport } from 'next';
 // One stylesheet: tokens, reset, layout classes, utilities. (Replaces @nova-ui/core/styles.css.)
 import '@nova-ui/css/nova.css';
+import './playground.css';
 import { themeInitScript } from '@nova-ui/react/server';
 
 export const metadata = { title: 'Nova UI - Next.js playground' };

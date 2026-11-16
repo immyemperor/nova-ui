@@ -1,0 +1,3137 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "ui-accordion",
+      "description": "Nova UiAccordion",
+      "attributes": [
+        {
+          "name": "multiple",
+          "description": "Allow several items open at once. (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "variant",
+          "description": "(default: 'bordered')",
+          "values": [
+            {
+              "name": "bordered"
+            },
+            {
+              "name": "flush"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ui-accordion-item",
+      "description": "Nova UiAccordionItem",
+      "attributes": [
+        {
+          "name": "heading",
+          "description": ""
+        },
+        {
+          "name": "value",
+          "description": ""
+        },
+        {
+          "name": "open",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "disabled",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "level",
+          "description": "aria-level of the heading, so it fits your page outline. (default: 3)"
+        },
+        {
+          "name": "onUiToggle",
+          "description": "Event: Fires with the new open state. Bubbles, so you can listen on <ui-accordion>.. Detail: boolean"
+        }
+      ]
+    },
+    {
+      "name": "ui-alert",
+      "description": "Nova UiAlert",
+      "attributes": [
+        {
+          "name": "tone",
+          "description": "(default: 'info')",
+          "values": [
+            {
+              "name": "info"
+            },
+            {
+              "name": "success"
+            },
+            {
+              "name": "warning"
+            },
+            {
+              "name": "danger"
+            }
+          ]
+        },
+        {
+          "name": "heading",
+          "description": "Short summary line. Put details in the default slot."
+        },
+        {
+          "name": "dismissible",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "open",
+          "description": "Set to false to hide. Dismissing sets this for you. (default: true)",
+          "valueSet": "v"
+        },
+        {
+          "name": "onUiDismiss",
+          "description": "Event: Fires when the user dismisses the alert.. Detail: void"
+        }
+      ]
+    },
+    {
+      "name": "ui-avatar",
+      "description": "Nova UiAvatar",
+      "attributes": [
+        {
+          "name": "src",
+          "description": ""
+        },
+        {
+          "name": "name",
+          "description": "Used for the alt text and for initials when there's no image. (default: '')"
+        },
+        {
+          "name": "size",
+          "description": "(default: 'md')",
+          "values": [
+            {
+              "name": "sm"
+            },
+            {
+              "name": "md"
+            },
+            {
+              "name": "lg"
+            },
+            {
+              "name": "xl"
+            }
+          ]
+        },
+        {
+          "name": "shape",
+          "description": "(default: 'circle')",
+          "values": [
+            {
+              "name": "circle"
+            },
+            {
+              "name": "square"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ui-badge",
+      "description": "Nova UiBadge",
+      "attributes": [
+        {
+          "name": "tone",
+          "description": "(default: 'neutral')",
+          "values": [
+            {
+              "name": "neutral"
+            },
+            {
+              "name": "accent"
+            },
+            {
+              "name": "success"
+            },
+            {
+              "name": "warning"
+            },
+            {
+              "name": "danger"
+            },
+            {
+              "name": "info"
+            }
+          ]
+        },
+        {
+          "name": "variant",
+          "description": "(default: 'soft')",
+          "values": [
+            {
+              "name": "soft"
+            },
+            {
+              "name": "solid"
+            },
+            {
+              "name": "outline"
+            }
+          ]
+        },
+        {
+          "name": "dot",
+          "description": "Leading status dot. (default: false)",
+          "valueSet": "v"
+        }
+      ]
+    },
+    {
+      "name": "ui-breadcrumb",
+      "description": "Nova UiBreadcrumb",
+      "attributes": [
+        {
+          "name": "max-items",
+          "description": "Collapse the middle of long trails into an expandable \"...\". Minimum 2."
+        },
+        {
+          "name": "label",
+          "description": "(default: 'Breadcrumb')"
+        }
+      ]
+    },
+    {
+      "name": "ui-breadcrumb-item",
+      "description": "Nova UiBreadcrumbItem",
+      "attributes": [
+        {
+          "name": "href",
+          "description": "Omit for items that aren't links."
+        },
+        {
+          "name": "current",
+          "description": "Mark the current page explicitly. The last item is treated as current automatically. (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "last",
+          "description": "Managed by <ui-breadcrumb>. (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "collapsed",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "ellipsis",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "onUiExpand",
+          "description": "Event: uiExpand. Detail: void"
+        }
+      ]
+    },
+    {
+      "name": "ui-button",
+      "description": "Nova UiButton",
+      "attributes": [
+        {
+          "name": "variant",
+          "description": "(default: 'primary')",
+          "values": [
+            {
+              "name": "primary"
+            },
+            {
+              "name": "secondary"
+            },
+            {
+              "name": "ghost"
+            },
+            {
+              "name": "danger"
+            }
+          ]
+        },
+        {
+          "name": "size",
+          "description": "(default: 'md')",
+          "values": [
+            {
+              "name": "sm"
+            },
+            {
+              "name": "md"
+            },
+            {
+              "name": "lg"
+            }
+          ]
+        },
+        {
+          "name": "disabled",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "loading",
+          "description": "Shows a spinner and blocks clicks while work is in flight. (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "icon-only",
+          "description": "Square button for a single icon. Provide `label` for screen readers. (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "type",
+          "description": "(default: 'button')",
+          "values": [
+            {
+              "name": "button"
+            },
+            {
+              "name": "submit"
+            },
+            {
+              "name": "reset"
+            }
+          ]
+        },
+        {
+          "name": "pressed",
+          "description": "Toggle state for toolbar-style buttons. Leave unset for a normal button.",
+          "valueSet": "v"
+        },
+        {
+          "name": "label",
+          "description": "Accessible name; required when iconOnly is set."
+        },
+        {
+          "name": "href",
+          "description": "Render as a link when set."
+        },
+        {
+          "name": "target",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "ui-calendar",
+      "description": "Nova UiCalendar",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "Selected date, \"YYYY-MM-DD\"."
+        },
+        {
+          "name": "min",
+          "description": "Earliest selectable date, \"YYYY-MM-DD\"."
+        },
+        {
+          "name": "max",
+          "description": ""
+        },
+        {
+          "name": "locale",
+          "description": "BCP 47 locale for month and weekday names. Defaults to the browser's."
+        },
+        {
+          "name": "first-day-of-week",
+          "description": "0 = Sunday, 1 = Monday. (default: 0)"
+        },
+        {
+          "name": "onUiChange",
+          "description": "Event: uiChange. Detail: string"
+        }
+      ]
+    },
+    {
+      "name": "ui-card",
+      "description": "Nova UiCard",
+      "attributes": [
+        {
+          "name": "variant",
+          "description": "(default: 'outlined')",
+          "values": [
+            {
+              "name": "outlined"
+            },
+            {
+              "name": "raised"
+            },
+            {
+              "name": "flat"
+            }
+          ]
+        },
+        {
+          "name": "interactive",
+          "description": "Adds hover and focus states. Wrap the card in a link or button for the actual action. (default: false)",
+          "valueSet": "v"
+        }
+      ]
+    },
+    {
+      "name": "ui-carousel",
+      "description": "Nova UiCarousel",
+      "attributes": [
+        {
+          "name": "slides-per-view",
+          "description": "Slides visible at once. (default: 1)"
+        },
+        {
+          "name": "gap",
+          "description": "Space between slides, in px. (default: 16)"
+        },
+        {
+          "name": "loop",
+          "description": "Wrap from the last slide back to the first. (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "autoplay",
+          "description": "Auto-advance every N ms. 0 turns it off. (default: 0)"
+        },
+        {
+          "name": "show-dots",
+          "description": "(default: true)",
+          "valueSet": "v"
+        },
+        {
+          "name": "show-arrows",
+          "description": "(default: true)",
+          "valueSet": "v"
+        },
+        {
+          "name": "label",
+          "description": "Accessible name. (default: 'Carousel')"
+        },
+        {
+          "name": "onUiChange",
+          "description": "Event: Fires with the index of the first visible slide.. Detail: number"
+        }
+      ]
+    },
+    {
+      "name": "ui-chart",
+      "description": "Nova UiChart",
+      "attributes": [
+        {
+          "name": "type",
+          "description": "Chart type. (default: 'line')",
+          "values": [
+            {
+              "name": "line"
+            },
+            {
+              "name": "area"
+            },
+            {
+              "name": "bar"
+            },
+            {
+              "name": "donut"
+            }
+          ]
+        },
+        {
+          "name": "series",
+          "description": "One or more series. Donut charts use the first series only. (default: [])"
+        },
+        {
+          "name": "labels",
+          "description": "Category labels for the x-axis (or slice names for a donut). (default: [])"
+        },
+        {
+          "name": "label",
+          "description": "Accessible title. Also read out as the summary. (default: 'Chart')"
+        },
+        {
+          "name": "height",
+          "description": "(default: 240)"
+        },
+        {
+          "name": "axes",
+          "description": "Show y-axis gridlines and values. (default: true)",
+          "valueSet": "v"
+        },
+        {
+          "name": "show-table",
+          "description": "Show the data table below the chart. Always in the DOM for screen readers; this toggles it visible. (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "compact",
+          "description": "Format axis numbers in compact form (1.2k). (default: true)",
+          "valueSet": "v"
+        }
+      ]
+    },
+    {
+      "name": "ui-checkbox",
+      "description": "Nova UiCheckbox",
+      "attributes": [
+        {
+          "name": "checked",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "indeterminate",
+          "description": "Shows a dash (mixed state). Cleared as soon as the user toggles. (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "value",
+          "description": "Value submitted with the form when checked. (default: 'on')"
+        },
+        {
+          "name": "name",
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "required",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "label",
+          "description": "Accessible name when there is no visible label text."
+        },
+        {
+          "name": "onUiChange",
+          "description": "Event: uiChange. Detail: boolean"
+        }
+      ]
+    },
+    {
+      "name": "ui-collapse",
+      "description": "Nova UiCollapse",
+      "attributes": [
+        {
+          "name": "open",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "peek",
+          "description": "Visible even when closed (a preview line)."
+        },
+        {
+          "name": "onUiToggle",
+          "description": "Event: uiToggle. Detail: boolean"
+        }
+      ]
+    },
+    {
+      "name": "ui-color-picker",
+      "description": "Nova UiColorPicker",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "Hex colour, \"#rrggbb\". (default: '#0b7a6c')"
+        },
+        {
+          "name": "label",
+          "description": ""
+        },
+        {
+          "name": "name",
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "inline",
+          "description": "Show the panel directly instead of behind a button. (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "swatches",
+          "description": "(default: DEFAULT_SWATCHES)"
+        },
+        {
+          "name": "onUiInput",
+          "description": "Event: Fires continuously while dragging or typing.. Detail: string"
+        },
+        {
+          "name": "onUiChange",
+          "description": "Event: Fires when a colour is committed: release, key press, hex entry or swatch click.. Detail: string"
+        }
+      ]
+    },
+    {
+      "name": "ui-command-palette",
+      "description": "Nova UiCommandPalette",
+      "attributes": [
+        {
+          "name": "open",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "commands",
+          "description": "(default: [])"
+        },
+        {
+          "name": "placeholder",
+          "description": "(default: 'Type a command or search')"
+        },
+        {
+          "name": "hotkey",
+          "description": "Global shortcut, e.g. \"mod+k\" (Cmd on Mac, Ctrl elsewhere). Set to \"\" to disable. (default: 'mod+k')"
+        },
+        {
+          "name": "empty-text",
+          "description": "(default: 'No results found')"
+        },
+        {
+          "name": "label",
+          "description": "(default: 'Command palette')"
+        },
+        {
+          "name": "onUiSelect",
+          "description": "Event: Fires with the chosen command. The palette closes itself.. Detail: Command"
+        },
+        {
+          "name": "onUiOpenChange",
+          "description": "Event: uiOpenChange. Detail: boolean"
+        }
+      ]
+    },
+    {
+      "name": "ui-context-menu",
+      "description": "Nova UiContextMenu",
+      "attributes": [
+        {
+          "name": "disabled",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "onUiSelect",
+          "description": "Event: uiSelect. Detail: { value: string; label: string }"
+        }
+      ]
+    },
+    {
+      "name": "ui-counter",
+      "description": "Nova UiCounter",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "(default: 0)"
+        },
+        {
+          "name": "duration",
+          "description": "ms (default: 1200)"
+        },
+        {
+          "name": "decimals",
+          "description": "(default: 0)"
+        },
+        {
+          "name": "prefix-text",
+          "description": "Text before the number, e.g. \"$\". (Not `prefix`: that is a built-in read-only DOM property.) (default: '')"
+        },
+        {
+          "name": "suffix-text",
+          "description": "Text after the number, e.g. \"%\". (default: '')"
+        },
+        {
+          "name": "locale",
+          "description": "BCP 47 locale for digit grouping, e.g. \"en-IN\". Defaults to the browser's."
+        },
+        {
+          "name": "trigger",
+          "description": "\"visible\" waits until the counter scrolls into view. (default: 'visible')",
+          "values": [
+            {
+              "name": "load"
+            },
+            {
+              "name": "visible"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ui-date-picker",
+      "description": "Nova UiDatePicker",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "(default: '')"
+        },
+        {
+          "name": "min",
+          "description": ""
+        },
+        {
+          "name": "max",
+          "description": ""
+        },
+        {
+          "name": "label",
+          "description": ""
+        },
+        {
+          "name": "hint",
+          "description": ""
+        },
+        {
+          "name": "error",
+          "description": ""
+        },
+        {
+          "name": "placeholder",
+          "description": "(default: 'YYYY-MM-DD')"
+        },
+        {
+          "name": "name",
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "required",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "clearable",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "locale",
+          "description": ""
+        },
+        {
+          "name": "first-day-of-week",
+          "description": "(default: 0)"
+        },
+        {
+          "name": "size",
+          "description": "(default: 'md')",
+          "values": [
+            {
+              "name": "sm"
+            },
+            {
+              "name": "md"
+            },
+            {
+              "name": "lg"
+            }
+          ]
+        },
+        {
+          "name": "onUiChange",
+          "description": "Event: Fires with \"YYYY-MM-DD\", or \"\" when cleared.. Detail: string"
+        }
+      ]
+    },
+    {
+      "name": "ui-date-range-picker",
+      "description": "Nova UiDateRangePicker",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "(default: {})"
+        },
+        {
+          "name": "min",
+          "description": ""
+        },
+        {
+          "name": "max",
+          "description": ""
+        },
+        {
+          "name": "label",
+          "description": ""
+        },
+        {
+          "name": "hint",
+          "description": ""
+        },
+        {
+          "name": "error",
+          "description": ""
+        },
+        {
+          "name": "name",
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "required",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "locale",
+          "description": ""
+        },
+        {
+          "name": "first-day-of-week",
+          "description": "(default: 0)"
+        },
+        {
+          "name": "presets",
+          "description": "Show quick presets (last 7 days, last 30 days, this month, this year). (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "today",
+          "description": "Pass a fixed \"today\" for tests and for server-rendered pages."
+        },
+        {
+          "name": "onUiChange",
+          "description": "Event: uiChange. Detail: DateRange"
+        }
+      ]
+    },
+    {
+      "name": "ui-dialog-host",
+      "description": "Nova UiDialogHost",
+      "attributes": []
+    },
+    {
+      "name": "ui-drawer",
+      "description": "Nova UiDrawer",
+      "attributes": [
+        {
+          "name": "open",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "side",
+          "description": "(default: 'right')",
+          "values": [
+            {
+              "name": "left"
+            },
+            {
+              "name": "right"
+            },
+            {
+              "name": "top"
+            },
+            {
+              "name": "bottom"
+            }
+          ]
+        },
+        {
+          "name": "heading",
+          "description": ""
+        },
+        {
+          "name": "label",
+          "description": ""
+        },
+        {
+          "name": "dismissible",
+          "description": "(default: true)",
+          "valueSet": "v"
+        },
+        {
+          "name": "size",
+          "description": "(default: 'md')",
+          "values": [
+            {
+              "name": "sm"
+            },
+            {
+              "name": "md"
+            },
+            {
+              "name": "lg"
+            }
+          ]
+        },
+        {
+          "name": "onUiOpen",
+          "description": "Event: uiOpen. Detail: void"
+        },
+        {
+          "name": "onUiClose",
+          "description": "Event: uiClose. Detail: void"
+        }
+      ]
+    },
+    {
+      "name": "ui-dropdown",
+      "description": "Nova UiDropdown",
+      "attributes": [
+        {
+          "name": "open",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "placement",
+          "description": "(default: 'bottom-start')"
+        },
+        {
+          "name": "onUiSelect",
+          "description": "Event: Fires when an item is chosen.. Detail: { value: string; label: string }"
+        },
+        {
+          "name": "onUiOpenChange",
+          "description": "Event: uiOpenChange. Detail: boolean"
+        }
+      ]
+    },
+    {
+      "name": "ui-editor",
+      "description": "Nova UiEditor",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "HTML content. Empty string when the editor is empty. (default: '')"
+        },
+        {
+          "name": "label",
+          "description": ""
+        },
+        {
+          "name": "hint",
+          "description": ""
+        },
+        {
+          "name": "error",
+          "description": ""
+        },
+        {
+          "name": "placeholder",
+          "description": "(default: 'Write something, or type / for commands')"
+        },
+        {
+          "name": "name",
+          "description": "Submitted with a surrounding <form>."
+        },
+        {
+          "name": "readonly",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "disabled",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "required",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "preset",
+          "description": "Ready-made toolbar: \"minimal\", \"standard\" or \"full\". (default: 'standard')",
+          "values": [
+            {
+              "name": "minimal"
+            },
+            {
+              "name": "standard"
+            },
+            {
+              "name": "full"
+            }
+          ]
+        },
+        {
+          "name": "toolbar",
+          "description": "Your own toolbar: item ids in order, with \"|\" for separators. Overrides `preset`."
+        },
+        {
+          "name": "slash-commands",
+          "description": "The \"/\" quick-insert menu. (default: true)",
+          "valueSet": "v"
+        },
+        {
+          "name": "mention-provider",
+          "description": "Turns on @mentions. Return matches for what the user typed after \"@\". (default: > MentionItem[] | Promise<MentionItem[]>)"
+        },
+        {
+          "name": "upload-handler",
+          "description": "Upload a file and resolve with its URL. Without it, images are embedded as data URLs."
+        },
+        {
+          "name": "accept",
+          "description": "Allowed image types (the `accept` attribute format). (default: 'image/*')"
+        },
+        {
+          "name": "attachment-accept",
+          "description": "Allowed attachment types. Empty allows any. (default: '')"
+        },
+        {
+          "name": "max-file-size",
+          "description": "Largest file, in bytes. (default: 10 * 1024 * 1024)"
+        },
+        {
+          "name": "max-length",
+          "description": "Maximum characters. Shows a counter when set."
+        },
+        {
+          "name": "min-height",
+          "description": "(default: '10rem')"
+        },
+        {
+          "name": "max-height",
+          "description": ""
+        },
+        {
+          "name": "focus-on-load",
+          "description": "Put the cursor in the editor on load. (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "onUiChange",
+          "description": "Event: Fires on every content change with the HTML.. Detail: string"
+        },
+        {
+          "name": "onUiFocus",
+          "description": "Event: uiFocus. Detail: void"
+        },
+        {
+          "name": "onUiBlur",
+          "description": "Event: uiBlur. Detail: void"
+        },
+        {
+          "name": "onUiReady",
+          "description": "Event: uiReady. Detail: void"
+        },
+        {
+          "name": "onUiUploadStart",
+          "description": "Event: uiUploadStart. Detail: { file: File }"
+        },
+        {
+          "name": "onUiUploadComplete",
+          "description": "Event: uiUploadComplete. Detail: { file: File; url: string }"
+        },
+        {
+          "name": "onUiUploadError",
+          "description": "Event: uiUploadError. Detail: { file: File; message: string }"
+        }
+      ]
+    },
+    {
+      "name": "ui-field",
+      "description": "Nova UiField",
+      "attributes": [
+        {
+          "name": "label",
+          "description": ""
+        },
+        {
+          "name": "hint",
+          "description": ""
+        },
+        {
+          "name": "error",
+          "description": ""
+        },
+        {
+          "name": "required",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "inline",
+          "description": "Lay the label beside the control (useful in dense settings screens). (default: false)",
+          "valueSet": "v"
+        }
+      ]
+    },
+    {
+      "name": "ui-file-upload",
+      "description": "Nova UiFileUpload",
+      "attributes": [
+        {
+          "name": "accept",
+          "description": "(default: '')"
+        },
+        {
+          "name": "max-size",
+          "description": ""
+        },
+        {
+          "name": "max-files",
+          "description": ""
+        },
+        {
+          "name": "max-total-size",
+          "description": ""
+        },
+        {
+          "name": "multiple",
+          "description": "(default: true)",
+          "valueSet": "v"
+        },
+        {
+          "name": "label",
+          "description": "(default: 'Upload files')"
+        },
+        {
+          "name": "hint",
+          "description": ""
+        },
+        {
+          "name": "name",
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "upload-fn",
+          "description": "Upload a single file. Resolve with its URL. Progress: call the second argument with 0..1. (default: > void) => Promise<string>)"
+        },
+        {
+          "name": "onUiFiles",
+          "description": "Event: Every file the user picks or drops (after validation).. Detail: File[]"
+        },
+        {
+          "name": "onUiUploaded",
+          "description": "Event: Fires when a file finishes uploading.. Detail: { file: File; url: string }"
+        },
+        {
+          "name": "onUiRejected",
+          "description": "Event: Fires with every rejected file and why.. Detail: FileProblem[]"
+        },
+        {
+          "name": "onUiRemove",
+          "description": "Event: uiRemove. Detail: File"
+        }
+      ]
+    },
+    {
+      "name": "ui-html",
+      "description": "Nova UiHtml",
+      "attributes": [
+        {
+          "name": "html",
+          "description": "The HTML to display. Sanitised before it reaches the page. (default: '')"
+        },
+        {
+          "name": "allow-images",
+          "description": "Keep <img> elements. (default: true)",
+          "valueSet": "v"
+        },
+        {
+          "name": "prose",
+          "description": "Typography defaults for long-form content. (default: false)",
+          "valueSet": "v"
+        }
+      ]
+    },
+    {
+      "name": "ui-icon",
+      "description": "Nova UiIcon",
+      "attributes": [
+        {
+          "name": "name",
+          "description": "Icon name, e.g. \"check\". Register more with registerIcons()."
+        },
+        {
+          "name": "size",
+          "description": "CSS size. Defaults to 1em so the icon scales with text."
+        },
+        {
+          "name": "label",
+          "description": "Accessible label. When omitted the icon is hidden from screen readers."
+        },
+        {
+          "name": "filled",
+          "description": "Fill the shape with the current colour (e.g. a solid star). (default: false)",
+          "valueSet": "v"
+        }
+      ]
+    },
+    {
+      "name": "ui-input",
+      "description": "Nova UiInput",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "(default: '')"
+        },
+        {
+          "name": "label",
+          "description": ""
+        },
+        {
+          "name": "hide-label",
+          "description": "Keep the label for screen readers but don't show it. (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "hint",
+          "description": "Helper text shown under the field."
+        },
+        {
+          "name": "error",
+          "description": "Error text. Also marks the field invalid."
+        },
+        {
+          "name": "type",
+          "description": "(default: 'text')",
+          "values": [
+            {
+              "name": "text"
+            },
+            {
+              "name": "email"
+            },
+            {
+              "name": "password"
+            },
+            {
+              "name": "number"
+            },
+            {
+              "name": "search"
+            },
+            {
+              "name": "tel"
+            },
+            {
+              "name": "url"
+            }
+          ]
+        },
+        {
+          "name": "name",
+          "description": ""
+        },
+        {
+          "name": "placeholder",
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "readonly",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "required",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "autocomplete",
+          "description": ""
+        },
+        {
+          "name": "maxlength",
+          "description": ""
+        },
+        {
+          "name": "size",
+          "description": "(default: 'md')",
+          "values": [
+            {
+              "name": "sm"
+            },
+            {
+              "name": "md"
+            },
+            {
+              "name": "lg"
+            }
+          ]
+        },
+        {
+          "name": "onUiInput",
+          "description": "Event: Fires on every keystroke with the current value.. Detail: string"
+        },
+        {
+          "name": "onUiChange",
+          "description": "Event: Fires when the value is committed (blur or Enter).. Detail: string"
+        }
+      ]
+    },
+    {
+      "name": "ui-kanban",
+      "description": "Nova UiKanban",
+      "attributes": [
+        {
+          "name": "columns",
+          "description": "(default: [])"
+        },
+        {
+          "name": "cards",
+          "description": "Cards, keyed by id. (default: [])"
+        },
+        {
+          "name": "layout",
+          "description": "Which column each card is in: column id to ordered card ids. (default: {})"
+        },
+        {
+          "name": "label",
+          "description": "(default: 'Board')"
+        },
+        {
+          "name": "onUiMove",
+          "description": "Event: Fires after any move with the new layout.. Detail: { cardId: string; to: string; index: number; layout: Record<string, string[]> }"
+        }
+      ]
+    },
+    {
+      "name": "ui-marquee",
+      "description": "Nova UiMarquee",
+      "attributes": [
+        {
+          "name": "speed",
+          "description": "Pixels per second. (default: 50)"
+        },
+        {
+          "name": "direction",
+          "description": "(default: 'left')",
+          "values": [
+            {
+              "name": "left"
+            },
+            {
+              "name": "right"
+            }
+          ]
+        },
+        {
+          "name": "pause-on-hover",
+          "description": "(default: true)",
+          "valueSet": "v"
+        },
+        {
+          "name": "gap",
+          "description": "Space between repeated items, px. (default: 32)"
+        }
+      ]
+    },
+    {
+      "name": "ui-menu-item",
+      "description": "Nova UiMenuItem",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "Returned in the parent's uiSelect event. Defaults to the item's text."
+        },
+        {
+          "name": "disabled",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "tone",
+          "description": "(default: 'default')",
+          "values": [
+            {
+              "name": "default"
+            },
+            {
+              "name": "danger"
+            }
+          ]
+        },
+        {
+          "name": "divider",
+          "description": "Draw a separator line above this item. (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "shortcut",
+          "description": "Display-only shortcut hint, e.g. \"Ctrl S\"."
+        }
+      ]
+    },
+    {
+      "name": "ui-menubar",
+      "description": "Nova UiMenubar",
+      "attributes": [
+        {
+          "name": "label",
+          "description": "(default: 'Application menu')"
+        }
+      ]
+    },
+    {
+      "name": "ui-menubar-menu",
+      "description": "Nova UiMenubarMenu",
+      "attributes": [
+        {
+          "name": "label",
+          "description": "Text of the top-level button, e.g. \"File\"."
+        },
+        {
+          "name": "open",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "disabled",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "roving",
+          "description": "Managed by <ui-menubar>: only one trigger is in the tab order. (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "onUiSelect",
+          "description": "Event: Fires when a menu item is chosen.. Detail: { value: string; label: string }"
+        },
+        {
+          "name": "onUiNavigate",
+          "description": "Event: Asks the menubar to move to the previous (-1) or next (1) menu.. Detail: number"
+        }
+      ]
+    },
+    {
+      "name": "ui-modal",
+      "description": "Nova UiModal",
+      "attributes": [
+        {
+          "name": "open",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "heading",
+          "description": "Title shown in the header and used as the dialog's accessible name."
+        },
+        {
+          "name": "label",
+          "description": "Accessible name when there is no visible heading."
+        },
+        {
+          "name": "dismissible",
+          "description": "Allow closing with Escape, the backdrop and the close button. (default: true)",
+          "valueSet": "v"
+        },
+        {
+          "name": "size",
+          "description": "(default: 'md')",
+          "values": [
+            {
+              "name": "sm"
+            },
+            {
+              "name": "md"
+            },
+            {
+              "name": "lg"
+            },
+            {
+              "name": "full"
+            }
+          ]
+        },
+        {
+          "name": "placement",
+          "description": "\"center\" is a dialog. The edge values make it a drawer; \"palette\" is top-aligned for search. (default: 'center')",
+          "values": [
+            {
+              "name": "center"
+            },
+            {
+              "name": "left"
+            },
+            {
+              "name": "right"
+            },
+            {
+              "name": "top"
+            },
+            {
+              "name": "bottom"
+            },
+            {
+              "name": "palette"
+            }
+          ]
+        },
+        {
+          "name": "hide-header",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "onUiOpen",
+          "description": "Event: Fires after the dialog is shown.. Detail: void"
+        },
+        {
+          "name": "onUiClose",
+          "description": "Event: Fires after the dialog has closed, however it was closed.. Detail: void"
+        }
+      ]
+    },
+    {
+      "name": "ui-nav-item",
+      "description": "Nova UiNavItem",
+      "attributes": [
+        {
+          "name": "label",
+          "description": "Text of the link or button."
+        },
+        {
+          "name": "href",
+          "description": "Makes this a plain link. Leave out to make it a button that opens the panel."
+        },
+        {
+          "name": "current",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "open",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "onUiToggle",
+          "description": "Event: Fires when the panel opens or closes. Bubbles so <ui-nav-menu> can close siblings.. Detail: boolean"
+        }
+      ]
+    },
+    {
+      "name": "ui-nav-menu",
+      "description": "Nova UiNavMenu",
+      "attributes": [
+        {
+          "name": "label",
+          "description": "(default: 'Main')"
+        }
+      ]
+    },
+    {
+      "name": "ui-otp-input",
+      "description": "Nova UiOtpInput",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "(default: '')"
+        },
+        {
+          "name": "length",
+          "description": "(default: 6)"
+        },
+        {
+          "name": "type",
+          "description": "(default: 'numeric')",
+          "values": [
+            {
+              "name": "numeric"
+            },
+            {
+              "name": "alphanumeric"
+            }
+          ]
+        },
+        {
+          "name": "mask",
+          "description": "Hide the characters, like a password. (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "label",
+          "description": ""
+        },
+        {
+          "name": "hint",
+          "description": ""
+        },
+        {
+          "name": "error",
+          "description": ""
+        },
+        {
+          "name": "name",
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "required",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "size",
+          "description": "(default: 'md')",
+          "values": [
+            {
+              "name": "sm"
+            },
+            {
+              "name": "md"
+            },
+            {
+              "name": "lg"
+            }
+          ]
+        },
+        {
+          "name": "onUiInput",
+          "description": "Event: Fires on every change with the characters entered so far.. Detail: string"
+        },
+        {
+          "name": "onUiComplete",
+          "description": "Event: Fires once, when every box is filled.. Detail: string"
+        }
+      ]
+    },
+    {
+      "name": "ui-pagination",
+      "description": "Nova UiPagination",
+      "attributes": [
+        {
+          "name": "page",
+          "description": "Current page, 1-based. (default: 1)"
+        },
+        {
+          "name": "page-count",
+          "description": "Total pages. Or pass `total` items and a `pageSize`."
+        },
+        {
+          "name": "total",
+          "description": ""
+        },
+        {
+          "name": "page-size",
+          "description": "(default: 10)"
+        },
+        {
+          "name": "siblings",
+          "description": "Pages shown on each side of the current page. (default: 1)"
+        },
+        {
+          "name": "boundaries",
+          "description": "Pages always shown at each end. (default: 1)"
+        },
+        {
+          "name": "label",
+          "description": "(default: 'Pagination')"
+        },
+        {
+          "name": "size",
+          "description": "(default: 'md')",
+          "values": [
+            {
+              "name": "sm"
+            },
+            {
+              "name": "md"
+            }
+          ]
+        },
+        {
+          "name": "onUiChange",
+          "description": "Event: uiChange. Detail: number"
+        }
+      ]
+    },
+    {
+      "name": "ui-popover",
+      "description": "Nova UiPopover",
+      "attributes": [
+        {
+          "name": "open",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "placement",
+          "description": "(default: 'bottom-start')"
+        },
+        {
+          "name": "offset",
+          "description": "Gap between trigger and panel, px. (default: 8)"
+        },
+        {
+          "name": "trigger",
+          "description": "\"click\" toggles on trigger click. \"manual\" leaves control to you. (default: 'click')",
+          "values": [
+            {
+              "name": "click"
+            },
+            {
+              "name": "manual"
+            }
+          ]
+        },
+        {
+          "name": "match-width",
+          "description": "Make the panel at least as wide as the trigger. (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "panel-role",
+          "description": "Semantics of the panel; also sets aria-haspopup on the trigger. (default: 'dialog')",
+          "values": [
+            {
+              "name": "dialog"
+            },
+            {
+              "name": "menu"
+            },
+            {
+              "name": "listbox"
+            },
+            {
+              "name": "none"
+            }
+          ]
+        },
+        {
+          "name": "close-on-outside",
+          "description": "Close on outside press and Escape. (default: true)",
+          "valueSet": "v"
+        },
+        {
+          "name": "label",
+          "description": "Accessible name when panelRole is \"dialog\"."
+        },
+        {
+          "name": "onUiOpenChange",
+          "description": "Event: Fires when the user (not your code) changes the open state.. Detail: boolean"
+        },
+        {
+          "name": "onUiShow",
+          "description": "Event: Fires after the panel is shown and positioned.. Detail: void"
+        },
+        {
+          "name": "onUiHide",
+          "description": "Event: uiHide. Detail: void"
+        }
+      ]
+    },
+    {
+      "name": "ui-progress",
+      "description": "Nova UiProgress",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "Current value. Leave unset for an indeterminate bar."
+        },
+        {
+          "name": "max",
+          "description": "(default: 100)"
+        },
+        {
+          "name": "label",
+          "description": ""
+        },
+        {
+          "name": "show-value",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "tone",
+          "description": "(default: 'accent')",
+          "values": [
+            {
+              "name": "accent"
+            },
+            {
+              "name": "success"
+            },
+            {
+              "name": "warning"
+            },
+            {
+              "name": "danger"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ui-radio",
+      "description": "Nova UiRadio",
+      "attributes": [
+        {
+          "name": "value",
+          "description": ""
+        },
+        {
+          "name": "checked",
+          "description": "Managed by the parent group. (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "disabled",
+          "description": "(default: false)",
+          "valueSet": "v"
+        }
+      ]
+    },
+    {
+      "name": "ui-radio-group",
+      "description": "Nova UiRadioGroup",
+      "attributes": [
+        {
+          "name": "value",
+          "description": ""
+        },
+        {
+          "name": "label",
+          "description": ""
+        },
+        {
+          "name": "name",
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "required",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "orientation",
+          "description": "(default: 'vertical')",
+          "values": [
+            {
+              "name": "vertical"
+            },
+            {
+              "name": "horizontal"
+            }
+          ]
+        },
+        {
+          "name": "onUiChange",
+          "description": "Event: uiChange. Detail: string"
+        }
+      ]
+    },
+    {
+      "name": "ui-rating",
+      "description": "Nova UiRating",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "(default: 0)"
+        },
+        {
+          "name": "max",
+          "description": "(default: 5)"
+        },
+        {
+          "name": "readonly",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "label",
+          "description": "Accessible name for the group, e.g. \"Rate this article\". (default: 'Rating')"
+        },
+        {
+          "name": "size",
+          "description": "(default: 'md')",
+          "values": [
+            {
+              "name": "sm"
+            },
+            {
+              "name": "md"
+            },
+            {
+              "name": "lg"
+            }
+          ]
+        },
+        {
+          "name": "onUiChange",
+          "description": "Event: uiChange. Detail: number"
+        }
+      ]
+    },
+    {
+      "name": "ui-reveal",
+      "description": "Nova UiReveal",
+      "attributes": [
+        {
+          "name": "animation",
+          "description": "(default: 'slide-up')"
+        },
+        {
+          "name": "duration",
+          "description": "ms (default: 500)"
+        },
+        {
+          "name": "delay",
+          "description": "ms (default: 0)"
+        },
+        {
+          "name": "threshold",
+          "description": "Fraction of the element that must be visible (0 to 1). (default: 0.15)"
+        },
+        {
+          "name": "repeat",
+          "description": "Reveal again each time it re-enters the viewport. (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "onUiReveal",
+          "description": "Event: Fires after the reveal animation completes.. Detail: void"
+        }
+      ]
+    },
+    {
+      "name": "ui-scheduler",
+      "description": "Nova UiScheduler",
+      "attributes": [
+        {
+          "name": "events",
+          "description": "(default: [])"
+        },
+        {
+          "name": "view",
+          "description": "(default: 'month')",
+          "values": [
+            {
+              "name": "month"
+            },
+            {
+              "name": "week"
+            }
+          ]
+        },
+        {
+          "name": "date",
+          "description": "Date shown, \"YYYY-MM-DD\". Defaults to today. (default: '')"
+        },
+        {
+          "name": "first-day-of-week",
+          "description": "(default: 1)"
+        },
+        {
+          "name": "locale",
+          "description": ""
+        },
+        {
+          "name": "day-start",
+          "description": "First and last hour shown in week view. (default: 7)"
+        },
+        {
+          "name": "day-end",
+          "description": "(default: 20)"
+        },
+        {
+          "name": "label",
+          "description": "(default: 'Schedule')"
+        },
+        {
+          "name": "onUiEventClick",
+          "description": "Event: uiEventClick. Detail: CalEvent"
+        },
+        {
+          "name": "onUiDateChange",
+          "description": "Event: uiDateChange. Detail: string"
+        },
+        {
+          "name": "onUiViewChange",
+          "description": "Event: uiViewChange. Detail: 'month' | 'week'"
+        }
+      ]
+    },
+    {
+      "name": "ui-scroll-progress",
+      "description": "Nova UiScrollProgress",
+      "attributes": [
+        {
+          "name": "target",
+          "description": ""
+        },
+        {
+          "name": "position",
+          "description": "(default: 'top')",
+          "values": [
+            {
+              "name": "top"
+            },
+            {
+              "name": "bottom"
+            }
+          ]
+        },
+        {
+          "name": "label",
+          "description": "(default: 'Reading progress')"
+        }
+      ]
+    },
+    {
+      "name": "ui-select",
+      "description": "Nova UiSelect",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "A string, or an array of strings when `multiple`. (default: '')"
+        },
+        {
+          "name": "options",
+          "description": "(default: [])"
+        },
+        {
+          "name": "multiple",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "searchable",
+          "description": "Let people type to filter. When false it behaves like a plain select. (default: true)",
+          "valueSet": "v"
+        },
+        {
+          "name": "clearable",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "filter",
+          "description": "Filter options in the browser. Turn off when you filter on the server. (default: true)",
+          "valueSet": "v"
+        },
+        {
+          "name": "label",
+          "description": ""
+        },
+        {
+          "name": "hint",
+          "description": ""
+        },
+        {
+          "name": "error",
+          "description": ""
+        },
+        {
+          "name": "placeholder",
+          "description": ""
+        },
+        {
+          "name": "name",
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "required",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "empty-text",
+          "description": "(default: 'No matches')"
+        },
+        {
+          "name": "size",
+          "description": "(default: 'md')",
+          "values": [
+            {
+              "name": "sm"
+            },
+            {
+              "name": "md"
+            },
+            {
+              "name": "lg"
+            }
+          ]
+        },
+        {
+          "name": "onUiChange",
+          "description": "Event: Fires when the selection changes.. Detail: string | string[]"
+        },
+        {
+          "name": "onUiSearch",
+          "description": "Event: Fires as the user types. Use it to fetch options when `filter` is off.. Detail: string"
+        }
+      ]
+    },
+    {
+      "name": "ui-sidebar",
+      "description": "Nova UiSidebar",
+      "attributes": [
+        {
+          "name": "collapsed",
+          "description": "Show icons only, with labels as tooltips. (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "label",
+          "description": "Accessible name of the navigation landmark. (default: 'Main')"
+        },
+        {
+          "name": "storage-key",
+          "description": "Collapsed state is remembered under this key in localStorage (leave empty to disable)."
+        },
+        {
+          "name": "onUiCollapse",
+          "description": "Event: uiCollapse. Detail: boolean"
+        }
+      ]
+    },
+    {
+      "name": "ui-sidebar-item",
+      "description": "Nova UiSidebarItem",
+      "attributes": [
+        {
+          "name": "label",
+          "description": ""
+        },
+        {
+          "name": "href",
+          "description": ""
+        },
+        {
+          "name": "icon",
+          "description": "Icon name from the registry, shown in both expanded and collapsed states."
+        },
+        {
+          "name": "badge",
+          "description": "Badge text, e.g. an unread count."
+        },
+        {
+          "name": "current",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "group",
+          "description": "Makes this item a group that shows its children when open. (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "open",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "tooltip",
+          "description": "Shown as a native tooltip when the sidebar is collapsed."
+        },
+        {
+          "name": "onUiSelect",
+          "description": "Event: uiSelect. Detail: { label: string; href?: string }"
+        }
+      ]
+    },
+    {
+      "name": "ui-skeleton",
+      "description": "Nova UiSkeleton",
+      "attributes": [
+        {
+          "name": "shape",
+          "description": "(default: 'text')",
+          "values": [
+            {
+              "name": "text"
+            },
+            {
+              "name": "rect"
+            },
+            {
+              "name": "circle"
+            }
+          ]
+        },
+        {
+          "name": "width",
+          "description": "CSS width. Defaults to 100%."
+        },
+        {
+          "name": "height",
+          "description": "CSS height. Defaults depend on shape."
+        },
+        {
+          "name": "lines",
+          "description": "Number of text lines (shape=\"text\" only). The last line is shorter. (default: 1)"
+        },
+        {
+          "name": "animated",
+          "description": "(default: true)",
+          "valueSet": "v"
+        }
+      ]
+    },
+    {
+      "name": "ui-slider",
+      "description": "Nova UiSlider",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "(default: 0)"
+        },
+        {
+          "name": "min",
+          "description": "(default: 0)"
+        },
+        {
+          "name": "max",
+          "description": "(default: 100)"
+        },
+        {
+          "name": "step",
+          "description": "(default: 1)"
+        },
+        {
+          "name": "label",
+          "description": ""
+        },
+        {
+          "name": "name",
+          "description": ""
+        },
+        {
+          "name": "show-value",
+          "description": "Show the current value next to the label. (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "disabled",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "onUiInput",
+          "description": "Event: Fires continuously while dragging.. Detail: number"
+        },
+        {
+          "name": "onUiChange",
+          "description": "Event: Fires when the user releases the thumb or uses the keyboard.. Detail: number"
+        }
+      ]
+    },
+    {
+      "name": "ui-sortable",
+      "description": "Nova UiSortable",
+      "attributes": [
+        {
+          "name": "items",
+          "description": "(default: [])"
+        },
+        {
+          "name": "label",
+          "description": "(default: 'Reorderable list')"
+        },
+        {
+          "name": "onUiReorder",
+          "description": "Event: Fires with the new order after every change.. Detail: SortItem[]"
+        }
+      ]
+    },
+    {
+      "name": "ui-sparkline",
+      "description": "Nova UiSparkline",
+      "attributes": [
+        {
+          "name": "values",
+          "description": "Values, left to right. (default: [])"
+        },
+        {
+          "name": "width",
+          "description": "(default: 120)"
+        },
+        {
+          "name": "height",
+          "description": "(default: 32)"
+        },
+        {
+          "name": "area",
+          "description": "Fill the area under the line. (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "label",
+          "description": "Accessible summary, e.g. \"Revenue, up 12% over 7 days\". (default: 'Trend')"
+        }
+      ]
+    },
+    {
+      "name": "ui-spinner",
+      "description": "Nova UiSpinner",
+      "attributes": [
+        {
+          "name": "size",
+          "description": "(default: 'md')",
+          "values": [
+            {
+              "name": "sm"
+            },
+            {
+              "name": "md"
+            },
+            {
+              "name": "lg"
+            }
+          ]
+        },
+        {
+          "name": "label",
+          "description": "Announced to screen readers. Describe what is loading, e.g. \"Loading results\". (default: 'Loading')"
+        }
+      ]
+    },
+    {
+      "name": "ui-split",
+      "description": "Nova UiSplit",
+      "attributes": [
+        {
+          "name": "orientation",
+          "description": "(default: 'horizontal')",
+          "values": [
+            {
+              "name": "horizontal"
+            },
+            {
+              "name": "vertical"
+            }
+          ]
+        },
+        {
+          "name": "ratio",
+          "description": "Size of the first pane as a fraction (0..1). (default: 0.5)"
+        },
+        {
+          "name": "min-a",
+          "description": "(default: 120)"
+        },
+        {
+          "name": "min-b",
+          "description": "(default: 120)"
+        },
+        {
+          "name": "label",
+          "description": "Accessible name for the divider, e.g. \"Resize file list\". (default: 'Resize panes')"
+        },
+        {
+          "name": "storage-key",
+          "description": "Remember the ratio under this key."
+        },
+        {
+          "name": "onUiResize",
+          "description": "Event: uiResize. Detail: number"
+        }
+      ]
+    },
+    {
+      "name": "ui-stagger",
+      "description": "Nova UiStagger",
+      "attributes": [
+        {
+          "name": "animation",
+          "description": "(default: 'slide-up')"
+        },
+        {
+          "name": "step",
+          "description": "Delay between children, in ms. (default: 60)"
+        },
+        {
+          "name": "duration",
+          "description": "ms per child (default: 450)"
+        },
+        {
+          "name": "trigger",
+          "description": "\"load\" plays immediately; \"visible\" waits until scrolled into view. (default: 'load')",
+          "values": [
+            {
+              "name": "load"
+            },
+            {
+              "name": "visible"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ui-step",
+      "description": "Nova UiStep",
+      "attributes": [
+        {
+          "name": "heading",
+          "description": ""
+        },
+        {
+          "name": "description",
+          "description": ""
+        },
+        {
+          "name": "error",
+          "description": "Flag this step as having a problem. (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "index",
+          "description": "Managed by <ui-stepper>. (default: 0)"
+        },
+        {
+          "name": "last",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "status",
+          "description": "(default: 'upcoming')",
+          "values": [
+            {
+              "name": "complete"
+            },
+            {
+              "name": "current"
+            },
+            {
+              "name": "upcoming"
+            },
+            {
+              "name": "error"
+            }
+          ]
+        },
+        {
+          "name": "clickable",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "orientation",
+          "description": "(default: 'horizontal')",
+          "values": [
+            {
+              "name": "horizontal"
+            },
+            {
+              "name": "vertical"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ui-stepper",
+      "description": "Nova UiStepper",
+      "attributes": [
+        {
+          "name": "current",
+          "description": "Index of the active step, 0-based. (default: 0)"
+        },
+        {
+          "name": "orientation",
+          "description": "(default: 'horizontal')",
+          "values": [
+            {
+              "name": "horizontal"
+            },
+            {
+              "name": "vertical"
+            }
+          ]
+        },
+        {
+          "name": "clickable",
+          "description": "Let people jump back to completed steps. (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "label",
+          "description": ""
+        },
+        {
+          "name": "onUiChange",
+          "description": "Event: Fires when a completed step is clicked.. Detail: number"
+        }
+      ]
+    },
+    {
+      "name": "ui-switch",
+      "description": "Nova UiSwitch",
+      "attributes": [
+        {
+          "name": "checked",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "value",
+          "description": "(default: 'on')"
+        },
+        {
+          "name": "name",
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "reverse",
+          "description": "Put the label before the track. (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "onUiChange",
+          "description": "Event: uiChange. Detail: boolean"
+        }
+      ]
+    },
+    {
+      "name": "ui-tab",
+      "description": "Nova UiTab",
+      "attributes": [
+        {
+          "name": "value",
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "selected",
+          "description": "Managed by the parent. (default: false)",
+          "valueSet": "v"
+        }
+      ]
+    },
+    {
+      "name": "ui-tab-panel",
+      "description": "Nova UiTabPanel",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "Matches the value of its <ui-tab>."
+        },
+        {
+          "name": "selected",
+          "description": "Managed by the parent. (default: false)",
+          "valueSet": "v"
+        }
+      ]
+    },
+    {
+      "name": "ui-table",
+      "description": "Nova UiTable",
+      "attributes": [
+        {
+          "name": "columns",
+          "description": "(default: [])"
+        },
+        {
+          "name": "rows",
+          "description": "(default: [])"
+        },
+        {
+          "name": "row-key",
+          "description": "Property that uniquely identifies a row (used for selection and custom cell slots). (default: 'id')"
+        },
+        {
+          "name": "caption",
+          "description": "Accessible title for the table."
+        },
+        {
+          "name": "sort",
+          "description": ""
+        },
+        {
+          "name": "page",
+          "description": "(default: 1)"
+        },
+        {
+          "name": "page-size",
+          "description": "(default: 10)"
+        },
+        {
+          "name": "page-size-options",
+          "description": "(default: [10, 25, 50, 100])"
+        },
+        {
+          "name": "paginate",
+          "description": "Turn pagination off to show every row. (default: true)",
+          "valueSet": "v"
+        },
+        {
+          "name": "manual",
+          "description": "Server mode: `rows` is just the current page and `total` is the full count. (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "total",
+          "description": ""
+        },
+        {
+          "name": "searchable",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "resizable",
+          "description": "Drag the edge of a column header to change its width. (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "virtual",
+          "description": "Render only the rows on screen. Needs `maxHeight` (the scroll area) and a fixed `rowHeight`. For large datasets. (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "row-height",
+          "description": "Row height in px for virtual mode. (default: 44)"
+        },
+        {
+          "name": "expandable",
+          "description": "Add a column of toggles that reveal a detail row (slot named \"expand:<rowKey>\"). (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "exportable",
+          "description": "Show an \"Export CSV\" button. Exports every row that matches the current search and sort. (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "export-filename",
+          "description": "(default: 'table-export')"
+        },
+        {
+          "name": "search-placeholder",
+          "description": "(default: 'Search')"
+        },
+        {
+          "name": "selectable",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "selected",
+          "description": "Selected row keys. Survives page changes. (default: [])"
+        },
+        {
+          "name": "loading",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "empty-text",
+          "description": "(default: 'No results found')"
+        },
+        {
+          "name": "row-clickable",
+          "description": "Make rows focusable and fire uiRowClick on click or Enter. (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "striped",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "density",
+          "description": "(default: 'comfortable')",
+          "values": [
+            {
+              "name": "comfortable"
+            },
+            {
+              "name": "compact"
+            }
+          ]
+        },
+        {
+          "name": "max-height",
+          "description": "Scroll the body inside this height (any CSS length). The header stays pinned."
+        },
+        {
+          "name": "onUiQueryChange",
+          "description": "Event: Fires whenever page, page size, sort or search changes. In manual mode, fetch from this.. Detail: TableQuery"
+        },
+        {
+          "name": "onUiSelectionChange",
+          "description": "Event: uiSelectionChange. Detail: string[]"
+        },
+        {
+          "name": "onUiRowClick",
+          "description": "Event: uiRowClick. Detail: TableRow"
+        }
+      ]
+    },
+    {
+      "name": "ui-tabs",
+      "description": "Nova UiTabs",
+      "attributes": [
+        {
+          "name": "value",
+          "description": ""
+        },
+        {
+          "name": "orientation",
+          "description": "(default: 'horizontal')",
+          "values": [
+            {
+              "name": "horizontal"
+            },
+            {
+              "name": "vertical"
+            }
+          ]
+        },
+        {
+          "name": "activation",
+          "description": "\"auto\" selects a tab as it receives focus; \"manual\" waits for Enter or Space. (default: 'auto')",
+          "values": [
+            {
+              "name": "auto"
+            },
+            {
+              "name": "manual"
+            }
+          ]
+        },
+        {
+          "name": "variant",
+          "description": "(default: 'underline')",
+          "values": [
+            {
+              "name": "underline"
+            },
+            {
+              "name": "pills"
+            }
+          ]
+        },
+        {
+          "name": "label",
+          "description": "Accessible name for the tab list."
+        },
+        {
+          "name": "onUiChange",
+          "description": "Event: uiChange. Detail: string"
+        }
+      ]
+    },
+    {
+      "name": "ui-tag-input",
+      "description": "Nova UiTagInput",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "(default: [])"
+        },
+        {
+          "name": "label",
+          "description": ""
+        },
+        {
+          "name": "hint",
+          "description": ""
+        },
+        {
+          "name": "error",
+          "description": ""
+        },
+        {
+          "name": "placeholder",
+          "description": ""
+        },
+        {
+          "name": "name",
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "required",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "max",
+          "description": "Maximum number of tags."
+        },
+        {
+          "name": "allow-duplicates",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "validate",
+          "description": "Return false (or an error string) to reject a tag. (default: > boolean | string)"
+        },
+        {
+          "name": "separators",
+          "description": "Characters that end a tag, besides Enter. (default: [','])"
+        },
+        {
+          "name": "size",
+          "description": "(default: 'md')",
+          "values": [
+            {
+              "name": "sm"
+            },
+            {
+              "name": "md"
+            },
+            {
+              "name": "lg"
+            }
+          ]
+        },
+        {
+          "name": "onUiChange",
+          "description": "Event: uiChange. Detail: string[]"
+        },
+        {
+          "name": "onUiReject",
+          "description": "Event: Fires when a tag is refused, with the reason.. Detail: { tag: string; reason: string }"
+        }
+      ]
+    },
+    {
+      "name": "ui-textarea",
+      "description": "Nova UiTextarea",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "(default: '')"
+        },
+        {
+          "name": "label",
+          "description": ""
+        },
+        {
+          "name": "hint",
+          "description": ""
+        },
+        {
+          "name": "error",
+          "description": ""
+        },
+        {
+          "name": "name",
+          "description": ""
+        },
+        {
+          "name": "placeholder",
+          "description": ""
+        },
+        {
+          "name": "rows",
+          "description": "(default: 3)"
+        },
+        {
+          "name": "disabled",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "readonly",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "required",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "maxlength",
+          "description": ""
+        },
+        {
+          "name": "autoresize",
+          "description": "Grow with content instead of scrolling. (default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "size",
+          "description": "(default: 'md')",
+          "values": [
+            {
+              "name": "sm"
+            },
+            {
+              "name": "md"
+            },
+            {
+              "name": "lg"
+            }
+          ]
+        },
+        {
+          "name": "onUiInput",
+          "description": "Event: uiInput. Detail: string"
+        },
+        {
+          "name": "onUiChange",
+          "description": "Event: uiChange. Detail: string"
+        }
+      ]
+    },
+    {
+      "name": "ui-theme-toggle",
+      "description": "Nova UiThemeToggle",
+      "attributes": []
+    },
+    {
+      "name": "ui-time-picker",
+      "description": "Nova UiTimePicker",
+      "attributes": [
+        {
+          "name": "value",
+          "description": "(default: '')"
+        },
+        {
+          "name": "min",
+          "description": ""
+        },
+        {
+          "name": "max",
+          "description": ""
+        },
+        {
+          "name": "step",
+          "description": "Minutes between suggested slots. (default: 30)"
+        },
+        {
+          "name": "label",
+          "description": ""
+        },
+        {
+          "name": "hint",
+          "description": ""
+        },
+        {
+          "name": "error",
+          "description": ""
+        },
+        {
+          "name": "name",
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "required",
+          "description": "(default: false)",
+          "valueSet": "v"
+        },
+        {
+          "name": "locale",
+          "description": ""
+        },
+        {
+          "name": "size",
+          "description": "(default: 'md')",
+          "values": [
+            {
+              "name": "sm"
+            },
+            {
+              "name": "md"
+            },
+            {
+              "name": "lg"
+            }
+          ]
+        },
+        {
+          "name": "onUiChange",
+          "description": "Event: uiChange. Detail: string"
+        }
+      ]
+    },
+    {
+      "name": "ui-toaster",
+      "description": "Nova UiToaster",
+      "attributes": [
+        {
+          "name": "placement",
+          "description": "(default: 'bottom-right')",
+          "values": [
+            {
+              "name": "top-left"
+            },
+            {
+              "name": "top-center"
+            },
+            {
+              "name": "top-right"
+            },
+            {
+              "name": "bottom-left"
+            },
+            {
+              "name": "bottom-center"
+            },
+            {
+              "name": "bottom-right"
+            }
+          ]
+        },
+        {
+          "name": "max",
+          "description": "Most toasts visible at once; the oldest is dropped first. (default: 5)"
+        },
+        {
+          "name": "duration",
+          "description": "Default auto-dismiss time in ms. 0 keeps toasts until dismissed. (default: 5000)"
+        }
+      ]
+    },
+    {
+      "name": "ui-tooltip",
+      "description": "Nova UiTooltip",
+      "attributes": [
+        {
+          "name": "content",
+          "description": "(default: '')"
+        },
+        {
+          "name": "placement",
+          "description": "(default: 'top')"
+        },
+        {
+          "name": "delay",
+          "description": "ms before showing on hover. (default: 300)"
+        },
+        {
+          "name": "disabled",
+          "description": "(default: false)",
+          "valueSet": "v"
+        }
+      ]
+    },
+    {
+      "name": "ui-tree",
+      "description": "Nova UiTree",
+      "attributes": [
+        {
+          "name": "nodes",
+          "description": "(default: [])"
+        },
+        {
+          "name": "selected",
+          "description": "Id of the selected node."
+        },
+        {
+          "name": "expanded",
+          "description": "Ids of the expanded nodes. (default: [])"
+        },
+        {
+          "name": "label",
+          "description": "(default: 'Tree')"
+        },
+        {
+          "name": "onUiSelect",
+          "description": "Event: uiSelect. Detail: { id: string; node: TreeNode }"
+        },
+        {
+          "name": "onUiToggle",
+          "description": "Event: uiToggle. Detail: { id: string; expanded: boolean }"
+        }
+      ]
+    },
+    {
+      "name": "ui-virtual-list",
+      "description": "Nova UiVirtualList",
+      "attributes": [
+        {
+          "name": "count",
+          "description": "Number of rows in the full list. (default: 0)"
+        },
+        {
+          "name": "row-height",
+          "description": "(default: 40)"
+        },
+        {
+          "name": "height",
+          "description": "(default: 360)"
+        },
+        {
+          "name": "overscan",
+          "description": "Extra rows rendered above and below the viewport. (default: 5)"
+        },
+        {
+          "name": "label",
+          "description": "(default: 'List')"
+        },
+        {
+          "name": "render-row",
+          "description": "Returns the element for row `index`. (default: > any)"
+        }
+      ]
+    }
+  ],
+  "valueSets": [
+    {
+      "name": "v",
+      "values": [
+        {
+          "name": "true"
+        },
+        {
+          "name": "false"
+        }
+      ]
+    }
+  ]
+}

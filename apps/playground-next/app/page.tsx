@@ -1,25 +1,21 @@
-'use client';
+import { LoginBlock, PricingBlock, UiCard, UiButton, UiBadge, UiIcon, UiReveal, UiStagger, UiThemeToggle } from '@nova-ui/react';
+import { NewFeatures } from './_features/NewFeatures';
 
-import { UiBadge, UiButton, UiCard, UiIcon, UiReveal, UiStagger, UiThemeToggle, useTheme } from '@nova-ui/react';
-
+// Server component: the static parts render on the server; interactive parts are client components.
 const features = [
-  { title: 'Server rendered shell', text: 'Layout classes are plain CSS, so the page structure is correct before any JavaScript runs.' },
+  { title: 'Server rendered shell', text: 'Layout classes are plain CSS, so the structure is correct before any JavaScript runs.' },
   { title: 'No flash of theme', text: 'The theme is set before first paint, in light, dark or system mode.' },
-  { title: 'Fits every screen', text: 'The grid below has no breakpoints: it adds and removes columns as space allows.' },
+  { title: 'Fits every screen', text: 'Grids add and remove columns as space allows, with no breakpoints.' },
 ];
 
 export default function Home() {
-  const { mode, resolved } = useTheme();
   return (
     <>
       <a className="nova-skip-link" href="#main">Skip to content</a>
       <header className="nova-bg-surface nova-border-b">
         <div className="nova-container nova-cluster nova-cluster-between nova-py-3">
           <strong>Nova UI on Next.js</strong>
-          <div className="nova-cluster">
-            <UiBadge tone="accent">{mode} ({resolved})</UiBadge>
-            <UiThemeToggle />
-          </div>
+          <UiThemeToggle />
         </div>
       </header>
 
@@ -34,6 +30,7 @@ export default function Home() {
               Save changes
             </UiButton>
             <UiButton variant="secondary">Learn more</UiButton>
+            <UiBadge tone="accent">v0.1</UiBadge>
           </div>
         </div>
 
@@ -54,6 +51,17 @@ export default function Home() {
           <p>Rendered in the App Router.</p>
           <p>The theme is set before first paint, so there is no flash.</p>
         </UiStagger>
+
+        <NewFeatures />
+
+        <section className="nova-stack nova-stack-sm">
+          <h2 className="nova-h4">Page blocks</h2>
+          <LoginBlock />
+          <PricingBlock tiers={[
+            { name: 'Free', price: '$0', period: '/month', features: ['1 project'] },
+            { name: 'Team', price: '$24', period: '/month', features: ['Unlimited projects', 'SSO'], featured: true },
+          ]} />
+        </section>
 
         <section className="nova-section-lg">
           <UiReveal animation="fade">

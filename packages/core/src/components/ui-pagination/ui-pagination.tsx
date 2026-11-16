@@ -1,4 +1,5 @@
 import { Component, Event, EventEmitter, Host, Prop, h } from '@stencil/core';
+import { t } from '../../i18n';
 
 /** Page numbers with ellipses: always the boundaries, plus `siblings` pages around the current one. */
 function buildPages(page: number, count: number, siblings: number, boundaries: number): Array<number | 'gap'> {
@@ -61,7 +62,7 @@ export class UiPagination {
         <nav aria-label={this.label}>
           <ul class="list">
             <li>
-              <button type="button" class="btn nav" aria-label="Previous page" disabled={page <= 1} onClick={() => this.go(page - 1)}>
+              <button type="button" class="btn nav" aria-label={t('previousPage')} disabled={page <= 1} onClick={() => this.go(page - 1)}>
                 <ui-icon name="chevron-left" />
               </button>
             </li>
@@ -85,7 +86,7 @@ export class UiPagination {
               ),
             )}
             <li>
-              <button type="button" class="btn nav" aria-label="Next page" disabled={page >= count} onClick={() => this.go(page + 1)}>
+              <button type="button" class="btn nav" aria-label={t('nextPage')} disabled={page >= count} onClick={() => this.go(page + 1)}>
                 <ui-icon name="chevron-right" />
               </button>
             </li>

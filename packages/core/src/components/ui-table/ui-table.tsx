@@ -1,5 +1,9 @@
-import { Component, Element, Event, EventEmitter, Host, Prop, State, h } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Fragment, Host, Method, Prop, State, h } from '@stencil/core';
 import type { TableColumn, TableQuery, TableRow, TableSort } from '../../types';
+import { toCSV, safeFilename } from '../../utils/csv';
+import { resizeColumn } from '../../utils/layout-math';
+import { virtualRange } from '../../utils/virtual';
+import { t } from '../../i18n';
 
 function compare(a: unknown, b: unknown): number {
   if (typeof a === 'number' && typeof b === 'number') return a - b;
@@ -54,6 +58,17 @@ export class UiTable {
   @Prop() total?: number;
 
   @Prop() searchable = false;
+  /** Drag the edge of a column header to change its width. */
+  @Prop() resizable = false;
+  /** Render only the rows on screen. Needs `maxHeight` (the scroll area) and a fixed `rowHeight`. For large datasets. */
+  @Prop() virtual = false;
+  /** Row height in px for virtual mode. */
+  @Prop() rowHeight = 44;
+  /** Add a column of toggles that reveal a detail row (slot named "expand:<rowKey>"). */
+  @Prop() expandable = false;
+  /** Show an "Export CSV" button. Exports every row that matches the current search and sort. */
+  @Prop() exportable = false;
+  @Prop() exportFilename = 'table-export';
   @Prop() searchPlaceholder = 'Search';
 
   @Prop() selectable = false;
@@ -70,6 +85,10 @@ export class UiTable {
   @Prop() maxHeight?: string;
 
   @State() query = '';
+  @State() widths: Record<string, number> = {};
+  @State() expanded: string[] = [];
+  @State() scrollTop = 0;
+  private resizing?: { key: string; x: number; w: number };
 
   /** Fires whenever page, page size, sort or search changes. In manual mode, fetch from this. */
   @Event() uiQueryChange!: EventEmitter<TableQuery>;
@@ -80,6 +99,55 @@ export class UiTable {
 
   disconnectedCallback() {
     if (this.searchTimer) clearTimeout(this.searchTimer);
+  }
+
+  private onResizeDown = (e: PointerEvent, key: string, current: number) => {
+    e.preventDefault();
+    e.stopPropagation();
+    this.resizing = { key, x: e.clientX, w: current };
+    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+  };
+
+  private onResizeMove = (e: PointerEvent) => {
+    if (!this.resizing) return;
+    const next = resizeColumn(this.resizing.w, e.clientX - this.resizing.x);
+    this.widths = { ...this.widths, [this.resizing.key]: next };
+  };
+
+  private onResizeUp = () => {
+    this.resizing = undefined;
+  };
+
+  private toggleExpand(key: string) {
+    this.expanded = this.expanded.includes(key) ? this.expanded.filter((k) => k !== key) : [...this.expanded, key];
+  }
+
+  /** Rows after search and sort (browser mode). In server mode this is simply the page you were given. */
+  private processed(): TableRow[] {
+    let data = this.rows;
+    if (!this.manual) {
+      const q = this.query.trim().toLowerCase();
+      if (q) data = data.filter((r) => this.columns.some((c) => this.cellText(r, c).toLowerCase().includes(q)));
+      if (this.sort) data = sortRows(data, this.sort);
+    }
+    return data;
+  }
+
+  /** Download the rows as currently filtered and sorted. Every row, not just the visible page. */
+  @Method() async exportCSV(): Promise<string> {
+    const csv = toCSV(this.processed(), this.columns.map((c) => ({ key: c.key, label: c.label, format: c.format })));
+    if (typeof document !== 'undefined') {
+      const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8' }); // BOM so Excel reads UTF-8
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = safeFilename(this.exportFilename);
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+    return csv;
   }
 
   private cellText(row: TableRow, col: TableColumn): string {
@@ -154,12 +222,7 @@ export class UiTable {
 
   render() {
     // 1. filter and sort (browser mode only)
-    let data = this.rows;
-    if (!this.manual) {
-      const q = this.query.trim().toLowerCase();
-      if (q) data = data.filter((r) => this.columns.some((c) => this.cellText(r, c).toLowerCase().includes(q)));
-      if (this.sort) data = sortRows(data, this.sort);
-    }
+    const data = this.processed();
 
     // 2. paginate
     const total = this.manual ? this.total ?? this.rows.length : data.length;
@@ -175,9 +238,16 @@ export class UiTable {
     const selectedHere = keys.filter((k) => selectedSet.has(k)).length;
     const allHere = keys.length > 0 && selectedHere === keys.length;
 
-    const colCount = this.columns.length + (this.selectable ? 1 : 0);
-    const hasToolbar = this.searchable || this.selected.length > 0 || !!this.host.querySelector(':scope > [slot="toolbar"]');
+    const colCount = this.columns.length + (this.selectable ? 1 : 0) + (this.expandable ? 1 : 0);
+    const hasToolbar = this.searchable || this.exportable || this.selected.length > 0 || !!this.host.querySelector(':scope > [slot="toolbar"]');
     const scrolls = !!this.maxHeight;
+    // Virtual window over the visible rows (only meaningful with a scroll area and fixed row height)
+    const useVirtual = this.virtual && scrolls && !this.expandable;
+    const viewportPx = this.maxHeight ? parseInt(this.maxHeight, 10) || 360 : 360;
+    const win = useVirtual ? virtualRange(this.scrollTop, viewportPx, this.rowHeight, visible.length, 5) : { start: 0, end: visible.length, offsetTop: 0, totalHeight: 0 };
+    const rowsToRender = useVirtual ? visible.slice(win.start, win.end) : visible;
+    const padTop = useVirtual ? win.start * this.rowHeight : 0;
+    const padBottom = useVirtual ? (visible.length - win.end) * this.rowHeight : 0;
 
     return (
       <Host>
@@ -187,7 +257,7 @@ export class UiTable {
               <ui-input
                 class="search"
                 type="search"
-                label="Search table"
+                label={t('searchTable')}
                 hideLabel
                 size="sm"
                 placeholder={this.searchPlaceholder}
@@ -208,12 +278,19 @@ export class UiTable {
             )}
             <div class="toolbar-extra">
               <slot name="toolbar" />
+              {this.exportable && (
+                <ui-button size="sm" variant="secondary" onClick={() => this.exportCSV()}>
+                  <ui-icon slot="start" name="upload" />
+                  {t('exportCsv')}
+                </ui-button>
+              )}
             </div>
           </div>
         )}
 
         <div
           class={{ scroll: true, scrolls }}
+          onScroll={(e: Event) => { if (this.virtual) this.scrollTop = (e.currentTarget as HTMLElement).scrollTop; }}
           style={scrolls ? { '--_max': this.maxHeight } : undefined}
           tabindex={scrolls ? 0 : undefined}
           role={scrolls ? 'region' : undefined}
@@ -226,7 +303,7 @@ export class UiTable {
                 {this.selectable && (
                   <th class="select-col" scope="col">
                     <ui-checkbox
-                      label="Select all rows on this page"
+                      label={t('selectAllOnPage')}
                       checked={allHere}
                       indeterminate={selectedHere > 0 && !allHere}
                       disabled={keys.length === 0}
@@ -237,14 +314,16 @@ export class UiTable {
                     />
                   </th>
                 )}
+                {this.expandable && <th class="expand-col" scope="col"><span class="sr">Details</span></th>}
                 {this.columns.map((c) => {
                   const active = this.sort?.key === c.key ? this.sort : undefined;
+                  const px = this.widths[c.key];
                   return (
                     <th
                       key={c.key}
                       scope="col"
-                      class={{ [`align-${c.align ?? 'start'}`]: true, sortable: !!c.sortable }}
-                      style={c.width ? { width: c.width } : undefined}
+                      class={{ [`align-${c.align ?? 'start'}`]: true, sortable: !!c.sortable, resizable: this.resizable }}
+                      style={px ? { width: `${px}px` } : c.width ? { width: c.width } : undefined}
                       aria-sort={c.sortable ? (active ? (active.dir === 'asc' ? 'ascending' : 'descending') : 'none') : undefined}
                     >
                       {c.sortable ? (
@@ -255,12 +334,18 @@ export class UiTable {
                       ) : (
                         c.label
                       )}
+                      {this.resizable && (
+                        <span class="resize" role="separator" aria-orientation="vertical" aria-label={`Resize ${c.label}`}
+                          onPointerDown={(e: PointerEvent) => this.onResizeDown(e, c.key, px ?? (e.currentTarget as HTMLElement).parentElement?.getBoundingClientRect().width ?? 120)}
+                          onPointerMove={this.onResizeMove} onPointerUp={this.onResizeUp} onPointerCancel={this.onResizeUp} />
+                      )}
                     </th>
                   );
                 })}
               </tr>
             </thead>
             <tbody>
+              {padTop > 0 && <tr class="pad" aria-hidden="true" style={{ height: `${padTop}px` }}><td colSpan={colCount} /></tr>}
               {this.loading
                 ? Array.from({ length: Math.min(this.paginate ? this.pageSize : 5, 8) }, (_, r) => (
                     <tr key={`sk-${r}`} class="skeleton-row" aria-hidden="true">
@@ -275,26 +360,37 @@ export class UiTable {
                 ? (
                     <tr>
                       <td class="empty" colSpan={Math.max(colCount, 1)}>
-                        <slot name="empty">{this.emptyText}</slot>
+                        <slot name="empty">{this.emptyText || t('noResults')}</slot>
                       </td>
                     </tr>
                   )
-                : visible.map((row, r) => {
+                : rowsToRender.map((row, k) => {
+                    const r = win.start + k;
                     const key = keys[r];
                     const isSelected = selectedSet.has(key);
                     return (
+                      // @ts-ignore: Stencil fragment types omit key prop
+                      <Fragment key={key.toString()}>
                       <tr
-                        key={key}
                         class={{ selected: isSelected, clickable: this.rowClickable }}
                         aria-selected={this.selectable ? (isSelected ? 'true' : 'false') : undefined}
                         tabindex={this.rowClickable ? 0 : undefined}
                         onClick={(e) => this.onRowActivate(e, row)}
                         onKeyDown={(e) => e.key === 'Enter' && e.target === e.currentTarget && this.onRowActivate(e, row)}
                       >
+                        {this.expandable && (
+                          <td class="expand-col">
+                            <button type="button" class="expander" aria-expanded={this.expanded.includes(key) ? 'true' : 'false'}
+                              aria-label={this.expanded.includes(key) ? 'Hide details' : 'Show details'}
+                              onClick={(e) => { e.stopPropagation(); this.toggleExpand(key); }}>
+                              <ui-icon name="chevron-right" />
+                            </button>
+                          </td>
+                        )}
                         {this.selectable && (
                           <td class="select-col">
                             <ui-checkbox
-                              label={`Select row ${(page - 1) * this.pageSize + r + 1}`}
+                              label={t('selectRow', { n: (page - 1) * this.pageSize + r + 1 })}
                               checked={isSelected}
                               onUiChange={(e) => {
                                 e.stopPropagation();
@@ -310,8 +406,15 @@ export class UiTable {
                           </td>
                         ))}
                       </tr>
+                      {this.expandable && this.expanded.includes(key) && (
+                        <tr class="detail-row">
+                          <td colSpan={colCount}><slot name={`expand:${key}`} /></td>
+                        </tr>
+                      )}
+                      </Fragment>
                     );
                   })}
+              {padBottom > 0 && <tr class="pad" aria-hidden="true" style={{ height: `${padBottom}px` }}><td colSpan={colCount} /></tr>}
             </tbody>
           </table>
         </div>
@@ -319,12 +422,12 @@ export class UiTable {
         {this.paginate && (
           <div class="footer">
             <span class="summary" aria-live="polite">
-              {total === 0 ? 'No rows' : `Showing ${from}\u2013${to} of ${total}`}
+              {total === 0 ? t('noRows') : t('showingRange', { from, to, total })}
             </span>
             <div class="footer-controls">
               {this.pageSizeOptions.length > 1 && (
                 <label class="size">
-                  <span>Rows per page</span>
+                  <span>{t('rowsPerPage')}</span>
                   <select class="size-select" onChange={(e) => this.setPageSize(Number((e.target as HTMLSelectElement).value))}>
                     {this.pageSizeOptions.map((n) => (
                       <option key={n} value={n} selected={n === this.pageSize}>
@@ -338,7 +441,7 @@ export class UiTable {
                 size="sm"
                 page={page}
                 pageCount={pageCount}
-                label="Table pagination"
+                label={t('tablePagination')}
                 onUiChange={(e) => {
                   e.stopPropagation();
                   this.setPage(e.detail);

@@ -1,4 +1,5 @@
 import { Component, Element, Event, EventEmitter, Host, Prop, h } from '@stencil/core';
+import { t } from '../../i18n';
 
 const ICON: Record<string, string> = { info: 'info', success: 'check-circle', warning: 'alert-triangle', danger: 'alert-circle' };
 
@@ -39,7 +40,7 @@ export class UiAlert {
           </div>
         </div>
         {this.dismissible && (
-          <ui-button class="close" variant="ghost" size="sm" icon-only label="Dismiss" onClick={this.dismiss}>
+          <ui-button class="close" variant="ghost" size="sm" icon-only label={t('dismiss')} onClick={this.dismiss}>
             <ui-icon name="x" />
           </ui-button>
         )}

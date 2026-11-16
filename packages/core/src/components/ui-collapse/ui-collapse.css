@@ -1,0 +1,11 @@
+:host { display: block; font-family: var(--nova-font-sans); color: var(--nova-color-fg); border-block-end: 1px solid var(--nova-color-border); }
+.head { all: unset; box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; gap: var(--nova-space-3); inline-size: 100%; padding: var(--nova-space-3) var(--nova-space-1); cursor: pointer; font-weight: var(--nova-weight-medium); }
+.head:focus-visible { box-shadow: var(--nova-focus-ring); border-radius: var(--nova-radius-control); }
+.chev { color: var(--nova-color-fg-subtle); transition: transform var(--nova-duration-base) var(--nova-ease-standard); }
+:host([open]) .chev { transform: rotate(180deg); }
+.peek { margin: 0; padding: 0 var(--nova-space-1) var(--nova-space-3); color: var(--nova-color-fg-muted); font-size: var(--nova-text-sm); }
+.panel { display: grid; grid-template-rows: 0fr; visibility: hidden; transition: grid-template-rows var(--nova-duration-base) var(--nova-ease-standard), visibility 0s linear var(--nova-duration-base); }
+:host([open]) .panel { grid-template-rows: 1fr; visibility: visible; transition-delay: 0s; }
+.inner { overflow: hidden; min-block-size: 0; }
+.content { padding: 0 var(--nova-space-1) var(--nova-space-3); color: var(--nova-color-fg-muted); font-size: var(--nova-text-sm); }
+@media (prefers-reduced-motion: reduce) { .panel, .chev { transition: none; } }

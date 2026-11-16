@@ -2,6 +2,7 @@ import { Component, Host, Method, Prop, State, h } from '@stencil/core';
 import type { ToastOptions } from '../../types';
 import { prefersReducedMotion } from '../../utils/animation';
 import { supportsPopover } from '../../utils/position';
+import { t } from '../../i18n';
 
 interface Item extends ToastOptions {
   id: string;
@@ -137,7 +138,7 @@ export class UiToaster {
           class="region"
           ref={(el) => (this.region = el)}
           role="region"
-          aria-label="Notifications"
+          aria-label={t('notifications')}
           onMouseEnter={this.pauseAll}
           onMouseLeave={this.resumeAll}
           onFocusin={this.pauseAll}
@@ -145,35 +146,35 @@ export class UiToaster {
           {...({ popover: 'manual' } as any)}
         >
           <div class="stack">
-            {this.items.map((t) => {
-              const tone = t.tone ?? 'neutral';
+            {this.items.map((item) => {
+              const tone = item.tone ?? 'neutral';
               const icon = ICON[tone];
               return (
                 <div
-                  key={t.id}
-                  class={{ toast: true, [tone]: true, enter: !!t.enter, leave: !!t.leaving }}
+                  key={item.id}
+                  class={{ toast: true, [tone]: true, enter: !!item.enter, leave: !!item.leaving }}
                   role={tone === 'danger' || tone === 'warning' ? 'alert' : 'status'}
-                  onAnimationEnd={() => this.markEntered(t.id)}
+                  onAnimationEnd={() => this.markEntered(item.id)}
                 >
                   {icon && <ui-icon class="icon" name={icon} size="1.25em" />}
                   <div class="content">
-                    {t.title && <p class="title">{t.title}</p>}
-                    {t.description && <p class="desc">{t.description}</p>}
+                    {item.title && <p class="title">{item.title}</p>}
+                    {item.description && <p class="desc">{item.description}</p>}
                   </div>
-                  {t.actionLabel && (
+                  {item.actionLabel && (
                     <ui-button
                       size="sm"
                       variant="ghost"
                       onClick={() => {
-                        t.onAction?.();
-                        this.dismiss(t.id);
+                        item.onAction?.();
+                        this.dismiss(item.id);
                       }}
                     >
-                      {t.actionLabel}
+                      {item.actionLabel}
                     </ui-button>
                   )}
-                  {t.dismissible !== false && (
-                    <ui-button size="sm" variant="ghost" icon-only label="Dismiss notification" onClick={() => this.dismiss(t.id)}>
+                  {item.dismissible !== false && (
+                    <ui-button size="sm" variant="ghost" icon-only label={t('dismissNotification')} onClick={() => this.dismiss(item.id)}>
                       <ui-icon name="x" />
                     </ui-button>
                   )}

@@ -25,29 +25,28 @@
     }
   },
   "files": [
-    "dist",
-    "README.md",
-    "LICENSE"
+    "dist"
   ],
   "sideEffects": false,
   "scripts": {
     "build": "tsup"
   },
   "dependencies": {
-    "@nova-ui/core": "workspace:*"
+    "@nova-ui/core": "workspace:*",
+    "@stencil/react-output-target": "^1.8.1"
   },
   "peerDependencies": {
+    "@nova-ui/editor": "workspace:^",
     "react": ">=18",
-    "react-dom": ">=18",
-    "@nova-ui/editor": "workspace:^"
+    "react-dom": ">=18"
   },
   "devDependencies": {
+    "@nova-ui/editor": "workspace:*",
     "@types/react": "^19.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tsup": "^8.0.0",
-    "typescript": "^5.6.0",
-    "@nova-ui/editor": "workspace:*"
+    "typescript": "^5.6.0"
   },
   "publishConfig": {
     "access": "public"

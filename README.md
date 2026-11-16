@@ -15,6 +15,15 @@ apps/
   playground-next/             Next.js App Router demo
 ```
 
+## Documentation
+
+- **Using Nova** (developers): [docs/users/getting-started.md](docs/users/getting-started.md), then your framework under [docs/users/frameworks](docs/users/frameworks/README.md) and the [feature guides](docs/users/features/README.md).
+- **Contributing** (maintainers): [docs/humans](docs/humans/architecture.md), including architecture, testing and [project status](docs/humans/status.md).
+- **AI agents**: [AGENTS.md](AGENTS.md), [llms.txt](llms.txt), and [docs/llms-full.txt](docs/llms-full.txt).
+- **Reference**: [API.md](packages/core/dist-docs/API.md) lists every component, prop, event, method and slot.
+
+Run `pnpm docs:check` to confirm the documentation covers every component and every link resolves.
+
 ## Status: Phases 1 to 5
 
 | Area | Included |
@@ -218,3 +227,45 @@ pnpm version-packages     # applies versions + changelogs (core/react/angular mo
 pnpm release              # builds, then publishes to npm
 ```
 Log in first (`npm login`); scoped packages publish publicly via `publishConfig.access`.
+
+## Added in this round (not yet compiled by Stencil)
+
+| Feature | Component or helper | Tests |
+| --- | --- | --- |
+| Confirm / prompt dialogs | `confirm()`, `prompt()`, `<ui-dialog-host>` | queue model |
+| Sanitised HTML | `<ui-html>`, `sanitizeHTML()` | 11 security tests, real DOM |
+| Form field wrapper | `<ui-field>` | describedby rule |
+| Date range picker | `<ui-date-range-picker>`, presets | 8 |
+| Time picker | `<ui-time-picker>`, `utils/time` | 6 |
+| File upload | `<ui-file-upload>`, `utils/files` | 7 |
+| Sidebar navigation | `<ui-sidebar>`, `<ui-sidebar-item>` | 4 |
+| Charts | `<ui-chart>` (line, area, bar, donut), `<ui-sparkline>`, `utils/chart` | 13 |
+| CSV export | `ui-table` `exportable`, `utils/csv` (formula-injection guard) | 7 |
+| Theme generator | `generateTheme()`, `themeToCSS()` (AA guaranteed) | 26 |
+| Translatable strings | `setMessages()`, `t()` (94 keys) | 4 |
+
+Run `pnpm --filter @nova-ui/core test` for the logic suite. Components are verified by type-check only so far.
+
+## Ecosystem (this round)
+
+| Package or tool | What it is | Verified here |
+| --- | --- | --- |
+| `packages/core/dist-docs/` | API reference (`API.md`), machine manifest (`custom-elements.json`), editor autocomplete (`vscode-html-data.json`) | generated and tested (5 tests) |
+| `packages/tailwind` | Tailwind preset: `bg-nova-accent`, `rounded-nova-control`, etc., resolving to the live theme tokens | every token reference checked against `nova.css` (3 tests) |
+| `packages/vue` | Vue 3 wrappers for all 71 components, generated from the manifest | output parses as TypeScript (3 tests); not run against Vue |
+| `apps/playground-angular` | Standalone Angular 19 app using the Angular wrappers | not built here (no Angular installed) |
+| `.github/workflows/ci.yml` | Install, build, test, browser tests, docs freshness check | not run here |
+
+Regenerate docs and Vue wrappers with `pnpm docs`.
+
+## Playgrounds
+
+| App | Run | What it shows |
+| --- | --- | --- |
+| `apps/playground-vite` | `pnpm dev:vite` | Every component and feature, as a catalogue |
+| `apps/playground-react` | `pnpm dev:react` | An app pattern: server-paged table, dialogs, validated form, dashboard |
+| `apps/playground-next` | `pnpm dev:next` | App Router: client features, editor loaded client-only, page blocks |
+| `apps/playground-angular` | `pnpm dev:angular` | Standalone Angular components, signals, dialogs (not yet compiled in this environment) |
+
+`pnpm playgrounds:check` verifies that every component, prop, event and class the playgrounds use exists.
+

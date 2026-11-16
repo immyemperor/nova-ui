@@ -9,16 +9,24 @@
     "build": "pnpm -r --filter \"./packages/*\" run build",
     "dev:vite": "pnpm --filter playground-vite dev",
     "dev:next": "pnpm --filter playground-next dev",
-    "test": "pnpm -r --filter \"./packages/*\" run test",
+    "test": "pnpm -r test",
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "pnpm build && changeset publish",
     "rename-scope": "node scripts/rename-scope.mjs",
-    "check:names": "node scripts/check-prop-names.mjs"
+    "check:names": "node scripts/check-prop-names.mjs",
+    "verify": "pnpm -r test && pnpm check:names && pnpm docs:check && pnpm playgrounds:check",
+    "docs": "node packages/core/scripts/generate-docs.mjs && node packages/vue/scripts/generate.mjs && node scripts/build-llms.mjs",
+    "docs:agents": "node scripts/build-llms.mjs",
+    "docs:check": "node scripts/docs-check.mjs",
+    "dev:react": "pnpm --filter playground-react dev",
+    "dev:angular": "pnpm --filter playground-angular start",
+    "playgrounds:check": "node scripts/playground-check.mjs"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.0",
-    "typescript": "^5.6.0",
-    "playwright": "^1.50.0"
+    "@types/node": "^26.6.6",
+    "playwright": "^1.50.0",
+    "typescript": "^5.6.0"
   }
 }

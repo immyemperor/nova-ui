@@ -1,0 +1,16 @@
+:host {
+  --_w: 16rem;
+  display: block; box-sizing: border-box; block-size: 100%; inline-size: var(--_w);
+  background: var(--nova-color-surface); color: var(--nova-color-fg);
+  border-inline-end: 1px solid var(--nova-color-border);
+  font-family: var(--nova-font-sans); font-size: var(--nova-text-sm);
+  transition: inline-size var(--nova-duration-base) var(--nova-ease-standard);
+}
+:host([collapsed]) { --_w: 4.25rem; }
+.nav { display: flex; flex-direction: column; block-size: 100%; box-sizing: border-box; padding: var(--nova-space-3); gap: var(--nova-space-2); overflow: hidden; }
+.top { display: flex; justify-content: flex-end; }
+.list { display: grid; align-content: start; gap: var(--nova-space-1); margin: 0; padding: 0; list-style: none; flex: 1; overflow-y: auto; }
+.foot { border-block-start: 1px solid var(--nova-color-border); padding-block-start: var(--nova-space-2); }
+.foot:empty { display: none; }
+:host([collapsed]) .foot { display: none; }
+@media (prefers-reduced-motion: reduce) { :host { transition: none; } }

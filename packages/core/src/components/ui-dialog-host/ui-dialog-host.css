@@ -1,0 +1,4 @@
+:host { display: contents; }
+.body { display: grid; gap: var(--nova-space-4); }
+.msg { margin: 0; color: var(--nova-color-fg-muted); line-height: var(--nova-leading-normal); }
+.actions { display: flex; justify-content: flex-end; gap: var(--nova-space-2); flex-wrap: wrap; }

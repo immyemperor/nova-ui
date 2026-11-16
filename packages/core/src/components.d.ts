@@ -6,13 +6,27 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ButtonSize, ButtonVariant } from "./components/ui-button/ui-button";
+import { ChartSeries } from "./components/ui-chart/ui-chart";
 import { Command, SelectOption, TableColumn, TableQuery, TableRow, TableSort, ToastOptions, TreeNode } from "./types";
+import { DateRange } from "./utils/range";
+import { DialogRequest } from "./utils/confirm";
 import { Placement } from "./utils/position";
+import { FileProblem } from "./utils/files";
+import { KanbanCard, KanbanColumn } from "./components/ui-kanban/ui-kanban";
 import { AnimationName } from "./utils/animation";
+import { CalEvent } from "./utils/calendar-events";
+import { SortItem } from "./components/ui-sortable/ui-sortable";
 export { ButtonSize, ButtonVariant } from "./components/ui-button/ui-button";
+export { ChartSeries } from "./components/ui-chart/ui-chart";
 export { Command, SelectOption, TableColumn, TableQuery, TableRow, TableSort, ToastOptions, TreeNode } from "./types";
+export { DateRange } from "./utils/range";
+export { DialogRequest } from "./utils/confirm";
 export { Placement } from "./utils/position";
+export { FileProblem } from "./utils/files";
+export { KanbanCard, KanbanColumn } from "./components/ui-kanban/ui-kanban";
 export { AnimationName } from "./utils/animation";
+export { CalEvent } from "./utils/calendar-events";
+export { SortItem } from "./components/ui-sortable/ui-sortable";
 export namespace Components {
     /**
      * Group of <ui-accordion-item>. By default only one is open at a time.
@@ -252,6 +266,52 @@ export namespace Components {
          */
         "slidesPerView": number;
     }
+    /**
+     * Line, area, bar and donut charts in plain SVG. Each chart has a text summary and a data table
+     * for screen readers, because SVG shapes are otherwise invisible to assistive technology.
+     * Colours come from the theme tokens unless a series sets its own.
+     */
+    interface UiChart {
+        /**
+          * Show y-axis gridlines and values.
+          * @default true
+         */
+        "axes": boolean;
+        /**
+          * Format axis numbers in compact form (1.2k).
+          * @default true
+         */
+        "compact": boolean;
+        /**
+          * @default 240
+         */
+        "height": number;
+        /**
+          * Accessible title. Also read out as the summary.
+          * @default 'Chart'
+         */
+        "label": string;
+        /**
+          * Category labels for the x-axis (or slice names for a donut).
+          * @default []
+         */
+        "labels": string[];
+        /**
+          * One or more series. Donut charts use the first series only.
+          * @default []
+         */
+        "series": ChartSeries[];
+        /**
+          * Show the data table below the chart. Always in the DOM for screen readers; this toggles it visible.
+          * @default false
+         */
+        "showTable": boolean;
+        /**
+          * Chart type.
+          * @default 'line'
+         */
+        "type": 'line' | 'area' | 'bar' | 'donut';
+    }
     interface UiCheckbox {
         /**
           * @default false
@@ -280,6 +340,19 @@ export namespace Components {
           * @default 'on'
          */
         "value": string;
+    }
+    /**
+     * Animated show/hide of a block. Uses the grid-rows trick, so height animates without measuring.
+     */
+    interface UiCollapse {
+        /**
+          * @default false
+         */
+        "open": boolean;
+        /**
+          * Visible even when closed (a preview line).
+         */
+        "peek"?: string;
     }
     /**
      * Colour picker: saturation/brightness area, hue slider, hex field, swatches and (where the browser
@@ -426,6 +499,54 @@ export namespace Components {
         "value": string;
     }
     /**
+     * Picks a start and end date. Click a day to start, click another to finish (order is fixed for you).
+     * Values are {start, end} with "YYYY-MM-DD" strings. Keyboard: arrows move, Enter picks.
+     */
+    interface UiDateRangePicker {
+        "clear": () => Promise<void>;
+        /**
+          * @default false
+         */
+        "disabled": boolean;
+        "error"?: string;
+        /**
+          * @default 0
+         */
+        "firstDayOfWeek": number;
+        "hint"?: string;
+        "label"?: string;
+        "locale"?: string;
+        "max"?: string;
+        "min"?: string;
+        "name"?: string;
+        /**
+          * Show quick presets (last 7 days, last 30 days, this month, this year).
+          * @default false
+         */
+        "presets": boolean;
+        /**
+          * @default false
+         */
+        "required": boolean;
+        /**
+          * Pass a fixed "today" for tests and for server-rendered pages.
+         */
+        "today"?: string;
+        /**
+          * @default {}
+         */
+        "value": DateRange;
+    }
+    /**
+     * Renders the dialogs requested by confirm() and prompt(). Created automatically; you rarely place it yourself.
+     */
+    interface UiDialogHost {
+        /**
+          * Called by confirm()/prompt(). Queues requests so two dialogs never overlap.
+         */
+        "openDialog": (req: DialogRequest) => Promise<string | boolean | null>;
+    }
+    /**
      * Side panel (or bottom sheet). Same behaviour as <ui-modal>, anchored to an edge.
      */
     interface UiDrawer {
@@ -461,6 +582,80 @@ export namespace Components {
           * @default 'bottom-start'
          */
         "placement": Placement;
+    }
+    /**
+     * Wraps any form control with a label, hint, error and "required" marker, and links them
+     * with aria-describedby. Use it for controls that have no label of their own (ui-slider with a custom
+     * layout, ui-color-picker, a native <select>, or anything you build yourself).
+     *   <ui-field label="Region" hint="Used for billing" error={err}><select>...</select></ui-field>
+     */
+    interface UiField {
+        "error"?: string;
+        "hint"?: string;
+        /**
+          * Lay the label beside the control (useful in dense settings screens).
+          * @default false
+         */
+        "inline": boolean;
+        "label"?: string;
+        /**
+          * @default false
+         */
+        "required": boolean;
+    }
+    /**
+     * Dropzone + file list. Files are validated (type, size, count, total) and reported with every problem at once.
+     * Pass `uploadFn` to upload each file as it is added; without it, you receive files through uiFiles and handle them yourself.
+     */
+    interface UiFileUpload {
+        /**
+          * @default ''
+         */
+        "accept": string;
+        "clear": () => Promise<void>;
+        /**
+          * @default false
+         */
+        "disabled": boolean;
+        "hint"?: string;
+        /**
+          * @default 'Upload files'
+         */
+        "label": string;
+        "maxFiles"?: number;
+        "maxSize"?: number;
+        "maxTotalSize"?: number;
+        /**
+          * @default true
+         */
+        "multiple": boolean;
+        "name"?: string;
+        /**
+          * Upload a single file. Resolve with its URL. Progress: call the second argument with 0..1.
+         */
+        "uploadFn"?: (file: File, onProgress: (p: number) => void) => Promise<string>;
+    }
+    /**
+     * Displays HTML that you don't fully control (comments, CMS content, rich text from users).
+     * It is sanitised before insertion: scripts, event handlers, forms and unsafe URLs are removed.
+     * Set `allowImages={false}` to strip images too.
+     */
+    interface UiHtml {
+        /**
+          * Keep <img> elements.
+          * @default true
+         */
+        "allowImages": boolean;
+        /**
+          * The HTML to display. Sanitised before it reaches the page.
+          * @default ''
+         */
+        "html": string;
+        /**
+          * Typography defaults for long-form content.
+          * @default false
+         */
+        "prose": boolean;
     }
     /**
      * Renders an icon from the registry. Decorative by default; pass `label` to expose it
@@ -529,6 +724,30 @@ export namespace Components {
           * @default ''
          */
         "value": string;
+    }
+    /**
+     * Kanban board. Drag cards between columns, or focus a card and use Alt+Arrow keys:
+     * Alt+Up/Down reorders within a column; Alt+Left/Right moves the card to the neighbouring column.
+     */
+    interface UiKanban {
+        /**
+          * Cards, keyed by id.
+          * @default []
+         */
+        "cards": KanbanCard[];
+        /**
+          * @default []
+         */
+        "columns": KanbanColumn[];
+        /**
+          * @default 'Board'
+         */
+        "label": string;
+        /**
+          * Which column each card is in: column id to ordered card ids.
+          * @default {}
+         */
+        "layout": Record<string, string[]>;
     }
     /**
      * Endless horizontal ticker for logos or short text. Content is cloned (hidden from assistive tech)
@@ -904,6 +1123,58 @@ export namespace Components {
         "threshold": number;
     }
     /**
+     * Month and week scheduler. Timed events in week view sit side by side when they overlap.
+     * Every event is also a button, so keyboard and screen-reader users get the same information.
+     */
+    interface UiScheduler {
+        /**
+          * Date shown, "YYYY-MM-DD". Defaults to today.
+          * @default ''
+         */
+        "date": string;
+        /**
+          * @default 20
+         */
+        "dayEnd": number;
+        /**
+          * First and last hour shown in week view.
+          * @default 7
+         */
+        "dayStart": number;
+        /**
+          * @default []
+         */
+        "events": CalEvent[];
+        /**
+          * @default 1
+         */
+        "firstDayOfWeek": number;
+        /**
+          * @default 'Schedule'
+         */
+        "label": string;
+        "locale"?: string;
+        /**
+          * @default 'month'
+         */
+        "view": 'month' | 'week';
+    }
+    /**
+     * A reading-progress bar fixed to the top of the page. Driven by scroll position in JavaScript,
+     * so it works in every browser. Pass `target` to measure a scrolling element instead of the page.
+     */
+    interface UiScrollProgress {
+        /**
+          * @default 'Reading progress'
+         */
+        "label": string;
+        /**
+          * @default 'top'
+         */
+        "position": 'top' | 'bottom';
+        "target"?: string;
+    }
+    /**
      * Searchable dropdown (combobox). Single or multiple selection, type to filter, full keyboard support.
      * Set `filter={false}` and listen to uiSearch to load options from a server instead.
      */
@@ -957,6 +1228,61 @@ export namespace Components {
           * @default ''
          */
         "value": string | string[];
+    }
+    /**
+     * App sidebar: a navigation column that collapses to an icon rail (`collapsed`), and becomes an
+     * off-canvas drawer on phones. Put <ui-sidebar-item> children inside, optionally in groups.
+     * Sidebar and the page's own layout: pair it with `.nova-shell-sidebar` from
+     * @nova-ui /css.
+     */
+    interface UiSidebar {
+        /**
+          * Show icons only, with labels as tooltips.
+          * @default false
+         */
+        "collapsed": boolean;
+        /**
+          * Accessible name of the navigation landmark.
+          * @default 'Main'
+         */
+        "label": string;
+        /**
+          * Collapsed state is remembered under this key in localStorage (leave empty to disable).
+         */
+        "storageKey"?: string;
+    }
+    /**
+     * A link (href) or a group (children that expand). Current page is marked with aria-current="page".
+     * Keyboard: Enter/Space activates; ArrowRight/Left expand/collapse a group.
+     */
+    interface UiSidebarItem {
+        /**
+          * Badge text, e.g. an unread count.
+         */
+        "badge"?: string;
+        /**
+          * @default false
+         */
+        "current": boolean;
+        /**
+          * Makes this item a group that shows its children when open.
+          * @default false
+         */
+        "group": boolean;
+        "href"?: string;
+        /**
+          * Icon name from the registry, shown in both expanded and collapsed states.
+         */
+        "icon"?: string;
+        "label": string;
+        /**
+          * @default false
+         */
+        "open": boolean;
+        /**
+          * Shown as a native tooltip when the sidebar is collapsed.
+         */
+        "tooltip"?: string;
     }
     /**
      * Loading placeholder. Hidden from assistive tech; mark the loading region with aria-busy yourself.
@@ -1013,6 +1339,48 @@ export namespace Components {
          */
         "value": number;
     }
+    /**
+     * Reorderable list. Drag with a pointer, or focus an item and press Alt+ArrowUp / Alt+ArrowDown
+     * to move it (the keyboard path that screen-reader and keyboard users need).
+     */
+    interface UiSortable {
+        /**
+          * @default []
+         */
+        "items": SortItem[];
+        /**
+          * @default 'Reorderable list'
+         */
+        "label": string;
+    }
+    /**
+     * Tiny inline trend line for tables and cards. No axes, no labels; it describes itself in words.
+     */
+    interface UiSparkline {
+        /**
+          * Fill the area under the line.
+          * @default false
+         */
+        "area": boolean;
+        /**
+          * @default 32
+         */
+        "height": number;
+        /**
+          * Accessible summary, e.g. "Revenue, up 12% over 7 days".
+          * @default 'Trend'
+         */
+        "label": string;
+        /**
+          * Values, left to right.
+          * @default []
+         */
+        "values": number[];
+        /**
+          * @default 120
+         */
+        "width": number;
+    }
     interface UiSpinner {
         /**
           * Announced to screen readers. Describe what is loading, e.g. "Loading results".
@@ -1023,6 +1391,37 @@ export namespace Components {
           * @default 'md'
          */
         "size": 'sm' | 'md' | 'lg';
+    }
+    /**
+     * Two panes with a draggable, keyboard-operable divider. Each pane keeps a minimum size.
+     */
+    interface UiSplit {
+        /**
+          * Accessible name for the divider, e.g. "Resize file list".
+          * @default 'Resize panes'
+         */
+        "label": string;
+        /**
+          * @default 120
+         */
+        "minA": number;
+        /**
+          * @default 120
+         */
+        "minB": number;
+        /**
+          * @default 'horizontal'
+         */
+        "orientation": 'horizontal' | 'vertical';
+        /**
+          * Size of the first pane as a fraction (0..1).
+          * @default 0.5
+         */
+        "ratio": number;
+        /**
+          * Remember the ratio under this key.
+         */
+        "storageKey"?: string;
     }
     /**
      * Animates its direct children in one after another.
@@ -1167,6 +1566,24 @@ export namespace Components {
          */
         "emptyText": string;
         /**
+          * Add a column of toggles that reveal a detail row (slot named "expand:<rowKey>").
+          * @default false
+         */
+        "expandable": boolean;
+        /**
+          * Download the rows as currently filtered and sorted. Every row, not just the visible page.
+         */
+        "exportCSV": () => Promise<string>;
+        /**
+          * @default 'table-export'
+         */
+        "exportFilename": string;
+        /**
+          * Show an "Export CSV" button. Exports every row that matches the current search and sort.
+          * @default false
+         */
+        "exportable": boolean;
+        /**
           * @default false
          */
         "loading": boolean;
@@ -1197,10 +1614,20 @@ export namespace Components {
          */
         "paginate": boolean;
         /**
+          * Drag the edge of a column header to change its width.
+          * @default false
+         */
+        "resizable": boolean;
+        /**
           * Make rows focusable and fire uiRowClick on click or Enter.
           * @default false
          */
         "rowClickable": boolean;
+        /**
+          * Row height in px for virtual mode.
+          * @default 44
+         */
+        "rowHeight": number;
         /**
           * Property that uniquely identifies a row (used for selection and custom cell slots).
           * @default 'id'
@@ -1233,6 +1660,11 @@ export namespace Components {
          */
         "striped": boolean;
         "total"?: number;
+        /**
+          * Render only the rows on screen. Needs `maxHeight` (the scroll area) and a fixed `rowHeight`. For large datasets.
+          * @default false
+         */
+        "virtual": boolean;
     }
     /**
      * Tabs. Put <ui-tab value> and <ui-tab-panel value> as direct children; matching values pair them.
@@ -1347,6 +1779,41 @@ export namespace Components {
     interface UiThemeToggle {
     }
     /**
+     * Time of day as "HH:mm". Type it (with or without a colon), or pick a slot from the list.
+     * Accepts 24-hour input; `step` sets the slot spacing in minutes for the list.
+     */
+    interface UiTimePicker {
+        /**
+          * @default false
+         */
+        "disabled": boolean;
+        "error"?: string;
+        "focusInput": () => Promise<void>;
+        "hint"?: string;
+        "label"?: string;
+        "locale"?: string;
+        "max"?: string;
+        "min"?: string;
+        "name"?: string;
+        /**
+          * @default false
+         */
+        "required": boolean;
+        /**
+          * @default 'md'
+         */
+        "size": 'sm' | 'md' | 'lg';
+        /**
+          * Minutes between suggested slots.
+          * @default 30
+         */
+        "step": number;
+        /**
+          * @default ''
+         */
+        "value": string;
+    }
+    /**
      * Stack of notifications. Mount once; trigger with the toast() helper or the show() method.
      */
     interface UiToaster {
@@ -1413,6 +1880,38 @@ export namespace Components {
          */
         "selected"?: string;
     }
+    /**
+     * Renders only the rows on screen for a list of thousands of items. Row heights are fixed (`rowHeight`).
+     * Pass `renderRow(index)` as a function property; it returns the markup for one row.
+     */
+    interface UiVirtualList {
+        /**
+          * Number of rows in the full list.
+          * @default 0
+         */
+        "count": number;
+        /**
+          * @default 360
+         */
+        "height": number;
+        /**
+          * @default 'List'
+         */
+        "label": string;
+        /**
+          * Extra rows rendered above and below the viewport.
+          * @default 5
+         */
+        "overscan": number;
+        /**
+          * Returns the element for row `index`.
+         */
+        "renderRow"?: (index: number) => any;
+        /**
+          * @default 40
+         */
+        "rowHeight": number;
+    }
 }
 export interface UiAccordionItemCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1438,6 +1937,10 @@ export interface UiCheckboxCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLUiCheckboxElement;
 }
+export interface UiCollapseCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLUiCollapseElement;
+}
 export interface UiColorPickerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLUiColorPickerElement;
@@ -1454,6 +1957,10 @@ export interface UiDatePickerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLUiDatePickerElement;
 }
+export interface UiDateRangePickerCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLUiDateRangePickerElement;
+}
 export interface UiDrawerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLUiDrawerElement;
@@ -1462,9 +1969,17 @@ export interface UiDropdownCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLUiDropdownElement;
 }
+export interface UiFileUploadCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLUiFileUploadElement;
+}
 export interface UiInputCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLUiInputElement;
+}
+export interface UiKanbanCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLUiKanbanElement;
 }
 export interface UiMenubarMenuCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1502,13 +2017,33 @@ export interface UiRevealCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLUiRevealElement;
 }
+export interface UiSchedulerCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLUiSchedulerElement;
+}
 export interface UiSelectCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLUiSelectElement;
 }
+export interface UiSidebarCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLUiSidebarElement;
+}
+export interface UiSidebarItemCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLUiSidebarItemElement;
+}
 export interface UiSliderCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLUiSliderElement;
+}
+export interface UiSortableCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLUiSortableElement;
+}
+export interface UiSplitCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLUiSplitElement;
 }
 export interface UiStepperCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1533,6 +2068,10 @@ export interface UiTagInputCustomEvent<T> extends CustomEvent<T> {
 export interface UiTextareaCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLUiTextareaElement;
+}
+export interface UiTimePickerCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLUiTimePickerElement;
 }
 export interface UiTreeCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1674,6 +2213,17 @@ declare global {
         prototype: HTMLUiCarouselElement;
         new (): HTMLUiCarouselElement;
     };
+    /**
+     * Line, area, bar and donut charts in plain SVG. Each chart has a text summary and a data table
+     * for screen readers, because SVG shapes are otherwise invisible to assistive technology.
+     * Colours come from the theme tokens unless a series sets its own.
+     */
+    interface HTMLUiChartElement extends Components.UiChart, HTMLStencilElement {
+    }
+    var HTMLUiChartElement: {
+        prototype: HTMLUiChartElement;
+        new (): HTMLUiChartElement;
+    };
     interface HTMLUiCheckboxElementEventMap {
         "uiChange": boolean;
     }
@@ -1690,6 +2240,26 @@ declare global {
     var HTMLUiCheckboxElement: {
         prototype: HTMLUiCheckboxElement;
         new (): HTMLUiCheckboxElement;
+    };
+    interface HTMLUiCollapseElementEventMap {
+        "uiToggle": boolean;
+    }
+    /**
+     * Animated show/hide of a block. Uses the grid-rows trick, so height animates without measuring.
+     */
+    interface HTMLUiCollapseElement extends Components.UiCollapse, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLUiCollapseElementEventMap>(type: K, listener: (this: HTMLUiCollapseElement, ev: UiCollapseCustomEvent<HTMLUiCollapseElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLUiCollapseElementEventMap>(type: K, listener: (this: HTMLUiCollapseElement, ev: UiCollapseCustomEvent<HTMLUiCollapseElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLUiCollapseElement: {
+        prototype: HTMLUiCollapseElement;
+        new (): HTMLUiCollapseElement;
     };
     interface HTMLUiColorPickerElementEventMap {
         "uiInput": string;
@@ -1784,6 +2354,36 @@ declare global {
         prototype: HTMLUiDatePickerElement;
         new (): HTMLUiDatePickerElement;
     };
+    interface HTMLUiDateRangePickerElementEventMap {
+        "uiChange": DateRange;
+    }
+    /**
+     * Picks a start and end date. Click a day to start, click another to finish (order is fixed for you).
+     * Values are {start, end} with "YYYY-MM-DD" strings. Keyboard: arrows move, Enter picks.
+     */
+    interface HTMLUiDateRangePickerElement extends Components.UiDateRangePicker, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLUiDateRangePickerElementEventMap>(type: K, listener: (this: HTMLUiDateRangePickerElement, ev: UiDateRangePickerCustomEvent<HTMLUiDateRangePickerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLUiDateRangePickerElementEventMap>(type: K, listener: (this: HTMLUiDateRangePickerElement, ev: UiDateRangePickerCustomEvent<HTMLUiDateRangePickerElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLUiDateRangePickerElement: {
+        prototype: HTMLUiDateRangePickerElement;
+        new (): HTMLUiDateRangePickerElement;
+    };
+    /**
+     * Renders the dialogs requested by confirm() and prompt(). Created automatically; you rarely place it yourself.
+     */
+    interface HTMLUiDialogHostElement extends Components.UiDialogHost, HTMLStencilElement {
+    }
+    var HTMLUiDialogHostElement: {
+        prototype: HTMLUiDialogHostElement;
+        new (): HTMLUiDialogHostElement;
+    };
     interface HTMLUiDrawerElementEventMap {
         "uiOpen": void;
         "uiClose": void;
@@ -1828,6 +2428,53 @@ declare global {
         new (): HTMLUiDropdownElement;
     };
     /**
+     * Wraps any form control with a label, hint, error and "required" marker, and links them
+     * with aria-describedby. Use it for controls that have no label of their own (ui-slider with a custom
+     * layout, ui-color-picker, a native <select>, or anything you build yourself).
+     *   <ui-field label="Region" hint="Used for billing" error={err}><select>...</select></ui-field>
+     */
+    interface HTMLUiFieldElement extends Components.UiField, HTMLStencilElement {
+    }
+    var HTMLUiFieldElement: {
+        prototype: HTMLUiFieldElement;
+        new (): HTMLUiFieldElement;
+    };
+    interface HTMLUiFileUploadElementEventMap {
+        "uiFiles": File[];
+        "uiUploaded": { file: File; url: string };
+        "uiRejected": FileProblem[];
+        "uiRemove": File;
+    }
+    /**
+     * Dropzone + file list. Files are validated (type, size, count, total) and reported with every problem at once.
+     * Pass `uploadFn` to upload each file as it is added; without it, you receive files through uiFiles and handle them yourself.
+     */
+    interface HTMLUiFileUploadElement extends Components.UiFileUpload, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLUiFileUploadElementEventMap>(type: K, listener: (this: HTMLUiFileUploadElement, ev: UiFileUploadCustomEvent<HTMLUiFileUploadElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLUiFileUploadElementEventMap>(type: K, listener: (this: HTMLUiFileUploadElement, ev: UiFileUploadCustomEvent<HTMLUiFileUploadElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLUiFileUploadElement: {
+        prototype: HTMLUiFileUploadElement;
+        new (): HTMLUiFileUploadElement;
+    };
+    /**
+     * Displays HTML that you don't fully control (comments, CMS content, rich text from users).
+     * It is sanitised before insertion: scripts, event handlers, forms and unsafe URLs are removed.
+     * Set `allowImages={false}` to strip images too.
+     */
+    interface HTMLUiHtmlElement extends Components.UiHtml, HTMLStencilElement {
+    }
+    var HTMLUiHtmlElement: {
+        prototype: HTMLUiHtmlElement;
+        new (): HTMLUiHtmlElement;
+    };
+    /**
      * Renders an icon from the registry. Decorative by default; pass `label` to expose it
      * to assistive tech.
      */
@@ -1854,6 +2501,27 @@ declare global {
     var HTMLUiInputElement: {
         prototype: HTMLUiInputElement;
         new (): HTMLUiInputElement;
+    };
+    interface HTMLUiKanbanElementEventMap {
+        "uiMove": { cardId: string; to: string; index: number; layout: Record<string, string[]> };
+    }
+    /**
+     * Kanban board. Drag cards between columns, or focus a card and use Alt+Arrow keys:
+     * Alt+Up/Down reorders within a column; Alt+Left/Right moves the card to the neighbouring column.
+     */
+    interface HTMLUiKanbanElement extends Components.UiKanban, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLUiKanbanElementEventMap>(type: K, listener: (this: HTMLUiKanbanElement, ev: UiKanbanCustomEvent<HTMLUiKanbanElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLUiKanbanElementEventMap>(type: K, listener: (this: HTMLUiKanbanElement, ev: UiKanbanCustomEvent<HTMLUiKanbanElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLUiKanbanElement: {
+        prototype: HTMLUiKanbanElement;
+        new (): HTMLUiKanbanElement;
     };
     /**
      * Endless horizontal ticker for logos or short text. Content is cloned (hidden from assistive tech)
@@ -2082,6 +2750,39 @@ declare global {
         prototype: HTMLUiRevealElement;
         new (): HTMLUiRevealElement;
     };
+    interface HTMLUiSchedulerElementEventMap {
+        "uiEventClick": CalEvent;
+        "uiDateChange": string;
+        "uiViewChange": 'month' | 'week';
+    }
+    /**
+     * Month and week scheduler. Timed events in week view sit side by side when they overlap.
+     * Every event is also a button, so keyboard and screen-reader users get the same information.
+     */
+    interface HTMLUiSchedulerElement extends Components.UiScheduler, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLUiSchedulerElementEventMap>(type: K, listener: (this: HTMLUiSchedulerElement, ev: UiSchedulerCustomEvent<HTMLUiSchedulerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLUiSchedulerElementEventMap>(type: K, listener: (this: HTMLUiSchedulerElement, ev: UiSchedulerCustomEvent<HTMLUiSchedulerElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLUiSchedulerElement: {
+        prototype: HTMLUiSchedulerElement;
+        new (): HTMLUiSchedulerElement;
+    };
+    /**
+     * A reading-progress bar fixed to the top of the page. Driven by scroll position in JavaScript,
+     * so it works in every browser. Pass `target` to measure a scrolling element instead of the page.
+     */
+    interface HTMLUiScrollProgressElement extends Components.UiScrollProgress, HTMLStencilElement {
+    }
+    var HTMLUiScrollProgressElement: {
+        prototype: HTMLUiScrollProgressElement;
+        new (): HTMLUiScrollProgressElement;
+    };
     interface HTMLUiSelectElementEventMap {
         "uiChange": string | string[];
         "uiSearch": string;
@@ -2103,6 +2804,50 @@ declare global {
     var HTMLUiSelectElement: {
         prototype: HTMLUiSelectElement;
         new (): HTMLUiSelectElement;
+    };
+    interface HTMLUiSidebarElementEventMap {
+        "uiCollapse": boolean;
+    }
+    /**
+     * App sidebar: a navigation column that collapses to an icon rail (`collapsed`), and becomes an
+     * off-canvas drawer on phones. Put <ui-sidebar-item> children inside, optionally in groups.
+     * Sidebar and the page's own layout: pair it with `.nova-shell-sidebar` from
+     * @nova-ui /css.
+     */
+    interface HTMLUiSidebarElement extends Components.UiSidebar, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLUiSidebarElementEventMap>(type: K, listener: (this: HTMLUiSidebarElement, ev: UiSidebarCustomEvent<HTMLUiSidebarElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLUiSidebarElementEventMap>(type: K, listener: (this: HTMLUiSidebarElement, ev: UiSidebarCustomEvent<HTMLUiSidebarElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLUiSidebarElement: {
+        prototype: HTMLUiSidebarElement;
+        new (): HTMLUiSidebarElement;
+    };
+    interface HTMLUiSidebarItemElementEventMap {
+        "uiSelect": { label: string; href?: string };
+    }
+    /**
+     * A link (href) or a group (children that expand). Current page is marked with aria-current="page".
+     * Keyboard: Enter/Space activates; ArrowRight/Left expand/collapse a group.
+     */
+    interface HTMLUiSidebarItemElement extends Components.UiSidebarItem, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLUiSidebarItemElementEventMap>(type: K, listener: (this: HTMLUiSidebarItemElement, ev: UiSidebarItemCustomEvent<HTMLUiSidebarItemElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLUiSidebarItemElementEventMap>(type: K, listener: (this: HTMLUiSidebarItemElement, ev: UiSidebarItemCustomEvent<HTMLUiSidebarItemElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLUiSidebarItemElement: {
+        prototype: HTMLUiSidebarItemElement;
+        new (): HTMLUiSidebarItemElement;
     };
     /**
      * Loading placeholder. Hidden from assistive tech; mark the loading region with aria-busy yourself.
@@ -2131,11 +2876,61 @@ declare global {
         prototype: HTMLUiSliderElement;
         new (): HTMLUiSliderElement;
     };
+    interface HTMLUiSortableElementEventMap {
+        "uiReorder": SortItem[];
+    }
+    /**
+     * Reorderable list. Drag with a pointer, or focus an item and press Alt+ArrowUp / Alt+ArrowDown
+     * to move it (the keyboard path that screen-reader and keyboard users need).
+     */
+    interface HTMLUiSortableElement extends Components.UiSortable, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLUiSortableElementEventMap>(type: K, listener: (this: HTMLUiSortableElement, ev: UiSortableCustomEvent<HTMLUiSortableElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLUiSortableElementEventMap>(type: K, listener: (this: HTMLUiSortableElement, ev: UiSortableCustomEvent<HTMLUiSortableElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLUiSortableElement: {
+        prototype: HTMLUiSortableElement;
+        new (): HTMLUiSortableElement;
+    };
+    /**
+     * Tiny inline trend line for tables and cards. No axes, no labels; it describes itself in words.
+     */
+    interface HTMLUiSparklineElement extends Components.UiSparkline, HTMLStencilElement {
+    }
+    var HTMLUiSparklineElement: {
+        prototype: HTMLUiSparklineElement;
+        new (): HTMLUiSparklineElement;
+    };
     interface HTMLUiSpinnerElement extends Components.UiSpinner, HTMLStencilElement {
     }
     var HTMLUiSpinnerElement: {
         prototype: HTMLUiSpinnerElement;
         new (): HTMLUiSpinnerElement;
+    };
+    interface HTMLUiSplitElementEventMap {
+        "uiResize": number;
+    }
+    /**
+     * Two panes with a draggable, keyboard-operable divider. Each pane keeps a minimum size.
+     */
+    interface HTMLUiSplitElement extends Components.UiSplit, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLUiSplitElementEventMap>(type: K, listener: (this: HTMLUiSplitElement, ev: UiSplitCustomEvent<HTMLUiSplitElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLUiSplitElementEventMap>(type: K, listener: (this: HTMLUiSplitElement, ev: UiSplitCustomEvent<HTMLUiSplitElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLUiSplitElement: {
+        prototype: HTMLUiSplitElement;
+        new (): HTMLUiSplitElement;
     };
     /**
      * Animates its direct children in one after another.
@@ -2298,6 +3093,27 @@ declare global {
         prototype: HTMLUiThemeToggleElement;
         new (): HTMLUiThemeToggleElement;
     };
+    interface HTMLUiTimePickerElementEventMap {
+        "uiChange": string;
+    }
+    /**
+     * Time of day as "HH:mm". Type it (with or without a colon), or pick a slot from the list.
+     * Accepts 24-hour input; `step` sets the slot spacing in minutes for the list.
+     */
+    interface HTMLUiTimePickerElement extends Components.UiTimePicker, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLUiTimePickerElementEventMap>(type: K, listener: (this: HTMLUiTimePickerElement, ev: UiTimePickerCustomEvent<HTMLUiTimePickerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLUiTimePickerElementEventMap>(type: K, listener: (this: HTMLUiTimePickerElement, ev: UiTimePickerCustomEvent<HTMLUiTimePickerElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLUiTimePickerElement: {
+        prototype: HTMLUiTimePickerElement;
+        new (): HTMLUiTimePickerElement;
+    };
     /**
      * Stack of notifications. Mount once; trigger with the toast() helper or the show() method.
      */
@@ -2338,6 +3154,16 @@ declare global {
         prototype: HTMLUiTreeElement;
         new (): HTMLUiTreeElement;
     };
+    /**
+     * Renders only the rows on screen for a list of thousands of items. Row heights are fixed (`rowHeight`).
+     * Pass `renderRow(index)` as a function property; it returns the markup for one row.
+     */
+    interface HTMLUiVirtualListElement extends Components.UiVirtualList, HTMLStencilElement {
+    }
+    var HTMLUiVirtualListElement: {
+        prototype: HTMLUiVirtualListElement;
+        new (): HTMLUiVirtualListElement;
+    };
     interface HTMLElementTagNameMap {
         "ui-accordion": HTMLUiAccordionElement;
         "ui-accordion-item": HTMLUiAccordionItemElement;
@@ -2350,16 +3176,24 @@ declare global {
         "ui-calendar": HTMLUiCalendarElement;
         "ui-card": HTMLUiCardElement;
         "ui-carousel": HTMLUiCarouselElement;
+        "ui-chart": HTMLUiChartElement;
         "ui-checkbox": HTMLUiCheckboxElement;
+        "ui-collapse": HTMLUiCollapseElement;
         "ui-color-picker": HTMLUiColorPickerElement;
         "ui-command-palette": HTMLUiCommandPaletteElement;
         "ui-context-menu": HTMLUiContextMenuElement;
         "ui-counter": HTMLUiCounterElement;
         "ui-date-picker": HTMLUiDatePickerElement;
+        "ui-date-range-picker": HTMLUiDateRangePickerElement;
+        "ui-dialog-host": HTMLUiDialogHostElement;
         "ui-drawer": HTMLUiDrawerElement;
         "ui-dropdown": HTMLUiDropdownElement;
+        "ui-field": HTMLUiFieldElement;
+        "ui-file-upload": HTMLUiFileUploadElement;
+        "ui-html": HTMLUiHtmlElement;
         "ui-icon": HTMLUiIconElement;
         "ui-input": HTMLUiInputElement;
+        "ui-kanban": HTMLUiKanbanElement;
         "ui-marquee": HTMLUiMarqueeElement;
         "ui-menu-item": HTMLUiMenuItemElement;
         "ui-menubar": HTMLUiMenubarElement;
@@ -2375,10 +3209,17 @@ declare global {
         "ui-radio-group": HTMLUiRadioGroupElement;
         "ui-rating": HTMLUiRatingElement;
         "ui-reveal": HTMLUiRevealElement;
+        "ui-scheduler": HTMLUiSchedulerElement;
+        "ui-scroll-progress": HTMLUiScrollProgressElement;
         "ui-select": HTMLUiSelectElement;
+        "ui-sidebar": HTMLUiSidebarElement;
+        "ui-sidebar-item": HTMLUiSidebarItemElement;
         "ui-skeleton": HTMLUiSkeletonElement;
         "ui-slider": HTMLUiSliderElement;
+        "ui-sortable": HTMLUiSortableElement;
+        "ui-sparkline": HTMLUiSparklineElement;
         "ui-spinner": HTMLUiSpinnerElement;
+        "ui-split": HTMLUiSplitElement;
         "ui-stagger": HTMLUiStaggerElement;
         "ui-step": HTMLUiStepElement;
         "ui-stepper": HTMLUiStepperElement;
@@ -2390,9 +3231,11 @@ declare global {
         "ui-tag-input": HTMLUiTagInputElement;
         "ui-textarea": HTMLUiTextareaElement;
         "ui-theme-toggle": HTMLUiThemeToggleElement;
+        "ui-time-picker": HTMLUiTimePickerElement;
         "ui-toaster": HTMLUiToasterElement;
         "ui-tooltip": HTMLUiTooltipElement;
         "ui-tree": HTMLUiTreeElement;
+        "ui-virtual-list": HTMLUiVirtualListElement;
     }
 }
 declare namespace LocalJSX {
@@ -2645,6 +3488,52 @@ declare namespace LocalJSX {
          */
         "slidesPerView"?: number;
     }
+    /**
+     * Line, area, bar and donut charts in plain SVG. Each chart has a text summary and a data table
+     * for screen readers, because SVG shapes are otherwise invisible to assistive technology.
+     * Colours come from the theme tokens unless a series sets its own.
+     */
+    interface UiChart {
+        /**
+          * Show y-axis gridlines and values.
+          * @default true
+         */
+        "axes"?: boolean;
+        /**
+          * Format axis numbers in compact form (1.2k).
+          * @default true
+         */
+        "compact"?: boolean;
+        /**
+          * @default 240
+         */
+        "height"?: number;
+        /**
+          * Accessible title. Also read out as the summary.
+          * @default 'Chart'
+         */
+        "label"?: string;
+        /**
+          * Category labels for the x-axis (or slice names for a donut).
+          * @default []
+         */
+        "labels"?: string[];
+        /**
+          * One or more series. Donut charts use the first series only.
+          * @default []
+         */
+        "series"?: ChartSeries[];
+        /**
+          * Show the data table below the chart. Always in the DOM for screen readers; this toggles it visible.
+          * @default false
+         */
+        "showTable"?: boolean;
+        /**
+          * Chart type.
+          * @default 'line'
+         */
+        "type"?: 'line' | 'area' | 'bar' | 'donut';
+    }
     interface UiCheckbox {
         /**
           * @default false
@@ -2678,6 +3567,20 @@ declare namespace LocalJSX {
           * @default 'on'
          */
         "value"?: string;
+    }
+    /**
+     * Animated show/hide of a block. Uses the grid-rows trick, so height animates without measuring.
+     */
+    interface UiCollapse {
+        "onUiToggle"?: (event: UiCollapseCustomEvent<boolean>) => void;
+        /**
+          * @default false
+         */
+        "open"?: boolean;
+        /**
+          * Visible even when closed (a preview line).
+         */
+        "peek"?: string;
     }
     /**
      * Colour picker: saturation/brightness area, hue slider, hex field, swatches and (where the browser
@@ -2849,6 +3752,54 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     /**
+     * Picks a start and end date. Click a day to start, click another to finish (order is fixed for you).
+     * Values are {start, end} with "YYYY-MM-DD" strings. Keyboard: arrows move, Enter picks.
+     */
+    interface UiDateRangePicker {
+        /**
+          * @default false
+         */
+        "disabled"?: boolean;
+        "error"?: string;
+        /**
+          * @default 0
+         */
+        "firstDayOfWeek"?: number;
+        /**
+          * The `id` of a `<form>` element to associate this element with.
+         */
+        "form"?: string;
+        "hint"?: string;
+        "label"?: string;
+        "locale"?: string;
+        "max"?: string;
+        "min"?: string;
+        "name"?: string;
+        "onUiChange"?: (event: UiDateRangePickerCustomEvent<DateRange>) => void;
+        /**
+          * Show quick presets (last 7 days, last 30 days, this month, this year).
+          * @default false
+         */
+        "presets"?: boolean;
+        /**
+          * @default false
+         */
+        "required"?: boolean;
+        /**
+          * Pass a fixed "today" for tests and for server-rendered pages.
+         */
+        "today"?: string;
+        /**
+          * @default {}
+         */
+        "value"?: DateRange;
+    }
+    /**
+     * Renders the dialogs requested by confirm() and prompt(). Created automatically; you rarely place it yourself.
+     */
+    interface UiDialogHost {
+    }
+    /**
      * Side panel (or bottom sheet). Same behaviour as <ui-modal>, anchored to an edge.
      */
     interface UiDrawer {
@@ -2891,6 +3842,96 @@ declare namespace LocalJSX {
           * @default 'bottom-start'
          */
         "placement"?: Placement;
+    }
+    /**
+     * Wraps any form control with a label, hint, error and "required" marker, and links them
+     * with aria-describedby. Use it for controls that have no label of their own (ui-slider with a custom
+     * layout, ui-color-picker, a native <select>, or anything you build yourself).
+     *   <ui-field label="Region" hint="Used for billing" error={err}><select>...</select></ui-field>
+     */
+    interface UiField {
+        "error"?: string;
+        "hint"?: string;
+        /**
+          * Lay the label beside the control (useful in dense settings screens).
+          * @default false
+         */
+        "inline"?: boolean;
+        "label"?: string;
+        /**
+          * @default false
+         */
+        "required"?: boolean;
+    }
+    /**
+     * Dropzone + file list. Files are validated (type, size, count, total) and reported with every problem at once.
+     * Pass `uploadFn` to upload each file as it is added; without it, you receive files through uiFiles and handle them yourself.
+     */
+    interface UiFileUpload {
+        /**
+          * @default ''
+         */
+        "accept"?: string;
+        /**
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * The `id` of a `<form>` element to associate this element with.
+         */
+        "form"?: string;
+        "hint"?: string;
+        /**
+          * @default 'Upload files'
+         */
+        "label"?: string;
+        "maxFiles"?: number;
+        "maxSize"?: number;
+        "maxTotalSize"?: number;
+        /**
+          * @default true
+         */
+        "multiple"?: boolean;
+        "name"?: string;
+        /**
+          * Every file the user picks or drops (after validation).
+         */
+        "onUiFiles"?: (event: UiFileUploadCustomEvent<File[]>) => void;
+        /**
+          * Fires with every rejected file and why.
+         */
+        "onUiRejected"?: (event: UiFileUploadCustomEvent<FileProblem[]>) => void;
+        "onUiRemove"?: (event: UiFileUploadCustomEvent<File>) => void;
+        /**
+          * Fires when a file finishes uploading.
+         */
+        "onUiUploaded"?: (event: UiFileUploadCustomEvent<{ file: File; url: string }>) => void;
+        /**
+          * Upload a single file. Resolve with its URL. Progress: call the second argument with 0..1.
+         */
+        "uploadFn"?: (file: File, onProgress: (p: number) => void) => Promise<string>;
+    }
+    /**
+     * Displays HTML that you don't fully control (comments, CMS content, rich text from users).
+     * It is sanitised before insertion: scripts, event handlers, forms and unsafe URLs are removed.
+     * Set `allowImages={false}` to strip images too.
+     */
+    interface UiHtml {
+        /**
+          * Keep <img> elements.
+          * @default true
+         */
+        "allowImages"?: boolean;
+        /**
+          * The HTML to display. Sanitised before it reaches the page.
+          * @default ''
+         */
+        "html"?: string;
+        /**
+          * Typography defaults for long-form content.
+          * @default false
+         */
+        "prose"?: boolean;
     }
     /**
      * Renders an icon from the registry. Decorative by default; pass `label` to expose it
@@ -2970,6 +4011,34 @@ declare namespace LocalJSX {
           * @default ''
          */
         "value"?: string;
+    }
+    /**
+     * Kanban board. Drag cards between columns, or focus a card and use Alt+Arrow keys:
+     * Alt+Up/Down reorders within a column; Alt+Left/Right moves the card to the neighbouring column.
+     */
+    interface UiKanban {
+        /**
+          * Cards, keyed by id.
+          * @default []
+         */
+        "cards"?: KanbanCard[];
+        /**
+          * @default []
+         */
+        "columns"?: KanbanColumn[];
+        /**
+          * @default 'Board'
+         */
+        "label"?: string;
+        /**
+          * Which column each card is in: column id to ordered card ids.
+          * @default {}
+         */
+        "layout"?: Record<string, string[]>;
+        /**
+          * Fires after any move with the new layout.
+         */
+        "onUiMove"?: (event: UiKanbanCustomEvent<{ cardId: string; to: string; index: number; layout: Record<string, string[]> }>) => void;
     }
     /**
      * Endless horizontal ticker for logos or short text. Content is cloned (hidden from assistive tech)
@@ -3386,6 +4455,61 @@ declare namespace LocalJSX {
         "threshold"?: number;
     }
     /**
+     * Month and week scheduler. Timed events in week view sit side by side when they overlap.
+     * Every event is also a button, so keyboard and screen-reader users get the same information.
+     */
+    interface UiScheduler {
+        /**
+          * Date shown, "YYYY-MM-DD". Defaults to today.
+          * @default ''
+         */
+        "date"?: string;
+        /**
+          * @default 20
+         */
+        "dayEnd"?: number;
+        /**
+          * First and last hour shown in week view.
+          * @default 7
+         */
+        "dayStart"?: number;
+        /**
+          * @default []
+         */
+        "events"?: CalEvent[];
+        /**
+          * @default 1
+         */
+        "firstDayOfWeek"?: number;
+        /**
+          * @default 'Schedule'
+         */
+        "label"?: string;
+        "locale"?: string;
+        "onUiDateChange"?: (event: UiSchedulerCustomEvent<string>) => void;
+        "onUiEventClick"?: (event: UiSchedulerCustomEvent<CalEvent>) => void;
+        "onUiViewChange"?: (event: UiSchedulerCustomEvent<'month' | 'week'>) => void;
+        /**
+          * @default 'month'
+         */
+        "view"?: 'month' | 'week';
+    }
+    /**
+     * A reading-progress bar fixed to the top of the page. Driven by scroll position in JavaScript,
+     * so it works in every browser. Pass `target` to measure a scrolling element instead of the page.
+     */
+    interface UiScrollProgress {
+        /**
+          * @default 'Reading progress'
+         */
+        "label"?: string;
+        /**
+          * @default 'top'
+         */
+        "position"?: 'top' | 'bottom';
+        "target"?: string;
+    }
+    /**
      * Searchable dropdown (combobox). Single or multiple selection, type to filter, full keyboard support.
      * Set `filter={false}` and listen to uiSearch to load options from a server instead.
      */
@@ -3450,6 +4574,63 @@ declare namespace LocalJSX {
           * @default ''
          */
         "value"?: string | string[];
+    }
+    /**
+     * App sidebar: a navigation column that collapses to an icon rail (`collapsed`), and becomes an
+     * off-canvas drawer on phones. Put <ui-sidebar-item> children inside, optionally in groups.
+     * Sidebar and the page's own layout: pair it with `.nova-shell-sidebar` from
+     * @nova-ui /css.
+     */
+    interface UiSidebar {
+        /**
+          * Show icons only, with labels as tooltips.
+          * @default false
+         */
+        "collapsed"?: boolean;
+        /**
+          * Accessible name of the navigation landmark.
+          * @default 'Main'
+         */
+        "label"?: string;
+        "onUiCollapse"?: (event: UiSidebarCustomEvent<boolean>) => void;
+        /**
+          * Collapsed state is remembered under this key in localStorage (leave empty to disable).
+         */
+        "storageKey"?: string;
+    }
+    /**
+     * A link (href) or a group (children that expand). Current page is marked with aria-current="page".
+     * Keyboard: Enter/Space activates; ArrowRight/Left expand/collapse a group.
+     */
+    interface UiSidebarItem {
+        /**
+          * Badge text, e.g. an unread count.
+         */
+        "badge"?: string;
+        /**
+          * @default false
+         */
+        "current"?: boolean;
+        /**
+          * Makes this item a group that shows its children when open.
+          * @default false
+         */
+        "group"?: boolean;
+        "href"?: string;
+        /**
+          * Icon name from the registry, shown in both expanded and collapsed states.
+         */
+        "icon"?: string;
+        "label": string;
+        "onUiSelect"?: (event: UiSidebarItemCustomEvent<{ label: string; href?: string }>) => void;
+        /**
+          * @default false
+         */
+        "open"?: boolean;
+        /**
+          * Shown as a native tooltip when the sidebar is collapsed.
+         */
+        "tooltip"?: string;
     }
     /**
      * Loading placeholder. Hidden from assistive tech; mark the loading region with aria-busy yourself.
@@ -3518,6 +4699,52 @@ declare namespace LocalJSX {
          */
         "value"?: number;
     }
+    /**
+     * Reorderable list. Drag with a pointer, or focus an item and press Alt+ArrowUp / Alt+ArrowDown
+     * to move it (the keyboard path that screen-reader and keyboard users need).
+     */
+    interface UiSortable {
+        /**
+          * @default []
+         */
+        "items"?: SortItem[];
+        /**
+          * @default 'Reorderable list'
+         */
+        "label"?: string;
+        /**
+          * Fires with the new order after every change.
+         */
+        "onUiReorder"?: (event: UiSortableCustomEvent<SortItem[]>) => void;
+    }
+    /**
+     * Tiny inline trend line for tables and cards. No axes, no labels; it describes itself in words.
+     */
+    interface UiSparkline {
+        /**
+          * Fill the area under the line.
+          * @default false
+         */
+        "area"?: boolean;
+        /**
+          * @default 32
+         */
+        "height"?: number;
+        /**
+          * Accessible summary, e.g. "Revenue, up 12% over 7 days".
+          * @default 'Trend'
+         */
+        "label"?: string;
+        /**
+          * Values, left to right.
+          * @default []
+         */
+        "values"?: number[];
+        /**
+          * @default 120
+         */
+        "width"?: number;
+    }
     interface UiSpinner {
         /**
           * Announced to screen readers. Describe what is loading, e.g. "Loading results".
@@ -3528,6 +4755,38 @@ declare namespace LocalJSX {
           * @default 'md'
          */
         "size"?: 'sm' | 'md' | 'lg';
+    }
+    /**
+     * Two panes with a draggable, keyboard-operable divider. Each pane keeps a minimum size.
+     */
+    interface UiSplit {
+        /**
+          * Accessible name for the divider, e.g. "Resize file list".
+          * @default 'Resize panes'
+         */
+        "label"?: string;
+        /**
+          * @default 120
+         */
+        "minA"?: number;
+        /**
+          * @default 120
+         */
+        "minB"?: number;
+        "onUiResize"?: (event: UiSplitCustomEvent<number>) => void;
+        /**
+          * @default 'horizontal'
+         */
+        "orientation"?: 'horizontal' | 'vertical';
+        /**
+          * Size of the first pane as a fraction (0..1).
+          * @default 0.5
+         */
+        "ratio"?: number;
+        /**
+          * Remember the ratio under this key.
+         */
+        "storageKey"?: string;
     }
     /**
      * Animates its direct children in one after another.
@@ -3681,6 +4940,20 @@ declare namespace LocalJSX {
          */
         "emptyText"?: string;
         /**
+          * Add a column of toggles that reveal a detail row (slot named "expand:<rowKey>").
+          * @default false
+         */
+        "expandable"?: boolean;
+        /**
+          * @default 'table-export'
+         */
+        "exportFilename"?: string;
+        /**
+          * Show an "Export CSV" button. Exports every row that matches the current search and sort.
+          * @default false
+         */
+        "exportable"?: boolean;
+        /**
           * @default false
          */
         "loading"?: boolean;
@@ -3717,10 +4990,20 @@ declare namespace LocalJSX {
          */
         "paginate"?: boolean;
         /**
+          * Drag the edge of a column header to change its width.
+          * @default false
+         */
+        "resizable"?: boolean;
+        /**
           * Make rows focusable and fire uiRowClick on click or Enter.
           * @default false
          */
         "rowClickable"?: boolean;
+        /**
+          * Row height in px for virtual mode.
+          * @default 44
+         */
+        "rowHeight"?: number;
         /**
           * Property that uniquely identifies a row (used for selection and custom cell slots).
           * @default 'id'
@@ -3753,6 +5036,11 @@ declare namespace LocalJSX {
          */
         "striped"?: boolean;
         "total"?: number;
+        /**
+          * Render only the rows on screen. Needs `maxHeight` (the scroll area) and a fixed `rowHeight`. For large datasets.
+          * @default false
+         */
+        "virtual"?: boolean;
     }
     /**
      * Tabs. Put <ui-tab value> and <ui-tab-panel value> as direct children; matching values pair them.
@@ -3881,6 +5169,45 @@ declare namespace LocalJSX {
     interface UiThemeToggle {
     }
     /**
+     * Time of day as "HH:mm". Type it (with or without a colon), or pick a slot from the list.
+     * Accepts 24-hour input; `step` sets the slot spacing in minutes for the list.
+     */
+    interface UiTimePicker {
+        /**
+          * @default false
+         */
+        "disabled"?: boolean;
+        "error"?: string;
+        /**
+          * The `id` of a `<form>` element to associate this element with.
+         */
+        "form"?: string;
+        "hint"?: string;
+        "label"?: string;
+        "locale"?: string;
+        "max"?: string;
+        "min"?: string;
+        "name"?: string;
+        "onUiChange"?: (event: UiTimePickerCustomEvent<string>) => void;
+        /**
+          * @default false
+         */
+        "required"?: boolean;
+        /**
+          * @default 'md'
+         */
+        "size"?: 'sm' | 'md' | 'lg';
+        /**
+          * Minutes between suggested slots.
+          * @default 30
+         */
+        "step"?: number;
+        /**
+          * @default ''
+         */
+        "value"?: string;
+    }
+    /**
      * Stack of notifications. Mount once; trigger with the toast() helper or the show() method.
      */
     interface UiToaster {
@@ -3945,6 +5272,38 @@ declare namespace LocalJSX {
           * Id of the selected node.
          */
         "selected"?: string;
+    }
+    /**
+     * Renders only the rows on screen for a list of thousands of items. Row heights are fixed (`rowHeight`).
+     * Pass `renderRow(index)` as a function property; it returns the markup for one row.
+     */
+    interface UiVirtualList {
+        /**
+          * Number of rows in the full list.
+          * @default 0
+         */
+        "count"?: number;
+        /**
+          * @default 360
+         */
+        "height"?: number;
+        /**
+          * @default 'List'
+         */
+        "label"?: string;
+        /**
+          * Extra rows rendered above and below the viewport.
+          * @default 5
+         */
+        "overscan"?: number;
+        /**
+          * Returns the element for row `index`.
+         */
+        "renderRow"?: (index: number) => any;
+        /**
+          * @default 40
+         */
+        "rowHeight"?: number;
     }
 
     interface UiAccordionAttributes {
@@ -4018,6 +5377,14 @@ declare namespace LocalJSX {
         "showArrows": boolean;
         "label": string;
     }
+    interface UiChartAttributes {
+        "type": 'line' | 'area' | 'bar' | 'donut';
+        "label": string;
+        "height": number;
+        "axes": boolean;
+        "showTable": boolean;
+        "compact": boolean;
+    }
     interface UiCheckboxAttributes {
         "checked": boolean;
         "indeterminate": boolean;
@@ -4026,6 +5393,10 @@ declare namespace LocalJSX {
         "disabled": boolean;
         "required": boolean;
         "label": string;
+    }
+    interface UiCollapseAttributes {
+        "open": boolean;
+        "peek": string;
     }
     interface UiColorPickerAttributes {
         "value": string;
@@ -4069,6 +5440,20 @@ declare namespace LocalJSX {
         "firstDayOfWeek": number;
         "size": 'sm' | 'md' | 'lg';
     }
+    interface UiDateRangePickerAttributes {
+        "min": string;
+        "max": string;
+        "label": string;
+        "hint": string;
+        "error": string;
+        "name": string;
+        "disabled": boolean;
+        "required": boolean;
+        "locale": string;
+        "firstDayOfWeek": number;
+        "presets": boolean;
+        "today": string;
+    }
     interface UiDrawerAttributes {
         "open": boolean;
         "side": 'left' | 'right' | 'top' | 'bottom';
@@ -4080,6 +5465,29 @@ declare namespace LocalJSX {
     interface UiDropdownAttributes {
         "open": boolean;
         "placement": Placement;
+    }
+    interface UiFieldAttributes {
+        "label": string;
+        "hint": string;
+        "error": string;
+        "required": boolean;
+        "inline": boolean;
+    }
+    interface UiFileUploadAttributes {
+        "accept": string;
+        "maxSize": number;
+        "maxFiles": number;
+        "maxTotalSize": number;
+        "multiple": boolean;
+        "label": string;
+        "hint": string;
+        "name": string;
+        "disabled": boolean;
+    }
+    interface UiHtmlAttributes {
+        "html": string;
+        "allowImages": boolean;
+        "prose": boolean;
     }
     interface UiIconAttributes {
         "name": string;
@@ -4102,6 +5510,9 @@ declare namespace LocalJSX {
         "autocomplete": string;
         "maxlength": number;
         "size": 'sm' | 'md' | 'lg';
+    }
+    interface UiKanbanAttributes {
+        "label": string;
     }
     interface UiMarqueeAttributes {
         "speed": number;
@@ -4210,6 +5621,20 @@ declare namespace LocalJSX {
         "threshold": number;
         "repeat": boolean;
     }
+    interface UiSchedulerAttributes {
+        "view": 'month' | 'week';
+        "date": string;
+        "firstDayOfWeek": number;
+        "locale": string;
+        "dayStart": number;
+        "dayEnd": number;
+        "label": string;
+    }
+    interface UiScrollProgressAttributes {
+        "target": string;
+        "position": 'top' | 'bottom';
+        "label": string;
+    }
     interface UiSelectAttributes {
         "value": string | string[];
         "multiple": boolean;
@@ -4225,6 +5650,21 @@ declare namespace LocalJSX {
         "required": boolean;
         "emptyText": string;
         "size": 'sm' | 'md' | 'lg';
+    }
+    interface UiSidebarAttributes {
+        "collapsed": boolean;
+        "label": string;
+        "storageKey": string;
+    }
+    interface UiSidebarItemAttributes {
+        "label": string;
+        "href": string;
+        "icon": string;
+        "badge": string;
+        "current": boolean;
+        "group": boolean;
+        "open": boolean;
+        "tooltip": string;
     }
     interface UiSkeletonAttributes {
         "shape": 'text' | 'rect' | 'circle';
@@ -4243,9 +5683,26 @@ declare namespace LocalJSX {
         "showValue": boolean;
         "disabled": boolean;
     }
+    interface UiSortableAttributes {
+        "label": string;
+    }
+    interface UiSparklineAttributes {
+        "width": number;
+        "height": number;
+        "area": boolean;
+        "label": string;
+    }
     interface UiSpinnerAttributes {
         "size": 'sm' | 'md' | 'lg';
         "label": string;
+    }
+    interface UiSplitAttributes {
+        "orientation": 'horizontal' | 'vertical';
+        "ratio": number;
+        "minA": number;
+        "minB": number;
+        "label": string;
+        "storageKey": string;
     }
     interface UiStaggerAttributes {
         "animation": AnimationName;
@@ -4294,6 +5751,12 @@ declare namespace LocalJSX {
         "manual": boolean;
         "total": number;
         "searchable": boolean;
+        "resizable": boolean;
+        "virtual": boolean;
+        "rowHeight": number;
+        "expandable": boolean;
+        "exportable": boolean;
+        "exportFilename": string;
         "searchPlaceholder": string;
         "selectable": boolean;
         "loading": boolean;
@@ -4337,6 +5800,20 @@ declare namespace LocalJSX {
         "autoresize": boolean;
         "size": 'sm' | 'md' | 'lg';
     }
+    interface UiTimePickerAttributes {
+        "value": string;
+        "min": string;
+        "max": string;
+        "step": number;
+        "label": string;
+        "hint": string;
+        "error": string;
+        "name": string;
+        "disabled": boolean;
+        "required": boolean;
+        "locale": string;
+        "size": 'sm' | 'md' | 'lg';
+    }
     interface UiToasterAttributes {
         "placement": 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
         "max": number;
@@ -4352,6 +5829,13 @@ declare namespace LocalJSX {
         "selected": string;
         "label": string;
     }
+    interface UiVirtualListAttributes {
+        "count": number;
+        "rowHeight": number;
+        "height": number;
+        "overscan": number;
+        "label": string;
+    }
 
     interface IntrinsicElements {
         "ui-accordion": Omit<UiAccordion, keyof UiAccordionAttributes> & { [K in keyof UiAccordion & keyof UiAccordionAttributes]?: UiAccordion[K] } & { [K in keyof UiAccordion & keyof UiAccordionAttributes as `attr:${K}`]?: UiAccordionAttributes[K] } & { [K in keyof UiAccordion & keyof UiAccordionAttributes as `prop:${K}`]?: UiAccordion[K] };
@@ -4365,16 +5849,24 @@ declare namespace LocalJSX {
         "ui-calendar": Omit<UiCalendar, keyof UiCalendarAttributes> & { [K in keyof UiCalendar & keyof UiCalendarAttributes]?: UiCalendar[K] } & { [K in keyof UiCalendar & keyof UiCalendarAttributes as `attr:${K}`]?: UiCalendarAttributes[K] } & { [K in keyof UiCalendar & keyof UiCalendarAttributes as `prop:${K}`]?: UiCalendar[K] };
         "ui-card": Omit<UiCard, keyof UiCardAttributes> & { [K in keyof UiCard & keyof UiCardAttributes]?: UiCard[K] } & { [K in keyof UiCard & keyof UiCardAttributes as `attr:${K}`]?: UiCardAttributes[K] } & { [K in keyof UiCard & keyof UiCardAttributes as `prop:${K}`]?: UiCard[K] };
         "ui-carousel": Omit<UiCarousel, keyof UiCarouselAttributes> & { [K in keyof UiCarousel & keyof UiCarouselAttributes]?: UiCarousel[K] } & { [K in keyof UiCarousel & keyof UiCarouselAttributes as `attr:${K}`]?: UiCarouselAttributes[K] } & { [K in keyof UiCarousel & keyof UiCarouselAttributes as `prop:${K}`]?: UiCarousel[K] };
+        "ui-chart": Omit<UiChart, keyof UiChartAttributes> & { [K in keyof UiChart & keyof UiChartAttributes]?: UiChart[K] } & { [K in keyof UiChart & keyof UiChartAttributes as `attr:${K}`]?: UiChartAttributes[K] } & { [K in keyof UiChart & keyof UiChartAttributes as `prop:${K}`]?: UiChart[K] };
         "ui-checkbox": Omit<UiCheckbox, keyof UiCheckboxAttributes> & { [K in keyof UiCheckbox & keyof UiCheckboxAttributes]?: UiCheckbox[K] } & { [K in keyof UiCheckbox & keyof UiCheckboxAttributes as `attr:${K}`]?: UiCheckboxAttributes[K] } & { [K in keyof UiCheckbox & keyof UiCheckboxAttributes as `prop:${K}`]?: UiCheckbox[K] };
+        "ui-collapse": Omit<UiCollapse, keyof UiCollapseAttributes> & { [K in keyof UiCollapse & keyof UiCollapseAttributes]?: UiCollapse[K] } & { [K in keyof UiCollapse & keyof UiCollapseAttributes as `attr:${K}`]?: UiCollapseAttributes[K] } & { [K in keyof UiCollapse & keyof UiCollapseAttributes as `prop:${K}`]?: UiCollapse[K] };
         "ui-color-picker": Omit<UiColorPicker, keyof UiColorPickerAttributes> & { [K in keyof UiColorPicker & keyof UiColorPickerAttributes]?: UiColorPicker[K] } & { [K in keyof UiColorPicker & keyof UiColorPickerAttributes as `attr:${K}`]?: UiColorPickerAttributes[K] } & { [K in keyof UiColorPicker & keyof UiColorPickerAttributes as `prop:${K}`]?: UiColorPicker[K] };
         "ui-command-palette": Omit<UiCommandPalette, keyof UiCommandPaletteAttributes> & { [K in keyof UiCommandPalette & keyof UiCommandPaletteAttributes]?: UiCommandPalette[K] } & { [K in keyof UiCommandPalette & keyof UiCommandPaletteAttributes as `attr:${K}`]?: UiCommandPaletteAttributes[K] } & { [K in keyof UiCommandPalette & keyof UiCommandPaletteAttributes as `prop:${K}`]?: UiCommandPalette[K] };
         "ui-context-menu": Omit<UiContextMenu, keyof UiContextMenuAttributes> & { [K in keyof UiContextMenu & keyof UiContextMenuAttributes]?: UiContextMenu[K] } & { [K in keyof UiContextMenu & keyof UiContextMenuAttributes as `attr:${K}`]?: UiContextMenuAttributes[K] } & { [K in keyof UiContextMenu & keyof UiContextMenuAttributes as `prop:${K}`]?: UiContextMenu[K] };
         "ui-counter": Omit<UiCounter, keyof UiCounterAttributes> & { [K in keyof UiCounter & keyof UiCounterAttributes]?: UiCounter[K] } & { [K in keyof UiCounter & keyof UiCounterAttributes as `attr:${K}`]?: UiCounterAttributes[K] } & { [K in keyof UiCounter & keyof UiCounterAttributes as `prop:${K}`]?: UiCounter[K] };
         "ui-date-picker": Omit<UiDatePicker, keyof UiDatePickerAttributes> & { [K in keyof UiDatePicker & keyof UiDatePickerAttributes]?: UiDatePicker[K] } & { [K in keyof UiDatePicker & keyof UiDatePickerAttributes as `attr:${K}`]?: UiDatePickerAttributes[K] } & { [K in keyof UiDatePicker & keyof UiDatePickerAttributes as `prop:${K}`]?: UiDatePicker[K] };
+        "ui-date-range-picker": Omit<UiDateRangePicker, keyof UiDateRangePickerAttributes> & { [K in keyof UiDateRangePicker & keyof UiDateRangePickerAttributes]?: UiDateRangePicker[K] } & { [K in keyof UiDateRangePicker & keyof UiDateRangePickerAttributes as `attr:${K}`]?: UiDateRangePickerAttributes[K] } & { [K in keyof UiDateRangePicker & keyof UiDateRangePickerAttributes as `prop:${K}`]?: UiDateRangePicker[K] };
+        "ui-dialog-host": UiDialogHost;
         "ui-drawer": Omit<UiDrawer, keyof UiDrawerAttributes> & { [K in keyof UiDrawer & keyof UiDrawerAttributes]?: UiDrawer[K] } & { [K in keyof UiDrawer & keyof UiDrawerAttributes as `attr:${K}`]?: UiDrawerAttributes[K] } & { [K in keyof UiDrawer & keyof UiDrawerAttributes as `prop:${K}`]?: UiDrawer[K] };
         "ui-dropdown": Omit<UiDropdown, keyof UiDropdownAttributes> & { [K in keyof UiDropdown & keyof UiDropdownAttributes]?: UiDropdown[K] } & { [K in keyof UiDropdown & keyof UiDropdownAttributes as `attr:${K}`]?: UiDropdownAttributes[K] } & { [K in keyof UiDropdown & keyof UiDropdownAttributes as `prop:${K}`]?: UiDropdown[K] };
+        "ui-field": Omit<UiField, keyof UiFieldAttributes> & { [K in keyof UiField & keyof UiFieldAttributes]?: UiField[K] } & { [K in keyof UiField & keyof UiFieldAttributes as `attr:${K}`]?: UiFieldAttributes[K] } & { [K in keyof UiField & keyof UiFieldAttributes as `prop:${K}`]?: UiField[K] };
+        "ui-file-upload": Omit<UiFileUpload, keyof UiFileUploadAttributes> & { [K in keyof UiFileUpload & keyof UiFileUploadAttributes]?: UiFileUpload[K] } & { [K in keyof UiFileUpload & keyof UiFileUploadAttributes as `attr:${K}`]?: UiFileUploadAttributes[K] } & { [K in keyof UiFileUpload & keyof UiFileUploadAttributes as `prop:${K}`]?: UiFileUpload[K] };
+        "ui-html": Omit<UiHtml, keyof UiHtmlAttributes> & { [K in keyof UiHtml & keyof UiHtmlAttributes]?: UiHtml[K] } & { [K in keyof UiHtml & keyof UiHtmlAttributes as `attr:${K}`]?: UiHtmlAttributes[K] } & { [K in keyof UiHtml & keyof UiHtmlAttributes as `prop:${K}`]?: UiHtml[K] };
         "ui-icon": Omit<UiIcon, keyof UiIconAttributes> & { [K in keyof UiIcon & keyof UiIconAttributes]?: UiIcon[K] } & { [K in keyof UiIcon & keyof UiIconAttributes as `attr:${K}`]?: UiIconAttributes[K] } & { [K in keyof UiIcon & keyof UiIconAttributes as `prop:${K}`]?: UiIcon[K] } & OneOf<"name", UiIcon["name"], UiIconAttributes["name"]>;
         "ui-input": Omit<UiInput, keyof UiInputAttributes> & { [K in keyof UiInput & keyof UiInputAttributes]?: UiInput[K] } & { [K in keyof UiInput & keyof UiInputAttributes as `attr:${K}`]?: UiInputAttributes[K] } & { [K in keyof UiInput & keyof UiInputAttributes as `prop:${K}`]?: UiInput[K] };
+        "ui-kanban": Omit<UiKanban, keyof UiKanbanAttributes> & { [K in keyof UiKanban & keyof UiKanbanAttributes]?: UiKanban[K] } & { [K in keyof UiKanban & keyof UiKanbanAttributes as `attr:${K}`]?: UiKanbanAttributes[K] } & { [K in keyof UiKanban & keyof UiKanbanAttributes as `prop:${K}`]?: UiKanban[K] };
         "ui-marquee": Omit<UiMarquee, keyof UiMarqueeAttributes> & { [K in keyof UiMarquee & keyof UiMarqueeAttributes]?: UiMarquee[K] } & { [K in keyof UiMarquee & keyof UiMarqueeAttributes as `attr:${K}`]?: UiMarqueeAttributes[K] } & { [K in keyof UiMarquee & keyof UiMarqueeAttributes as `prop:${K}`]?: UiMarquee[K] };
         "ui-menu-item": Omit<UiMenuItem, keyof UiMenuItemAttributes> & { [K in keyof UiMenuItem & keyof UiMenuItemAttributes]?: UiMenuItem[K] } & { [K in keyof UiMenuItem & keyof UiMenuItemAttributes as `attr:${K}`]?: UiMenuItemAttributes[K] } & { [K in keyof UiMenuItem & keyof UiMenuItemAttributes as `prop:${K}`]?: UiMenuItem[K] };
         "ui-menubar": Omit<UiMenubar, keyof UiMenubarAttributes> & { [K in keyof UiMenubar & keyof UiMenubarAttributes]?: UiMenubar[K] } & { [K in keyof UiMenubar & keyof UiMenubarAttributes as `attr:${K}`]?: UiMenubarAttributes[K] } & { [K in keyof UiMenubar & keyof UiMenubarAttributes as `prop:${K}`]?: UiMenubar[K] };
@@ -4390,10 +5882,17 @@ declare namespace LocalJSX {
         "ui-radio-group": Omit<UiRadioGroup, keyof UiRadioGroupAttributes> & { [K in keyof UiRadioGroup & keyof UiRadioGroupAttributes]?: UiRadioGroup[K] } & { [K in keyof UiRadioGroup & keyof UiRadioGroupAttributes as `attr:${K}`]?: UiRadioGroupAttributes[K] } & { [K in keyof UiRadioGroup & keyof UiRadioGroupAttributes as `prop:${K}`]?: UiRadioGroup[K] };
         "ui-rating": Omit<UiRating, keyof UiRatingAttributes> & { [K in keyof UiRating & keyof UiRatingAttributes]?: UiRating[K] } & { [K in keyof UiRating & keyof UiRatingAttributes as `attr:${K}`]?: UiRatingAttributes[K] } & { [K in keyof UiRating & keyof UiRatingAttributes as `prop:${K}`]?: UiRating[K] };
         "ui-reveal": Omit<UiReveal, keyof UiRevealAttributes> & { [K in keyof UiReveal & keyof UiRevealAttributes]?: UiReveal[K] } & { [K in keyof UiReveal & keyof UiRevealAttributes as `attr:${K}`]?: UiRevealAttributes[K] } & { [K in keyof UiReveal & keyof UiRevealAttributes as `prop:${K}`]?: UiReveal[K] };
+        "ui-scheduler": Omit<UiScheduler, keyof UiSchedulerAttributes> & { [K in keyof UiScheduler & keyof UiSchedulerAttributes]?: UiScheduler[K] } & { [K in keyof UiScheduler & keyof UiSchedulerAttributes as `attr:${K}`]?: UiSchedulerAttributes[K] } & { [K in keyof UiScheduler & keyof UiSchedulerAttributes as `prop:${K}`]?: UiScheduler[K] };
+        "ui-scroll-progress": Omit<UiScrollProgress, keyof UiScrollProgressAttributes> & { [K in keyof UiScrollProgress & keyof UiScrollProgressAttributes]?: UiScrollProgress[K] } & { [K in keyof UiScrollProgress & keyof UiScrollProgressAttributes as `attr:${K}`]?: UiScrollProgressAttributes[K] } & { [K in keyof UiScrollProgress & keyof UiScrollProgressAttributes as `prop:${K}`]?: UiScrollProgress[K] };
         "ui-select": Omit<UiSelect, keyof UiSelectAttributes> & { [K in keyof UiSelect & keyof UiSelectAttributes]?: UiSelect[K] } & { [K in keyof UiSelect & keyof UiSelectAttributes as `attr:${K}`]?: UiSelectAttributes[K] } & { [K in keyof UiSelect & keyof UiSelectAttributes as `prop:${K}`]?: UiSelect[K] };
+        "ui-sidebar": Omit<UiSidebar, keyof UiSidebarAttributes> & { [K in keyof UiSidebar & keyof UiSidebarAttributes]?: UiSidebar[K] } & { [K in keyof UiSidebar & keyof UiSidebarAttributes as `attr:${K}`]?: UiSidebarAttributes[K] } & { [K in keyof UiSidebar & keyof UiSidebarAttributes as `prop:${K}`]?: UiSidebar[K] };
+        "ui-sidebar-item": Omit<UiSidebarItem, keyof UiSidebarItemAttributes> & { [K in keyof UiSidebarItem & keyof UiSidebarItemAttributes]?: UiSidebarItem[K] } & { [K in keyof UiSidebarItem & keyof UiSidebarItemAttributes as `attr:${K}`]?: UiSidebarItemAttributes[K] } & { [K in keyof UiSidebarItem & keyof UiSidebarItemAttributes as `prop:${K}`]?: UiSidebarItem[K] } & OneOf<"label", UiSidebarItem["label"], UiSidebarItemAttributes["label"]>;
         "ui-skeleton": Omit<UiSkeleton, keyof UiSkeletonAttributes> & { [K in keyof UiSkeleton & keyof UiSkeletonAttributes]?: UiSkeleton[K] } & { [K in keyof UiSkeleton & keyof UiSkeletonAttributes as `attr:${K}`]?: UiSkeletonAttributes[K] } & { [K in keyof UiSkeleton & keyof UiSkeletonAttributes as `prop:${K}`]?: UiSkeleton[K] };
         "ui-slider": Omit<UiSlider, keyof UiSliderAttributes> & { [K in keyof UiSlider & keyof UiSliderAttributes]?: UiSlider[K] } & { [K in keyof UiSlider & keyof UiSliderAttributes as `attr:${K}`]?: UiSliderAttributes[K] } & { [K in keyof UiSlider & keyof UiSliderAttributes as `prop:${K}`]?: UiSlider[K] };
+        "ui-sortable": Omit<UiSortable, keyof UiSortableAttributes> & { [K in keyof UiSortable & keyof UiSortableAttributes]?: UiSortable[K] } & { [K in keyof UiSortable & keyof UiSortableAttributes as `attr:${K}`]?: UiSortableAttributes[K] } & { [K in keyof UiSortable & keyof UiSortableAttributes as `prop:${K}`]?: UiSortable[K] };
+        "ui-sparkline": Omit<UiSparkline, keyof UiSparklineAttributes> & { [K in keyof UiSparkline & keyof UiSparklineAttributes]?: UiSparkline[K] } & { [K in keyof UiSparkline & keyof UiSparklineAttributes as `attr:${K}`]?: UiSparklineAttributes[K] } & { [K in keyof UiSparkline & keyof UiSparklineAttributes as `prop:${K}`]?: UiSparkline[K] };
         "ui-spinner": Omit<UiSpinner, keyof UiSpinnerAttributes> & { [K in keyof UiSpinner & keyof UiSpinnerAttributes]?: UiSpinner[K] } & { [K in keyof UiSpinner & keyof UiSpinnerAttributes as `attr:${K}`]?: UiSpinnerAttributes[K] } & { [K in keyof UiSpinner & keyof UiSpinnerAttributes as `prop:${K}`]?: UiSpinner[K] };
+        "ui-split": Omit<UiSplit, keyof UiSplitAttributes> & { [K in keyof UiSplit & keyof UiSplitAttributes]?: UiSplit[K] } & { [K in keyof UiSplit & keyof UiSplitAttributes as `attr:${K}`]?: UiSplitAttributes[K] } & { [K in keyof UiSplit & keyof UiSplitAttributes as `prop:${K}`]?: UiSplit[K] };
         "ui-stagger": Omit<UiStagger, keyof UiStaggerAttributes> & { [K in keyof UiStagger & keyof UiStaggerAttributes]?: UiStagger[K] } & { [K in keyof UiStagger & keyof UiStaggerAttributes as `attr:${K}`]?: UiStaggerAttributes[K] } & { [K in keyof UiStagger & keyof UiStaggerAttributes as `prop:${K}`]?: UiStagger[K] };
         "ui-step": Omit<UiStep, keyof UiStepAttributes> & { [K in keyof UiStep & keyof UiStepAttributes]?: UiStep[K] } & { [K in keyof UiStep & keyof UiStepAttributes as `attr:${K}`]?: UiStepAttributes[K] } & { [K in keyof UiStep & keyof UiStepAttributes as `prop:${K}`]?: UiStep[K] };
         "ui-stepper": Omit<UiStepper, keyof UiStepperAttributes> & { [K in keyof UiStepper & keyof UiStepperAttributes]?: UiStepper[K] } & { [K in keyof UiStepper & keyof UiStepperAttributes as `attr:${K}`]?: UiStepperAttributes[K] } & { [K in keyof UiStepper & keyof UiStepperAttributes as `prop:${K}`]?: UiStepper[K] };
@@ -4405,9 +5904,11 @@ declare namespace LocalJSX {
         "ui-tag-input": Omit<UiTagInput, keyof UiTagInputAttributes> & { [K in keyof UiTagInput & keyof UiTagInputAttributes]?: UiTagInput[K] } & { [K in keyof UiTagInput & keyof UiTagInputAttributes as `attr:${K}`]?: UiTagInputAttributes[K] } & { [K in keyof UiTagInput & keyof UiTagInputAttributes as `prop:${K}`]?: UiTagInput[K] };
         "ui-textarea": Omit<UiTextarea, keyof UiTextareaAttributes> & { [K in keyof UiTextarea & keyof UiTextareaAttributes]?: UiTextarea[K] } & { [K in keyof UiTextarea & keyof UiTextareaAttributes as `attr:${K}`]?: UiTextareaAttributes[K] } & { [K in keyof UiTextarea & keyof UiTextareaAttributes as `prop:${K}`]?: UiTextarea[K] };
         "ui-theme-toggle": UiThemeToggle;
+        "ui-time-picker": Omit<UiTimePicker, keyof UiTimePickerAttributes> & { [K in keyof UiTimePicker & keyof UiTimePickerAttributes]?: UiTimePicker[K] } & { [K in keyof UiTimePicker & keyof UiTimePickerAttributes as `attr:${K}`]?: UiTimePickerAttributes[K] } & { [K in keyof UiTimePicker & keyof UiTimePickerAttributes as `prop:${K}`]?: UiTimePicker[K] };
         "ui-toaster": Omit<UiToaster, keyof UiToasterAttributes> & { [K in keyof UiToaster & keyof UiToasterAttributes]?: UiToaster[K] } & { [K in keyof UiToaster & keyof UiToasterAttributes as `attr:${K}`]?: UiToasterAttributes[K] } & { [K in keyof UiToaster & keyof UiToasterAttributes as `prop:${K}`]?: UiToaster[K] };
         "ui-tooltip": Omit<UiTooltip, keyof UiTooltipAttributes> & { [K in keyof UiTooltip & keyof UiTooltipAttributes]?: UiTooltip[K] } & { [K in keyof UiTooltip & keyof UiTooltipAttributes as `attr:${K}`]?: UiTooltipAttributes[K] } & { [K in keyof UiTooltip & keyof UiTooltipAttributes as `prop:${K}`]?: UiTooltip[K] };
         "ui-tree": Omit<UiTree, keyof UiTreeAttributes> & { [K in keyof UiTree & keyof UiTreeAttributes]?: UiTree[K] } & { [K in keyof UiTree & keyof UiTreeAttributes as `attr:${K}`]?: UiTreeAttributes[K] } & { [K in keyof UiTree & keyof UiTreeAttributes as `prop:${K}`]?: UiTree[K] };
+        "ui-virtual-list": Omit<UiVirtualList, keyof UiVirtualListAttributes> & { [K in keyof UiVirtualList & keyof UiVirtualListAttributes]?: UiVirtualList[K] } & { [K in keyof UiVirtualList & keyof UiVirtualListAttributes as `attr:${K}`]?: UiVirtualListAttributes[K] } & { [K in keyof UiVirtualList & keyof UiVirtualListAttributes as `prop:${K}`]?: UiVirtualList[K] };
     }
 }
 export { LocalJSX as JSX };
@@ -4439,7 +5940,17 @@ declare module "@stencil/core" {
              * Autoplay pauses on hover and focus, can be paused with a button, and is off for reduced-motion users.
              */
             "ui-carousel": LocalJSX.IntrinsicElements["ui-carousel"] & JSXBase.HTMLAttributes<HTMLUiCarouselElement>;
+            /**
+             * Line, area, bar and donut charts in plain SVG. Each chart has a text summary and a data table
+             * for screen readers, because SVG shapes are otherwise invisible to assistive technology.
+             * Colours come from the theme tokens unless a series sets its own.
+             */
+            "ui-chart": LocalJSX.IntrinsicElements["ui-chart"] & JSXBase.HTMLAttributes<HTMLUiChartElement>;
             "ui-checkbox": LocalJSX.IntrinsicElements["ui-checkbox"] & JSXBase.HTMLAttributes<HTMLUiCheckboxElement>;
+            /**
+             * Animated show/hide of a block. Uses the grid-rows trick, so height animates without measuring.
+             */
+            "ui-collapse": LocalJSX.IntrinsicElements["ui-collapse"] & JSXBase.HTMLAttributes<HTMLUiCollapseElement>;
             /**
              * Colour picker: saturation/brightness area, hue slider, hex field, swatches and (where the browser
              * supports it) an eyedropper. Value is a hex string like "#0b7a6c". Use `inline` to skip the popup.
@@ -4463,6 +5974,15 @@ declare module "@stencil/core" {
              */
             "ui-date-picker": LocalJSX.IntrinsicElements["ui-date-picker"] & JSXBase.HTMLAttributes<HTMLUiDatePickerElement>;
             /**
+             * Picks a start and end date. Click a day to start, click another to finish (order is fixed for you).
+             * Values are {start, end} with "YYYY-MM-DD" strings. Keyboard: arrows move, Enter picks.
+             */
+            "ui-date-range-picker": LocalJSX.IntrinsicElements["ui-date-range-picker"] & JSXBase.HTMLAttributes<HTMLUiDateRangePickerElement>;
+            /**
+             * Renders the dialogs requested by confirm() and prompt(). Created automatically; you rarely place it yourself.
+             */
+            "ui-dialog-host": LocalJSX.IntrinsicElements["ui-dialog-host"] & JSXBase.HTMLAttributes<HTMLUiDialogHostElement>;
+            /**
              * Side panel (or bottom sheet). Same behaviour as <ui-modal>, anchored to an edge.
              */
             "ui-drawer": LocalJSX.IntrinsicElements["ui-drawer"] & JSXBase.HTMLAttributes<HTMLUiDrawerElement>;
@@ -4472,11 +5992,34 @@ declare module "@stencil/core" {
              */
             "ui-dropdown": LocalJSX.IntrinsicElements["ui-dropdown"] & JSXBase.HTMLAttributes<HTMLUiDropdownElement>;
             /**
+             * Wraps any form control with a label, hint, error and "required" marker, and links them
+             * with aria-describedby. Use it for controls that have no label of their own (ui-slider with a custom
+             * layout, ui-color-picker, a native <select>, or anything you build yourself).
+             *   <ui-field label="Region" hint="Used for billing" error={err}><select>...</select></ui-field>
+             */
+            "ui-field": LocalJSX.IntrinsicElements["ui-field"] & JSXBase.HTMLAttributes<HTMLUiFieldElement>;
+            /**
+             * Dropzone + file list. Files are validated (type, size, count, total) and reported with every problem at once.
+             * Pass `uploadFn` to upload each file as it is added; without it, you receive files through uiFiles and handle them yourself.
+             */
+            "ui-file-upload": LocalJSX.IntrinsicElements["ui-file-upload"] & JSXBase.HTMLAttributes<HTMLUiFileUploadElement>;
+            /**
+             * Displays HTML that you don't fully control (comments, CMS content, rich text from users).
+             * It is sanitised before insertion: scripts, event handlers, forms and unsafe URLs are removed.
+             * Set `allowImages={false}` to strip images too.
+             */
+            "ui-html": LocalJSX.IntrinsicElements["ui-html"] & JSXBase.HTMLAttributes<HTMLUiHtmlElement>;
+            /**
              * Renders an icon from the registry. Decorative by default; pass `label` to expose it
              * to assistive tech.
              */
             "ui-icon": LocalJSX.IntrinsicElements["ui-icon"] & JSXBase.HTMLAttributes<HTMLUiIconElement>;
             "ui-input": LocalJSX.IntrinsicElements["ui-input"] & JSXBase.HTMLAttributes<HTMLUiInputElement>;
+            /**
+             * Kanban board. Drag cards between columns, or focus a card and use Alt+Arrow keys:
+             * Alt+Up/Down reorders within a column; Alt+Left/Right moves the card to the neighbouring column.
+             */
+            "ui-kanban": LocalJSX.IntrinsicElements["ui-kanban"] & JSXBase.HTMLAttributes<HTMLUiKanbanElement>;
             /**
              * Endless horizontal ticker for logos or short text. Content is cloned (hidden from assistive tech)
              * until it fills the width, so the loop has no gap. Stops for reduced-motion users.
@@ -4526,16 +6069,51 @@ declare module "@stencil/core" {
              */
             "ui-reveal": LocalJSX.IntrinsicElements["ui-reveal"] & JSXBase.HTMLAttributes<HTMLUiRevealElement>;
             /**
+             * Month and week scheduler. Timed events in week view sit side by side when they overlap.
+             * Every event is also a button, so keyboard and screen-reader users get the same information.
+             */
+            "ui-scheduler": LocalJSX.IntrinsicElements["ui-scheduler"] & JSXBase.HTMLAttributes<HTMLUiSchedulerElement>;
+            /**
+             * A reading-progress bar fixed to the top of the page. Driven by scroll position in JavaScript,
+             * so it works in every browser. Pass `target` to measure a scrolling element instead of the page.
+             */
+            "ui-scroll-progress": LocalJSX.IntrinsicElements["ui-scroll-progress"] & JSXBase.HTMLAttributes<HTMLUiScrollProgressElement>;
+            /**
              * Searchable dropdown (combobox). Single or multiple selection, type to filter, full keyboard support.
              * Set `filter={false}` and listen to uiSearch to load options from a server instead.
              */
             "ui-select": LocalJSX.IntrinsicElements["ui-select"] & JSXBase.HTMLAttributes<HTMLUiSelectElement>;
             /**
+             * App sidebar: a navigation column that collapses to an icon rail (`collapsed`), and becomes an
+             * off-canvas drawer on phones. Put <ui-sidebar-item> children inside, optionally in groups.
+             * Sidebar and the page's own layout: pair it with `.nova-shell-sidebar` from
+             * @nova-ui /css.
+             */
+            "ui-sidebar": LocalJSX.IntrinsicElements["ui-sidebar"] & JSXBase.HTMLAttributes<HTMLUiSidebarElement>;
+            /**
+             * A link (href) or a group (children that expand). Current page is marked with aria-current="page".
+             * Keyboard: Enter/Space activates; ArrowRight/Left expand/collapse a group.
+             */
+            "ui-sidebar-item": LocalJSX.IntrinsicElements["ui-sidebar-item"] & JSXBase.HTMLAttributes<HTMLUiSidebarItemElement>;
+            /**
              * Loading placeholder. Hidden from assistive tech; mark the loading region with aria-busy yourself.
              */
             "ui-skeleton": LocalJSX.IntrinsicElements["ui-skeleton"] & JSXBase.HTMLAttributes<HTMLUiSkeletonElement>;
             "ui-slider": LocalJSX.IntrinsicElements["ui-slider"] & JSXBase.HTMLAttributes<HTMLUiSliderElement>;
+            /**
+             * Reorderable list. Drag with a pointer, or focus an item and press Alt+ArrowUp / Alt+ArrowDown
+             * to move it (the keyboard path that screen-reader and keyboard users need).
+             */
+            "ui-sortable": LocalJSX.IntrinsicElements["ui-sortable"] & JSXBase.HTMLAttributes<HTMLUiSortableElement>;
+            /**
+             * Tiny inline trend line for tables and cards. No axes, no labels; it describes itself in words.
+             */
+            "ui-sparkline": LocalJSX.IntrinsicElements["ui-sparkline"] & JSXBase.HTMLAttributes<HTMLUiSparklineElement>;
             "ui-spinner": LocalJSX.IntrinsicElements["ui-spinner"] & JSXBase.HTMLAttributes<HTMLUiSpinnerElement>;
+            /**
+             * Two panes with a draggable, keyboard-operable divider. Each pane keeps a minimum size.
+             */
+            "ui-split": LocalJSX.IntrinsicElements["ui-split"] & JSXBase.HTMLAttributes<HTMLUiSplitElement>;
             /**
              * Animates its direct children in one after another.
              */
@@ -4573,6 +6151,11 @@ declare module "@stencil/core" {
              */
             "ui-theme-toggle": LocalJSX.IntrinsicElements["ui-theme-toggle"] & JSXBase.HTMLAttributes<HTMLUiThemeToggleElement>;
             /**
+             * Time of day as "HH:mm". Type it (with or without a colon), or pick a slot from the list.
+             * Accepts 24-hour input; `step` sets the slot spacing in minutes for the list.
+             */
+            "ui-time-picker": LocalJSX.IntrinsicElements["ui-time-picker"] & JSXBase.HTMLAttributes<HTMLUiTimePickerElement>;
+            /**
              * Stack of notifications. Mount once; trigger with the toast() helper or the show() method.
              */
             "ui-toaster": LocalJSX.IntrinsicElements["ui-toaster"] & JSXBase.HTMLAttributes<HTMLUiToasterElement>;
@@ -4585,6 +6168,11 @@ declare module "@stencil/core" {
              * Up/Down move, Right expands or enters, Left collapses or goes to the parent, Home/End jump.
              */
             "ui-tree": LocalJSX.IntrinsicElements["ui-tree"] & JSXBase.HTMLAttributes<HTMLUiTreeElement>;
+            /**
+             * Renders only the rows on screen for a list of thousands of items. Row heights are fixed (`rowHeight`).
+             * Pass `renderRow(index)` as a function property; it returns the markup for one row.
+             */
+            "ui-virtual-list": LocalJSX.IntrinsicElements["ui-virtual-list"] & JSXBase.HTMLAttributes<HTMLUiVirtualListElement>;
         }
     }
 }

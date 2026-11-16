@@ -1,0 +1,26 @@
+:host { display: block; font-family: var(--nova-font-sans); color: var(--nova-color-fg); font-size: var(--nova-text-xs); }
+.frame { display: grid; gap: var(--nova-space-3); min-inline-size: 0; }
+.svg { display: block; inline-size: 100%; block-size: auto; }
+.grid { stroke: var(--nova-color-border); stroke-width: 1; }
+.tick { fill: var(--nova-color-fg-muted); font-size: 11px; font-family: var(--nova-font-sans); }
+.line { fill: none; stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
+.area { opacity: 0.15; }
+.point { stroke: var(--nova-color-surface); stroke-width: 1.5; }
+.point:hover { r: 5; }
+.bar { transition: opacity var(--nova-duration-fast) var(--nova-ease-standard); }
+.bar:hover, .slice:hover { opacity: 0.8; }
+.empty { margin: 0; color: var(--nova-color-fg-muted); }
+.donut { display: flex; flex-wrap: wrap; align-items: center; gap: var(--nova-space-5); }
+.donut-svg { inline-size: 220px; block-size: 220px; flex: none; }
+.centre { fill: var(--nova-color-fg); font-size: 22px; font-weight: 600; font-family: var(--nova-font-sans); }
+.legend { display: flex; flex-wrap: wrap; gap: var(--nova-space-2) var(--nova-space-4); margin: 0; padding: 0; list-style: none; color: var(--nova-color-fg-muted); font-size: var(--nova-text-sm); }
+.legend li { display: inline-flex; align-items: center; gap: var(--nova-space-2); }
+.swatch { inline-size: 0.75rem; block-size: 0.75rem; border-radius: 3px; display: inline-block; }
+.pct { color: var(--nova-color-fg-subtle); font-variant-numeric: tabular-nums; }
+.table { font-size: var(--nova-text-sm); }
+.table summary { cursor: pointer; color: var(--nova-color-accent); padding-block: var(--nova-space-1); }
+.data { inline-size: 100%; border-collapse: collapse; margin-block-start: var(--nova-space-2); }
+.data :is(th, td) { padding: var(--nova-space-1) var(--nova-space-2); border-block-end: 1px solid var(--nova-color-border); text-align: start; font-variant-numeric: tabular-nums; }
+.data td { text-align: end; }
+.sr { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; margin: -1px; }
+@media (prefers-reduced-motion: reduce) { .bar { transition: none; } }

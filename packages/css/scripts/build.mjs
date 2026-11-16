@@ -1,7 +1,7 @@
 // Bundles src/*.css into dist/. Zero dependencies.
 //  - inlines @import (including `layer(name)` imports, which are wrapped in @layer blocks)
 //  - writes one file per module, plus nova.css (everything) and nova.min.css
-import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { gzipSync } from 'node:zlib';
@@ -96,7 +96,6 @@ const entries = {
   typography: `@import url('./typography.css');`,
   layout: `@import url('./layout.css');`,
   components: `@import url('./components.css');`,
-  icons: `@import url('./generated/material-icons.css');`,
   utilities: `@import url('./generated/utilities.css');\n@import url('./print.css');`,
   print: `@import url('./print.css');`,
 };
@@ -117,15 +116,6 @@ for (const [name, source] of Object.entries(entries)) {
   rows.push([`${name}.css`, css.length, gzipSync(css).length]);
   if (min) rows.push(['nova.min.css', min.length, gzipSync(min).length]);
   if (compat) rows.push(['nova.compat.css', compat.length, gzipSync(compat).length]);
-}
-
-const iconNamesSource = join(SRC, 'generated/material-icon-names.json');
-if (existsSync(iconNamesSource)) copyFileSync(iconNamesSource, join(DIST, 'icons.json'));
-
-const fontSource = join(SRC, 'generated/material-symbols-outlined.woff2');
-if (existsSync(fontSource)) {
-  copyFileSync(fontSource, join(DIST, 'material-symbols-outlined.woff2'));
-  copyFileSync(join(SRC, 'generated/MATERIAL_SYMBOLS_LICENSE.txt'), join(DIST, 'MATERIAL_SYMBOLS_LICENSE.txt'));
 }
 
 const kb = (n) => `${(n / 1024).toFixed(1)} KB`;

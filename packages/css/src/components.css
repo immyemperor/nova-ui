@@ -177,4 +177,39 @@
     transform: translateY(-200%);
   }
   .nova-skip-link:focus { transform: none; }
+
+  /* Forced colours: keep borders and selected states visible (Windows High Contrast) */
+  @media (forced-colors: active) {
+    .nova-btn, .nova-badge, .nova-card, .nova-alert, .nova-input, .nova-select, .nova-textarea, .nova-table-wrap { border: 1px solid ButtonText; }
+    .nova-btn:focus-visible, .nova-input:focus-visible, .nova-select:focus-visible, .nova-textarea:focus-visible { outline: 3px solid Highlight; outline-offset: 2px; }
+    .nova-btn:where(:disabled, [aria-disabled='true']), .nova-input:disabled { color: GrayText; border-color: GrayText; }
+    .nova-skip-link { border: 2px solid ButtonText; }
+  }
+}
+
+/* ---------- Scroll-linked motion ----------
+   Elements fade and rise as they move through the viewport. Driven by the browser's scroll timeline where
+   supported (no JavaScript). Elsewhere they simply show, so content is never hidden. */
+@layer nova.components {
+  @supports (animation-timeline: view()) {
+    .nova-scroll-reveal {
+      animation: nova-scroll-reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 35%;
+    }
+    @keyframes nova-scroll-reveal {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: none; }
+    }
+    /* Scroll-linked progress bar for a container: width follows how far the page has scrolled */
+    .nova-scroll-progress {
+      transform-origin: 0 50%;
+      animation: nova-scroll-grow linear both;
+      animation-timeline: scroll(root block);
+    }
+    @keyframes nova-scroll-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .nova-scroll-reveal, .nova-scroll-progress { animation: none; }
+  }
 }

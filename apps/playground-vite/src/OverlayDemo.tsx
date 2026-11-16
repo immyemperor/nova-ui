@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useState } from 'react';
 import {
   UiButton, UiCommandPalette, UiContextMenu, UiDrawer, UiDropdown, UiIcon, UiMenuItem, UiModal,
   UiPopover, UiSelect, UiToaster, UiTooltip, toast,
@@ -21,9 +21,9 @@ const commands: Command[] = [
 ];
 
 export function OverlayDemo() {
-  const modalRef = useRef<any>(null);
-  const drawerRef = useRef<any>(null);
-  const paletteRef = useRef<any>(null);
+  const [modal, setModal] = useState(false);
+  const [drawer, setDrawer] = useState(false);
+  const [palette, setPalette] = useState(false);
 
   return (
     <section className="nova-stack" id="overlays">
@@ -31,12 +31,12 @@ export function OverlayDemo() {
       <UiToaster />
 
       <div className="nova-cluster">
-        <button className="nova-btn" type="button" onClick={() => { modalRef.current.open = true; }}>Open modal</button>
-        <button className="nova-btn nova-btn-secondary" type="button" onClick={() => { drawerRef.current.open = true; }}>Open drawer</button>
-        <button className="nova-btn nova-btn-secondary" type="button" onClick={() => { paletteRef.current.open = true; }}>
+        <UiButton onClick={() => setModal(true)}>Open modal</UiButton>
+        <UiButton variant="secondary" onClick={() => setDrawer(true)}>Open drawer</UiButton>
+        <UiButton variant="secondary" onClick={() => setPalette(true)}>
           <UiIcon slot="start" name="search" />
           Command palette (Ctrl/Cmd+K)
-        </button>
+        </UiButton>
 
         <UiTooltip content="Saved 2 minutes ago">
           <UiButton variant="ghost">Hover or focus me</UiButton>
@@ -82,25 +82,26 @@ export function OverlayDemo() {
         <UiButton variant="ghost" onClick={() => toast.error({ title: 'Upload failed', description: 'Check your connection.', actionLabel: 'Retry', onAction: () => toast('Retrying...') })}>Error toast</UiButton>
       </div>
 
-      <UiModal ref={modalRef} heading="Delete project?" size="sm">
+      <UiModal open={modal} heading="Delete project?" size="sm" onUiClose={() => setModal(false)}>
         This permanently removes the project and its files. This can't be undone.
         <div slot="footer" className="nova-d-contents">
-          <button className="nova-btn nova-btn-ghost" type="button" onClick={() => { modalRef.current.open = false; }}>Cancel</button>
-          <button className="nova-btn nova-btn-danger" type="button" onClick={() => { modalRef.current.open = false; toast.error('Project deleted'); }}>Delete</button>
+          <UiButton variant="ghost" onClick={() => setModal(false)}>Cancel</UiButton>
+          <UiButton variant="danger" onClick={() => { setModal(false); toast.error('Project deleted'); }}>Delete</UiButton>
         </div>
       </UiModal>
 
-      <UiDrawer ref={drawerRef} heading="Filters">
+      <UiDrawer open={drawer} heading="Filters" onUiClose={() => setDrawer(false)}>
         <p className="nova-mb-4">Drawer content goes here.</p>
         <UiSelect label="Status" options={[{ value: 'open', label: 'Open' }, { value: 'done', label: 'Done' }]} />
         <div slot="footer" className="nova-d-contents">
-            <button className="nova-btn" type="button" onClick={() => { drawerRef.current.open = false; }}>Apply</button>
+          <UiButton onClick={() => setDrawer(false)}>Apply</UiButton>
         </div>
       </UiDrawer>
 
       <UiCommandPalette
-        ref={paletteRef}
+        open={palette}
         commands={commands}
+        onUiOpenChange={(e) => setPalette(e.detail)}
         onUiSelect={(e) => toast.info(`Ran: ${e.detail.label}`)}
       />
     </section>
