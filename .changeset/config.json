@@ -2,10 +2,23 @@
   "$schema": "https://unpkg.com/@changesets/config@3.0.0/schema.json",
   "changelog": "@changesets/cli/changelog",
   "commit": false,
-  "fixed": [["@nova-ui/core", "@nova-ui/react", "@nova-ui/angular"]],
+  "fixed": [
+    [
+      "@nova-ui/core",
+      "@nova-ui/react",
+      "@nova-ui/angular",
+      "@nova-ui/editor",
+      "@nova-ui/css",
+      "@nova-ui/vue",
+      "@nova-ui/tailwind"
+    ]
+  ],
   "linked": [],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["playground-vite", "playground-next"]
+  "ignore": [
+    "playground-vite",
+    "playground-next"
+  ]
 }

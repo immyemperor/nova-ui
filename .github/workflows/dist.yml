@@ -1,0 +1,167 @@
+# Builds the distribution bundles: one .tgz per publishable package, with checksums.
+#   push to main / pull request  -> build, test, pack, upload artifact (kept 30 days)
+#   push a tag v* (e.g. v0.2.0)   -> the same, then attach the bundles to a GitHub release
+#   workflow_dispatch             -> the same, optionally without the Material icon download
+name: Distribution bundles
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      include_icons:
+        description: 'Download Google Material Symbols and bundle them in @nova-ui/css'
+        type: boolean
+        default: true
+      publish:
+        description: 'Publish to npm (tags always publish; this is for a manual release)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read   # each job raises only what it needs
+
+concurrency:
+  group: dist-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  bundle:
+    name: Build and pack
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Download Material Symbols (font, names, licence)
+        if: ${{ github.event_name != 'workflow_dispatch' || inputs.include_icons }}
+        # Needs GitHub access. If it fails, the bundles are built without the icon files and the verifier reports them as optional.
+        continue-on-error: true
+        run: pnpm --filter @nova-ui/css icons:update
+
+      - name: Generate API docs, Vue wrappers and component snapshots
+        run: |
+          pnpm docs
+          node apps/shared/scripts/snapshot.mjs
+
+      - name: Build every package
+        run: pnpm build
+
+      - name: Test
+        run: |
+          pnpm test
+          pnpm check:names
+          pnpm docs:check
+          pnpm playgrounds:check
+
+      - name: Check each package has its built entry points
+        run: node scripts/verify-dist.mjs
+
+      - name: Check every package would ship
+        run: node scripts/verify-publishable.mjs
+
+      - name: Pack every publishable package
+        env:
+          DEST: ${{ github.workspace }}/dist-tarballs
+        run: |
+          mkdir -p "$DEST"
+          for dir in packages/*/; do
+            pkg="${dir%/}"
+            if [ -f "$pkg/package.json" ] && [ "$(node -p "require('./$pkg/package.json').private === true")" = "false" ]; then
+              # Packages with a build folder (Angular: dist/) are packed from it
+              from="$pkg"
+              [ -f "$pkg/dist/package.json" ] && from="$pkg/dist"
+              (cd "$from" && pnpm pack --pack-destination "$DEST")
+            fi
+          done
+          ls -la "$DEST"
+
+      - name: Checksums
+        run: |
+          cd dist-tarballs
+          sha256sum *.tgz | tee SHA256SUMS.txt
+
+      - name: Upload bundles
+        uses: actions/upload-artifact@v4
+        with:
+          name: nova-ui-dist-${{ github.sha }}
+          path: dist-tarballs/
+          retention-days: 30
+          if-no-files-found: error
+
+  # publish:
+  #   name: Publish to npm
+  #   # Tags publish. A manual run publishes only when its `publish` input is ticked.
+  #   if: startsWith(github.ref, 'refs/tags/v') || (github.event_name == 'workflow_dispatch' && inputs.publish)
+  #   needs: bundle
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 20
+  #   permissions:
+  #     contents: read
+  #     id-token: write   # npm provenance: links each published version to this workflow run
+  #   environment: npm    # optional: add a GitHub environment named npm with required reviewers
+  #   steps:
+  #     - uses: actions/setup-node@v4
+  #       with:
+  #         node-version: 20
+  #         registry-url: https://registry.npmjs.org
+
+  #     - uses: actions/download-artifact@v4
+  #       with:
+  #         name: nova-ui-dist-${{ github.sha }}
+  #         path: dist-tarballs
+
+  #     - name: Publish every package not yet on npm
+  #       env:
+  #         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  #       run: |
+  #         set -euo pipefail
+  #         published=0
+  #         skipped=0
+  #         for tgz in dist-tarballs/*.tgz; do
+  #           name=$(tar -xzOf "$tgz" package/package.json | node -p 'JSON.parse(require("fs").readFileSync(0,"utf8")).name')
+  #           version=$(tar -xzOf "$tgz" package/package.json | node -p 'JSON.parse(require("fs").readFileSync(0,"utf8")).version')
+  #           if npm view "$name@$version" version >/dev/null 2>&1; then
+  #             echo "skip   $name@$version (already on npm)"
+  #             skipped=$((skipped+1))
+  #             continue
+  #           fi
+  #           echo "publish $name@$version"
+  #           npm publish "$tgz" --access public --provenance
+  #           published=$((published+1))
+  #         done
+  #         echo "published $published, skipped $skipped"
+  #         if [ "$published" -eq 0 ] && [ "$skipped" -eq 0 ]; then echo "no packages found"; exit 1; fi
+
+  release:
+    name: Attach bundles to the release
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: bundle
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: nova-ui-dist-${{ github.sha }}
+          path: dist-tarballs
+
+      - name: Create the GitHub release with the bundles
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" dist-tarballs/* --title "$GITHUB_REF_NAME" --generate-notes

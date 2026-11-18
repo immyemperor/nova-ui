@@ -1,0 +1,36 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - name: Unit tests (core logic, sanitiser, docs, tailwind, vue)
+        run: pnpm -r test
+      - name: CSS checks and browser layout tests
+        run: |
+          pnpm --filter @nova-ui/css test
+          pnpm --filter @nova-ui/css exec playwright install --with-deps chromium
+          pnpm --filter @nova-ui/css test:browser
+      - name: Prop names do not shadow DOM members
+        run: pnpm check:names
+      - name: Documentation covers every component and every link resolves
+        run: pnpm docs:check
+      - name: Playgrounds use real components, props and classes
+        run: pnpm playgrounds:check
+      - name: Playgrounds type-check (Vite, Next.js, React)
+        run: pnpm --filter playground-vite exec tsc --noEmit && pnpm --filter playground-react exec tsc --noEmit
+      - name: Generated docs, wrappers and agent context are up to date
+        run: |
+          pnpm docs
+          git diff --exit-code packages/core/dist-docs packages/vue/src docs/llms-full.txt

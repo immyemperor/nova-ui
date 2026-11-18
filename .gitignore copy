@@ -1,0 +1,9 @@
+node_modules
+dist
+loader
+.stencil
+.next
+.angular
+*.tsbuildinfo
+.DS_Store
+.env*
