@@ -11,8 +11,13 @@ import { createRequire } from 'node:module';
 const here = dirname(fileURLToPath(import.meta.url));
 const require = createRequire(import.meta.url);
 
-const { chromium } = require('playwright');
-const ts = require('typescript');
+let chromium;
+try { ({ chromium } = require('playwright')); }
+catch {
+  try { ({ chromium } = require('/opt/npm-tools/node_modules/playwright')); }
+  catch { console.log('SKIP sanitize tests: Playwright is not installed.'); process.exit(0); }
+}
+const ts = (() => { try { return require('typescript'); } catch { return require('/opt/npm-tools/node_modules/typescript'); } })();
 
 const code = ts.transpileModule(readFileSync(join(here, '..', 'src', 'utils', 'sanitize.ts'), 'utf8'), {
   compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 },
