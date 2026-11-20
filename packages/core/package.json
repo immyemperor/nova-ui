@@ -30,18 +30,18 @@
     "./dist/collection/collection-manifest.json": "./dist/collection/collection-manifest.json"
   },
   "typesVersions": {
-  "*": {
-    "components": [
-      "dist/components/index.d.ts"
-    ],
-    "components/*.js": [
-      "dist/components/*.d.ts"
-    ],
-    "components/*": [
-      "dist/components/*"
-    ]
-  }
-},
+    "*": {
+      "components": [
+        "dist/components/index.d.ts"
+      ],
+      "components/*.js": [
+        "dist/components/*.d.ts"
+      ],
+      "components/*": [
+        "dist/components/*"
+      ]
+    }
+  },
   "files": [
     "dist",
     "loader"
