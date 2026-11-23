@@ -7,6 +7,7 @@
 - [Getting started](docs/users/getting-started.md): install and first component in five minutes
 - [Concepts](docs/users/concepts.md): how props, events, slots and forms work
 - [Troubleshooting](docs/users/troubleshooting.md): common problems and fixes
+- [Releases](docs/users/releases.md): installing, upgrading, pinning and rolling back Nova UI
 
 ## Frameworks
 

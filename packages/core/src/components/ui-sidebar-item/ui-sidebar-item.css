@@ -4,9 +4,9 @@
   min-block-size: var(--nova-control-md); padding: 0 var(--nova-space-3); border-radius: var(--nova-radius-control);
   color: var(--nova-color-fg-muted); cursor: pointer; text-decoration: none; white-space: nowrap;
 }
-.row:hover { background: var(--nova-color-surface-sunken); color: var(--nova-color-fg); }
+.row:hover { background: var(--nova-tint-hover); color: var(--nova-color-fg); }
 .row:focus-visible { box-shadow: var(--nova-focus-ring); }
-:host([current]) .row, .row[aria-current='page'] { background: var(--nova-color-accent-soft); color: var(--nova-color-accent); font-weight: var(--nova-weight-medium); }
+:host([current]) .row, .row[aria-current='page'] { background: var(--nova-tint-accent); color: var(--nova-color-accent-hover); font-weight: var(--nova-weight-medium); }
 .icon { flex: none; font-size: 1.125rem; }
 .text { flex: 1; min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; }
 .badge { flex: none; min-inline-size: 1.25rem; padding: 0 0.375rem; border-radius: var(--nova-radius-pill); background: var(--nova-color-accent); color: var(--nova-color-fg-on-accent); font-size: var(--nova-text-xs); font-weight: var(--nova-weight-semibold); line-height: 1.25rem; text-align: center; }

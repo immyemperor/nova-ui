@@ -26,24 +26,11 @@
       "require": "./loader/index.cjs.js"
     },
     "./styles.css": "./dist/nova-ui/nova-ui.css",
-    "./package.json": "./package.json",
-    "./dist/collection/collection-manifest.json": "./dist/collection/collection-manifest.json"
-  },
-  "typesVersions": {
-    "*": {
-      "components": [
-        "dist/components/index.d.ts"
-      ],
-      "components/*.js": [
-        "dist/components/*.d.ts"
-      ],
-      "components/*": [
-        "dist/components/*"
-      ]
-    }
+    "./package.json": "./package.json"
   },
   "files": [
     "dist",
+    "dist-docs",
     "loader"
   ],
   "scripts": {
@@ -58,7 +45,6 @@
   "devDependencies": {
     "@stencil/angular-output-target": "latest",
     "@stencil/react-output-target": "latest",
-    "playwright": "^1.65.0",
     "typescript": "^5.6.0"
   },
   "publishConfig": {
@@ -73,5 +59,14 @@
     "vite",
     "nextjs",
     "design-system"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/immyemperor/nova-ui.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://github.com/immyemperor/nova-ui#readme",
+  "bugs": {
+    "url": "https://github.com/immyemperor/nova-ui/issues"
+  }
 }

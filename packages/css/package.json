@@ -21,7 +21,10 @@
     "./utilities.css": "./dist/utilities.css",
     "./print.css": "./dist/print.css",
     "./GUIDELINES.md": "./GUIDELINES.md",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./icons.css": "./dist/icons.css",
+    "./material-icon-names.json": "./dist/material-icon-names.json",
+    "./material-symbols-outlined.woff2": "./dist/material-symbols-outlined.woff2"
   },
   "sideEffects": [
     "*.css"
@@ -34,8 +37,9 @@
   "scripts": {
     "generate": "node scripts/generate-utilities.mjs",
     "build": "node scripts/generate-utilities.mjs && node scripts/build.mjs",
-    "test": "node scripts/check.mjs",
-    "test:browser": "node scripts/browser-test.mjs && node scripts/browser-test.mjs --compat"
+    "test": "node scripts/check.mjs && node --test test/material-icons.test.mjs",
+    "test:browser": "node scripts/browser-test.mjs && node scripts/browser-test.mjs --compat",
+    "icons:update": "node scripts/download-material-icons.mjs"
   },
   "publishConfig": {
     "access": "public"
@@ -52,5 +56,14 @@
   ],
   "devDependencies": {
     "playwright": "^1.50.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/immyemperor/nova-ui.git",
+    "directory": "packages/css"
+  },
+  "homepage": "https://github.com/immyemperor/nova-ui#readme",
+  "bugs": {
+    "url": "https://github.com/immyemperor/nova-ui/issues"
   }
 }

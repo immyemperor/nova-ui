@@ -4,7 +4,7 @@ ui-popover { --ui-popover-padding: var(--nova-space-1); }
   all: unset; box-sizing: border-box; height: calc(var(--nova-control-sm)); padding: 0 var(--nova-space-3); display: inline-flex; align-items: center;
   border-radius: calc(var(--nova-radius-control) - 2px); color: var(--nova-color-fg); font-size: var(--nova-text-sm); font-weight: var(--nova-weight-medium); cursor: pointer;
 }
-.trigger:hover, :host([open]) .trigger { background: var(--nova-color-surface-sunken); }
+.trigger:hover, :host([open]) .trigger { background: var(--nova-tint-hover); }
 .trigger:focus-visible { box-shadow: var(--nova-focus-ring); }
 .trigger:disabled { opacity: 0.5; cursor: not-allowed; }
 .menu { display: flex; flex-direction: column; min-width: 12rem; }

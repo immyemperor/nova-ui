@@ -1,7 +1,7 @@
 :host { display: block; font-family: var(--nova-font-sans); color: var(--nova-color-fg); }
 .board { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(14rem, 1fr); gap: var(--nova-space-3); overflow-x: auto; padding-block-end: var(--nova-space-2); }
 .col { display: flex; flex-direction: column; gap: var(--nova-space-2); min-inline-size: 0; padding: var(--nova-space-3); border-radius: var(--nova-radius-surface); background: var(--nova-color-surface-sunken); transition: background var(--nova-duration-fast) var(--nova-ease-standard); }
-.col.over { background: var(--nova-color-accent-soft); }
+.col.over { background: var(--nova-tint-accent-strong); }
 .head { display: flex; align-items: center; justify-content: space-between; }
 .title { margin: 0; font-size: var(--nova-text-sm); font-weight: var(--nova-weight-semibold); }
 .count { font-size: var(--nova-text-xs); color: var(--nova-color-fg-muted); font-variant-numeric: tabular-nums; }

@@ -723,6 +723,7 @@ export const UiIcon = defineComponent({
     size: { type: String, default: undefined },
     label: { type: String, default: undefined },
     filled: { type: Boolean, default: undefined },
+    library: { type: String, default: undefined },
   },
   emits: [],
   setup(props, { slots, emit }) {
@@ -731,6 +732,7 @@ export const UiIcon = defineComponent({
         'size': props.size as any,
         'label': props.label as any,
         'filled': props.filled as any,
+        'library': props.library as any,
 
     }, slots.default?.());
   },

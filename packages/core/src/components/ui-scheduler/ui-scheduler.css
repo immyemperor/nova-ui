@@ -3,7 +3,7 @@
 .nav, .views { display: flex; align-items: center; gap: var(--nova-space-2); }
 .title { margin: 0 0 0 var(--nova-space-2); font-size: var(--nova-text-md); font-weight: var(--nova-weight-semibold); }
 .btn { min-block-size: var(--nova-control-sm); padding: 0 var(--nova-space-3); border: 1px solid var(--nova-color-border-strong); border-radius: var(--nova-radius-control); background: var(--nova-color-surface); color: var(--nova-color-fg); font: inherit; cursor: pointer; }
-.btn:hover { background: var(--nova-color-surface-sunken); }
+.btn:hover { background: var(--nova-tint-hover); }
 .btn.on, .btn[aria-pressed='true'] { background: var(--nova-color-accent); border-color: var(--nova-color-accent); color: var(--nova-color-fg-on-accent); }
 .btn:focus-visible, .event:focus-visible { outline: none; box-shadow: var(--nova-focus-ring); }
 .grid { inline-size: 100%; border-collapse: collapse; table-layout: fixed; }

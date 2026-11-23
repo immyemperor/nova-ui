@@ -35,6 +35,9 @@ importers:
       '@angular/platform-browser':
         specifier: ^19.0.0
         version: 19.2.25(@angular/common@19.2.25(@angular/core@19.2.25(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@19.2.25(rxjs@7.8.2)(zone.js@0.15.1))
+      '@angular/router':
+        specifier: ^19.0.0
+        version: 19.2.25(@angular/common@19.2.25(@angular/core@19.2.25(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@19.2.25(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@19.2.25(@angular/common@19.2.25(@angular/core@19.2.25(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@19.2.25(rxjs@7.8.2)(zone.js@0.15.1)))(rxjs@7.8.2)
       '@nova-ui/angular':
         specifier: workspace:*
         version: link:../../packages/angular
@@ -172,6 +175,25 @@ importers:
         specifier: ^6.0.0
         version: 6.4.5(@types/node@26.6.6)(jiti@1.21.7)(less@4.9.1)(sass@1.108.0)(terser@5.39.0)
 
+  apps/shared:
+    dependencies:
+      '@nova-ui/core':
+        specifier: workspace:*
+        version: link:../../packages/core
+      '@nova-ui/react':
+        specifier: workspace:*
+        version: link:../../packages/react
+      react:
+        specifier: ^19.0.0
+        version: 19.3.1
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.3.1(react@19.3.1)
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.3.0
+
   packages/angular:
     dependencies:
       '@nova-ui/core':
@@ -221,9 +243,6 @@ importers:
       '@stencil/react-output-target':
         specifier: latest
         version: 1.8.1(@stencil/core@4.45.2)(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
-      playwright:
-        specifier: ^1.65.0
-        version: 1.65.0
       typescript:
         specifier: ^5.6.0
         version: 5.6.3
@@ -350,10 +369,14 @@ importers:
   packages/vue:
     dependencies:
       '@nova-ui/core':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../core
+    devDependencies:
+      typescript:
+        specifier: ^5.6.0
+        version: 5.6.3
       vue:
-        specifier: '>=3.3.0'
+        specifier: ^3.4.0
         version: 3.5.45(typescript@5.6.3)
 
 packages:
@@ -507,6 +530,15 @@ packages:
     peerDependenciesMeta:
       '@angular/animations':
         optional: true
+
+  '@angular/router@19.2.25':
+    resolution: {integrity: sha512-IddC2vPiagB2jAsUrNuAr74p+OirWaroouvPkUjzPmyQ+12/0EsygHamsgUbsCVLXJKh72oqnD+xViN0AMguOA==}
+    engines: {node: ^18.19.1 || ^20.11.1 || >=22.0.0}
+    peerDependencies:
+      '@angular/common': 19.2.25
+      '@angular/core': 19.2.25
+      '@angular/platform-browser': 19.2.25
+      rxjs: ^6.5.3 || ^7.4.0
 
   '@babel/code-frame@7.29.7':
     resolution: {integrity: sha512-Aup7aUOfpbAUg2ROOJN6Iw5f9DMBlzu0mIkm/malLQFN/YQgO48wCj0Kxa3sEHJvPVFg7siR+qRInwXd2qhQKw==}
@@ -6401,6 +6433,14 @@ snapshots:
       '@angular/core': 19.2.25(rxjs@7.8.2)(zone.js@0.15.1)
       tslib: 2.9.1
 
+  '@angular/router@19.2.25(@angular/common@19.2.25(@angular/core@19.2.25(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@19.2.25(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@19.2.25(@angular/common@19.2.25(@angular/core@19.2.25(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@19.2.25(rxjs@7.8.2)(zone.js@0.15.1)))(rxjs@7.8.2)':
+    dependencies:
+      '@angular/common': 19.2.25(@angular/core@19.2.25(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)
+      '@angular/core': 19.2.25(rxjs@7.8.2)(zone.js@0.15.1)
+      '@angular/platform-browser': 19.2.25(@angular/common@19.2.25(@angular/core@19.2.25(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@19.2.25(rxjs@7.8.2)(zone.js@0.15.1))
+      rxjs: 7.8.2
+      tslib: 2.9.1
+
   '@babel/code-frame@7.29.7':
     dependencies:
       '@babel/helper-validator-identifier': 7.29.7
@@ -8940,7 +8980,7 @@ snapshots:
 
   '@vue/compiler-core@3.5.45':
     dependencies:
-      '@babel/parser': 7.29.13
+      '@babel/parser': 7.29.14
       '@vue/shared': 3.5.45
       entities: 7.0.1
       estree-walker: 2.0.2
@@ -8953,7 +8993,7 @@ snapshots:
 
   '@vue/compiler-sfc@3.5.45':
     dependencies:
-      '@babel/parser': 7.29.13
+      '@babel/parser': 7.29.14
       '@vue/compiler-core': 3.5.45
       '@vue/compiler-dom': 3.5.45
       '@vue/compiler-ssr': 3.5.45

@@ -5,7 +5,7 @@
   border: 2px dashed var(--nova-color-border-strong); border-radius: var(--nova-radius-surface); color: var(--nova-color-fg-muted);
   transition: border-color var(--nova-duration-fast) var(--nova-ease-standard), background var(--nova-duration-fast) var(--nova-ease-standard);
 }
-.drop.active { border-color: var(--nova-color-accent); background: var(--nova-color-accent-soft); }
+.drop.active { border-color: var(--nova-color-accent); background: var(--nova-tint-accent); }
 .drop.disabled { opacity: 0.55; }
 .hint { font-size: var(--nova-text-xs); color: var(--nova-color-fg-subtle); }
 .problems { margin: 0; padding: var(--nova-space-2) var(--nova-space-3) var(--nova-space-2) var(--nova-space-6); border-radius: var(--nova-radius-control); background: var(--nova-color-danger-soft); color: var(--nova-color-danger); font-size: var(--nova-text-sm); }

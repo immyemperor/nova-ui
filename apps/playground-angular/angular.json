@@ -14,10 +14,29 @@
             "index": "src/index.html",
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.json",
-            "styles": ["../../packages/css/dist/nova.min.css", "src/styles.css"]
+            "styles": [
+              "public/nova-icons.css",
+              "../../packages/css/dist/nova.min.css",
+              "src/styles.css"
+            ],
+            "assets": [
+              {
+                "glob": "nova-icons.css",
+                "input": "public",
+                "output": "/"
+              }
+            ],
+            "polyfills": [
+              "zone.js"
+            ]
           }
         },
-        "serve": { "builder": "@angular-devkit/build-angular:dev-server", "options": { "buildTarget": "playground-angular:build" } }
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "buildTarget": "playground-angular:build"
+          }
+        }
       }
     }
   },

@@ -833,14 +833,14 @@ export declare interface UiHtml extends Components.UiHtml {}
 
 @ProxyCmp({
   defineCustomElementFn: defineUiIcon,
-  inputs: ['filled', 'label', 'name', 'size']
+  inputs: ['filled', 'label', 'library', 'name', 'size']
 })
 @Component({
   selector: 'ui-icon',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['filled', 'label', { name: 'name', required: true }, 'size'],
+  inputs: ['filled', 'label', 'library', { name: 'name', required: true }, 'size'],
 })
 export class UiIcon {
   protected el: HTMLUiIconElement;

@@ -14,15 +14,15 @@
 
 :host([variant='secondary']) {
   --_bg: var(--nova-color-surface);
-  --_bg-hover: var(--nova-color-surface-sunken);
+  --_bg-hover: var(--nova-tint-hover);
   --_bg-active: var(--nova-color-border);
   --_fg: var(--nova-color-fg);
   --_border: var(--nova-color-border-strong);
 }
 :host([variant='ghost']) {
   --_bg: transparent;
-  --_bg-hover: var(--nova-color-surface-sunken);
-  --_bg-active: var(--nova-color-border);
+  --_bg-hover: var(--nova-tint-hover);
+  --_bg-active: var(--nova-tint-accent-strong);
   --_fg: var(--nova-color-fg);
 }
 :host([variant='danger']) {
@@ -34,10 +34,10 @@
 
 /* Toggled-on state (editor toolbars, segmented controls) */
 :host([pressed]) {
-  --_bg: var(--nova-color-accent-soft);
-  --_bg-hover: var(--nova-color-accent-soft);
-  --_bg-active: var(--nova-color-accent-soft);
-  --_fg: var(--nova-color-accent);
+  --_bg: var(--nova-tint-accent);
+  --_bg-hover: var(--nova-tint-accent-strong);
+  --_bg-active: var(--nova-tint-accent-strong);
+  --_fg: var(--nova-color-fg);
 }
 
 .control {

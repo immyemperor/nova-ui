@@ -502,6 +502,7 @@ Generated from 72 component sources. Regenerate with `node scripts/generate-docs
 | `size` | `string` |  | CSS size. Defaults to 1em so the icon scales with text. |
 | `label` | `string` |  | Accessible label. When omitted the icon is hidden from screen readers. |
 | `filled` | `boolean` | `false` | Fill the shape with the current colour (e.g. a solid star). |
+| `library` | `'nova' | 'material'` |  | Icon set for this icon. Leave unset to use the page setting (setIconLibrary). |
 
 ## `<ui-input>`
 

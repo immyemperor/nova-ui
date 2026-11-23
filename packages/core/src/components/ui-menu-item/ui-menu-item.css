@@ -6,7 +6,7 @@
 }
 :host([divider]) { margin-top: var(--nova-space-1); position: relative; }
 :host([divider])::before { content: ''; position: absolute; left: 0; right: 0; top: calc(var(--nova-space-1) / -2 - 0.5px); height: 1px; background: var(--nova-color-border); }
-:host(:hover:not([disabled])), :host(:focus-visible) { background: var(--nova-color-accent-soft); }
+:host(:hover:not([disabled])), :host(:focus-visible) { background: var(--nova-tint-accent); }
 :host([tone='danger']) { color: var(--nova-color-danger); }
 :host([tone='danger']:hover:not([disabled])), :host([tone='danger']:focus-visible) { background: var(--nova-color-danger-soft); }
 :host([disabled]) { opacity: 0.5; cursor: not-allowed; }

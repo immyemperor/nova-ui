@@ -262,10 +262,12 @@ Regenerate docs and Vue wrappers with `pnpm docs`.
 
 | App | Run | What it shows |
 | --- | --- | --- |
-| `apps/playground-vite` | `pnpm dev:vite` | Every component and feature, as a catalogue |
-| `apps/playground-react` | `pnpm dev:react` | An app pattern: server-paged table, dialogs, validated form, dashboard |
-| `apps/playground-next` | `pnpm dev:next` | App Router: client features, editor loaded client-only, page blocks |
-| `apps/playground-angular` | `pnpm dev:angular` | Standalone Angular components, signals, dialogs (not yet compiled in this environment) |
+| `apps/playground-vite` | `pnpm dev:vite` | Every component and feature as a catalogue, plus the component explorer and icon browser |
+| `apps/playground-react` | `pnpm dev:react` | An app pattern (server-paged table, dialogs, validated form, dashboard), plus the component explorer and icon browser at `#/components` and `#/icons` |
+| `apps/playground-next` | `pnpm dev:next` | App Router: client features, editor loaded client-only, page blocks, plus the component explorer at `/components` and icons at `/icons/material` |
+| `apps/playground-angular` | `pnpm dev:angular` | Standalone Angular components, signals, dialogs, plus the component explorer (routed at `/components`, `/icons/material`) with Angular examples (not yet compiled in this environment) |
 
-`pnpm playgrounds:check` verifies that every component, prop, event and class the playgrounds use exists.
+`pnpm playgrounds:check` verifies that every component, prop, event and class the playgrounds use exists, that the explorer lists every component once, and that every live example matches its source.
+
+The React-based apps share their explorer code from `apps/shared/react`. `apps/shared/scripts/snapshot.mjs` gives every app the component data, example source and Material icon names, and copies the icon stylesheet into each app's `public/`. Each app runs it before dev and build.
 

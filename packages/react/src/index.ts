@@ -2,8 +2,14 @@
 export * from './components/stencil-generated/components';
 
 export { useTheme } from './theme';
-export * from '@nova-ui/core';
-export type { Components, JSX } from '@nova-ui/core/components';
+export { confirm, prompt, sanitizeHTML, setMessages, resetMessages, DEFAULT_MESSAGES } from '@nova-ui/core';
+export { setIconLibrary, getIconLibrary, onIconLibraryChange, materialName, MATERIAL_NAMES } from '@nova-ui/core';
+export type { IconLibrary, contrastRatio } from '@nova-ui/core';
+export { generateTheme, themeToCSS, toCSV, safeFilename } from '@nova-ui/core';
+export type { GeneratedTheme, CsvColumn } from '@nova-ui/core';
+export { linearScale, niceTicks, compact, extent } from '@nova-ui/core';
+export type { ChartSeries } from '@nova-ui/core';
+export type { ConfirmOptions, PromptOptions, DateRange, UploadItem, FileProblem, FileRules, MessageKey, Messages } from '@nova-ui/core';
 
 export {
   registerIcons,

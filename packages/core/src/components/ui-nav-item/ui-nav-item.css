@@ -7,7 +7,7 @@ ui-popover { --ui-popover-padding: var(--nova-space-2); }
   cursor: pointer; text-decoration: none; white-space: nowrap;
   transition: background var(--nova-duration-fast) var(--nova-ease-standard), color var(--nova-duration-fast) var(--nova-ease-standard);
 }
-.link:hover { background: var(--nova-color-surface-sunken); color: var(--nova-color-fg); }
+.link:hover { background: var(--nova-tint-hover); color: var(--nova-color-fg); }
 .link:focus-visible { box-shadow: var(--nova-focus-ring); }
 :host([current]) .link, :host([open]) .link { color: var(--nova-color-fg); }
 :host([current]) .link { box-shadow: inset 0 -2px 0 var(--nova-color-accent); border-radius: var(--nova-radius-control) var(--nova-radius-control) 0 0; }

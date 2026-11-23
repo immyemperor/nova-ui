@@ -1,9 +1,10 @@
-import { Component, Element, Host, Prop, h } from '@stencil/core';
-import { getIcon } from './icons';
+import { Component, Host, Prop, State, h } from '@stencil/core';
+import { getIcon, materialName, onIconLibraryChange, usesMaterial } from './icons';
+import type { IconLibrary } from './icons';
 
 /**
- * Renders an icon from the registry. Decorative by default; pass `label` to expose it
- * to assistive tech.
+ * An icon from the Nova set (inline SVG) or the Material Symbols set (font ligature).
+ * Nova names are drawn as SVG; in material mode, the Material ligature name is written as text.
  */
 @Component({
   tag: 'ui-icon',
@@ -11,35 +12,51 @@ import { getIcon } from './icons';
   shadow: true,
 })
 export class UiIcon {
-  @Element() host!: HTMLElement;
-  /** Icon name, e.g. "check". Register more with registerIcons(). */
+  /** Icon name, e.g. "check". */
   @Prop() name!: string;
-  /** CSS size. Defaults to 1em so the icon scales with text. */
+  /** Width and height, e.g. "1.5rem". Defaults to 1em. */
   @Prop() size?: string;
-  /** Accessible label. When omitted the icon is hidden from screen readers. */
+  /** Accessible name. Leave unset for a decorative icon. */
   @Prop() label?: string;
-  /** Fill the shape with the current colour (e.g. a solid star). */
+  /** Fill the shape (solid star, filled Material icon). */
   @Prop() filled = false;
+  /** Icon set for this icon. Leave unset to use the page setting (setIconLibrary). */
+  @Prop() library?: IconLibrary;
 
-  componentDidRender() {
-    const group = this.host.shadowRoot?.querySelector('g');
-    if (group) group.innerHTML = getIcon(this.name) ?? '';
+  /** Bumped when the page's icon library changes, so this icon redraws. */
+  @State() revision = 0;
+  private off?: () => void;
+
+  componentWillLoad() {
+    this.off = onIconLibraryChange(() => (this.revision += 1));
+  }
+
+  disconnectedCallback() {
+    this.off?.();
   }
 
   render() {
-    const style = this.size ? { width: this.size, height: this.size } : undefined;
+    const style = this.size ? { width: this.size, height: this.size, fontSize: this.size } : undefined;
+    const access = this.label ? { role: 'img', 'aria-label': this.label } : { 'aria-hidden': 'true' };
+
+    if (usesMaterial(this.name, this.library)) {
+      // Material: the ligature name is text inside the font. Nothing else goes in this span.
+      return (
+        <Host style={style} {...access}>
+          <span class={{ ms: true, filled: this.filled }} aria-hidden="true">{materialName(this.name)}</span>
+        </Host>
+      );
+    }
+
+    /** Put the registered SVG shapes inside the <svg> element. Done here, not with innerHTML in JSX. */
+
+    // Nova: the registered SVG markup, drawn as an SVG element (never as text).
+    const markup = getIcon(this.name);
+    // Nova: the registered SVG shapes, drawn as an SVG element (never as text).
+    const svg = `<svg class="svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true">${ markup ?? ''}</svg>`;
     return (
-      <Host style={style} role={this.label ? 'img' : undefined} aria-label={this.label} aria-hidden={this.label ? undefined : 'true'}>
-        <svg
-          viewBox="0 0 24 24"
-          fill={this.filled ? 'currentColor' : 'none'}
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <g />
-        </svg>
+      <Host style={style} {...access}>
+        <span class="shape" innerHTML={svg} />
       </Host>
     );
   }

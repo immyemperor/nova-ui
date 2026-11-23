@@ -5,7 +5,7 @@
   box-sizing: border-box; height: var(--nova-control-sm); padding: 0 var(--nova-space-2); border: 1px solid transparent; border-radius: var(--nova-radius-control);
   background: transparent; color: var(--nova-color-fg); font: inherit; font-weight: var(--nova-weight-semibold); cursor: pointer;
 }
-.select:hover { background: var(--nova-color-surface-sunken); }
+.select:hover { background: var(--nova-tint-hover); }
 .select:focus-visible { outline: none; border-color: var(--nova-color-accent); box-shadow: var(--nova-focus-ring); }
 
 .grid { border-collapse: collapse; }
@@ -16,7 +16,7 @@ td { padding: 1px; text-align: center; }
   width: var(--_cell); height: var(--_cell); border-radius: var(--nova-radius-control); cursor: pointer; font-variant-numeric: tabular-nums;
   transition: background var(--nova-duration-fast) var(--nova-ease-standard);
 }
-.day:hover:not(:disabled):not(.selected) { background: var(--nova-color-surface-sunken); }
+.day:hover:not(:disabled):not(.selected) { background: var(--nova-tint-hover); }
 .day:focus-visible { box-shadow: var(--nova-focus-ring); }
 .day.outside { color: var(--nova-color-fg-subtle); }
 .day.today:not(.selected) { box-shadow: inset 0 0 0 1px var(--nova-color-accent); }

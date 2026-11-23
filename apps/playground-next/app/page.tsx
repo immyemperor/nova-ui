@@ -1,5 +1,12 @@
 import { LoginBlock, PricingBlock, UiCard, UiButton, UiBadge, UiIcon, UiReveal, UiStagger, UiThemeToggle } from '@nova-ui/react';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { NewFeatures } from './_features/NewFeatures';
+import { SourceFile } from './_features/CodeBlock';
+import { IconSetToggle } from './_features/IconSetToggle';
+
+// Read on the server at build or request time, so the client bundle does not carry these files.
+const source = (rel: string) => readFileSync(join(process.cwd(), rel), 'utf8');
 
 // Server component: the static parts render on the server; interactive parts are client components.
 const features = [
@@ -15,7 +22,12 @@ export default function Home() {
       <header className="nova-bg-surface nova-border-b">
         <div className="nova-container nova-cluster nova-cluster-between nova-py-3">
           <strong>Nova UI on Next.js</strong>
-          <UiThemeToggle />
+          <div className="nova-cluster">
+            <a className="nova-btn nova-btn-ghost nova-btn-sm" href="/components">Components</a>
+            <a className="nova-btn nova-btn-ghost nova-btn-sm" href="/icons/material">Icons</a>
+            <IconSetToggle />
+            <UiThemeToggle />
+          </div>
         </div>
       </header>
 
@@ -61,6 +73,13 @@ export default function Home() {
             { name: 'Free', price: '$0', period: '/month', features: ['1 project'] },
             { name: 'Team', price: '$24', period: '/month', features: ['Unlimited projects', 'SSO'], featured: true },
           ]} />
+        </section>
+
+        <section className="nova-stack nova-stack-sm" id="source">
+          <h2 className="nova-h4">Source code</h2>
+          <p className="nova-caption">The client features and this page are plain React. Open a file to copy it.</p>
+          <SourceFile title="app/page.tsx" code={source('app/page.tsx')} />
+          <SourceFile title="app/_features/NewFeatures.tsx" code={source('app/_features/NewFeatures.tsx')} />
         </section>
 
         <section className="nova-section-lg">

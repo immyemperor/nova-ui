@@ -2,7 +2,7 @@
  * Built-in icon set. 24x24 viewBox, 2px round strokes. Geometry follows the Feather icon
  * set (MIT). Add your own with registerIcons({ name: '<path .../>' }).
  */
-const registry: Record<string, string> = {
+const builtIn: Record<string, string> = {
   'arrow-left': '<line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>',
   'arrow-right': '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>',
   'arrow-up': '<line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/>',
@@ -73,6 +73,10 @@ const registry: Record<string, string> = {
   trash: '<polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>',
 };
 
+// Every copy of this module (core, and any bundle that compiled it in) shares one registry.
+const registry: Record<string, string> = ((globalThis as any).__novaUiIcons ??= {});
+Object.assign(registry, builtIn);
+
 export type BuiltInIconName = keyof typeof registry;
 
 /** Register or override icons. Values are the inner SVG markup (no <svg> wrapper). */
@@ -86,4 +90,60 @@ export function getIcon(name: string): string | undefined {
 
 export function listIcons(): string[] {
   return Object.keys(registry);
+}
+
+/* ---------- Icon libraries ----------
+   'nova'     the built-in line icons above (SVG, no font needed)
+   'material' Google Material Symbols (font ligatures). Load the font once in your page:
+              <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block">
+   Components keep their Nova names; in material mode each name is looked up here. */
+export type IconLibrary = 'nova' | 'material';
+
+let library: IconLibrary = 'nova';
+/** Choose the icon set for every <ui-icon> on the page (an individual icon can override with `library`). */
+const libraryListeners = new Set<(lib: IconLibrary) => void>();
+export function setIconLibrary(next: IconLibrary): void {
+  library = next;
+  libraryListeners.forEach((fn) => fn(next));
+}
+/** Subscribe to library changes (used by <ui-icon> to redraw). Returns an unsubscribe function. */
+export function onIconLibraryChange(fn: (lib: IconLibrary) => void): () => void {
+  libraryListeners.add(fn);
+  return () => libraryListeners.delete(fn);
+}
+export function getIconLibrary(): IconLibrary {
+  return library;
+}
+
+/** Nova icon name to Material Symbols ligature. Names not listed here are used as Material names as they are. */
+export const MATERIAL_NAMES: Record<string, string> = {
+  check: 'check', x: 'close', plus: 'add', minus: 'remove',
+  'chevron-down': 'expand_more', 'chevron-up': 'expand_less', 'chevron-left': 'chevron_left', 'chevron-right': 'chevron_right',
+  'chevrons-up': 'keyboard_double_arrow_up', 'chevrons-down': 'keyboard_double_arrow_down',
+  'arrow-left': 'arrow_back', 'arrow-right': 'arrow_forward', 'arrow-up': 'arrow_upward', 'arrow-down': 'arrow_downward',
+  search: 'search', menu: 'menu', sun: 'light_mode', moon: 'dark_mode', monitor: 'desktop_windows',
+  info: 'info', 'alert-circle': 'error', 'alert-triangle': 'warning', 'alert-octagon': 'report', 'check-circle': 'check_circle', 'help-circle': 'help',
+  upload: 'upload', download: 'download', trash: 'delete', pencil: 'edit', copy: 'content_copy', share: 'share',
+  star: 'star', heart: 'favorite', bell: 'notifications', home: 'home', file: 'description', folder: 'folder',
+  user: 'person', users: 'group', settings: 'settings', calendar: 'calendar_month', clock: 'schedule',
+  lock: 'lock', unlock: 'lock_open', eye: 'visibility', 'eye-off': 'visibility_off', mail: 'mail', phone: 'call',
+  globe: 'language', 'map-pin': 'location_on', 'shopping-cart': 'shopping_cart', 'credit-card': 'credit_card', briefcase: 'work',
+  'log-out': 'logout', 'external-link': 'open_in_new', send: 'send', filter: 'filter_list', layers: 'layers', grid: 'grid_view',
+  'refresh-cw': 'refresh', zap: 'bolt', 'bar-chart': 'bar_chart', 'pie-chart': 'pie_chart', 'trending-up': 'trending_up',
+  'more-horizontal': 'more_horiz', 'more-vertical': 'more_vert', 'log-in': 'login', grip: 'drag_indicator', paperclip: 'attach_file',
+};
+
+/** The Material ligature for a Nova icon name. */
+export function materialName(name: string): string {
+  return MATERIAL_NAMES[name] ?? name;
+}
+
+/**
+ * Should this icon be drawn with the Material font? In material mode every mapped name is, and so is any name
+ * we have no SVG for. A custom SVG you registered keeps its drawing unless it is also mapped.
+ */
+export function usesMaterial(name: string, override?: IconLibrary): boolean {
+  const lib = override ?? library;
+  if (lib !== 'material') return false;
+  return name in MATERIAL_NAMES || !(name in registry);
 }

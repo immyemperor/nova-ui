@@ -11,3 +11,26 @@ svg {
   height: 100%;
   display: block;
 }
+
+/* Material Symbols (ligature font). The page loads the font; these rules make the ligature behave like an icon. */
+.ms {
+  display: inline-block;
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: inherit;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'liga';
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+.ms.filled { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+:host { line-height: 1; }
+
+.shape { display: block; inline-size: 100%; block-size: 100%; }
+.shape > svg { display: block; inline-size: 100%; block-size: 100%; }

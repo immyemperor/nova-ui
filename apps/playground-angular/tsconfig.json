@@ -13,7 +13,12 @@
     "moduleResolution": "bundler",
     "target": "ES2022",
     "module": "ES2022",
-    "lib": ["ES2022", "dom"]
+    "lib": ["ES2022", "dom"],
+    "baseUrl": ".",
+  "paths": {
+    "@nova-ui/angular": ["../../packages/angular/dist"],
+    "@nova-ui/angular/editor": ["../../packages/angular/dist/editor"]
+  },
   },
   "angularCompilerOptions": { "strictTemplates": true }
 }

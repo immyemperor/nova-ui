@@ -36,7 +36,7 @@
     "@stencil/react-output-target": "^1.8.1"
   },
   "peerDependencies": {
-    "@nova-ui/editor": "workspace:^",
+    "@nova-ui/editor": "^0.1.0",
     "react": ">=18",
     "react-dom": ">=18"
   },
@@ -55,5 +55,14 @@
     "@nova-ui/editor": {
       "optional": true
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/immyemperor/nova-ui.git",
+    "directory": "packages/react"
+  },
+  "homepage": "https://github.com/immyemperor/nova-ui#readme",
+  "bugs": {
+    "url": "https://github.com/immyemperor/nova-ui/issues"
   }
 }

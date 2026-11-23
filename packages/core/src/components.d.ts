@@ -12,6 +12,7 @@ import { DateRange } from "./utils/range";
 import { DialogRequest } from "./utils/confirm";
 import { Placement } from "./utils/position";
 import { FileProblem } from "./utils/files";
+import { IconLibrary } from "./components/ui-icon/icons";
 import { KanbanCard, KanbanColumn } from "./components/ui-kanban/ui-kanban";
 import { AnimationName } from "./utils/animation";
 import { CalEvent } from "./utils/calendar-events";
@@ -23,6 +24,7 @@ export { DateRange } from "./utils/range";
 export { DialogRequest } from "./utils/confirm";
 export { Placement } from "./utils/position";
 export { FileProblem } from "./utils/files";
+export { IconLibrary } from "./components/ui-icon/icons";
 export { KanbanCard, KanbanColumn } from "./components/ui-kanban/ui-kanban";
 export { AnimationName } from "./utils/animation";
 export { CalEvent } from "./utils/calendar-events";
@@ -658,25 +660,29 @@ export namespace Components {
         "prose": boolean;
     }
     /**
-     * Renders an icon from the registry. Decorative by default; pass `label` to expose it
-     * to assistive tech.
+     * An icon from the Nova set (inline SVG) or the Material Symbols set (font ligature).
+     * Nova names are drawn as SVG; in material mode, the Material ligature name is written as text.
      */
     interface UiIcon {
         /**
-          * Fill the shape with the current colour (e.g. a solid star).
+          * Fill the shape (solid star, filled Material icon).
           * @default false
          */
         "filled": boolean;
         /**
-          * Accessible label. When omitted the icon is hidden from screen readers.
+          * Accessible name. Leave unset for a decorative icon.
          */
         "label"?: string;
         /**
-          * Icon name, e.g. "check". Register more with registerIcons().
+          * Icon set for this icon. Leave unset to use the page setting (setIconLibrary).
+         */
+        "library"?: IconLibrary;
+        /**
+          * Icon name, e.g. "check".
          */
         "name": string;
         /**
-          * CSS size. Defaults to 1em so the icon scales with text.
+          * Width and height, e.g. "1.5rem". Defaults to 1em.
          */
         "size"?: string;
     }
@@ -2475,8 +2481,8 @@ declare global {
         new (): HTMLUiHtmlElement;
     };
     /**
-     * Renders an icon from the registry. Decorative by default; pass `label` to expose it
-     * to assistive tech.
+     * An icon from the Nova set (inline SVG) or the Material Symbols set (font ligature).
+     * Nova names are drawn as SVG; in material mode, the Material ligature name is written as text.
      */
     interface HTMLUiIconElement extends Components.UiIcon, HTMLStencilElement {
     }
@@ -3934,25 +3940,29 @@ declare namespace LocalJSX {
         "prose"?: boolean;
     }
     /**
-     * Renders an icon from the registry. Decorative by default; pass `label` to expose it
-     * to assistive tech.
+     * An icon from the Nova set (inline SVG) or the Material Symbols set (font ligature).
+     * Nova names are drawn as SVG; in material mode, the Material ligature name is written as text.
      */
     interface UiIcon {
         /**
-          * Fill the shape with the current colour (e.g. a solid star).
+          * Fill the shape (solid star, filled Material icon).
           * @default false
          */
         "filled"?: boolean;
         /**
-          * Accessible label. When omitted the icon is hidden from screen readers.
+          * Accessible name. Leave unset for a decorative icon.
          */
         "label"?: string;
         /**
-          * Icon name, e.g. "check". Register more with registerIcons().
+          * Icon set for this icon. Leave unset to use the page setting (setIconLibrary).
+         */
+        "library"?: IconLibrary;
+        /**
+          * Icon name, e.g. "check".
          */
         "name": string;
         /**
-          * CSS size. Defaults to 1em so the icon scales with text.
+          * Width and height, e.g. "1.5rem". Defaults to 1em.
          */
         "size"?: string;
     }
@@ -5494,6 +5504,7 @@ declare namespace LocalJSX {
         "size": string;
         "label": string;
         "filled": boolean;
+        "library": IconLibrary;
     }
     interface UiInputAttributes {
         "value": string;
@@ -6010,8 +6021,8 @@ declare module "@stencil/core" {
              */
             "ui-html": LocalJSX.IntrinsicElements["ui-html"] & JSXBase.HTMLAttributes<HTMLUiHtmlElement>;
             /**
-             * Renders an icon from the registry. Decorative by default; pass `label` to expose it
-             * to assistive tech.
+             * An icon from the Nova set (inline SVG) or the Material Symbols set (font ligature).
+             * Nova names are drawn as SVG; in material mode, the Material ligature name is written as text.
              */
             "ui-icon": LocalJSX.IntrinsicElements["ui-icon"] & JSXBase.HTMLAttributes<HTMLUiIconElement>;
             "ui-input": LocalJSX.IntrinsicElements["ui-input"] & JSXBase.HTMLAttributes<HTMLUiInputElement>;

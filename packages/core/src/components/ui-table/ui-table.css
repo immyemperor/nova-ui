@@ -39,9 +39,9 @@ th {
 .sort-icon.on { color: var(--nova-color-accent); }
 
 tbody tr { transition: background var(--nova-duration-fast) var(--nova-ease-standard); }
-tbody tr:hover { background: var(--nova-color-surface-sunken); }
+tbody tr:hover { background: var(--nova-tint-hover); }
 :host([striped]) tbody tr:nth-child(even) { background: color-mix(in srgb, var(--nova-color-surface-sunken) 55%, transparent); }
-tbody tr.selected { background: var(--nova-color-accent-soft); }
+tbody tr.selected { background: var(--nova-tint-accent); }
 tr.clickable { cursor: pointer; }
 tr.clickable:focus-visible { outline: none; box-shadow: inset var(--nova-focus-ring); }
 .skeleton-row:hover { background: transparent; }

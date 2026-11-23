@@ -15,6 +15,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     // suppressHydrationWarning: the inline script sets data-theme before React hydrates.
     <html lang="en" suppressHydrationWarning>
       <head>
+        <link rel="stylesheet" href="/nova-icons.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block" />
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body className="nova-base">{children}</body>

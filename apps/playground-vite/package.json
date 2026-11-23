@@ -3,8 +3,11 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "predev": "node ../shared/scripts/snapshot.mjs",
     "dev": "vite",
-    "build": "vite build"
+    "prebuild": "node ../shared/scripts/snapshot.mjs",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@nova-ui/core": "workspace:*",

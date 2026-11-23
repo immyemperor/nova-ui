@@ -4,8 +4,8 @@ ui-popover { display: block; --ui-popover-anchor-display: block; --ui-popover-pa
 .native { min-inline-size: 0; }
 .list { list-style: none; margin: 0; padding: 0; max-block-size: 16rem; overflow: auto; }
 .slot { all: unset; box-sizing: border-box; display: block; inline-size: 100%; padding: var(--nova-space-2) var(--nova-space-3); border-radius: var(--nova-radius-control); cursor: pointer; font-variant-numeric: tabular-nums; }
-.slot:hover { background: var(--nova-color-accent-soft); }
+.slot:hover { background: var(--nova-tint-accent); }
 .slot:focus-visible { box-shadow: var(--nova-focus-ring); }
-.slot.on { font-weight: var(--nova-weight-semibold); color: var(--nova-color-accent); }
+.slot.on { font-weight: var(--nova-weight-semibold); color: var(--nova-color-accent-hover); }
 .msg { margin: var(--nova-space-1) 0 0; font-size: var(--nova-text-xs); color: var(--nova-color-fg-muted); }
 .msg.error { color: var(--nova-color-danger); }

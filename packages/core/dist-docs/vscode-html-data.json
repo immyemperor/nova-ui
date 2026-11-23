@@ -1179,6 +1179,18 @@
           "name": "filled",
           "description": "Fill the shape with the current colour (e.g. a solid star). (default: false)",
           "valueSet": "v"
+        },
+        {
+          "name": "library",
+          "description": "Icon set for this icon. Leave unset to use the page setting (setIconLibrary).",
+          "values": [
+            {
+              "name": "nova"
+            },
+            {
+              "name": "material"
+            }
+          ]
         }
       ]
     },

@@ -7,7 +7,7 @@ dialog {
   padding: 0; border: 0; background: transparent; color: var(--nova-color-fg);
   max-width: none; max-height: none; overflow: visible; font-family: var(--nova-font-sans);
 }
-dialog::backdrop { background: rgb(8 14 12 / 0.55); backdrop-filter: blur(2px); }
+dialog::backdrop { background: var(--nova-scrim); backdrop-filter: blur(2px); }
 dialog[open] { animation: var(--_anim) var(--nova-duration-base) var(--nova-ease-emphasized); }
 dialog[open]::backdrop { animation: fade-in var(--nova-duration-base) var(--nova-ease-standard); }
 dialog.closing { animation: var(--_anim) var(--nova-duration-base) var(--nova-ease-standard) reverse forwards; }

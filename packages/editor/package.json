@@ -73,7 +73,7 @@
     "@tiptap/extension-underline": "^2.10.0"
   },
   "peerDependencies": {
-    "@nova-ui/core": "workspace:^"
+    "@nova-ui/core": "^0.1.0"
   },
   "devDependencies": {
     "@nova-ui/core": "workspace:*",
@@ -92,5 +92,14 @@
     "stencil",
     "react",
     "angular"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/immyemperor/nova-ui.git",
+    "directory": "packages/editor"
+  },
+  "homepage": "https://github.com/immyemperor/nova-ui#readme",
+  "bugs": {
+    "url": "https://github.com/immyemperor/nova-ui/issues"
+  }
 }

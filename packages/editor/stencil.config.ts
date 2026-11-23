@@ -49,6 +49,10 @@ export const config: Config = {
     }),
   ],
   // @nova-ui/core is a peer dependency: never bundle a second copy of its components.
-  rollupConfig: { inputOptions: { external: [/^@nova-ui\/core/] } },
+  rollupConfig: {
+  inputOptions: {
+    external: ['@nova-ui/core'],
+  },
+},
   testing: { browserHeadless: 'shell' },
 };

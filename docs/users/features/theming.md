@@ -58,6 +58,27 @@ Overrides apply to every component and every framework. Keep them in one stylesh
 | Space | `--nova-space-1` to `--nova-space-16`, `--nova-space-fluid-s` to `-xl` |
 | Motion | `--nova-duration-fast`, `--nova-duration-base`, `--nova-ease-standard` |
 
+## Translucent tints
+
+Hover, selection, drop-target and scrim colours are translucent, so they sit on whatever the surface is and never hide it. The tokens:
+
+| Token | Used for |
+| --- | --- |
+| `--nova-tint-hover` | Hover backgrounds on rows, buttons, menu items and tabs |
+| `--nova-tint-accent` | Selected rows, active sidebar items, selected tree nodes, option highlights |
+| `--nova-tint-accent-strong` | Pressed states and drop targets |
+| `--nova-tint-danger`, `-success`, `-warning`, `-info` | Status tints for your own panels |
+| `--nova-scrim` | Dialog backdrops |
+
+Text is never placed directly on a tint without a check. The build blends each tint onto its surface and tests the text against it, so accent text on a selected row uses `--nova-color-accent-hover`, which keeps AA contrast.
+
+Override a tint to change how strong a state looks:
+
+```css
+:root { --nova-tint-accent: rgb(91 63 209 / 0.14); }
+[data-theme='dark'] { --nova-tint-accent: rgb(169 155 255 / 0.18); }
+```
+
 ## Contrast
 
 Built-in colour pairs are checked against WCAG AA in both themes on every build. If you add colours, check them with `contrastRatio` from `@nova-ui/core`.

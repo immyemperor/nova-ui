@@ -1,25 +1,99 @@
 # Icons
 
-`<ui-icon>` draws from a registry of about 70 line icons: `check`, `x`, `plus`, `search`, `chevron-down`, `settings`, `calendar`, `download`, `upload`, `user`, `bell`, `star` and more. Run `listIcons()` for the full list.
+`<ui-icon>` draws icons from one of two sets:
+
+- **Nova** (default): about 70 built-in line icons drawn as SVG. No font needed.
+- **Material**: Google's [Material Symbols](https://fonts.google.com/icons), drawn with the Material font. Nova names are mapped to Material names automatically, so every component works in either set.
+
+## Load the Material font (once)
+
+Add this to your page's `<head>`. It's the same font your app loads from Google Fonts:
+
+```html
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block" />
+```
+
+Skip this if you use only the Nova set.
+
+## Offline: bundled Material icons
+
+Instead of the Google link, `@nova-ui/css` can ship the Material Symbols font itself. A maintainer runs this once, and rebuilds:
+
+```bash
+pnpm --filter @nova-ui/css icons:update
+pnpm --filter @nova-ui/css build
+```
+
+Then load the generated stylesheet and use the `nova-icon` classes (no network needed):
+
+```html
+<link rel="stylesheet" href="/node_modules/@nova-ui/css/icons.css" />
+<span class="nova-icon nova-icon-home" aria-hidden="true"></span>
+<span class="nova-icon nova-icon-star nova-icon-filled nova-icon-lg"></span>
+```
+
+Sizes: `nova-icon-xs`, `-sm`, `-md`, `-lg`, `-xl`. The icon names are listed in `@nova-ui/css/material-icon-names.json`. The official licence is copied alongside the font.
+
+## Choose the set
+
+```js
+import { setIconLibrary } from '@nova-ui/core';
+
+setIconLibrary('material'); // every <ui-icon> on the page switches; icons redraw automatically
+setIconLibrary('nova');
+```
+
+A single icon can override the page setting:
+
+```html
+<ui-icon name="check" library="material"></ui-icon>
+<ui-icon name="check" library="nova"></ui-icon>
+```
+
+Read the current setting with `getIconLibrary()`. Listen for changes with `onIconLibraryChange(fn)`.
+
+## Use icons
 
 ```html
 <ui-icon name="check"></ui-icon>
+<ui-icon name="chevron-down" size="1.25rem"></ui-icon>
 <ui-icon name="alert-circle" label="Warning"></ui-icon>
 <ui-button icon-only label="Delete"><ui-icon name="trash"></ui-icon></ui-button>
 ```
 
-- Icons scale with text by default. Set `size="24px"` to fix them.
-- With no `label` the icon is decorative and hidden from screen readers. Give a `label` when the icon carries meaning alone.
-- `filled` fills the shape, for example a solid star.
+- Icons scale with the text around them unless you set `size`.
+- With no `label` the icon is decorative and hidden from screen readers. Set a `label` when the icon carries meaning on its own.
+- `filled` fills the shape, for example a solid star or a filled Material icon.
+
+## Names
+
+In the Material set, Nova names map to Material names. Some common ones:
+
+| Nova name | Material name | Nova name | Material name |
+| --- | --- | --- | --- |
+| `check` | `check` | `trash` | `delete` |
+| `x` | `close` | `user` | `person` |
+| `search` | `search` | `bell` | `notifications` |
+| `chevron-down` | `expand_more` | `settings` | `settings` |
+| `plus` | `add` | `calendar` | `calendar_month` |
+| `upload` | `upload` | `download` | `download` |
+
+Use a Material name directly if it isn't in the table. It's looked up as a Material ligature. Run `MATERIAL_NAMES` from `@nova-ui/core` for the complete mapping.
 
 ## Add your own
 
-```ts
+```js
 import { registerIcons } from '@nova-ui/core';
 
 registerIcons({
-  logo: '<path d="M4 4h16v16H4z"/>', // inner SVG markup, 24 x 24 viewBox, stroked
+  logo: '<path d="M4 4h16v16H4z"/>', // inner SVG, 24 x 24 viewBox, stroked
 });
 ```
 
-Icons are drawn with `currentColor`, so they take the colour of their surrounding text.
+A registered icon keeps its own drawing in either set, unless its name is also in the Material mapping.
+
+## Notes
+
+- Icons take the colour of the text around them (`currentColor`).
+- In the Material set, text in the Material font is shown as plain text if the font hasn't loaded. Load the font, or use `display=block` as shown above.
+- In plain CSS you can use the Material font directly: `<span class="material-symbols-outlined">home</span>`, once the font is loaded.

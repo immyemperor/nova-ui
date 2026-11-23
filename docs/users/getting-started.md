@@ -32,6 +32,8 @@ Also set the viewport so the layout respects phone notches and users can still z
 
 Never add `user-scalable=no` or `maximum-scale=1`. It blocks zoom and fails WCAG.
 
+If you want Google's Material Symbols instead of the built-in icons, add the font link from [Icons](features/icons.md) to your page's `<head>`. Skip it otherwise.
+
 ## 3. Use a component
 
 Every framework uses the same component names and the same props. Only the syntax changes.
@@ -61,6 +63,8 @@ The `detail` carries the new value. Each component's reference lists its events 
 Nova follows the operating-system light or dark setting by default. To let users choose, call `setThemeMode('light' | 'dark' | 'system')`, or drop in `<ui-theme-toggle>`. The choice is remembered. See [Theming](features/theming.md).
 
 ## 6. Where to go next
+
+- [Releases](releases.md): what to install, how versions work, how to upgrade and roll back.
 
 - [Concepts](concepts.md): how the pieces fit together, and the few rules that matter.
 - [Your framework](frameworks/README.md): setup and gotchas for your stack.

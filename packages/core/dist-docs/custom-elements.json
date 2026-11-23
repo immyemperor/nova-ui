@@ -3569,6 +3569,13 @@
               },
               "default": "false",
               "description": "Fill the shape with the current colour (e.g. a solid star)."
+            },
+            {
+              "name": "library",
+              "type": {
+                "text": "'nova' | 'material'"
+              },
+              "description": "Icon set for this icon. Leave unset to use the page setting (setIconLibrary)."
             }
           ],
           "members": [
@@ -3604,6 +3611,14 @@
               },
               "default": "false",
               "description": "Fill the shape with the current colour (e.g. a solid star)."
+            },
+            {
+              "kind": "field",
+              "name": "library",
+              "type": {
+                "text": "'nova' | 'material'"
+              },
+              "description": "Icon set for this icon. Leave unset to use the page setting (setIconLibrary)."
             }
           ],
           "events": [],

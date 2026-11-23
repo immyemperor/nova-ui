@@ -2,7 +2,9 @@
   "name": "playground-next",
   "private": true,
   "scripts": {
+    "predev": "node ../shared/scripts/snapshot.mjs",
     "dev": "next dev",
+    "prebuild": "node ../shared/scripts/snapshot.mjs",
     "build": "next build",
     "start": "next start"
   },

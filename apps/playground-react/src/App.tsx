@@ -1,10 +1,16 @@
 import { useEffect, useMemo, useState } from 'react';
+import { SourceFile } from '../../shared/react/CodeBlock';
+import { ExplorerLayout } from '../../shared/react/explorer/ExplorerLayout';
+import { useRoute } from '../../shared/react/explorer/route';
+import appSrc from './App.tsx?raw';
+import apiSrc from './api.ts?raw';
 import type { FormEvent } from 'react';
 import {
   UiAlert, UiBadge, UiButton, UiCard, UiChart, UiDateRangePicker, UiField, UiIcon, UiInput, UiModal, UiSelect, UiSidebar,
   UiSidebarItem, UiTable, UiTabs, UiTab, UiTabPanel, UiThemeToggle, UiToaster, confirm, prompt, toast,
 } from '@nova-ui/react';
-import type { DateRange, TableColumn } from '@nova-ui/react';
+import type { DateRange, IconLibrary, TableColumn } from '@nova-ui/react';
+import { getIconLibrary, setIconLibrary } from '@nova-ui/react';
 import { fetchInvoices } from './api';
 import type { Invoice, Query } from './api';
 
@@ -134,14 +140,29 @@ function Dashboard() {
 /* ---------- Shell ---------- */
 export function App() {
   const [section, setSection] = useState('dashboard');
+  const route = useRoute();
+  const [iconSet, setIconSet] = useState<IconLibrary>(getIconLibrary());
+  const toggleIcons = () => {
+    const next: IconLibrary = iconSet === 'nova' ? 'material' : 'nova';
+    setIconLibrary(next);
+    setIconSet(next);
+  };
   const [banner, setBanner] = useState(true);
+
+  if (route.kind !== 'catalogue') {
+    return <ExplorerLayout route={route} appName="Billing" backHref="#/" backLabel="Back to the app" />;
+  }
 
   return (
     <div className="nova-shell nova-shell-sidebar nova-shell-sticky-side">
       <header className="nova-shell__header nova-bg-surface nova-border-b nova-sticky-top nova-z-20">
         <div className="nova-cluster nova-cluster-between nova-px-4 nova-py-3">
           <strong>Billing</strong>
-          <UiThemeToggle />
+          <div className="nova-cluster">
+            <a className="nova-btn nova-btn-ghost nova-btn-sm" href="#/component/ui-button">Components</a>
+            <button type="button" className="nova-btn nova-btn-ghost nova-btn-sm" onClick={toggleIcons}>Icons: {iconSet === 'nova' ? 'Nova' : 'Material'}</button>
+            <UiThemeToggle />
+          </div>
         </div>
       </header>
 
@@ -170,6 +191,13 @@ export function App() {
             <UiTabPanel value="invoices"><InvoiceTable /></UiTabPanel>
             <UiTabPanel value="team"><InviteForm /></UiTabPanel>
           </UiTabs>
+
+          <section className="nova-stack nova-stack-sm" id="source">
+            <h2 className="nova-h4">Source code</h2>
+            <p className="nova-caption">Copy any file. The invoice API is in src/api.ts; replace it with your backend.</p>
+            <SourceFile title="App.tsx" code={appSrc} />
+            <SourceFile title="api.ts" code={apiSrc} />
+          </section>
         </div>
       </main>
       <UiToaster />

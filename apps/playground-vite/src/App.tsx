@@ -4,6 +4,20 @@ import {
   UiRadio, UiRadioGroup, UiRating, UiReveal, UiSkeleton, UiSlider, UiSpinner, UiStagger, UiSwitch,
   UiTextarea, UiThemeToggle, useTheme,
 } from '@nova-ui/react';
+import { SourceFile } from '../../shared/react/CodeBlock';
+import { setIconLibrary, getIconLibrary } from '@nova-ui/react';
+import type { IconLibrary } from '@nova-ui/react';
+import appSrc from './App.tsx?raw';
+import newFeaturesSrc from './NewFeaturesDemo.tsx?raw';
+import featuresSrc from './FeaturesDemo.tsx?raw';
+import chartsSrc from './ChartsDemo.tsx?raw';
+import dataSrc from './DataDemo.tsx?raw';
+import navSrc from './NavDemo.tsx?raw';
+import overlaySrc from './OverlayDemo.tsx?raw';
+import editorSrc from './EditorDemo.tsx?raw';
+import layoutSrc from './LayoutDemo.tsx?raw';
+import blocksSrc from './BlocksDemo.tsx?raw';
+import cssSrc from './playground.css?raw';
 import { BlocksDemo } from './BlocksDemo';
 import { ChartsDemo } from './ChartsDemo';
 import { DataDemo } from './DataDemo';
@@ -13,23 +27,22 @@ import { LayoutDemo } from './LayoutDemo';
 import { NavDemo } from './NavDemo';
 import { NewFeaturesDemo } from './NewFeaturesDemo';
 import { OverlayDemo } from './OverlayDemo';
+import { Explorer } from '../../shared/react/explorer/Explorer';
+import { useRoute } from '../../shared/react/explorer/route';
+import { ComponentPage } from '../../shared/react/explorer/ComponentPage';
+import { IconBrowser } from '../../shared/react/explorer/IconBrowser';
 
-const SECTIONS = [
-  ['forms', 'Forms'],
-  ['display', 'Display'],
-  ['layout', 'Layout + components'],
-  ['features', 'New features'],
-  ['charts', 'Charts'],
-  ['blocks', 'Page blocks'],
-  ['new-features', 'Newest features'],
-  ['editor', 'Rich text editor'],
-  ['data', 'Data'],
-  ['navigation', 'Navigation'],
-  ['overlays', 'Overlays'],
-] as const;
 
 export function App() {
   const { mode, resolved } = useTheme();
+  const route = useRoute();
+  const active = route.kind === 'component' ? route.tag : route.kind === 'icons' ? `icons-${route.family}` : 'catalogue';
+  const [iconSet, setIconSet] = useState<IconLibrary>(getIconLibrary());
+  const toggleIcons = () => {
+    const next: IconLibrary = iconSet === 'nova' ? 'material' : 'nova';
+    setIconLibrary(next);
+    setIconSet(next);
+  };
   const [saving, setSaving] = useState(false);
   const [email, setEmail] = useState('');
   const [volume, setVolume] = useState(40);
@@ -46,10 +59,6 @@ export function App() {
     setTimeout(() => setSaving(false), 900);
   };
 
-  const links = SECTIONS.map(([id, label]) => (
-    <a key={id} href={`#${id}`}>{label}</a>
-  ));
-
   return (
     <>
       <a className="nova-skip-link" href="#main">Skip to content</a>
@@ -63,21 +72,26 @@ export function App() {
               <span className="nova-small nova-text-muted nova-hide-below-sm">
                 {mode} ({resolved})
               </span>
+              <button type="button" className="nova-btn nova-btn-ghost nova-btn-sm" onClick={toggleIcons} aria-label={`Icon set: ${iconSet}. Switch icon set.`}>
+                Icons: {iconSet === 'nova' ? 'Nova' : 'Material'}
+              </button>
               <UiThemeToggle />
             </div>
           </div>
         </header>
 
         <nav className="nova-shell__sidebar nova-hide-below-md nova-p-4 nova-border-e" aria-label="Sections">
-          <div className="nova-stack nova-stack-xs pg-nav">{links}</div>
+          <Explorer active={active} />
         </nav>
 
         <main className="nova-shell__main nova-p-4 nova-md-p-6" id="main">
           <details className="nova-hide-md-up nova-mb-6">
-            <summary>Sections</summary>
-            <div className="nova-stack nova-stack-xs nova-pt-2 pg-nav">{links}</div>
+            <summary>Components and icons</summary>
+            <div className="nova-pt-2"><Explorer active={active} /></div>
           </details>
 
+          {route.kind === 'catalogue' && (
+            <>
           <div className="nova-container-lg nova-stack nova-stack-xl nova-ps-0 nova-pe-0">
             {alertOpen && (
               <UiAlert tone="info" heading="Layout classes wired in" dismissible onUiDismiss={() => setAlertOpen(false)}>
@@ -164,6 +178,25 @@ export function App() {
               </UiReveal>
             </section>
           </div>
+            <section className="nova-stack nova-stack-sm" id="source">
+              <h2 className="nova-h3">Source code</h2>
+              <p className="nova-caption">Every demo is plain React and @nova-ui/react. Open a file to read it, copy it, or wrap long lines.</p>
+              <SourceFile title="App.tsx" code={appSrc} />
+              <SourceFile title="NewFeaturesDemo.tsx" code={newFeaturesSrc} />
+              <SourceFile title="FeaturesDemo.tsx" code={featuresSrc} />
+              <SourceFile title="ChartsDemo.tsx" code={chartsSrc} />
+              <SourceFile title="DataDemo.tsx" code={dataSrc} />
+              <SourceFile title="NavDemo.tsx" code={navSrc} />
+              <SourceFile title="OverlayDemo.tsx" code={overlaySrc} />
+              <SourceFile title="EditorDemo.tsx" code={editorSrc} />
+              <SourceFile title="LayoutDemo.tsx" code={layoutSrc} />
+              <SourceFile title="BlocksDemo.tsx" code={blocksSrc} />
+              <SourceFile title="playground.css" code={cssSrc} />
+            </section>
+            </>
+          )}
+          {route.kind === 'component' && <ComponentPage tag={route.tag} />}
+          {route.kind === 'icons' && <IconBrowser family={route.family} />}
         </main>
       </div>
     </>

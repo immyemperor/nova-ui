@@ -15,5 +15,14 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/immyemperor/nova-ui.git",
+    "directory": "packages/tailwind"
+  },
+  "homepage": "https://github.com/immyemperor/nova-ui#readme",
+  "bugs": {
+    "url": "https://github.com/immyemperor/nova-ui/issues"
   }
 }

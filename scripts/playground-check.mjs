@@ -26,7 +26,9 @@ function walk(dir, ext) {
 }
 
 // 1 + 2: Angular templates (inline `template:` strings in .ts files)
-const angularFiles = walk(join(root, 'apps/playground-angular/src'), '.ts');
+// source.ts is a generated snapshot of the app's own code (as a string); it is not a template to check.
+const GENERATED = (f) => /\/(source|library-data)\.ts$/.test(f); // snapshots of other files, stored as strings
+const angularFiles = walk(join(root, 'apps/playground-angular/src'), '.ts').filter((f) => !GENERATED(f));
 let tags = 0, bindings = 0;
 for (const file of angularFiles) {
   const src = readFileSync(file, 'utf8');
@@ -35,6 +37,7 @@ for (const file of angularFiles) {
     const tag = m[1];
     tags++;
     const d = decls[tag];
+    if (!d && tag.startsWith('app-')) continue; // local components in the playground itself
     if (!d) { fail(`${file.replace(root + '/', '')}: <${tag}> is not a Nova component`); continue; }
     const props = new Set(d.attributes.map((a) => a.name));
     const events = new Set(d.events.map((e) => e.name));
@@ -62,17 +65,59 @@ console.log(`ok   ${tags} Angular component tags and ${bindings} bindings checke
 const sheets = [
   readFileSync(join(root, 'packages/css/dist/nova.css'), 'utf8'),
   ...walk(join(root, 'apps'), '.css').map((f) => readFileSync(f, 'utf8')),
+  // the Material icon classes are generated from this template (nova-icon, nova-icon-<name>)
+  readFileSync(join(root, 'packages/css/scripts/download-material-icons.mjs'), 'utf8'),
 ];
 const defined = new Set(sheets.flatMap((s) => [...s.matchAll(/\.((?:nova|pg)-[\w-]+)/g)].map((m) => m[1])));
-const sources = walk(join(root, 'apps'), '.tsx').concat(walk(join(root, 'apps'), '.ts'), walk(join(root, 'apps'), '.html'));
+const sources = walk(join(root, 'apps'), '.tsx').concat(walk(join(root, 'apps'), '.ts'), walk(join(root, 'apps'), '.html')).filter((f) => !GENERATED(f));
 const missing = new Set();
 for (const f of sources) {
   for (const m of readFileSync(f, 'utf8').matchAll(/(?:className|class)=["']([^"']+)["']/g)) {
-    for (const c of m[1].split(/\s+/)) if (/^(nova|pg)-/.test(c) && !defined.has(c)) missing.add(`${c} (${f.replace(root + '/', '')})`);
+    for (const c of m[1].split(/\s+/)) {
+      if (c.includes('$') || c.includes('{')) continue; // assembled at runtime; checked where it is generated
+      if (/^(nova|pg)-/.test(c) && !defined.has(c)) missing.add(`${c} (${f.replace(root + '/', '')})`);
+    }
   }
 }
 if (missing.size) for (const c of missing) fail(`class not defined: ${c}`);
 else console.log('ok   every nova-* and pg-* class used in the playgrounds is defined');
+
+
+// 4: the explorer lists every component exactly once, and every live example matches a component
+const catalogSrc = readFileSync(join(root, 'apps/shared/react/explorer/catalog.ts'), 'utf8');
+const catalogTags = [...catalogSrc.matchAll(/'(ui-[\w-]+)'/g)].map((m) => m[1]);
+const manifestTags = Object.keys(decls);
+const notListed = manifestTags.filter((t) => !catalogTags.includes(t));
+const unknownInCatalog = [...new Set(catalogTags.filter((t) => !manifestTags.includes(t)))];
+const duplicated = [...new Set(catalogTags.filter((t, i) => catalogTags.indexOf(t) !== i))];
+if (notListed.length) fail(`explorer does not list: ${notListed.join(', ')}`);
+if (unknownInCatalog.length) fail(`explorer lists unknown components: ${unknownInCatalog.join(', ')}`);
+if (duplicated.length) fail(`explorer lists more than once: ${duplicated.join(', ')}`);
+if (!notListed.length && !unknownInCatalog.length && !duplicated.length) console.log(`ok   explorer lists all ${manifestTags.length} components, each once`);
+
+const examplesSrc = readFileSync(join(root, 'apps/shared/react/explorer/examples.tsx'), 'utf8');
+const markers = [...examplesSrc.matchAll(/\/\/ @example (ui-[\w-]+)/g)].map((m) => m[1]);
+const mapKeys = [...examplesSrc.slice(examplesSrc.indexOf('export const EXAMPLES')).matchAll(/'(ui-[\w-]+)':/g)].map((m) => m[1]);
+const noMarker = mapKeys.filter((k) => !markers.includes(k));
+const noMapEntry = markers.filter((k) => !mapKeys.includes(k));
+const badExample = markers.filter((k) => !manifestTags.includes(k));
+if (noMarker.length) fail(`live examples without a source marker: ${noMarker.join(', ')}`);
+if (noMapEntry.length) fail(`source blocks not registered in EXAMPLES: ${noMapEntry.join(', ')}`);
+if (badExample.length) fail(`examples for unknown components: ${badExample.join(', ')}`);
+if (!noMarker.length && !noMapEntry.length && !badExample.length) console.log(`ok   ${markers.length} live examples match their source blocks and components`);
+
+
+// 5: Angular examples: each class in ANGULAR_EXAMPLES has a source marker, and each marker is registered
+const angularExamplesSrc = readFileSync(join(root, 'apps/playground-angular/src/app/explorer/examples.ts'), 'utf8');
+const angularMarkers = [...angularExamplesSrc.matchAll(/\/\/ @example (ui-[\w-]+)/g)].map((m) => m[1]);
+const angularKeys = [...angularExamplesSrc.slice(angularExamplesSrc.indexOf('export const ANGULAR_EXAMPLES')).matchAll(/'(ui-[\w-]+)':/g)].map((m) => m[1]);
+const angularNoMarker = angularKeys.filter((k) => !angularMarkers.includes(k));
+const angularNoEntry = angularMarkers.filter((k) => !angularKeys.includes(k));
+const angularBad = angularMarkers.filter((k) => !manifestTags.includes(k));
+if (angularNoMarker.length) fail(`Angular examples without a source marker: ${angularNoMarker.join(', ')}`);
+if (angularNoEntry.length) fail(`Angular source blocks not registered in ANGULAR_EXAMPLES: ${angularNoEntry.join(', ')}`);
+if (angularBad.length) fail(`Angular examples for unknown components: ${angularBad.join(', ')}`);
+if (!angularNoMarker.length && !angularNoEntry.length && !angularBad.length) console.log(`ok   ${angularMarkers.length} Angular live examples match their source blocks and components`);
 
 if (failures) { console.error(`\n${failures} playground problem(s)`); process.exit(1); }
 console.log('\nplayground checks passed');

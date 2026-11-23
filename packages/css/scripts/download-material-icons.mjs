@@ -1,7 +1,9 @@
 // Downloads Google's complete Material Symbols Outlined font and generates one class per icon.
+//   pnpm --filter @nova-ui/css icons:update
+// Writes into this package: src/generated/ (CSS, names, font, licence) and docs/icons.html (browsable gallery).
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const generated = join(root, 'src/generated');
@@ -10,22 +12,23 @@ const codepointsUrl = `${source}/variablefont/MaterialSymbolsOutlined%5BFILL%2CG
 const fontUrl = `${source}/variablefont/MaterialSymbolsOutlined%5BFILL%2CGRAD%2Copsz%2Cwght%5D.woff2`;
 const licenseUrl = `${source}/LICENSE`;
 
-async function download(url) {
-  const response = await fetch(url);
-  if (!response.ok) throw new Error(`Download failed (${response.status}): ${url}`);
-  return response;
+/** Parse Google's ".codepoints" catalogue: one "icon_name hexcodepoint" pair per line. */
+export function parseCodepoints(text) {
+  const entries = text.split(/\r?\n/).map((line) => line.trim().split(/\s+/))
+    // Icon names are lowercase words; codepoints are 4 to 6 hex digits (a single 'a' is not one).
+    .filter(([name, value]) => /^[a-z0-9_]+$/.test(name ?? '') && /^[0-9a-f]{4,6}$/i.test(value ?? ''));
+  if (!entries.length) throw new Error('Google icon codepoints catalog was empty or had an unexpected format.');
+  return entries;
 }
 
-mkdirSync(generated, { recursive: true });
-const [codepointsResponse, fontResponse, licenseResponse] = await Promise.all([
-  download(codepointsUrl), download(fontUrl), download(licenseUrl),
-]);
-const codepoints = await codepointsResponse.text();
-const entries = codepoints.split(/\r?\n/).map((line) => line.trim().split(/\s+/)).filter(([name, value]) => name && /^[0-9a-f]+$/i.test(value ?? ''));
-if (!entries.length) throw new Error('Google icon codepoints catalog was empty or had an unexpected format.');
+/** One CSS rule per icon. The codepoint is written with a single backslash: content:"\e87d ". */
+export function iconRules(entries) {
+  return entries.map(([name, value]) => `.nova-icon-${name.replaceAll('_', '-')}::before{content:"\\${Number.parseInt(value, 16).toString(16)} "}`).join('\n');
+}
 
-const rules = entries.map(([name, value]) => `.nova-icon-${name.replaceAll('_', '-')}::before{content:"\\${Number.parseInt(value, 16).toString(16)} "}`).join('\n');
-const css = `/* Generated from Google Material Symbols Outlined. Run pnpm --filter @nova-ui/css icons:update. */
+export function buildCss(entries) {
+  const rules = iconRules(entries);
+  return `/* Generated from Google Material Symbols Outlined. Run pnpm --filter @nova-ui/css icons:update. */
 @font-face{font-family:"Nova Material Symbols";font-style:normal;font-weight:100 700;font-display:swap;src:url("./material-symbols-outlined.woff2") format("woff2");}
 @layer nova.reset, nova.tokens, nova.base, nova.layout, nova.components, nova.utilities;
 @layer nova.utilities{
@@ -36,15 +39,22 @@ const css = `/* Generated from Google Material Symbols Outlined. Run pnpm --filt
 ${rules}
 }
 `;
+}
 
-const iconNames = JSON.stringify(entries.map(([name]) => name));
-const gallery = `<!doctype html>
+export function buildNames(entries) {
+  return JSON.stringify(entries.map(([name]) => name)) + '\n';
+}
+
+export function buildGallery(entries) {
+  const iconNames = JSON.stringify(entries.map(([name]) => name));
+  return `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Material Symbols | Nova UI</title>
   <link rel="stylesheet" href="../dist/nova.min.css" />
+  <link rel="stylesheet" href="../dist/icons.css" />
   <style>
     body { min-block-size: 100vh; background: var(--nova-color-bg); }
     .icon-page { max-inline-size: 82rem; margin-inline: auto; padding: var(--nova-space-6) var(--nova-gutter); }
@@ -125,10 +135,31 @@ const gallery = `<!doctype html>
 </body>
 </html>
 `;
+}
 
-writeFileSync(join(generated, 'material-icons.css'), css);
-writeFileSync(join(generated, 'material-icon-names.json'), JSON.stringify(entries.map(([name]) => name)) + '\n');
-writeFileSync(join(generated, 'material-symbols-outlined.woff2'), Buffer.from(await fontResponse.arrayBuffer()));
-writeFileSync(join(generated, 'MATERIAL_SYMBOLS_LICENSE.txt'), await licenseResponse.text());
-writeFileSync(join(root, 'docs/icons.html'), gallery);
-console.log(`Generated ${entries.length} Material Symbols classes and downloaded the official WOFF2 font.`);
+async function download(url, fetchFn) {
+  const response = await fetchFn(url);
+  if (!response.ok) throw new Error(`Download failed (${response.status}): ${url}`);
+  return response;
+}
+
+/** Download, build and write everything. `fetchFn` and `outDir` can be replaced in tests. */
+export async function updateMaterialIcons({ fetchFn = fetch, outDir = generated, docsDir = join(root, 'docs') } = {}) {
+  mkdirSync(outDir, { recursive: true });
+  const [codepointsResponse, fontResponse, licenseResponse] = await Promise.all([
+    download(codepointsUrl, fetchFn), download(fontUrl, fetchFn), download(licenseUrl, fetchFn),
+  ]);
+  const entries = parseCodepoints(await codepointsResponse.text());
+  writeFileSync(join(outDir, 'material-icons.css'), buildCss(entries));
+  writeFileSync(join(outDir, 'material-icon-names.json'), buildNames(entries));
+  writeFileSync(join(outDir, 'material-symbols-outlined.woff2'), Buffer.from(await fontResponse.arrayBuffer()));
+  writeFileSync(join(outDir, 'MATERIAL_SYMBOLS_LICENSE.txt'), await licenseResponse.text());
+  mkdirSync(docsDir, { recursive: true });
+  writeFileSync(join(docsDir, 'icons.html'), buildGallery(entries));
+  return entries.length;
+}
+
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  const count = await updateMaterialIcons();
+  console.log(`Generated ${count} Material Symbols classes and downloaded the official WOFF2 font.`);
+}

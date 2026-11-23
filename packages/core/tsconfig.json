@@ -5,13 +5,14 @@
     "declaration": false,
     "experimentalDecorators": true,
     "lib": ["dom", "es2020"],
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "module": "esnext",
     "target": "es2017",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "jsx": "react",
-    "jsxFactory": "h"
+    "jsxFactory": "h",
+    "isolatedModules": false
   },
   "include": ["src"],
   "exclude": ["node_modules"]
