@@ -14,6 +14,13 @@ jobs:
         with: { node-version: 22, cache: pnpm }
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
+      - name: Diagnose browser install
+        working-directory: packages/core
+        run: |
+          echo "playwright version:"; node -p "require('playwright/package.json').version"
+          echo "expected path:"; node -e "console.log(require('playwright').chromium.executablePath())"
+          echo "cache contents:"; ls -la ~/.cache/ms-playwright 2>&1 || echo "no ms-playwright cache"
+          echo "headless shell present?"; ls -d ~/.cache/ms-playwright/chromium_headless_shell-* 2>&1 || echo "NO headless shell in cache"
       - name: Unit tests (core logic, sanitiser, docs, tailwind, vue)
         run: pnpm -r test
       - name: CSS checks and browser layout tests
