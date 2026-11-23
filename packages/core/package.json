@@ -36,7 +36,7 @@
   "scripts": {
     "build": "stencil build",
     "start": "stencil build --dev --watch",
-    "test": "node --test test/*.test.mjs",
+    "test": "node test/run-all.mjs",
     "docs": "node scripts/generate-docs.mjs"
   },
   "dependencies": {
