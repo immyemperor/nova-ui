@@ -60,9 +60,19 @@ jobs:
         run: pnpm build
 
       - name: Install Chromium for browser tests
-        run: pnpm --filter @nova-ui/core exec playwright install --with-deps chromium chromium-headless-shell
+        working-directory: packages/core
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.pw-browsers
+        run: |
+          npx playwright install --with-deps chromium chromium-headless-shell
+          echo "installed under $PLAYWRIGHT_BROWSERS_PATH:"
+          ls -la "$PLAYWRIGHT_BROWSERS_PATH"
+          test -n "$(ls -d "$PLAYWRIGHT_BROWSERS_PATH"/chromium_headless_shell-* 2>/dev/null)" \
+            || { echo "headless shell was NOT installed"; exit 1; }
 
       - name: Test
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.pw-browsers
         run: |
           pnpm test
           pnpm check:names
