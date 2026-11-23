@@ -8,13 +8,13 @@
     "build": "ng-packagr -p ng-package.json -c tsconfig.lib.json"
   },
   "dependencies": {
-    "@omni/core": "0.1.0",
+    "@omni/core": "workspace:*",
     "tslib": "^2.6.0"
   },
   "peerDependencies": {
     "@angular/common": ">=17",
     "@angular/core": ">=17",
-    "@omni/core": "0.1.0",
+    "@omni/core": "^0.1.0",
     "@omni/editor": "^0.1.0"
   },
   "devDependencies": {
@@ -26,8 +26,8 @@
     "rxjs": "^7.8.0",
     "typescript": "~5.6.0",
     "zone.js": "^0.15.0",
-    "@omni/core": "0.1.0",
-    "@omni/editor": "0.1.0"
+    "@omni/core": "workspace:^",
+    "@omni/editor": "workspace:^"
   },
   "publishConfig": {
     "access": "public"

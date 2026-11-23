@@ -77,9 +77,9 @@ export function main(argv = process.argv.slice(2)) {
       rmSync(DEST, { recursive: true, force: true });
       mkdirSync(DEST, { recursive: true });
       for (const pkgDir of publishable()) {
-        const from = existsSync(join(pkgDir, 'dist', 'package.json')) ? join(pkgDir, 'dist') : pkgDir;
-        run('pnpm', ['pack', '--pack-destination', DEST], { cwd: from });
-      }
+  const from = existsSync(join(pkgDir, 'dist', 'package.json')) ? join(pkgDir, 'dist') : pkgDir;
+  run('pnpm', ['--dir', pkgDir, 'pack', from, '--pack-destination', DEST]);
+}
       run('sh', ['-c', `cd "${DEST}" && sha256sum *.tgz > SHA256SUMS.txt`]);
       console.log(`packed into ${DEST}`);
     },

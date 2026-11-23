@@ -10,9 +10,12 @@
     "test": "node --test test/vue-wrappers.test.mjs",
     "build": "tsc -p tsconfig.json"
   },
+  "dependencies": {
+    "@omni/core": "workspace:^"
+  },
   "peerDependencies": {
     "vue": ">=3.3.0",
-    "@omni/core": "0.1.0"
+    "@omni/core": "^0.1.0"
   },
   "publishConfig": {
     "access": "public"
