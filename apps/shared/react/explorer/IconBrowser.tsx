@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import type { ChangeEvent } from 'react';
-import { UiIcon, listIcons } from '@omni/react';
+import { UiIcon, listIcons } from '@kvui/react';
 import { copyText } from '../CodeBlock';
 
 import { MATERIAL_NAMES } from '../../generated/library';
@@ -52,7 +52,7 @@ export function IconBrowser({ family }: { family: 'material' | 'nova' }) {
       {family === 'material' && MATERIAL.length === 0 && (
         <div className="nova-alert nova-alert-warning" role="status">
           <p className="nova-alert__title">Material names not generated yet</p>
-          Run <code>pnpm --filter @omni/css icons:update</code>, then <code>pnpm --filter @omni/css build</code>, and reload.
+          Run <code>pnpm --filter @kvui/css icons:update</code>, then <code>pnpm --filter @kvui/css build</code>, and reload.
         </div>
       )}
 

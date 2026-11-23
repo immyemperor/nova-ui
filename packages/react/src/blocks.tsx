@@ -3,7 +3,7 @@ import { UiAlert, UiBadge, UiButton, UiCard, UiCheckbox, UiChart, UiIcon, UiInpu
 import type { TableColumn, TableRow } from './index';
 
 /**
- * Ready-made page compositions built from Nova components and @omni/css layout classes.
+ * Ready-made page compositions built from Nova components and @kvui/css layout classes.
  * Copy one into your app and change the content; each block is a starting point, not a framework.
  */
 

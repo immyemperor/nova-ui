@@ -1,5 +1,5 @@
 {
-  "name": "@omni/react",
+  "name": "@kvui/react",
   "version": "0.1.0",
   "description": "React and Next.js bindings for Nova UI.",
   "license": "MIT",
@@ -32,16 +32,16 @@
     "build": "tsup"
   },
   "dependencies": {
-    "@omni/core": "workspace:^",
+    "@kvui/core": "workspace:^",
     "@stencil/react-output-target": "^1.8.1"
   },
   "peerDependencies": {
-    "@omni/editor": "^0.1.0",
+    "@kvui/editor": "^0.1.0",
     "react": ">=18",
     "react-dom": ">=18"
   },
   "devDependencies": {
-    "@omni/editor": "workspace:^",
+    "@kvui/editor": "workspace:^",
     "@types/react": "^19.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -52,7 +52,7 @@
     "access": "public"
   },
   "peerDependenciesMeta": {
-    "@omni/editor": {
+    "@kvui/editor": {
       "optional": true
     }
   },

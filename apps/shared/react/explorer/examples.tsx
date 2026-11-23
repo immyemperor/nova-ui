@@ -10,7 +10,7 @@ import {
   UiMenuItem, UiModal, UiPagination, UiProgress, UiRadio, UiRadioGroup, UiRating, UiScheduler, UiSelect, UiSlider,
   UiSortable, UiSparkline, UiSpinner, UiSplit, UiStepper, UiStep, UiSwitch, UiTable, UiTabs, UiTab, UiTabPanel,
   UiTextarea, UiThemeToggle, UiTimePicker, UiToaster, UiTooltip, UiTree, UiVirtualList, UiAvatar, toast,
-} from '@omni/react';
+} from '@kvui/react';
 
 // @example ui-button
 function ButtonExample() {

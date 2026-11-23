@@ -1,6 +1,6 @@
 # Utilities
 
-Helpers exported from `@omni/core` for logic your app shares with the components.
+Helpers exported from `@kvui/core` for logic your app shares with the components.
 
 | Area | Functions | Use |
 | --- | --- | --- |

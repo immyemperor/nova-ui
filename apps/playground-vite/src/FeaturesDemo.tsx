@@ -2,8 +2,8 @@ import { useState } from 'react';
 import {
   UiButton, UiDateRangePicker, UiField, UiFileUpload, UiHtml, UiSelect, UiSidebar, UiSidebarItem,
   UiTimePicker, confirm, prompt, toast,
-} from '@omni/react';
-import type { DateRange } from '@omni/react';
+} from '@kvui/react';
+import type { DateRange } from '@kvui/react';
 
 const untrusted = `<h3>Release notes</h3><p>Fixed the <strong>export</strong> bug. <a href="javascript:alert(1)">this link is removed</a>.</p><script>alert('xss')</script><img src="https://example.com/x.png" alt="chart" onerror="alert(1)"><p>Ends here.</p>`;
 

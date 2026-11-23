@@ -17,27 +17,27 @@ Skip this if you use only the Nova set.
 
 ## Offline: bundled Material icons
 
-Instead of the Google link, `@omni/css` can ship the Material Symbols font itself. A maintainer runs this once, and rebuilds:
+Instead of the Google link, `@kvui/css` can ship the Material Symbols font itself. A maintainer runs this once, and rebuilds:
 
 ```bash
-pnpm --filter @omni/css icons:update
-pnpm --filter @omni/css build
+pnpm --filter @kvui/css icons:update
+pnpm --filter @kvui/css build
 ```
 
 Then load the generated stylesheet and use the `nova-icon` classes (no network needed):
 
 ```html
-<link rel="stylesheet" href="/node_modules/@omni/css/icons.css" />
+<link rel="stylesheet" href="/node_modules/@kvui/css/icons.css" />
 <span class="nova-icon nova-icon-home" aria-hidden="true"></span>
 <span class="nova-icon nova-icon-star nova-icon-filled nova-icon-lg"></span>
 ```
 
-Sizes: `nova-icon-xs`, `-sm`, `-md`, `-lg`, `-xl`. The icon names are listed in `@omni/css/material-icon-names.json`. The official licence is copied alongside the font.
+Sizes: `nova-icon-xs`, `-sm`, `-md`, `-lg`, `-xl`. The icon names are listed in `@kvui/css/material-icon-names.json`. The official licence is copied alongside the font.
 
 ## Choose the set
 
 ```js
-import { setIconLibrary } from '@omni/core';
+import { setIconLibrary } from '@kvui/core';
 
 setIconLibrary('material'); // every <ui-icon> on the page switches; icons redraw automatically
 setIconLibrary('nova');
@@ -78,12 +78,12 @@ In the Material set, Nova names map to Material names. Some common ones:
 | `plus` | `add` | `calendar` | `calendar_month` |
 | `upload` | `upload` | `download` | `download` |
 
-Use a Material name directly if it isn't in the table. It's looked up as a Material ligature. Run `MATERIAL_NAMES` from `@omni/core` for the complete mapping.
+Use a Material name directly if it isn't in the table. It's looked up as a Material ligature. Run `MATERIAL_NAMES` from `@kvui/core` for the complete mapping.
 
 ## Add your own
 
 ```js
-import { registerIcons } from '@omni/core';
+import { registerIcons } from '@kvui/core';
 
 registerIcons({
   logo: '<path d="M4 4h16v16H4z"/>', // inner SVG, 24 x 24 viewBox, stroked

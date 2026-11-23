@@ -1,6 +1,6 @@
 import { useEffect, useSyncExternalStore } from 'react';
-import { getThemeMode, initTheme, onThemeChange, resolveTheme, setThemeMode } from '@omni/core';
-import type { ResolvedTheme, ThemeMode } from '@omni/core';
+import { getThemeMode, initTheme, onThemeChange, resolveTheme, setThemeMode } from '@kvui/core';
+import type { ResolvedTheme, ThemeMode } from '@kvui/core';
 
 const subscribe = (cb: () => void) => onThemeChange(() => cb());
 

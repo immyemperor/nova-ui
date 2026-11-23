@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy, signal } from '@angular/core';
-import { getThemeMode, initTheme, onThemeChange, resolveTheme, setThemeMode } from '@omni/core';
-import type { ResolvedTheme, ThemeMode } from '@omni/core';
+import { getThemeMode, initTheme, onThemeChange, resolveTheme, setThemeMode } from '@kvui/core';
+import type { ResolvedTheme, ThemeMode } from '@kvui/core';
 
 /** Signal-based theme state. Inject anywhere: `theme = inject(ThemeService)`. */
 @Injectable({ providedIn: 'root' })

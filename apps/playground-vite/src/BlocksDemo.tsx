@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { DashboardBlock, LoginBlock, OnboardingBlock, PricingBlock, SettingsBlock, UiButton, UiCard, UiSwitch, usePresence } from '@omni/react';
+import { DashboardBlock, LoginBlock, OnboardingBlock, PricingBlock, SettingsBlock, UiButton, UiCard, UiSwitch, usePresence } from '@kvui/react';
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
 

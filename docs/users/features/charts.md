@@ -52,4 +52,4 @@ Sparklines are small trend lines for tables and cards. The label should say the 
 
 ## Maths helpers
 
-`linearScale`, `niceTicks`, `extent`, `compact`, `linePath`, `areaPath`, `bars` and `donutSlices` are exported from `@omni/core`. Use them when you draw your own SVG and want the same scales.
+`linearScale`, `niceTicks`, `extent`, `compact`, `linePath`, `areaPath`, `bars` and `donutSlices` are exported from `@kvui/core`. Use them when you draw your own SVG and want the same scales.

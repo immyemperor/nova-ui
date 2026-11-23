@@ -4,7 +4,7 @@
 */
 @layer nova.reset, nova.tokens, nova.base, nova.layout, nova.components, nova.utilities;
 
-/* Colour, type, radius, shadow and motion tokens come from @omni/core, the single source of truth. */
+/* Colour, type, radius, shadow and motion tokens come from @kvui/core, the single source of truth. */
 @import url('../../core/src/global/tokens.css') layer(nova.tokens);
 @import url('./tokens.css');
 @import url('./reset.css');

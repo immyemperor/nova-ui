@@ -4,13 +4,13 @@
   "commit": false,
   "fixed": [
     [
-      "@omni/core",
-      "@omni/react",
-      "@omni/angular",
-      "@omni/editor",
-      "@omni/css",
-      "@omni/vue",
-      "@omni/tailwind"
+      "@kvui/core",
+      "@kvui/react",
+      "@kvui/angular",
+      "@kvui/editor",
+      "@kvui/css",
+      "@kvui/vue",
+      "@kvui/tailwind"
     ]
   ],
   "linked": [],

@@ -1,7 +1,7 @@
 ---
-"@omni/core": minor
-"@omni/react": minor
-"@omni/angular": minor
+"@kvui/core": minor
+"@kvui/react": minor
+"@kvui/angular": minor
 ---
 
 Phase 4: data table with pagination, sorting, search, selection and server mode; tree, carousel, marquee,

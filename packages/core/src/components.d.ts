@@ -1239,7 +1239,7 @@ export namespace Components {
      * App sidebar: a navigation column that collapses to an icon rail (`collapsed`), and becomes an
      * off-canvas drawer on phones. Put <ui-sidebar-item> children inside, optionally in groups.
      * Sidebar and the page's own layout: pair it with `.nova-shell-sidebar` from
-     * @omni /css.
+     * @kvui /css.
      */
     interface UiSidebar {
         /**
@@ -2818,7 +2818,7 @@ declare global {
      * App sidebar: a navigation column that collapses to an icon rail (`collapsed`), and becomes an
      * off-canvas drawer on phones. Put <ui-sidebar-item> children inside, optionally in groups.
      * Sidebar and the page's own layout: pair it with `.nova-shell-sidebar` from
-     * @omni /css.
+     * @kvui /css.
      */
     interface HTMLUiSidebarElement extends Components.UiSidebar, HTMLStencilElement {
         addEventListener<K extends keyof HTMLUiSidebarElementEventMap>(type: K, listener: (this: HTMLUiSidebarElement, ev: UiSidebarCustomEvent<HTMLUiSidebarElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -4589,7 +4589,7 @@ declare namespace LocalJSX {
      * App sidebar: a navigation column that collapses to an icon rail (`collapsed`), and becomes an
      * off-canvas drawer on phones. Put <ui-sidebar-item> children inside, optionally in groups.
      * Sidebar and the page's own layout: pair it with `.nova-shell-sidebar` from
-     * @omni /css.
+     * @kvui /css.
      */
     interface UiSidebar {
         /**
@@ -6098,7 +6098,7 @@ declare module "@stencil/core" {
              * App sidebar: a navigation column that collapses to an icon rail (`collapsed`), and becomes an
              * off-canvas drawer on phones. Put <ui-sidebar-item> children inside, optionally in groups.
              * Sidebar and the page's own layout: pair it with `.nova-shell-sidebar` from
-             * @omni /css.
+             * @kvui /css.
              */
             "ui-sidebar": LocalJSX.IntrinsicElements["ui-sidebar"] & JSXBase.HTMLAttributes<HTMLUiSidebarElement>;
             /**

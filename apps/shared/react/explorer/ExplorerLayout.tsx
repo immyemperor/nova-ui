@@ -1,7 +1,7 @@
 'use client';
 
 import type { ReactNode } from 'react';
-import { UiThemeToggle } from '@omni/react';
+import { UiThemeToggle } from '@kvui/react';
 import { Explorer } from './Explorer';
 import { ComponentPage } from './ComponentPage';
 import { IconBrowser } from './IconBrowser';

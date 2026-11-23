@@ -2,8 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import {
   UiBadge, UiButton, UiCarousel, UiCard, UiColorPicker, UiDatePicker, UiMarquee, UiOtpInput, UiTable,
   UiTagInput, UiTree, toast,
-} from '@omni/react';
-import type { TableColumn, TableQuery, TableRow, TreeNode } from '@omni/react';
+} from '@kvui/react';
+import type { TableColumn, TableQuery, TableRow, TreeNode } from '@kvui/react';
 
 const roles = ['Engineer', 'Designer', 'Manager', 'Analyst'];
 const statuses = ['active', 'pending', 'archived'] as const;

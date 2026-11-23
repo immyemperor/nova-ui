@@ -1,5 +1,5 @@
 // Downloads Google's complete Material Symbols Outlined font and generates one class per icon.
-//   pnpm --filter @omni/css icons:update
+//   pnpm --filter @kvui/css icons:update
 // Writes into this package: src/generated/ (CSS, names, font, licence) and docs/icons.html (browsable gallery).
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -28,7 +28,7 @@ export function iconRules(entries) {
 
 export function buildCss(entries) {
   const rules = iconRules(entries);
-  return `/* Generated from Google Material Symbols Outlined. Run pnpm --filter @omni/css icons:update. */
+  return `/* Generated from Google Material Symbols Outlined. Run pnpm --filter @kvui/css icons:update. */
 @font-face{font-family:"Nova Material Symbols";font-style:normal;font-weight:100 700;font-display:swap;src:url("./material-symbols-outlined.woff2") format("woff2");}
 @layer nova.reset, nova.tokens, nova.base, nova.layout, nova.components, nova.utilities;
 @layer nova.utilities{

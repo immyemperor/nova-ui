@@ -1,4 +1,4 @@
-// Unit tests for the framework-free logic in @omni/core. Run: node --test test/
+// Unit tests for the framework-free logic in @kvui/core. Run: node --test test/
 // These files are TypeScript; we compile them with the TypeScript transpiler (no bundler needed).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';

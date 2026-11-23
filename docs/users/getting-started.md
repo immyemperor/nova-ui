@@ -7,13 +7,13 @@ Nova UI is a design system with one set of components that works in plain HTML, 
 Choose what you need. Most apps need only the first line.
 
 ```bash
-pnpm add @omni/core            # web components, tokens, theme, utilities
-pnpm add @omni/css             # layout classes, utilities, CSS-only components (optional)
-pnpm add @omni/react           # React wrappers (React, Next.js, Vite + React)
-pnpm add @omni/angular         # Angular standalone wrappers
-pnpm add @omni/vue             # Vue 3 wrappers
-pnpm add @omni/editor          # rich text editor (optional, heavy, built on Tiptap)
-pnpm add -D @omni/tailwind     # Tailwind preset (optional)
+pnpm add @kvui/core            # web components, tokens, theme, utilities
+pnpm add @kvui/css             # layout classes, utilities, CSS-only components (optional)
+pnpm add @kvui/react           # React wrappers (React, Next.js, Vite + React)
+pnpm add @kvui/angular         # Angular standalone wrappers
+pnpm add @kvui/vue             # Vue 3 wrappers
+pnpm add @kvui/editor          # rich text editor (optional, heavy, built on Tiptap)
+pnpm add -D @kvui/tailwind     # Tailwind preset (optional)
 ```
 
 ## 2. Add the stylesheet
@@ -21,7 +21,7 @@ pnpm add -D @omni/tailwind     # Tailwind preset (optional)
 Import one stylesheet once, near the top of your app. It contains the design tokens, the reset, layout classes and utilities.
 
 ```css
-@import '@omni/css/nova.css';
+@import '@kvui/css/nova.css';
 ```
 
 Also set the viewport so the layout respects phone notches and users can still zoom:
@@ -43,7 +43,7 @@ Every framework uses the same component names and the same props. Only the synta
 | HTML | `<ui-button variant="primary">Save</ui-button>` |
 | React | `<UiButton variant="primary">Save</UiButton>` |
 | Angular | `<ui-button variant="primary">Save</ui-button>` (standalone import `UiButton`) |
-| Vue | `<UiButton variant="primary">Save</UiButton>` (from `@omni/vue`) |
+| Vue | `<UiButton variant="primary">Save</UiButton>` (from `@kvui/vue`) |
 
 ## 4. Respond to events
 

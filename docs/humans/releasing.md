@@ -13,13 +13,13 @@ Seven packages, always together, always at the same version. They are versioned 
 
 | Package | Ships | Built into |
 | --- | --- | --- |
-| `@omni/core` | Web components, tokens, theme, utilities, API reference (`dist-docs/`) | `dist/`, `loader/` |
-| `@omni/css` | Layout, utilities, CSS components, Material icons (when generated) | `dist/` |
-| `@omni/react` | React wrappers, hooks, page blocks, `/editor` and `/server` entries | `dist/` |
-| `@omni/angular` | Angular standalone wrappers and services | `dist/` (ng-packagr; packed from there) |
-| `@omni/vue` | Vue 3 wrappers | `dist/` |
-| `@omni/editor` | Rich text editor (Tiptap) | `dist/`, `loader/` |
-| `@omni/tailwind` | Tailwind preset | `index.js` |
+| `@kvui/core` | Web components, tokens, theme, utilities, API reference (`dist-docs/`) | `dist/`, `loader/` |
+| `@kvui/css` | Layout, utilities, CSS components, Material icons (when generated) | `dist/` |
+| `@kvui/react` | React wrappers, hooks, page blocks, `/editor` and `/server` entries | `dist/` |
+| `@kvui/angular` | Angular standalone wrappers and services | `dist/` (ng-packagr; packed from there) |
+| `@kvui/vue` | Vue 3 wrappers | `dist/` |
+| `@kvui/editor` | Rich text editor (Tiptap) | `dist/`, `loader/` |
+| `@kvui/tailwind` | Tailwind preset | `index.js` |
 
 The playgrounds under `apps/` are private and never released.
 
@@ -69,7 +69,7 @@ If the seven versions differ, stop and check the changeset files.
 ```bash
 rm -rf node_modules packages/*/node_modules apps/*/node_modules
 pnpm install --frozen-lockfile
-pnpm --filter @omni/css icons:update     # optional: bundles the Material Symbols font (needs internet)
+pnpm --filter @kvui/css icons:update     # optional: bundles the Material Symbols font (needs internet)
 pnpm docs                                   # API reference, Vue wrappers, agent context
 node apps/shared/scripts/snapshot.mjs       # component data for the playgrounds
 pnpm build
@@ -84,7 +84,7 @@ pnpm test                                   # unit tests, CSS checks, icon and r
 pnpm check:names                            # no prop or method shadows a DOM member
 pnpm docs:check                             # every component documented; links and props correct
 pnpm playgrounds:check                      # playgrounds use real components and classes
-pnpm --filter @omni/css test:browser     # layout tests in Chromium (needs Playwright)
+pnpm --filter @kvui/css test:browser     # layout tests in Chromium (needs Playwright)
 node scripts/verify-publishable.mjs         # all seven packages would ship
 node scripts/verify-dist.mjs                # every package has its built entry points
 ```
@@ -141,7 +141,7 @@ Each package should print the new version:
 
 ```bash
 for p in core css react angular vue editor tailwind; do
-  echo -n "@omni/$p: "; npm view "@omni/$p@$VERSION" version
+  echo -n "@kvui/$p: "; npm view "@kvui/$p@$VERSION" version
 done
 ```
 
@@ -149,8 +149,8 @@ Install into a clean project and check it resolves:
 
 ```bash
 mkdir /tmp/nova-smoke && cd /tmp/nova-smoke && npm init -y >/dev/null
-npm install @omni/core@$VERSION @omni/css@$VERSION @omni/react@$VERSION
-node -e "console.log(require.resolve('@omni/core/package.json'))"
+npm install @kvui/core@$VERSION @kvui/css@$VERSION @kvui/react@$VERSION
+node -e "console.log(require.resolve('@kvui/core/package.json'))"
 ```
 
 ## 6. Release through GitHub Actions
@@ -176,12 +176,12 @@ Release candidates use versions such as `0.3.0-rc.1` and are published under the
 node scripts/release.mjs publish --tag next
 ```
 
-Users opt in with `npm install @omni/core@next`. Publish the stable version later without a tag to promote it.
+Users opt in with `npm install @kvui/core@next`. Publish the stable version later without a tag to promote it.
 
 ## 8. Fixing mistakes
 
 - **Wrong version published.** npm does not allow reuse of a version number, even after unpublishing. Publish a fix as the next patch, and deprecate the bad one:
-  `npm deprecate "@omni/core@0.2.0" "Broken build. Use 0.2.1."`
+  `npm deprecate "@kvui/core@0.2.0" "Broken build. Use 0.2.1."`
 - **Something missing from a published package.** Fix the build, add a changeset, release the next patch. Do not try to replace the old version.
 - **Unpublish.** Possible only within 72 hours, and only if nothing depends on the version. Otherwise deprecate.
 - **Angular shipped source.** The Angular package was packed from its folder, not `dist/`. Never use `changeset publish` directly for this repository: it packs each folder as-is. Use `node scripts/release.mjs`. Deprecate the bad version and publish a fix.
@@ -203,7 +203,7 @@ More detail for each case is in [release-manual.md](release-manual.md) section 1
 - [ ] `node scripts/release.mjs publish --dry-run` lists the expected versions.
 - [ ] Published (manually, or by the workflow); every package reports the new version on npm.
 - [ ] Release commit and tag pushed; GitHub release created with tarballs and checksums.
-- [ ] Clean install of `@omni/core`, `css` and `react` works.
+- [ ] Clean install of `@kvui/core`, `css` and `react` works.
 - [ ] Breaking changes have a migration note in the changelog.
 
 ## 10. What the release ships to users
@@ -213,20 +213,20 @@ Users install the packages with `npm install` and upgrade them together. The ful
 **Install** (the packages for the framework they use, all at the same version):
 
 ```bash
-npm install @omni/core @omni/css @omni/react     # React, Next.js, Vite with React
-npm install @omni/core @omni/css @omni/angular   # Angular
-npm install @omni/core @omni/css @omni/vue       # Vue 3
+npm install @kvui/core @kvui/css @kvui/react     # React, Next.js, Vite with React
+npm install @kvui/core @kvui/css @kvui/angular   # Angular
+npm install @kvui/core @kvui/css @kvui/vue       # Vue 3
 ```
 
 **Peer dependencies** the installer expects:
 
 | Package | Peer | Range |
 | --- | --- | --- |
-| `@omni/react` | `react`, `react-dom` | `>=18` |
-| `@omni/angular` | `@angular/core`, `@angular/common` | `>=17` |
-| `@omni/vue` | `vue` | `>=3.3.0` |
-| `@omni/tailwind` | `tailwindcss` | `>=3.3.0` |
-| `@omni/editor`, `@omni/vue` | `@omni/core` | `^0.1.0` |
+| `@kvui/react` | `react`, `react-dom` | `>=18` |
+| `@kvui/angular` | `@angular/core`, `@angular/common` | `>=17` |
+| `@kvui/vue` | `vue` | `>=3.3.0` |
+| `@kvui/tailwind` | `tailwindcss` | `>=3.3.0` |
+| `@kvui/editor`, `@kvui/vue` | `@kvui/core` | `^0.1.0` |
 
 **Verification users can do:** each version on npm shows its repository and, for releases built by the workflow, "Built and signed on GitHub Actions" with a link to the run. The GitHub release attaches `SHA256SUMS.txt`, checked with `sha256sum -c SHA256SUMS.txt`.
 

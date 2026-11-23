@@ -1,5 +1,5 @@
 {
-  "name": "@omni/css",
+  "name": "@kvui/css",
   "version": "0.1.0",
   "description": "Responsive CSS library for Nova UI: design tokens, reset, layout primitives (container, grid, stack, sidebar, shell), utilities and CSS-only components. Mobile-first, cascade-layered, logical properties.",
   "license": "MIT",

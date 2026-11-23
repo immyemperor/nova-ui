@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { isMounted, nextPhase } from '@omni/core';
-import type { Phase } from '@omni/core';
+import { isMounted, nextPhase } from '@kvui/core';
+import type { Phase } from '@kvui/core';
 
 /**
  * Exit animations for React. Keeps an element mounted while it animates out, then removes it.

@@ -52,7 +52,7 @@ A fixed bar that tracks how far the page has scrolled, or a container with `targ
 ## Helpers
 
 ```ts
-import { animateIn, staggerIn, playExit, withViewTransition } from '@omni/core';
+import { animateIn, staggerIn, playExit, withViewTransition } from '@kvui/core';
 
 await animateIn(el, 'fade', { duration: 300 });
 await playExit(el);                          // animate out before removing
@@ -64,4 +64,4 @@ await withViewTransition(() => swapPage());  // cross-fade between states
 
 ## Scroll-linked CSS
 
-With `@omni/css`: `nova-scroll-reveal` ties an element's fade and rise to its position in the viewport, and `nova-scroll-progress` scales an element with page scroll. No JavaScript runs.
+With `@kvui/css`: `nova-scroll-reveal` ties an element's fade and rise to its position in the viewport, and `nova-scroll-progress` scales an element with page scroll. No JavaScript runs.

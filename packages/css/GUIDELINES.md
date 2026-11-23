@@ -1,6 +1,6 @@
 # Nova CSS guidelines
 
-How to build layouts that work on every screen, from a 320px phone to a 4K monitor, with `@omni/css`.
+How to build layouts that work on every screen, from a 320px phone to a 4K monitor, with `@kvui/css`.
 Open `docs/index.html` for the same material with live, resizable examples.
 
 - [1. Principles](#1-principles)
@@ -44,7 +44,7 @@ Open `docs/index.html` for the same material with live, resizable examples.
 ## 2. Getting started
 
 ```bash
-pnpm add @omni/css
+pnpm add @kvui/css
 ```
 
 ```html
@@ -54,7 +54,7 @@ pnpm add @omni/css
     <meta charset="utf-8" />
     <!-- viewport-fit=cover lets the container's safe-area padding keep content clear of notches. -->
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <link rel="stylesheet" href="/node_modules/@omni/css/dist/nova.min.css" />
+    <link rel="stylesheet" href="/node_modules/@kvui/css/dist/nova.min.css" />
   </head>
   <body class="nova-base">
     <a class="nova-skip-link" href="#main">Skip to content</a>
@@ -64,7 +64,7 @@ pnpm add @omni/css
 </html>
 ```
 
-In a bundler: `import '@omni/css';` (resolves to `dist/nova.css`).
+In a bundler: `import '@kvui/css';` (resolves to `dist/nova.css`).
 
 **Never** add `maximum-scale=1` or `user-scalable=no` to the viewport tag. It blocks pinch zoom and fails WCAG 1.4.4.
 
@@ -83,7 +83,7 @@ import modules separately. `tokens.css` is required by the others.
 | `nova.compat.css` | Everything, without cascade layers (see [section 16](#16-browser-support)) |
 
 Using the web components too? `nova.css` already includes the same tokens, so you don't also need
-`@omni/core/styles.css`.
+`@kvui/core/styles.css`.
 
 ## 3. Screen sizes
 
@@ -424,7 +424,7 @@ Notes:
 - **Focus.** One consistent 2px outline (`:focus-visible`). Don't remove it; restyle it if you must, and keep 3:1 contrast
   against its background.
 - **Colour contrast.** Every text token pair meets WCAG AA (4.5:1) in both themes, and control borders meet 3:1
-  (WCAG 1.4.11). The build checks all 46 pairs (`pnpm --filter @omni/css test`) and fails if a token change breaks one.
+  (WCAG 1.4.11). The build checks all 46 pairs (`pnpm --filter @kvui/css test`) and fails if a token change breaks one.
   If you add brand colours, check them the same way.
 - **Colour is not the only signal.** Pair status colours with an icon or text (the alert and badge components do).
 - **Motion.** The reset shortens animations and transitions for people who choose reduced motion, and smooth scrolling
@@ -439,7 +439,7 @@ Notes:
 ## 13. Theming and dark mode
 
 Colours are tokens, with a light and a dark set. Set `data-theme="light" | "dark"` on `<html>`. Without it, the page
-follows the operating system. The `@omni/core` theme manager (`setThemeMode`, `<ui-theme-toggle>`) does this and
+follows the operating system. The `@kvui/core` theme manager (`setThemeMode`, `<ui-theme-toggle>`) does this and
 remembers the choice. For a pure-CSS page, a tiny script is enough:
 
 ```html
@@ -545,12 +545,12 @@ simply don't apply there, so design `nova-cq-*` layouts so the default (narrow) 
   Layout modifiers are `nova-stack-lg`, `nova-container-prose`.
 - **States** are `is-invalid` / `is-disabled`, or the native attribute (`:disabled`, `aria-invalid="true"`). Prefer the attribute.
 - **Responsive prefix** is always before the utility: `nova-md-col-6`, never `nova-col-6-md`.
-- **Adding utilities.** Edit `scripts/generate-utilities.mjs`, run `pnpm --filter @omni/css build`. Don't edit
+- **Adding utilities.** Edit `scripts/generate-utilities.mjs`, run `pnpm --filter @kvui/css build`. Don't edit
   `src/generated/utilities.css` by hand.
-- **Tokens have one home.** Colour, type, radius, shadow and motion tokens live in `@omni/core`
+- **Tokens have one home.** Colour, type, radius, shadow and motion tokens live in `@kvui/core`
   (`src/global/tokens.css`); layout tokens live in `src/tokens.css` here. The build includes both.
-- **Tests.** `pnpm --filter @omni/css test` checks every built file is well-formed, the minifier keeps every
+- **Tests.** `pnpm --filter @kvui/css test` checks every built file is well-formed, the minifier keeps every
   rule, the compat build has no layers, contrast ratios hold, and every class used in `docs/index.html` exists.
-  `pnpm --filter @omni/css test:browser` (needs Playwright) loads the guide in Chromium at nine widths and asserts on
+  `pnpm --filter @kvui/css test:browser` (needs Playwright) loads the guide in Chromium at nine widths and asserts on
   real computed layout: no horizontal overflow, the shell reflowing, grids and primitives changing column counts,
   container queries, no gap leaking into nested primitives, and the same results from the layered and compat builds.

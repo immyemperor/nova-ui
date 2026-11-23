@@ -25,9 +25,9 @@ jobs:
         run: pnpm -r test
       - name: CSS checks and browser layout tests
         run: |
-          pnpm --filter @omni/css test
-          pnpm --filter @omni/css exec playwright install --with-deps chromium
-          pnpm --filter @omni/css test:browser
+          pnpm --filter @kvui/css test
+          pnpm --filter @kvui/css exec playwright install --with-deps chromium
+          pnpm --filter @kvui/css test:browser
       - name: Prop names do not shadow DOM members
         run: pnpm check:names
       - name: Documentation covers every component and every link resolves

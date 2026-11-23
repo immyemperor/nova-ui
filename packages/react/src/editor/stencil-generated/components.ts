@@ -9,9 +9,9 @@
 
 import React from 'react';
 import { createComponent } from '@stencil/react-output-target/runtime';
-import type { Components } from '@omni/editor/components';
-import { UiEditor as UiEditorElement, defineCustomElement as defineUiEditor } from '@omni/editor/components/ui-editor.js';
-import type { UiEditorCustomEvent } from '@omni/editor';
+import type { Components } from '@kvui/editor/components';
+import { UiEditor as UiEditorElement, defineCustomElement as defineUiEditor } from '@kvui/editor/components/ui-editor.js';
+import type { UiEditorCustomEvent } from '@kvui/editor';
 import type { StencilReactComponent, EventName } from '@stencil/react-output-target/runtime';
 
 export type UiEditorEvents = {

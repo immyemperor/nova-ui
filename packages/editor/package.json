@@ -1,5 +1,5 @@
 {
-  "name": "@omni/editor",
+  "name": "@kvui/editor",
   "version": "0.1.0",
   "description": "Rich text editor web component for Nova UI: configurable toolbar, slash commands, mentions, tables, uploads. Built on Tiptap.",
   "license": "MIT",
@@ -73,10 +73,10 @@
     "@tiptap/extension-underline": "^2.10.0"
   },
   "peerDependencies": {
-    "@omni/core": "^0.1.0"
+    "@kvui/core": "^0.1.0"
   },
   "devDependencies": {
-    "@omni/core": "workspace:^",
+    "@kvui/core": "workspace:^",
     "@stencil/angular-output-target": "latest",
     "@stencil/react-output-target": "latest",
     "typescript": "^5.6.0"

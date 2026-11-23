@@ -5,7 +5,7 @@ Nova has a light and a dark theme, and you can change any colour, radius, shadow
 ## Light, dark and system
 
 ```js
-import { setThemeMode, getThemeMode, onThemeChange } from '@omni/core';
+import { setThemeMode, getThemeMode, onThemeChange } from '@kvui/core';
 
 setThemeMode('dark');         // 'light' | 'dark' | 'system'
 onThemeChange((mode, resolved) => console.log(mode, resolved));
@@ -20,7 +20,7 @@ The page gets `data-theme="light"` or `"dark"` on `<html>`. Nova's tokens switch
 Generate a complete palette from one colour. The generator guarantees that text on the accent and the accent on the surface meet WCAG AA (4.5:1) in both themes:
 
 ```ts
-import { generateTheme, themeToCSS } from '@omni/core';
+import { generateTheme, themeToCSS } from '@kvui/core';
 
 const theme = generateTheme('#7c3aed');
 console.log(theme.warnings);            // [] when every pair passes
@@ -81,4 +81,4 @@ Override a tint to change how strong a state looks:
 
 ## Contrast
 
-Built-in colour pairs are checked against WCAG AA in both themes on every build. If you add colours, check them with `contrastRatio` from `@omni/core`.
+Built-in colour pairs are checked against WCAG AA in both themes on every build. If you add colours, check them with `contrastRatio` from `@kvui/core`.

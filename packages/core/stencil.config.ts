@@ -4,7 +4,7 @@ import { angularOutputTarget } from '@stencil/angular-output-target';
 
 export const config: Config = {
   namespace: 'nova-ui',
-  // Emitted as dist/nova-ui/nova-ui.css and exposed as "@omni/core/styles.css".
+  // Emitted as dist/nova-ui/nova-ui.css and exposed as "@kvui/core/styles.css".
   globalStyle: 'src/global/global.css',
   outputTargets: [
     { type: 'dist', esmLoaderPath: '../loader' },
@@ -15,7 +15,7 @@ export const config: Config = {
       customElementsDir: 'components',
     }),
     angularOutputTarget({
-      componentCorePackage: '@omni/core',
+      componentCorePackage: '@kvui/core',
       outputType: 'standalone',
       directivesProxyFile: '../angular/src/lib/stencil-generated/components.ts',
       directivesArrayFile: '../angular/src/lib/stencil-generated/index.ts',

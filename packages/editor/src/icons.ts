@@ -1,4 +1,4 @@
-import { registerIcons } from '@omni/core';
+import { registerIcons } from '@kvui/core';
 
 /** Toolbar icons, added to the shared icon registry. 24x24, 2px round strokes (Feather/Lucide style, MIT). */
 let done = false;

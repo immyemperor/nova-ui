@@ -1,4 +1,4 @@
-import { LoginBlock, PricingBlock, UiCard, UiButton, UiBadge, UiIcon, UiReveal, UiStagger, UiThemeToggle } from '@omni/react';
+import { LoginBlock, PricingBlock, UiCard, UiButton, UiBadge, UiIcon, UiReveal, UiStagger, UiThemeToggle } from '@kvui/react';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { NewFeatures } from './_features/NewFeatures';
@@ -35,7 +35,7 @@ export default function Home() {
         <div className="nova-stack">
           <p className="nova-eyebrow">App Router</p>
           <h1 className="nova-display">Layouts that fit every screen</h1>
-          <p className="nova-lead">Web components for behaviour, @omni/css for layout.</p>
+          <p className="nova-lead">Web components for behaviour, @kvui/css for layout.</p>
           <div className="nova-cluster">
             <UiButton>
               <UiIcon slot="start" name="check" />

@@ -3,9 +3,9 @@ import {
   ThemeService, UiButton, UiChart, UiCollapse, UiDateRangePicker, UiFileUpload, UiKanban, UiScheduler,
   UiScrollProgress, UiSidebar, UiSidebarItem, UiSortable, UiSparkline, UiSplit, UiTable, UiTimePicker, UiVirtualList,
   confirm, prompt, toast,
-} from '@omni/angular';
-import type { DateRange, IconLibrary, TableColumn, TableRow } from '@omni/angular';
-import { getIconLibrary, setIconLibrary } from '@omni/angular';
+} from '@kvui/angular';
+import type { DateRange, IconLibrary, TableColumn, TableRow } from '@kvui/angular';
+import { getIconLibrary, setIconLibrary } from '@kvui/angular';
 import { CodeBlockComponent } from '../code-block.component';
 import { SOURCES } from '../source';
 

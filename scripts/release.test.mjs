@@ -11,8 +11,8 @@ test('parses the command and its options', () => {
 
 test('packages already on npm are skipped, so re-running a release is safe', () => {
   const plan = planPublish(
-    [{ name: '@omni/core', version: '0.2.0', file: 'a.tgz' }, { name: '@omni/vue', version: '0.2.0', file: 'b.tgz' }],
-    (name) => name === '@omni/core',
+    [{ name: '@kvui/core', version: '0.2.0', file: 'a.tgz' }, { name: '@kvui/vue', version: '0.2.0', file: 'b.tgz' }],
+    (name) => name === '@kvui/core',
   );
   assert.deepEqual(plan.map((p) => p.action), ['skip', 'publish']);
 });

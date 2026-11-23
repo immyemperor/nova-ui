@@ -1,7 +1,7 @@
 ---
-"@omni/core": minor
-"@omni/react": minor
-"@omni/angular": minor
+"@kvui/core": minor
+"@kvui/react": minor
+"@kvui/angular": minor
 ---
 
 Phase 2: form controls (input, textarea, checkbox, radio group, switch, slider, rating) with native form

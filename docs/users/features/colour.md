@@ -22,7 +22,7 @@ Custom swatches are a property: `picker.swatches = ['#ef4444', '#22c55e', '#3b82
 Check a colour before you use it for text:
 
 ```ts
-import { contrastRatio } from '@omni/core';
+import { contrastRatio } from '@kvui/core';
 contrastRatio('#ffffff', '#0b7a6c'); // ≥ 4.5 passes WCAG AA for body text
 ```
 

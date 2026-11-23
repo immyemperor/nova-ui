@@ -5,14 +5,14 @@ Works with React 18 and 19. Components are wrapped so props and events look like
 ## Install
 
 ```bash
-pnpm add @omni/core @omni/css @omni/react
+pnpm add @kvui/core @kvui/css @kvui/react
 ```
 
 Import the stylesheet in your entry file, once:
 
 ```tsx
 // src/main.tsx
-import '@omni/css/nova.css';
+import '@kvui/css/nova.css';
 import { App } from './App';
 ```
 
@@ -20,7 +20,7 @@ import { App } from './App';
 
 ```tsx
 import { useState } from 'react';
-import { UiButton, UiInput, UiSelect, UiCard, toast } from '@omni/react';
+import { UiButton, UiInput, UiSelect, UiCard, toast } from '@kvui/react';
 
 export function Profile() {
   const [owner, setOwner] = useState('');
@@ -68,7 +68,7 @@ Controls with values also accept `value` and `onUiChange` if you prefer controll
 ## Exit animations
 
 ```tsx
-import { usePresence, UiCard } from '@omni/react';
+import { usePresence, UiCard } from '@kvui/react';
 
 const { mounted, phase } = usePresence(open, 180);
 {mounted && <UiCard className={phase === 'exiting' ? 'fade-out' : 'fade-in'}>…</UiCard>}
@@ -79,7 +79,7 @@ const { mounted, phase } = usePresence(open, 180);
 ## The rich text editor
 
 ```tsx
-import { UiEditor } from '@omni/react/editor';
+import { UiEditor } from '@kvui/react/editor';
 ```
 
 It's a separate entry point, so it only loads where you import it. See [Rich text editor](../features/editor.md).
@@ -87,7 +87,7 @@ It's a separate entry point, so it only loads where you import it. See [Rich tex
 ## Page blocks
 
 ```tsx
-import { LoginBlock, PricingBlock, DashboardBlock, SettingsBlock, OnboardingBlock } from '@omni/react';
+import { LoginBlock, PricingBlock, DashboardBlock, SettingsBlock, OnboardingBlock } from '@kvui/react';
 ```
 
 Copy and adapt them. See [Page blocks](../features/page-blocks.md).

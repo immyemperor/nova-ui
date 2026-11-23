@@ -71,4 +71,4 @@ for (const app of ['playground-vite', 'playground-react', 'playground-next', 'pl
 }
 console.log(copied.length
   ? `icons copied to ${copied.length} apps`
-  : 'icons not built yet: run pnpm --filter @omni/css icons:update and build');
+  : 'icons not built yet: run pnpm --filter @kvui/css icons:update and build');

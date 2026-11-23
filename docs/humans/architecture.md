@@ -6,13 +6,13 @@ For maintainers and contributors. Read this before changing the packages.
 
 ```
 packages/
-  core/      @omni/core     Stencil web components (71 in core), tokens, theme, utilities, i18n, docs generator
-  editor/    @omni/editor   rich text editor (Tiptap), separate so Tiptap isn't a core dependency
-  react/     @omni/react    generated React wrappers + hooks + page blocks; /editor and /server entry points
-  angular/   @omni/angular  generated standalone proxies + ThemeService; /editor secondary entry point
-  vue/       @omni/vue      Vue 3 wrappers generated from the manifest (scripts/generate.mjs)
-  css/       @omni/css      layout, utilities, CSS-only components, print, guidelines; framework-free
-  tailwind/  @omni/tailwind Tailwind preset mapping utilities to --nova-* tokens
+  core/      @kvui/core     Stencil web components (71 in core), tokens, theme, utilities, i18n, docs generator
+  editor/    @kvui/editor   rich text editor (Tiptap), separate so Tiptap isn't a core dependency
+  react/     @kvui/react    generated React wrappers + hooks + page blocks; /editor and /server entry points
+  angular/   @kvui/angular  generated standalone proxies + ThemeService; /editor secondary entry point
+  vue/       @kvui/vue      Vue 3 wrappers generated from the manifest (scripts/generate.mjs)
+  css/       @kvui/css      layout, utilities, CSS-only components, print, guidelines; framework-free
+  tailwind/  @kvui/tailwind Tailwind preset mapping utilities to --nova-* tokens
 apps/
   playground-vite/   React + Vite demo of every feature
   playground-next/   Next.js App Router demo
@@ -34,7 +34,7 @@ docs/                user, human and agent documentation (this folder)
 | --- | --- | --- |
 | `packages/react/src/components/stencil-generated/*` | `@stencil/react-output-target` | `pnpm build` |
 | `packages/angular/src/lib/stencil-generated/*` | `@stencil/angular-output-target` | `pnpm build` |
-| `packages/css/src/generated/utilities.css` | `scripts/generate-utilities.mjs` | `pnpm --filter @omni/css generate` |
+| `packages/css/src/generated/utilities.css` | `scripts/generate-utilities.mjs` | `pnpm --filter @kvui/css generate` |
 | `packages/core/dist-docs/*` | `scripts/generate-docs.mjs` | `pnpm docs` |
 | `packages/vue/src/components.ts` | `scripts/generate.mjs` | `pnpm docs` |
 | `docs/llms-full.txt` | `scripts/build-llms.mjs` | `pnpm docs:agents` |

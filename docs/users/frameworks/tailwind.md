@@ -5,7 +5,7 @@ The preset adds Nova colours, radii, shadows, fonts, durations and z-indexes to 
 ## Install
 
 ```bash
-pnpm add -D @omni/tailwind tailwindcss
+pnpm add -D @kvui/tailwind tailwindcss
 ```
 
 ## Configure
@@ -13,7 +13,7 @@ pnpm add -D @omni/tailwind tailwindcss
 ```js
 // tailwind.config.js
 module.exports = {
-  presets: [require('@omni/tailwind')],
+  presets: [require('@kvui/tailwind')],
   content: ['./src/**/*.{html,tsx,vue,ts}'],
 };
 ```
@@ -21,7 +21,7 @@ module.exports = {
 Import the Nova stylesheet too, so the variables exist:
 
 ```css
-@import '@omni/css/nova.css';
+@import '@kvui/css/nova.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

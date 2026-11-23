@@ -3,6 +3,6 @@
   "dest": "dist",
   "lib": { "entryFile": "src/public-api.ts" },
   "allowedNonPeerDependencies": [
-    "@omni/core"
+    "@kvui/core"
   ]
 }

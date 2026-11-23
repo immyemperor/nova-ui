@@ -1,5 +1,5 @@
 {
-  "name": "@omni/tailwind",
+  "name": "@kvui/tailwind",
   "version": "0.1.0",
   "description": "Tailwind CSS preset exposing Nova UI tokens (colours, radius, shadows, fonts) as utilities.",
   "license": "MIT",

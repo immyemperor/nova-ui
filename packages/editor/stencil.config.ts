@@ -31,15 +31,15 @@ export const config: Config = {
     { type: 'dist', esmLoaderPath: '../loader' },
     { type: 'dist-custom-elements', customElementsExportBehavior: 'auto-define-custom-elements' , externalRuntime: false },
     // Editor wrappers go into their own entry points so the editor stays optional:
-    //   import { UiEditor } from '@omni/react/editor'
-    //   import { UiEditor } from '@omni/angular/editor'
+    //   import { UiEditor } from '@kvui/react/editor'
+    //   import { UiEditor } from '@kvui/angular/editor'
     reactOutputTarget({
       outDir: '../react/src/editor/stencil-generated/',
       customElementsDir: 'components',
       excludeComponents: coreComponentTags,
     }),
     angularOutputTarget({
-      componentCorePackage: '@omni/editor',
+      componentCorePackage: '@kvui/editor',
       outputType: 'standalone',
       directivesProxyFile: '../angular/editor/src/stencil-generated/components.ts',
       directivesArrayFile: '../angular/editor/src/stencil-generated/index.ts',
@@ -48,10 +48,10 @@ export const config: Config = {
       valueAccessorConfigs: [{ elementSelectors: ['ui-editor'], event: 'uiChange', targetAttr: 'value', type: 'text' }],
     }),
   ],
-  // @omni/core is a peer dependency: never bundle a second copy of its components.
+  // @kvui/core is a peer dependency: never bundle a second copy of its components.
   rollupConfig: {
   inputOptions: {
-    external: ['@omni/core'],
+    external: ['@kvui/core'],
   },
 },
   testing: { browserHeadless: 'shell' },

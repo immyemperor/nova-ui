@@ -10,9 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@omni/core": "workspace:*",
-    "@omni/css": "workspace:*",
-    "@omni/react": "workspace:*",
+    "@kvui/core": "workspace:*",
+    "@kvui/css": "workspace:*",
+    "@kvui/react": "workspace:*",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

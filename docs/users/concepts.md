@@ -32,7 +32,7 @@ Components set roles, states and keyboard handling for you. You provide the text
 
 ## Layout is CSS, not components
 
-Use layout classes from `@omni/css` (`nova-container`, `nova-stack`, `nova-grid-auto`) to arrange components. Components are never responsible for page layout. See [Layout and CSS](features/layout-and-css.md).
+Use layout classes from `@kvui/css` (`nova-container`, `nova-stack`, `nova-grid-auto`) to arrange components. Components are never responsible for page layout. See [Layout and CSS](features/layout-and-css.md).
 
 ## Optional packages stay optional
 

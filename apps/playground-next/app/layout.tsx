@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react';
 import type { Viewport } from 'next';
-// One stylesheet: tokens, reset, layout classes, utilities. (Replaces @omni/core/styles.css.)
-import '@omni/css/nova.css';
+// One stylesheet: tokens, reset, layout classes, utilities. (Replaces @kvui/core/styles.css.)
+import '@kvui/css/nova.css';
 import './playground.css';
-import { themeInitScript } from '@omni/react/server';
+import { themeInitScript } from '@kvui/react/server';
 
 export const metadata = { title: 'Nova UI - Next.js playground' };
 

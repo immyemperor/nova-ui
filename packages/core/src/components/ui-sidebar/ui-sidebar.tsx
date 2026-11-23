@@ -3,7 +3,7 @@ import { Component, Element, Event, EventEmitter, Host, Prop, h } from '@stencil
 /**
  * App sidebar: a navigation column that collapses to an icon rail (`collapsed`), and becomes an
  * off-canvas drawer on phones. Put <ui-sidebar-item> children inside, optionally in groups.
- * Sidebar and the page's own layout: pair it with `.nova-shell-sidebar` from @omni/css.
+ * Sidebar and the page's own layout: pair it with `.nova-shell-sidebar` from @kvui/css.
  */
 @Component({
   tag: 'ui-sidebar',

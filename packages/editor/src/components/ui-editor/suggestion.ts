@@ -1,5 +1,5 @@
 import type { Editor } from '@tiptap/core';
-import { computePosition, hideFloating, showFloating } from '@omni/core';
+import { computePosition, hideFloating, showFloating } from '@kvui/core';
 
 export interface SlashItem {
   id: string;

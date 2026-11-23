@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
     inputs:
       include_icons:
-        description: 'Download Google Material Symbols and bundle them in @omni/css'
+        description: 'Download Google Material Symbols and bundle them in @kvui/css'
         type: boolean
         default: true
       publish:
@@ -49,7 +49,7 @@ jobs:
         if: ${{ github.event_name != 'workflow_dispatch' || inputs.include_icons }}
         # Needs GitHub access. If it fails, the bundles are built without the icon files and the verifier reports them as optional.
         continue-on-error: true
-        run: pnpm --filter @omni/css icons:update
+        run: pnpm --filter @kvui/css icons:update
 
       - name: Generate API docs, Vue wrappers and component snapshots
         run: |

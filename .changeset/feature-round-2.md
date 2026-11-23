@@ -1,7 +1,7 @@
 ---
-"@omni/core": minor
-"@omni/react": minor
-"@omni/angular": minor
+"@kvui/core": minor
+"@kvui/react": minor
+"@kvui/angular": minor
 ---
 
 Add confirm/prompt dialogs, sanitised HTML, form field wrapper, date range and time pickers, file upload,

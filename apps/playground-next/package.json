@@ -9,13 +9,13 @@
     "start": "next start"
   },
   "dependencies": {
-    "@omni/core": "workspace:*",
-    "@omni/react": "workspace:*",
+    "@kvui/core": "workspace:*",
+    "@kvui/react": "workspace:*",
     "next": "^15.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "@omni/css": "workspace:*",
-    "@omni/editor": "workspace:*"
+    "@kvui/css": "workspace:*",
+    "@kvui/editor": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

@@ -3,12 +3,12 @@
 `<ui-editor>` is a rich text editor built on Tiptap, with a toolbar made from Nova buttons, menus and icons. It's a separate package so it only loads where you use it.
 
 ```bash
-pnpm add @omni/editor
+pnpm add @kvui/editor
 ```
 
 ```tsx
 // React
-import { UiEditor } from '@omni/react/editor';
+import { UiEditor } from '@kvui/react/editor';
 
 <UiEditor
   label="Description"
@@ -19,7 +19,7 @@ import { UiEditor } from '@omni/react/editor';
 />
 ```
 
-Angular: `import { UiEditor } from '@omni/angular/editor'`. HTML: `import '@omni/editor'`, then `<ui-editor preset="standard"></ui-editor>`.
+Angular: `import { UiEditor } from '@kvui/angular/editor'`. HTML: `import '@kvui/editor'`, then `<ui-editor preset="standard"></ui-editor>`.
 
 ## Toolbar
 

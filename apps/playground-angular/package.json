@@ -14,8 +14,8 @@
     "@angular/core": "^19.0.0",
     "@angular/platform-browser": "^19.0.0",
     "@angular/router": "^19.0.0",
-    "@omni/angular": "workspace:*",
-    "@omni/core": "workspace:*",
+    "@kvui/angular": "workspace:*",
+    "@kvui/core": "workspace:*",
     "rxjs": "^7.8.0",
     "tslib": "^2.6.0",
     "zone.js": "^0.15.0"

@@ -1,5 +1,5 @@
-import { UiChart, UiSparkline, UiTable } from '@omni/react';
-import type { TableColumn, TableRow } from '@omni/react';
+import { UiChart, UiSparkline, UiTable } from '@kvui/react';
+import type { TableColumn, TableRow } from '@kvui/react';
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'];
 const revenue = [12, 18, 15, 22, 27, 25, 31, 38];

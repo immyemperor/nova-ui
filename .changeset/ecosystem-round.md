@@ -1,10 +1,10 @@
 ---
-"@omni/core": minor
-"@omni/react": minor
-"@omni/angular": minor
-"@omni/css": minor
-"@omni/tailwind": minor
-"@omni/vue": minor
+"@kvui/core": minor
+"@kvui/react": minor
+"@kvui/angular": minor
+"@kvui/css": minor
+"@kvui/tailwind": minor
+"@kvui/vue": minor
 ---
 
 Split panes, virtual list and virtual table rows, sortable lists, kanban with keyboard moves, month and week

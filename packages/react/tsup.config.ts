@@ -18,7 +18,7 @@ export default defineConfig([
     clean: false,
   },
   {
-    // Optional editor entry: "@omni/react/editor". Kept separate so the editor (and Tiptap) is never pulled in by accident.
+    // Optional editor entry: "@kvui/react/editor". Kept separate so the editor (and Tiptap) is never pulled in by accident.
     entry: { editor: 'src/editor.ts' },
     format: ['esm', 'cjs'],
     dts: true,
