@@ -1,15 +1,15 @@
 # CSS-only usage
 
-Use `@nova-ui/css` alone for static pages, server-rendered templates or email-to-web layouts where no JavaScript runs. You get layout, typography, utilities and CSS-only components (buttons, cards, badges, alerts, form fields, tables).
+Use `@omni/css` alone for static pages, server-rendered templates or email-to-web layouts where no JavaScript runs. You get layout, typography, utilities and CSS-only components (buttons, cards, badges, alerts, form fields, tables).
 
 ## Install and load
 
 ```bash
-pnpm add @nova-ui/css
+pnpm add @omni/css
 ```
 
 ```html
-<link rel="stylesheet" href="/node_modules/@nova-ui/css/dist/nova.min.css" />
+<link rel="stylesheet" href="/node_modules/@omni/css/dist/nova.min.css" />
 <body class="nova-base">
   <main class="nova-container nova-section nova-stack">
     <h1 class="nova-h2">Pricing</h1>

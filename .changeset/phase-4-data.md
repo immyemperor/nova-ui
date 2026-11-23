@@ -1,7 +1,7 @@
 ---
-"@nova-ui/core": minor
-"@nova-ui/react": minor
-"@nova-ui/angular": minor
+"@omni/core": minor
+"@omni/react": minor
+"@omni/angular": minor
 ---
 
 Phase 4: data table with pagination, sorting, search, selection and server mode; tree, carousel, marquee,

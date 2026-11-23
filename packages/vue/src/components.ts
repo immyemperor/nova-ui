@@ -723,7 +723,7 @@ export const UiIcon = defineComponent({
     size: { type: String, default: undefined },
     label: { type: String, default: undefined },
     filled: { type: Boolean, default: undefined },
-    library: { type: String, default: undefined },
+    library: { type: [Object, Array, Function], default: undefined },
   },
   emits: [],
   setup(props, { slots, emit }) {

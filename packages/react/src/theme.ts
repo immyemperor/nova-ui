@@ -1,6 +1,6 @@
 import { useEffect, useSyncExternalStore } from 'react';
-import { getThemeMode, initTheme, onThemeChange, resolveTheme, setThemeMode } from '@nova-ui/core';
-import type { ResolvedTheme, ThemeMode } from '@nova-ui/core';
+import { getThemeMode, initTheme, onThemeChange, resolveTheme, setThemeMode } from '@omni/core';
+import type { ResolvedTheme, ThemeMode } from '@omni/core';
 
 const subscribe = (cb: () => void) => onThemeChange(() => cb());
 

@@ -3,6 +3,6 @@
   "dest": "dist",
   "lib": { "entryFile": "src/public-api.ts" },
   "allowedNonPeerDependencies": [
-    "@nova-ui/core"
+    "@omni/core"
   ]
 }

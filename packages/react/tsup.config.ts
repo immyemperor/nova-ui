@@ -7,7 +7,7 @@ export default defineConfig([
     format: ['esm', 'cjs'],
     dts: true,
     clean: true,
-    external: ['react', 'react-dom', /^@nova-ui\/core/],
+    external: ['react', 'react-dom', /^@omni\/core/],
     banner: { js: '"use client";' },
   },
   {
@@ -18,12 +18,12 @@ export default defineConfig([
     clean: false,
   },
   {
-    // Optional editor entry: "@nova-ui/react/editor". Kept separate so the editor (and Tiptap) is never pulled in by accident.
+    // Optional editor entry: "@omni/react/editor". Kept separate so the editor (and Tiptap) is never pulled in by accident.
     entry: { editor: 'src/editor.ts' },
     format: ['esm', 'cjs'],
     dts: true,
     clean: false,
-    external: ['react', 'react-dom', /^@nova-ui\//],
+    external: ['react', 'react-dom', /^@omni\//],
     banner: { js: '"use client";' },
   },
 ]);

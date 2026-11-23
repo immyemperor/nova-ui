@@ -5,7 +5,7 @@ Vue wrappers are generated from the same component manifest as the other framewo
 ## Install
 
 ```bash
-pnpm add @nova-ui/core @nova-ui/css @nova-ui/vue
+pnpm add @omni/core @omni/css @omni/vue
 ```
 
 ## Setup
@@ -13,8 +13,8 @@ pnpm add @nova-ui/core @nova-ui/css @nova-ui/vue
 ```ts
 // src/main.ts
 import { createApp } from 'vue';
-import '@nova-ui/css/nova.css';
-import { defineCustomElements } from '@nova-ui/core/loader';
+import '@omni/css/nova.css';
+import { defineCustomElements } from '@omni/core/loader';
 import App from './App.vue';
 
 defineCustomElements();
@@ -26,7 +26,7 @@ createApp(App).mount('#app');
 ```vue
 <script setup lang="ts">
 import { ref } from 'vue';
-import { UiButton, UiInput, UiSelect } from '@nova-ui/vue';
+import { UiButton, UiInput, UiSelect } from '@omni/vue';
 
 const owner = ref('');
 const owners = [{ value: 'ada', label: 'Ada Lovelace' }, { value: 'grace', label: 'Grace Hopper' }];

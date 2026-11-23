@@ -2,14 +2,14 @@
 export * from './components/stencil-generated/components';
 
 export { useTheme } from './theme';
-export { confirm, prompt, sanitizeHTML, setMessages, resetMessages, DEFAULT_MESSAGES } from '@nova-ui/core';
-export { setIconLibrary, getIconLibrary, onIconLibraryChange, materialName, MATERIAL_NAMES } from '@nova-ui/core';
-export type { IconLibrary, contrastRatio } from '@nova-ui/core';
-export { generateTheme, themeToCSS, toCSV, safeFilename } from '@nova-ui/core';
-export type { GeneratedTheme, CsvColumn } from '@nova-ui/core';
-export { linearScale, niceTicks, compact, extent } from '@nova-ui/core';
-export type { ChartSeries } from '@nova-ui/core';
-export type { ConfirmOptions, PromptOptions, DateRange, UploadItem, FileProblem, FileRules, MessageKey, Messages } from '@nova-ui/core';
+export { confirm, prompt, sanitizeHTML, setMessages, resetMessages, DEFAULT_MESSAGES } from '@omni/core';
+export { setIconLibrary, getIconLibrary, onIconLibraryChange, materialName, MATERIAL_NAMES } from '@omni/core';
+export type { IconLibrary, contrastRatio } from '@omni/core';
+export { generateTheme, themeToCSS, toCSV, safeFilename } from '@omni/core';
+export type { GeneratedTheme, CsvColumn } from '@omni/core';
+export { linearScale, niceTicks, compact, extent } from '@omni/core';
+export type { ChartSeries } from '@omni/core';
+export type { ConfirmOptions, PromptOptions, DateRange, UploadItem, FileProblem, FileRules, MessageKey, Messages } from '@omni/core';
 
 export {
   registerIcons,
@@ -21,7 +21,7 @@ export {
   setThemeMode,
   getThemeMode,
   resolveTheme,
-} from '@nova-ui/core';
+} from '@omni/core';
 export type {
   ThemeMode,
   ResolvedTheme,
@@ -37,7 +37,7 @@ export type {
   TableSort,
   TableQuery,
   TreeNode,
-} from '@nova-ui/core';
+} from '@omni/core';
 
 export { usePresence } from './presence';
 export * from './blocks';

@@ -5,7 +5,7 @@ Nova works with the App Router and the Pages Router. Components are client compo
 ## Install
 
 ```bash
-pnpm add @nova-ui/core @nova-ui/css @nova-ui/react
+pnpm add @omni/core @omni/css @omni/react
 ```
 
 ## Root layout: stylesheet, theme script, no flash
@@ -13,8 +13,8 @@ pnpm add @nova-ui/core @nova-ui/css @nova-ui/react
 ```tsx
 // app/layout.tsx
 import type { ReactNode } from 'react';
-import '@nova-ui/css/nova.css';
-import { themeInitScript } from '@nova-ui/react/server';
+import '@omni/css/nova.css';
+import { themeInitScript } from '@omni/react/server';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -42,7 +42,7 @@ Mark any file that uses Nova components as a client component:
 ```tsx
 'use client';
 
-import { UiButton, UiCard, useTheme } from '@nova-ui/react';
+import { UiButton, UiCard, useTheme } from '@omni/react';
 
 export default function Page() {
   const { mode, resolved } = useTheme();
@@ -57,7 +57,7 @@ Components can be imported from server files, because the package is marked `"us
 ```tsx
 'use client';
 import dynamic from 'next/dynamic';
-const UiEditor = dynamic(() => import('@nova-ui/react/editor').then((m) => m.UiEditor), { ssr: false });
+const UiEditor = dynamic(() => import('@omni/react/editor').then((m) => m.UiEditor), { ssr: false });
 ```
 
 Loading the editor with `ssr: false` keeps Tiptap out of the server bundle.

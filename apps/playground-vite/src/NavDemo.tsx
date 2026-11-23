@@ -2,7 +2,7 @@ import { useState } from 'react';
 import {
   UiAccordion, UiAccordionItem, UiBreadcrumb, UiBreadcrumbItem, UiButton, UiMenuItem, UiMenubar,
   UiMenubarMenu, UiNavItem, UiNavMenu, UiPagination, UiStep, UiStepper, UiTab, UiTabPanel, UiTabs, toast,
-} from '@nova-ui/react';
+} from '@omni/react';
 
 export function NavDemo() {
   const [step, setStep] = useState(1);

@@ -2,11 +2,11 @@
 
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
-import { UiButton, UiChart, UiCollapse, UiIcon, UiKanban, UiScheduler, UiSidebar, UiSidebarItem, UiSplit, UiTable, UiTimePicker, UiDateRangePicker, UiFileUpload, usePresence, toast } from '@nova-ui/react';
-import type { DateRange } from '@nova-ui/react';
+import { UiButton, UiChart, UiCollapse, UiIcon, UiKanban, UiScheduler, UiSidebar, UiSidebarItem, UiSplit, UiTable, UiTimePicker, UiDateRangePicker, UiFileUpload, usePresence, toast } from '@omni/react';
+import type { DateRange } from '@omni/react';
 
 // The editor is large and browser-only: load it on the client, so it stays out of the server bundle.
-const UiEditor = dynamic(() => import('@nova-ui/react/editor').then((m) => m.UiEditor), { ssr: false });
+const UiEditor = dynamic(() => import('@omni/react/editor').then((m) => m.UiEditor), { ssr: false });
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
 

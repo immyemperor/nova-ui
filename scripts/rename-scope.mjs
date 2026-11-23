@@ -1,5 +1,5 @@
 // Usage: node scripts/rename-scope.mjs @acme [ui-prefix]
-// Renames the "@nova-ui" npm scope everywhere (package names, imports, docs).
+// Renames the "@omni" npm scope everywhere (package names, imports, docs).
 import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -8,7 +8,7 @@ if (!next || !next.startsWith('@')) {
   console.error('Usage: node scripts/rename-scope.mjs @your-scope');
   process.exit(1);
 }
-const FROM = '@nova-ui';
+const FROM = '@omni';
 const SKIP = new Set(['node_modules', 'dist', 'loader', '.git', '.next', '.stencil', '.angular']);
 const EXT = /\.(json|ts|tsx|js|mjs|cjs|md|html|css|yaml|yml)$/;
 

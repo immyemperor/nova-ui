@@ -29,13 +29,13 @@ Seven packages, always together, always at the same version:
 
 | Package | Contents | Built into |
 | --- | --- | --- |
-| `@nova-ui/core` | Web components, tokens, theme, utilities, API reference (`dist-docs`) | `dist/`, `loader/` |
-| `@nova-ui/css` | Layout, utilities, CSS components, optional Material icons | `dist/` |
-| `@nova-ui/react` | React wrappers, hooks, page blocks, `/editor` and `/server` entries | `dist/` |
-| `@nova-ui/angular` | Angular standalone wrappers and services | `dist/` (ng-packagr; packed from there) |
-| `@nova-ui/vue` | Vue 3 wrappers | `dist/` |
-| `@nova-ui/editor` | Rich text editor (Tiptap) | `dist/`, `loader/` |
-| `@nova-ui/tailwind` | Tailwind preset | `index.js` |
+| `@omni/core` | Web components, tokens, theme, utilities, API reference (`dist-docs`) | `dist/`, `loader/` |
+| `@omni/css` | Layout, utilities, CSS components, optional Material icons | `dist/` |
+| `@omni/react` | React wrappers, hooks, page blocks, `/editor` and `/server` entries | `dist/` |
+| `@omni/angular` | Angular standalone wrappers and services | `dist/` (ng-packagr; packed from there) |
+| `@omni/vue` | Vue 3 wrappers | `dist/` |
+| `@omni/editor` | Rich text editor (Tiptap) | `dist/`, `loader/` |
+| `@omni/tailwind` | Tailwind preset | `index.js` |
 
 Playgrounds under `apps/` are never released.
 
@@ -46,7 +46,7 @@ Do this once per machine, and once per repository.
 **npm account and scope**
 
 1. Log in at npmjs.com, and turn on two-factor authentication (2FA).
-2. Make sure you can publish to the `@nova-ui` scope. The first publish of a new scope needs the organisation to exist: create it at npmjs.com if it doesn't.
+2. Make sure you can publish to the `@omni` scope. The first publish of a new scope needs the organisation to exist: create it at npmjs.com if it doesn't.
 3. On your machine, log in:
 
    ```bash
@@ -64,7 +64,7 @@ git --version
 
 **GitHub (for the release page and CI publishing only)**
 
-- A repository secret named `NPM_TOKEN`: an npm automation token with publish rights for `@nova-ui`.
+- A repository secret named `NPM_TOKEN`: an npm automation token with publish rights for `@omni`.
 - Optional: a GitHub environment named `npm` with required reviewers.
 
 ## 3. Before you start
@@ -121,10 +121,10 @@ rm -rf node_modules packages/*/node_modules apps/*/node_modules
 pnpm install --frozen-lockfile
 ```
 
-Optional: download the Material Symbols before building, so `@nova-ui/css` includes the icon font. This needs internet access:
+Optional: download the Material Symbols before building, so `@omni/css` includes the icon font. This needs internet access:
 
 ```bash
-pnpm --filter @nova-ui/css icons:update
+pnpm --filter @omni/css icons:update
 ```
 
 Generate the derived files (API reference, Vue wrappers, agent context, playground data), then build every package:
@@ -142,7 +142,7 @@ pnpm test                   # unit tests, CSS checks, Material icon tests, relea
 pnpm check:names            # no prop or method shadows a DOM member
 pnpm docs:check             # every component documented, links and props correct
 pnpm playgrounds:check      # playgrounds use real components and classes
-pnpm --filter @nova-ui/css test:browser   # layout tests in Chromium (needs Playwright)
+pnpm --filter @omni/css test:browser   # layout tests in Chromium (needs Playwright)
 node scripts/verify-publishable.mjs       # all seven packages would ship
 node scripts/verify-dist.mjs              # every package has its built entry points
 ```
@@ -230,8 +230,8 @@ Check that npm serves the new version, for every package. Each should print the 
 ```bash
 VERSION=$(node -p "require('./packages/core/package.json').version")
 for p in core css react angular vue editor tailwind; do
-  echo -n "@nova-ui/$p: "
-  npm view "@nova-ui/$p@$VERSION" version
+  echo -n "@omni/$p: "
+  npm view "@omni/$p@$VERSION" version
 done
 ```
 
@@ -240,12 +240,12 @@ Install into a clean project, and check the package works. This catches a missin
 ```bash
 mkdir /tmp/nova-smoke && cd /tmp/nova-smoke
 npm init -y >/dev/null
-npm install @nova-ui/core@$VERSION @nova-ui/css@$VERSION @nova-ui/react@$VERSION
-node -e "console.log(require.resolve('@nova-ui/core/package.json'))"
+npm install @omni/core@$VERSION @omni/css@$VERSION @omni/react@$VERSION
+node -e "console.log(require.resolve('@omni/core/package.json'))"
 cd - >/dev/null
 ```
 
-Check the provenance badge: on npmjs.com, open `@nova-ui/core`. A tag-based release from CI shows "Built and signed on GitHub Actions". A manual release does not, which is expected.
+Check the provenance badge: on npmjs.com, open `@omni/core`. A tag-based release from CI shows "Built and signed on GitHub Actions". A manual release does not, which is expected.
 
 Check the documentation site or README links still point to the new version.
 
@@ -265,20 +265,20 @@ Use the manual route (steps 2 to 10) when Actions is down, or for a first releas
 
 ## 12. Pre-releases
 
-For a release candidate, use a version such as `0.3.0-rc.1`, and publish under a dist-tag so that `npm install @nova-ui/core` keeps getting the latest stable version:
+For a release candidate, use a version such as `0.3.0-rc.1`, and publish under a dist-tag so that `npm install @omni/core` keeps getting the latest stable version:
 
 ```bash
 node scripts/release.mjs publish --tag next
 ```
 
-Users then opt in with `npm install @nova-ui/core@next`. Promote a release candidate to stable by publishing the stable version normally, without a tag.
+Users then opt in with `npm install @omni/core@next`. Promote a release candidate to stable by publishing the stable version normally, without a tag.
 
 ## 13. Mistakes and how to fix them
 
 **I published the wrong version.** npm does not let you reuse a version number, even after unpublishing. Publish the fix as the next patch (`0.2.1`). If the bad version is harmful, deprecate it:
 
 ```bash
-npm deprecate "@nova-ui/core@0.2.0" "Broken build. Use 0.2.1."
+npm deprecate "@omni/core@0.2.0" "Broken build. Use 0.2.1."
 ```
 
 **I published, and something is missing from the package.** Fix the build, bump to the next patch with a changeset, and publish again. Do not try to replace the old version.
@@ -287,7 +287,7 @@ npm deprecate "@nova-ui/core@0.2.0" "Broken build. Use 0.2.1."
 
 **Angular shipped source files.** This happens if the Angular package was packed from its folder, not from `dist/`. Do not use `changeset publish` for this repository: it packs each package folder directly. Use `node scripts/release.mjs` (or `pnpm release`), which packs from `dist/` for Angular. If source was published, deprecate that version, publish a fix, and tell users.
 
-**`npm publish` says 403 Forbidden.** Your account lacks rights to the `@nova-ui` scope, or 2FA needs a code. Check `npm whoami`, check the scope membership at npmjs.com, and retry with `--otp`.
+**`npm publish` says 403 Forbidden.** Your account lacks rights to the `@omni` scope, or 2FA needs a code. Check `npm whoami`, check the scope membership at npmjs.com, and retry with `--otp`.
 
 **`npm publish` says the version already exists.** Another publish already succeeded. Run `node scripts/release.mjs publish` again: it skips versions already on npm.
 
@@ -314,5 +314,5 @@ Copy this into the release issue or pull request, and tick each line.
 - [ ] `node scripts/release.mjs publish` completed, and every package reports the new version on npm.
 - [ ] Release commit pushed, tag `vX.Y.Z` pushed.
 - [ ] GitHub release created with tarballs and checksums attached.
-- [ ] A clean install of `@nova-ui/core`, `css` and `react` works.
+- [ ] A clean install of `@omni/core`, `css` and `react` works.
 - [ ] Release announced, and any deprecations of earlier broken versions are in place.

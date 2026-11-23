@@ -23,7 +23,7 @@ html.allowImages = false; // strips <img> elements
 ## Functions
 
 ```ts
-import { sanitizeHTML, isSafeLink, isSafeImage } from '@nova-ui/core';
+import { sanitizeHTML, isSafeLink, isSafeImage } from '@omni/core';
 const clean = sanitizeHTML(untrusted);
 ```
 

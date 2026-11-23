@@ -4,79 +4,79 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Even
 
 import { ProxyCmp } from './angular-component-lib/utils';
 
-import type { Components } from '@nova-ui/core/components';
+import type { Components } from '@omni/core/components';
 
-import { defineCustomElement as defineUiAccordion } from '@nova-ui/core/components/ui-accordion.js';
-import { defineCustomElement as defineUiAccordionItem } from '@nova-ui/core/components/ui-accordion-item.js';
-import { defineCustomElement as defineUiAlert } from '@nova-ui/core/components/ui-alert.js';
-import { defineCustomElement as defineUiAvatar } from '@nova-ui/core/components/ui-avatar.js';
-import { defineCustomElement as defineUiBadge } from '@nova-ui/core/components/ui-badge.js';
-import { defineCustomElement as defineUiBreadcrumb } from '@nova-ui/core/components/ui-breadcrumb.js';
-import { defineCustomElement as defineUiBreadcrumbItem } from '@nova-ui/core/components/ui-breadcrumb-item.js';
-import { defineCustomElement as defineUiButton } from '@nova-ui/core/components/ui-button.js';
-import { defineCustomElement as defineUiCalendar } from '@nova-ui/core/components/ui-calendar.js';
-import { defineCustomElement as defineUiCard } from '@nova-ui/core/components/ui-card.js';
-import { defineCustomElement as defineUiCarousel } from '@nova-ui/core/components/ui-carousel.js';
-import { defineCustomElement as defineUiChart } from '@nova-ui/core/components/ui-chart.js';
-import { defineCustomElement as defineUiCheckbox } from '@nova-ui/core/components/ui-checkbox.js';
-import { defineCustomElement as defineUiCollapse } from '@nova-ui/core/components/ui-collapse.js';
-import { defineCustomElement as defineUiColorPicker } from '@nova-ui/core/components/ui-color-picker.js';
-import { defineCustomElement as defineUiCommandPalette } from '@nova-ui/core/components/ui-command-palette.js';
-import { defineCustomElement as defineUiContextMenu } from '@nova-ui/core/components/ui-context-menu.js';
-import { defineCustomElement as defineUiCounter } from '@nova-ui/core/components/ui-counter.js';
-import { defineCustomElement as defineUiDatePicker } from '@nova-ui/core/components/ui-date-picker.js';
-import { defineCustomElement as defineUiDateRangePicker } from '@nova-ui/core/components/ui-date-range-picker.js';
-import { defineCustomElement as defineUiDialogHost } from '@nova-ui/core/components/ui-dialog-host.js';
-import { defineCustomElement as defineUiDrawer } from '@nova-ui/core/components/ui-drawer.js';
-import { defineCustomElement as defineUiDropdown } from '@nova-ui/core/components/ui-dropdown.js';
-import { defineCustomElement as defineUiField } from '@nova-ui/core/components/ui-field.js';
-import { defineCustomElement as defineUiFileUpload } from '@nova-ui/core/components/ui-file-upload.js';
-import { defineCustomElement as defineUiHtml } from '@nova-ui/core/components/ui-html.js';
-import { defineCustomElement as defineUiIcon } from '@nova-ui/core/components/ui-icon.js';
-import { defineCustomElement as defineUiInput } from '@nova-ui/core/components/ui-input.js';
-import { defineCustomElement as defineUiKanban } from '@nova-ui/core/components/ui-kanban.js';
-import { defineCustomElement as defineUiMarquee } from '@nova-ui/core/components/ui-marquee.js';
-import { defineCustomElement as defineUiMenuItem } from '@nova-ui/core/components/ui-menu-item.js';
-import { defineCustomElement as defineUiMenubar } from '@nova-ui/core/components/ui-menubar.js';
-import { defineCustomElement as defineUiMenubarMenu } from '@nova-ui/core/components/ui-menubar-menu.js';
-import { defineCustomElement as defineUiModal } from '@nova-ui/core/components/ui-modal.js';
-import { defineCustomElement as defineUiNavItem } from '@nova-ui/core/components/ui-nav-item.js';
-import { defineCustomElement as defineUiNavMenu } from '@nova-ui/core/components/ui-nav-menu.js';
-import { defineCustomElement as defineUiOtpInput } from '@nova-ui/core/components/ui-otp-input.js';
-import { defineCustomElement as defineUiPagination } from '@nova-ui/core/components/ui-pagination.js';
-import { defineCustomElement as defineUiPopover } from '@nova-ui/core/components/ui-popover.js';
-import { defineCustomElement as defineUiProgress } from '@nova-ui/core/components/ui-progress.js';
-import { defineCustomElement as defineUiRadio } from '@nova-ui/core/components/ui-radio.js';
-import { defineCustomElement as defineUiRadioGroup } from '@nova-ui/core/components/ui-radio-group.js';
-import { defineCustomElement as defineUiRating } from '@nova-ui/core/components/ui-rating.js';
-import { defineCustomElement as defineUiReveal } from '@nova-ui/core/components/ui-reveal.js';
-import { defineCustomElement as defineUiScheduler } from '@nova-ui/core/components/ui-scheduler.js';
-import { defineCustomElement as defineUiScrollProgress } from '@nova-ui/core/components/ui-scroll-progress.js';
-import { defineCustomElement as defineUiSelect } from '@nova-ui/core/components/ui-select.js';
-import { defineCustomElement as defineUiSidebar } from '@nova-ui/core/components/ui-sidebar.js';
-import { defineCustomElement as defineUiSidebarItem } from '@nova-ui/core/components/ui-sidebar-item.js';
-import { defineCustomElement as defineUiSkeleton } from '@nova-ui/core/components/ui-skeleton.js';
-import { defineCustomElement as defineUiSlider } from '@nova-ui/core/components/ui-slider.js';
-import { defineCustomElement as defineUiSortable } from '@nova-ui/core/components/ui-sortable.js';
-import { defineCustomElement as defineUiSparkline } from '@nova-ui/core/components/ui-sparkline.js';
-import { defineCustomElement as defineUiSpinner } from '@nova-ui/core/components/ui-spinner.js';
-import { defineCustomElement as defineUiSplit } from '@nova-ui/core/components/ui-split.js';
-import { defineCustomElement as defineUiStagger } from '@nova-ui/core/components/ui-stagger.js';
-import { defineCustomElement as defineUiStep } from '@nova-ui/core/components/ui-step.js';
-import { defineCustomElement as defineUiStepper } from '@nova-ui/core/components/ui-stepper.js';
-import { defineCustomElement as defineUiSwitch } from '@nova-ui/core/components/ui-switch.js';
-import { defineCustomElement as defineUiTab } from '@nova-ui/core/components/ui-tab.js';
-import { defineCustomElement as defineUiTabPanel } from '@nova-ui/core/components/ui-tab-panel.js';
-import { defineCustomElement as defineUiTable } from '@nova-ui/core/components/ui-table.js';
-import { defineCustomElement as defineUiTabs } from '@nova-ui/core/components/ui-tabs.js';
-import { defineCustomElement as defineUiTagInput } from '@nova-ui/core/components/ui-tag-input.js';
-import { defineCustomElement as defineUiTextarea } from '@nova-ui/core/components/ui-textarea.js';
-import { defineCustomElement as defineUiThemeToggle } from '@nova-ui/core/components/ui-theme-toggle.js';
-import { defineCustomElement as defineUiTimePicker } from '@nova-ui/core/components/ui-time-picker.js';
-import { defineCustomElement as defineUiToaster } from '@nova-ui/core/components/ui-toaster.js';
-import { defineCustomElement as defineUiTooltip } from '@nova-ui/core/components/ui-tooltip.js';
-import { defineCustomElement as defineUiTree } from '@nova-ui/core/components/ui-tree.js';
-import { defineCustomElement as defineUiVirtualList } from '@nova-ui/core/components/ui-virtual-list.js';
+import { defineCustomElement as defineUiAccordion } from '@omni/core/components/ui-accordion.js';
+import { defineCustomElement as defineUiAccordionItem } from '@omni/core/components/ui-accordion-item.js';
+import { defineCustomElement as defineUiAlert } from '@omni/core/components/ui-alert.js';
+import { defineCustomElement as defineUiAvatar } from '@omni/core/components/ui-avatar.js';
+import { defineCustomElement as defineUiBadge } from '@omni/core/components/ui-badge.js';
+import { defineCustomElement as defineUiBreadcrumb } from '@omni/core/components/ui-breadcrumb.js';
+import { defineCustomElement as defineUiBreadcrumbItem } from '@omni/core/components/ui-breadcrumb-item.js';
+import { defineCustomElement as defineUiButton } from '@omni/core/components/ui-button.js';
+import { defineCustomElement as defineUiCalendar } from '@omni/core/components/ui-calendar.js';
+import { defineCustomElement as defineUiCard } from '@omni/core/components/ui-card.js';
+import { defineCustomElement as defineUiCarousel } from '@omni/core/components/ui-carousel.js';
+import { defineCustomElement as defineUiChart } from '@omni/core/components/ui-chart.js';
+import { defineCustomElement as defineUiCheckbox } from '@omni/core/components/ui-checkbox.js';
+import { defineCustomElement as defineUiCollapse } from '@omni/core/components/ui-collapse.js';
+import { defineCustomElement as defineUiColorPicker } from '@omni/core/components/ui-color-picker.js';
+import { defineCustomElement as defineUiCommandPalette } from '@omni/core/components/ui-command-palette.js';
+import { defineCustomElement as defineUiContextMenu } from '@omni/core/components/ui-context-menu.js';
+import { defineCustomElement as defineUiCounter } from '@omni/core/components/ui-counter.js';
+import { defineCustomElement as defineUiDatePicker } from '@omni/core/components/ui-date-picker.js';
+import { defineCustomElement as defineUiDateRangePicker } from '@omni/core/components/ui-date-range-picker.js';
+import { defineCustomElement as defineUiDialogHost } from '@omni/core/components/ui-dialog-host.js';
+import { defineCustomElement as defineUiDrawer } from '@omni/core/components/ui-drawer.js';
+import { defineCustomElement as defineUiDropdown } from '@omni/core/components/ui-dropdown.js';
+import { defineCustomElement as defineUiField } from '@omni/core/components/ui-field.js';
+import { defineCustomElement as defineUiFileUpload } from '@omni/core/components/ui-file-upload.js';
+import { defineCustomElement as defineUiHtml } from '@omni/core/components/ui-html.js';
+import { defineCustomElement as defineUiIcon } from '@omni/core/components/ui-icon.js';
+import { defineCustomElement as defineUiInput } from '@omni/core/components/ui-input.js';
+import { defineCustomElement as defineUiKanban } from '@omni/core/components/ui-kanban.js';
+import { defineCustomElement as defineUiMarquee } from '@omni/core/components/ui-marquee.js';
+import { defineCustomElement as defineUiMenuItem } from '@omni/core/components/ui-menu-item.js';
+import { defineCustomElement as defineUiMenubar } from '@omni/core/components/ui-menubar.js';
+import { defineCustomElement as defineUiMenubarMenu } from '@omni/core/components/ui-menubar-menu.js';
+import { defineCustomElement as defineUiModal } from '@omni/core/components/ui-modal.js';
+import { defineCustomElement as defineUiNavItem } from '@omni/core/components/ui-nav-item.js';
+import { defineCustomElement as defineUiNavMenu } from '@omni/core/components/ui-nav-menu.js';
+import { defineCustomElement as defineUiOtpInput } from '@omni/core/components/ui-otp-input.js';
+import { defineCustomElement as defineUiPagination } from '@omni/core/components/ui-pagination.js';
+import { defineCustomElement as defineUiPopover } from '@omni/core/components/ui-popover.js';
+import { defineCustomElement as defineUiProgress } from '@omni/core/components/ui-progress.js';
+import { defineCustomElement as defineUiRadio } from '@omni/core/components/ui-radio.js';
+import { defineCustomElement as defineUiRadioGroup } from '@omni/core/components/ui-radio-group.js';
+import { defineCustomElement as defineUiRating } from '@omni/core/components/ui-rating.js';
+import { defineCustomElement as defineUiReveal } from '@omni/core/components/ui-reveal.js';
+import { defineCustomElement as defineUiScheduler } from '@omni/core/components/ui-scheduler.js';
+import { defineCustomElement as defineUiScrollProgress } from '@omni/core/components/ui-scroll-progress.js';
+import { defineCustomElement as defineUiSelect } from '@omni/core/components/ui-select.js';
+import { defineCustomElement as defineUiSidebar } from '@omni/core/components/ui-sidebar.js';
+import { defineCustomElement as defineUiSidebarItem } from '@omni/core/components/ui-sidebar-item.js';
+import { defineCustomElement as defineUiSkeleton } from '@omni/core/components/ui-skeleton.js';
+import { defineCustomElement as defineUiSlider } from '@omni/core/components/ui-slider.js';
+import { defineCustomElement as defineUiSortable } from '@omni/core/components/ui-sortable.js';
+import { defineCustomElement as defineUiSparkline } from '@omni/core/components/ui-sparkline.js';
+import { defineCustomElement as defineUiSpinner } from '@omni/core/components/ui-spinner.js';
+import { defineCustomElement as defineUiSplit } from '@omni/core/components/ui-split.js';
+import { defineCustomElement as defineUiStagger } from '@omni/core/components/ui-stagger.js';
+import { defineCustomElement as defineUiStep } from '@omni/core/components/ui-step.js';
+import { defineCustomElement as defineUiStepper } from '@omni/core/components/ui-stepper.js';
+import { defineCustomElement as defineUiSwitch } from '@omni/core/components/ui-switch.js';
+import { defineCustomElement as defineUiTab } from '@omni/core/components/ui-tab.js';
+import { defineCustomElement as defineUiTabPanel } from '@omni/core/components/ui-tab-panel.js';
+import { defineCustomElement as defineUiTable } from '@omni/core/components/ui-table.js';
+import { defineCustomElement as defineUiTabs } from '@omni/core/components/ui-tabs.js';
+import { defineCustomElement as defineUiTagInput } from '@omni/core/components/ui-tag-input.js';
+import { defineCustomElement as defineUiTextarea } from '@omni/core/components/ui-textarea.js';
+import { defineCustomElement as defineUiThemeToggle } from '@omni/core/components/ui-theme-toggle.js';
+import { defineCustomElement as defineUiTimePicker } from '@omni/core/components/ui-time-picker.js';
+import { defineCustomElement as defineUiToaster } from '@omni/core/components/ui-toaster.js';
+import { defineCustomElement as defineUiTooltip } from '@omni/core/components/ui-tooltip.js';
+import { defineCustomElement as defineUiTree } from '@omni/core/components/ui-tree.js';
+import { defineCustomElement as defineUiVirtualList } from '@omni/core/components/ui-virtual-list.js';
 @ProxyCmp({
   defineCustomElementFn: defineUiAccordion,
   inputs: ['multiple', 'variant']
@@ -123,7 +123,7 @@ export class UiAccordionItem {
 }
 
 
-import type { UiAccordionItemCustomEvent } from '@nova-ui/core/components';
+import type { UiAccordionItemCustomEvent } from '@omni/core/components';
 
 export declare interface UiAccordionItem extends Components.UiAccordionItem {
   /**
@@ -155,7 +155,7 @@ export class UiAlert {
 }
 
 
-import type { UiAlertCustomEvent } from '@nova-ui/core/components';
+import type { UiAlertCustomEvent } from '@omni/core/components';
 
 export declare interface UiAlert extends Components.UiAlert {
   /**
@@ -256,7 +256,7 @@ export class UiBreadcrumbItem {
 }
 
 
-import type { UiBreadcrumbItemCustomEvent } from '@nova-ui/core/components';
+import type { UiBreadcrumbItemCustomEvent } from '@omni/core/components';
 
 export declare interface UiBreadcrumbItem extends Components.UiBreadcrumbItem {
 
@@ -310,7 +310,7 @@ export class UiCalendar {
 }
 
 
-import type { UiCalendarCustomEvent } from '@nova-ui/core/components';
+import type { UiCalendarCustomEvent } from '@omni/core/components';
 
 export declare interface UiCalendar extends Components.UiCalendar {
 
@@ -363,7 +363,7 @@ export class UiCarousel {
 }
 
 
-import type { UiCarouselCustomEvent } from '@nova-ui/core/components';
+import type { UiCarouselCustomEvent } from '@omni/core/components';
 
 export declare interface UiCarousel extends Components.UiCarousel {
   /**
@@ -418,7 +418,7 @@ export class UiCheckbox {
 }
 
 
-import type { UiCheckboxCustomEvent } from '@nova-ui/core/components';
+import type { UiCheckboxCustomEvent } from '@omni/core/components';
 
 export declare interface UiCheckbox extends Components.UiCheckbox {
 
@@ -448,7 +448,7 @@ export class UiCollapse {
 }
 
 
-import type { UiCollapseCustomEvent } from '@nova-ui/core/components';
+import type { UiCollapseCustomEvent } from '@omni/core/components';
 
 export declare interface UiCollapse extends Components.UiCollapse {
 
@@ -479,7 +479,7 @@ export class UiColorPicker {
 }
 
 
-import type { UiColorPickerCustomEvent } from '@nova-ui/core/components';
+import type { UiColorPickerCustomEvent } from '@omni/core/components';
 
 export declare interface UiColorPicker extends Components.UiColorPicker {
   /**
@@ -516,8 +516,8 @@ export class UiCommandPalette {
 }
 
 
-import type { UiCommandPaletteCustomEvent } from '@nova-ui/core/components';
-import type { Command as IUiCommandPaletteCommand } from '@nova-ui/core/components';
+import type { UiCommandPaletteCustomEvent } from '@omni/core/components';
+import type { Command as IUiCommandPaletteCommand } from '@omni/core/components';
 
 export declare interface UiCommandPalette extends Components.UiCommandPalette {
   /**
@@ -551,7 +551,7 @@ export class UiContextMenu {
 }
 
 
-import type { UiContextMenuCustomEvent } from '@nova-ui/core/components';
+import type { UiContextMenuCustomEvent } from '@omni/core/components';
 
 export declare interface UiContextMenu extends Components.UiContextMenu {
 
@@ -605,7 +605,7 @@ export class UiDatePicker {
 }
 
 
-import type { UiDatePickerCustomEvent } from '@nova-ui/core/components';
+import type { UiDatePickerCustomEvent } from '@omni/core/components';
 
 export declare interface UiDatePicker extends Components.UiDatePicker {
   /**
@@ -638,8 +638,8 @@ export class UiDateRangePicker {
 }
 
 
-import type { UiDateRangePickerCustomEvent } from '@nova-ui/core/components';
-import type { DateRange as IUiDateRangePickerDateRange } from '@nova-ui/core/components';
+import type { UiDateRangePickerCustomEvent } from '@omni/core/components';
+import type { DateRange as IUiDateRangePickerDateRange } from '@omni/core/components';
 
 export declare interface UiDateRangePicker extends Components.UiDateRangePicker {
 
@@ -693,7 +693,7 @@ export class UiDrawer {
 }
 
 
-import type { UiDrawerCustomEvent } from '@nova-ui/core/components';
+import type { UiDrawerCustomEvent } from '@omni/core/components';
 
 export declare interface UiDrawer extends Components.UiDrawer {
 
@@ -726,7 +726,7 @@ export class UiDropdown {
 }
 
 
-import type { UiDropdownCustomEvent } from '@nova-ui/core/components';
+import type { UiDropdownCustomEvent } from '@omni/core/components';
 
 export declare interface UiDropdown extends Components.UiDropdown {
   /**
@@ -787,8 +787,8 @@ export class UiFileUpload {
 }
 
 
-import type { UiFileUploadCustomEvent } from '@nova-ui/core/components';
-import type { FileProblem as IUiFileUploadFileProblem } from '@nova-ui/core/components';
+import type { UiFileUploadCustomEvent } from '@omni/core/components';
+import type { FileProblem as IUiFileUploadFileProblem } from '@omni/core/components';
 
 export declare interface UiFileUpload extends Components.UiFileUpload {
   /**
@@ -878,7 +878,7 @@ export class UiInput {
 }
 
 
-import type { UiInputCustomEvent } from '@nova-ui/core/components';
+import type { UiInputCustomEvent } from '@omni/core/components';
 
 export declare interface UiInput extends Components.UiInput {
   /**
@@ -914,7 +914,7 @@ export class UiKanban {
 }
 
 
-import type { UiKanbanCustomEvent } from '@nova-ui/core/components';
+import type { UiKanbanCustomEvent } from '@omni/core/components';
 
 export declare interface UiKanban extends Components.UiKanban {
   /**
@@ -1017,7 +1017,7 @@ export class UiMenubarMenu {
 }
 
 
-import type { UiMenubarMenuCustomEvent } from '@nova-ui/core/components';
+import type { UiMenubarMenuCustomEvent } from '@omni/core/components';
 
 export declare interface UiMenubarMenu extends Components.UiMenubarMenu {
   /**
@@ -1054,7 +1054,7 @@ export class UiModal {
 }
 
 
-import type { UiModalCustomEvent } from '@nova-ui/core/components';
+import type { UiModalCustomEvent } from '@omni/core/components';
 
 export declare interface UiModal extends Components.UiModal {
   /**
@@ -1091,7 +1091,7 @@ export class UiNavItem {
 }
 
 
-import type { UiNavItemCustomEvent } from '@nova-ui/core/components';
+import type { UiNavItemCustomEvent } from '@omni/core/components';
 
 export declare interface UiNavItem extends Components.UiNavItem {
   /**
@@ -1148,7 +1148,7 @@ export class UiOtpInput {
 }
 
 
-import type { UiOtpInputCustomEvent } from '@nova-ui/core/components';
+import type { UiOtpInputCustomEvent } from '@omni/core/components';
 
 export declare interface UiOtpInput extends Components.UiOtpInput {
   /**
@@ -1184,7 +1184,7 @@ export class UiPagination {
 }
 
 
-import type { UiPaginationCustomEvent } from '@nova-ui/core/components';
+import type { UiPaginationCustomEvent } from '@omni/core/components';
 
 export declare interface UiPagination extends Components.UiPagination {
 
@@ -1217,7 +1217,7 @@ export class UiPopover {
 }
 
 
-import type { UiPopoverCustomEvent } from '@nova-ui/core/components';
+import type { UiPopoverCustomEvent } from '@omni/core/components';
 
 export declare interface UiPopover extends Components.UiPopover {
   /**
@@ -1301,7 +1301,7 @@ export class UiRadioGroup {
 }
 
 
-import type { UiRadioGroupCustomEvent } from '@nova-ui/core/components';
+import type { UiRadioGroupCustomEvent } from '@omni/core/components';
 
 export declare interface UiRadioGroup extends Components.UiRadioGroup {
 
@@ -1331,7 +1331,7 @@ export class UiRating {
 }
 
 
-import type { UiRatingCustomEvent } from '@nova-ui/core/components';
+import type { UiRatingCustomEvent } from '@omni/core/components';
 
 export declare interface UiRating extends Components.UiRating {
 
@@ -1361,7 +1361,7 @@ export class UiReveal {
 }
 
 
-import type { UiRevealCustomEvent } from '@nova-ui/core/components';
+import type { UiRevealCustomEvent } from '@omni/core/components';
 
 export declare interface UiReveal extends Components.UiReveal {
   /**
@@ -1395,8 +1395,8 @@ export class UiScheduler {
 }
 
 
-import type { UiSchedulerCustomEvent } from '@nova-ui/core/components';
-import type { CalEvent as IUiSchedulerCalEvent } from '@nova-ui/core/components';
+import type { UiSchedulerCustomEvent } from '@omni/core/components';
+import type { CalEvent as IUiSchedulerCalEvent } from '@omni/core/components';
 
 export declare interface UiScheduler extends Components.UiScheduler {
 
@@ -1455,7 +1455,7 @@ export class UiSelect {
 }
 
 
-import type { UiSelectCustomEvent } from '@nova-ui/core/components';
+import type { UiSelectCustomEvent } from '@omni/core/components';
 
 export declare interface UiSelect extends Components.UiSelect {
   /**
@@ -1491,7 +1491,7 @@ export class UiSidebar {
 }
 
 
-import type { UiSidebarCustomEvent } from '@nova-ui/core/components';
+import type { UiSidebarCustomEvent } from '@omni/core/components';
 
 export declare interface UiSidebar extends Components.UiSidebar {
 
@@ -1521,7 +1521,7 @@ export class UiSidebarItem {
 }
 
 
-import type { UiSidebarItemCustomEvent } from '@nova-ui/core/components';
+import type { UiSidebarItemCustomEvent } from '@omni/core/components';
 
 export declare interface UiSidebarItem extends Components.UiSidebarItem {
 
@@ -1575,7 +1575,7 @@ export class UiSlider {
 }
 
 
-import type { UiSliderCustomEvent } from '@nova-ui/core/components';
+import type { UiSliderCustomEvent } from '@omni/core/components';
 
 export declare interface UiSlider extends Components.UiSlider {
   /**
@@ -1611,8 +1611,8 @@ export class UiSortable {
 }
 
 
-import type { UiSortableCustomEvent } from '@nova-ui/core/components';
-import type { SortItem as IUiSortableSortItem } from '@nova-ui/core/components';
+import type { UiSortableCustomEvent } from '@omni/core/components';
+import type { SortItem as IUiSortableSortItem } from '@omni/core/components';
 
 export declare interface UiSortable extends Components.UiSortable {
   /**
@@ -1690,7 +1690,7 @@ export class UiSplit {
 }
 
 
-import type { UiSplitCustomEvent } from '@nova-ui/core/components';
+import type { UiSplitCustomEvent } from '@omni/core/components';
 
 export declare interface UiSplit extends Components.UiSplit {
 
@@ -1766,7 +1766,7 @@ export class UiStepper {
 }
 
 
-import type { UiStepperCustomEvent } from '@nova-ui/core/components';
+import type { UiStepperCustomEvent } from '@omni/core/components';
 
 export declare interface UiStepper extends Components.UiStepper {
   /**
@@ -1798,7 +1798,7 @@ export class UiSwitch {
 }
 
 
-import type { UiSwitchCustomEvent } from '@nova-ui/core/components';
+import type { UiSwitchCustomEvent } from '@omni/core/components';
 
 export declare interface UiSwitch extends Components.UiSwitch {
 
@@ -1877,9 +1877,9 @@ export class UiTable {
 }
 
 
-import type { UiTableCustomEvent } from '@nova-ui/core/components';
-import type { TableQuery as IUiTableTableQuery } from '@nova-ui/core/components';
-import type { TableRow as IUiTableTableRow } from '@nova-ui/core/components';
+import type { UiTableCustomEvent } from '@omni/core/components';
+import type { TableQuery as IUiTableTableQuery } from '@omni/core/components';
+import type { TableRow as IUiTableTableRow } from '@omni/core/components';
 
 export declare interface UiTable extends Components.UiTable {
   /**
@@ -1915,7 +1915,7 @@ export class UiTabs {
 }
 
 
-import type { UiTabsCustomEvent } from '@nova-ui/core/components';
+import type { UiTabsCustomEvent } from '@omni/core/components';
 
 export declare interface UiTabs extends Components.UiTabs {
 
@@ -1947,7 +1947,7 @@ export class UiTagInput {
 }
 
 
-import type { UiTagInputCustomEvent } from '@nova-ui/core/components';
+import type { UiTagInputCustomEvent } from '@omni/core/components';
 
 export declare interface UiTagInput extends Components.UiTagInput {
 
@@ -1983,7 +1983,7 @@ export class UiTextarea {
 }
 
 
-import type { UiTextareaCustomEvent } from '@nova-ui/core/components';
+import type { UiTextareaCustomEvent } from '@omni/core/components';
 
 export declare interface UiTextarea extends Components.UiTextarea {
 
@@ -2038,7 +2038,7 @@ export class UiTimePicker {
 }
 
 
-import type { UiTimePickerCustomEvent } from '@nova-ui/core/components';
+import type { UiTimePickerCustomEvent } from '@omni/core/components';
 
 export declare interface UiTimePicker extends Components.UiTimePicker {
 
@@ -2116,8 +2116,8 @@ export class UiTree {
 }
 
 
-import type { UiTreeCustomEvent } from '@nova-ui/core/components';
-import type { TreeNode as IUiTreeTreeNode } from '@nova-ui/core/components';
+import type { UiTreeCustomEvent } from '@omni/core/components';
+import type { TreeNode as IUiTreeTreeNode } from '@omni/core/components';
 
 export declare interface UiTree extends Components.UiTree {
 

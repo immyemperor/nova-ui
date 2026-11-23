@@ -3378,21 +3378,21 @@ export const DECLARATIONS: unknown[] = [
         "type": {
           "text": "string"
         },
-        "description": "Icon name, e.g. \"check\". Register more with registerIcons()."
+        "description": "Icon name, e.g. \"check\"."
       },
       {
         "name": "size",
         "type": {
           "text": "string"
         },
-        "description": "CSS size. Defaults to 1em so the icon scales with text."
+        "description": "Width and height, e.g. \"1.5rem\". Defaults to 1em."
       },
       {
         "name": "label",
         "type": {
           "text": "string"
         },
-        "description": "Accessible label. When omitted the icon is hidden from screen readers."
+        "description": "Accessible name. Leave unset for a decorative icon."
       },
       {
         "name": "filled",
@@ -3400,12 +3400,12 @@ export const DECLARATIONS: unknown[] = [
           "text": "boolean"
         },
         "default": "false",
-        "description": "Fill the shape with the current colour (e.g. a solid star)."
+        "description": "Fill the shape (solid star, filled Material icon)."
       },
       {
         "name": "library",
         "type": {
-          "text": "'nova' | 'material'"
+          "text": "IconLibrary"
         },
         "description": "Icon set for this icon. Leave unset to use the page setting (setIconLibrary)."
       }
@@ -3417,7 +3417,7 @@ export const DECLARATIONS: unknown[] = [
         "type": {
           "text": "string"
         },
-        "description": "Icon name, e.g. \"check\". Register more with registerIcons()."
+        "description": "Icon name, e.g. \"check\"."
       },
       {
         "kind": "field",
@@ -3425,7 +3425,7 @@ export const DECLARATIONS: unknown[] = [
         "type": {
           "text": "string"
         },
-        "description": "CSS size. Defaults to 1em so the icon scales with text."
+        "description": "Width and height, e.g. \"1.5rem\". Defaults to 1em."
       },
       {
         "kind": "field",
@@ -3433,7 +3433,7 @@ export const DECLARATIONS: unknown[] = [
         "type": {
           "text": "string"
         },
-        "description": "Accessible label. When omitted the icon is hidden from screen readers."
+        "description": "Accessible name. Leave unset for a decorative icon."
       },
       {
         "kind": "field",
@@ -3442,13 +3442,13 @@ export const DECLARATIONS: unknown[] = [
           "text": "boolean"
         },
         "default": "false",
-        "description": "Fill the shape with the current colour (e.g. a solid star)."
+        "description": "Fill the shape (solid star, filled Material icon)."
       },
       {
         "kind": "field",
         "name": "library",
         "type": {
-          "text": "'nova' | 'material'"
+          "text": "IconLibrary"
         },
         "description": "Icon set for this icon. Leave unset to use the page setting (setIconLibrary)."
       }

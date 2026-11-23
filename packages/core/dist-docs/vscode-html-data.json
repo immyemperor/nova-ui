@@ -1165,32 +1165,24 @@
       "attributes": [
         {
           "name": "name",
-          "description": "Icon name, e.g. \"check\". Register more with registerIcons()."
+          "description": "Icon name, e.g. \"check\"."
         },
         {
           "name": "size",
-          "description": "CSS size. Defaults to 1em so the icon scales with text."
+          "description": "Width and height, e.g. \"1.5rem\". Defaults to 1em."
         },
         {
           "name": "label",
-          "description": "Accessible label. When omitted the icon is hidden from screen readers."
+          "description": "Accessible name. Leave unset for a decorative icon."
         },
         {
           "name": "filled",
-          "description": "Fill the shape with the current colour (e.g. a solid star). (default: false)",
+          "description": "Fill the shape (solid star, filled Material icon). (default: false)",
           "valueSet": "v"
         },
         {
           "name": "library",
-          "description": "Icon set for this icon. Leave unset to use the page setting (setIconLibrary).",
-          "values": [
-            {
-              "name": "nova"
-            },
-            {
-              "name": "material"
-            }
-          ]
+          "description": "Icon set for this icon. Leave unset to use the page setting (setIconLibrary)."
         }
       ]
     },

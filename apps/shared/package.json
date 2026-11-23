@@ -1,11 +1,11 @@
 {
-  "name": "@nova-ui/playground-shared",
+  "name": "@omni/playground-shared",
   "version": "0.0.0",
   "private": true,
   "type": "module",
   "dependencies": {
-    "@nova-ui/core": "workspace:*",
-    "@nova-ui/react": "workspace:*",
+    "@omni/core": "workspace:*",
+    "@omni/react": "workspace:*",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

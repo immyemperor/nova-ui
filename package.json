@@ -1,5 +1,5 @@
 {
-  "name": "nova-ui-monorepo",
+  "name": "omni-monorepo",
   "private": true,
   "packageManager": "pnpm@9.15.0",
   "engines": {

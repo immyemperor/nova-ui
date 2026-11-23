@@ -1,6 +1,6 @@
 # Layout and CSS
 
-`@nova-ui/css` provides layout primitives, responsive utilities, container queries, typography and CSS-only components. It's useful with or without the web components.
+`@omni/css` provides layout primitives, responsive utilities, container queries, typography and CSS-only components. It's useful with or without the web components.
 
 The complete guide, with breakpoints, a decision table ("which layout tool do I use?"), recipes and accessibility notes, is in **[packages/css/GUIDELINES.md](../../../packages/css/GUIDELINES.md)**. A live, resizable version is at `packages/css/docs/index.html`.
 

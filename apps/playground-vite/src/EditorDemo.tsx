@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { UiEditor } from '@nova-ui/react/editor';
-import type { MentionItem, UploadHandler } from '@nova-ui/react/editor';
+import { UiEditor } from '@omni/react/editor';
+import type { MentionItem, UploadHandler } from '@omni/react/editor';
 
 const people: MentionItem[] = [
   { id: 'ada', label: 'Ada Lovelace', description: 'Engineering' },

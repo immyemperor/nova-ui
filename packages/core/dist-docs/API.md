@@ -498,11 +498,11 @@ Generated from 72 component sources. Regenerate with `node scripts/generate-docs
 
 | Attribute | Type | Default | Description |
 | --- | --- | --- | --- |
-| `name` | `string` |  | Icon name, e.g. "check". Register more with registerIcons(). |
-| `size` | `string` |  | CSS size. Defaults to 1em so the icon scales with text. |
-| `label` | `string` |  | Accessible label. When omitted the icon is hidden from screen readers. |
-| `filled` | `boolean` | `false` | Fill the shape with the current colour (e.g. a solid star). |
-| `library` | `'nova' | 'material'` |  | Icon set for this icon. Leave unset to use the page setting (setIconLibrary). |
+| `name` | `string` |  | Icon name, e.g. "check". |
+| `size` | `string` |  | Width and height, e.g. "1.5rem". Defaults to 1em. |
+| `label` | `string` |  | Accessible name. Leave unset for a decorative icon. |
+| `filled` | `boolean` | `false` | Fill the shape (solid star, filled Material icon). |
+| `library` | `IconLibrary` |  | Icon set for this icon. Leave unset to use the page setting (setIconLibrary). |
 
 ## `<ui-input>`
 

@@ -2,7 +2,7 @@ import { Component, computed, inject, signal, CUSTOM_ELEMENTS_SCHEMA } from '@an
 import { ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
-import { listIcons } from '@nova-ui/angular';
+import { listIcons } from '@omni/angular';
 import { MATERIAL_NAMES } from './library-data';
 
 const PAGE = 180;

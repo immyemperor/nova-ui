@@ -5,11 +5,11 @@ components with [Stencil](https://stenciljs.com); typed React and Angular wrappe
 
 ```
 packages/
-  core/      @nova-ui/core     web components, design tokens, theme manager, icons, motion
-  editor/    @nova-ui/editor   optional rich text editor (Tiptap), kept out of core on purpose
-  css/       @nova-ui/css      responsive CSS library: layout, grids, containers, utilities, guidelines
-  react/     @nova-ui/react    generated React wrappers + useTheme()  (Next.js ready)
-  angular/   @nova-ui/angular  generated standalone proxies + ThemeService
+  core/      @omni/core     web components, design tokens, theme manager, icons, motion
+  editor/    @omni/editor   optional rich text editor (Tiptap), kept out of core on purpose
+  css/       @omni/css      responsive CSS library: layout, grids, containers, utilities, guidelines
+  react/     @omni/react    generated React wrappers + useTheme()  (Next.js ready)
+  angular/   @omni/angular  generated standalone proxies + ThemeService
 apps/
   playground-vite/             Vite + React demo
   playground-next/             Next.js App Router demo
@@ -95,12 +95,12 @@ const columns = [
 - Custom cell markup: add a child with `slot="cell:<rowKey>:<columnKey>"`. Selection survives page changes
   and is reported through `uiSelectionChange`.
 
-### Rich text editor (Phase 5): `@nova-ui/editor`
+### Rich text editor (Phase 5): `@omni/editor`
 
 A separate, optional package, so apps that don't need it never download Tiptap.
 
 ```tsx
-import { UiEditor } from '@nova-ui/react/editor';      // Angular: '@nova-ui/angular/editor'
+import { UiEditor } from '@omni/react/editor';      // Angular: '@omni/angular/editor'
 
 <UiEditor
   label="Description"
@@ -111,7 +111,7 @@ import { UiEditor } from '@nova-ui/react/editor';      // Angular: '@nova-ui/ang
   mentionProvider={(q) => searchUsers(q)}
 />
 ```
-Plain HTML works too: `import '@nova-ui/editor'` then `<ui-editor preset="standard"></ui-editor>`.
+Plain HTML works too: `import '@omni/editor'` then `<ui-editor preset="standard"></ui-editor>`.
 
 | Option | What it does |
 | --- | --- |
@@ -140,7 +140,7 @@ Design notes: the editor renders in light DOM (not a shadow root) because ProseM
 spellcheck behave best there; all its CSS is prefixed `nova-ed` so it can't leak into your page. Tiptap is
 pinned to v2.
 
-## CSS library: `@nova-ui/css`
+## CSS library: `@omni/css`
 
 Use Nova as a plain CSS library, with or without the web components. Layout primitives
 (`nova-container`, `nova-grid`, `nova-grid-auto`, `nova-stack`, `nova-sidebar`, `nova-switcher`, `nova-shell`...),
@@ -148,7 +148,7 @@ responsive utilities (`nova-md-cols-3`, `nova-hide-below-md`), container queries
 components and print styles, all mobile first and cascade-layered so your CSS always wins.
 
 ```html
-<link rel="stylesheet" href="/node_modules/@nova-ui/css/dist/nova.min.css">
+<link rel="stylesheet" href="/node_modules/@omni/css/dist/nova.min.css">
 <div class="nova-container"><ul class="nova-grid-auto nova-grid-auto-md" role="list">...</ul></div>
 ```
 Start with `packages/css/GUIDELINES.md` (breakpoints, which layout tool to use, recipes, accessibility), or open
@@ -169,8 +169,8 @@ Rename the npm scope before publishing: `pnpm rename-scope @your-scope`.
 ### Vite or plain HTML (no framework)
 
 ```ts
-import '@nova-ui/core/styles.css';
-import { defineCustomElements } from '@nova-ui/core/loader';
+import '@omni/core/styles.css';
+import { defineCustomElements } from '@omni/core/loader';
 defineCustomElements();
 ```
 ```html
@@ -180,8 +180,8 @@ defineCustomElements();
 ### React / Vite + React
 
 ```tsx
-import '@nova-ui/core/styles.css';
-import { UiButton, UiIcon, UiThemeToggle, useTheme } from '@nova-ui/react';
+import '@omni/core/styles.css';
+import { UiButton, UiIcon, UiThemeToggle, useTheme } from '@omni/react';
 
 <UiButton onClick={save}><UiIcon slot="start" name="check" />Save</UiButton>
 ```
@@ -190,20 +190,20 @@ import { UiButton, UiIcon, UiThemeToggle, useTheme } from '@nova-ui/react';
 
 ```tsx
 // app/layout.tsx
-import '@nova-ui/core/styles.css';
-import { themeInitScript } from '@nova-ui/react/server';
+import '@omni/core/styles.css';
+import { themeInitScript } from '@omni/react/server';
 
 <html lang="en" suppressHydrationWarning>
   <head><script dangerouslySetInnerHTML={{ __html: themeInitScript }} /></head>
   <body className="nova-base">{children}</body>
 </html>
 ```
-`@nova-ui/react` ships with `"use client"`, so its components can be used from any file.
+`@omni/react` ships with `"use client"`, so its components can be used from any file.
 
 ### Angular (standalone)
 
 ```ts
-import { UiButton, UiIcon, ThemeService } from '@nova-ui/angular';
+import { UiButton, UiIcon, ThemeService } from '@omni/angular';
 
 @Component({
   standalone: true,
@@ -212,7 +212,7 @@ import { UiButton, UiIcon, ThemeService } from '@nova-ui/angular';
 })
 export class Demo { theme = inject(ThemeService); }
 ```
-Add `"styles": ["node_modules/@nova-ui/core/dist/nova-ui/nova-ui.css"]` to `angular.json`.
+Add `"styles": ["node_modules/@omni/core/dist/nova-ui/nova-ui.css"]` to `angular.json`.
 
 ## Theming
 
@@ -244,7 +244,7 @@ Log in first (`npm login`); scoped packages publish publicly via `publishConfig.
 | Theme generator | `generateTheme()`, `themeToCSS()` (AA guaranteed) | 26 |
 | Translatable strings | `setMessages()`, `t()` (94 keys) | 4 |
 
-Run `pnpm --filter @nova-ui/core test` for the logic suite. Components are verified by type-check only so far.
+Run `pnpm --filter @omni/core test` for the logic suite. Components are verified by type-check only so far.
 
 ## Ecosystem (this round)
 

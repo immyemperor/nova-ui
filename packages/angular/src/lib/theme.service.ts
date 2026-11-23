@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy, signal } from '@angular/core';
-import { getThemeMode, initTheme, onThemeChange, resolveTheme, setThemeMode } from '@nova-ui/core';
-import type { ResolvedTheme, ThemeMode } from '@nova-ui/core';
+import { getThemeMode, initTheme, onThemeChange, resolveTheme, setThemeMode } from '@omni/core';
+import type { ResolvedTheme, ThemeMode } from '@omni/core';
 
 /** Signal-based theme state. Inject anywhere: `theme = inject(ThemeService)`. */
 @Injectable({ providedIn: 'root' })

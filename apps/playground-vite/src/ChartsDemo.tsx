@@ -1,5 +1,5 @@
-import { UiChart, UiSparkline, UiTable } from '@nova-ui/react';
-import type { TableColumn, TableRow } from '@nova-ui/react';
+import { UiChart, UiSparkline, UiTable } from '@omni/react';
+import type { TableColumn, TableRow } from '@omni/react';
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'];
 const revenue = [12, 18, 15, 22, 27, 25, 31, 38];

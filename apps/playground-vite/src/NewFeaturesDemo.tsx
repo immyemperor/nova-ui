@@ -1,10 +1,10 @@
 import { useMemo, useState } from 'react';
 import type { CSSProperties, ChangeEvent } from 'react';
-import { withViewTransition } from '@nova-ui/core';
+import { withViewTransition } from '@omni/core';
 import {
   UiButton, UiCard, UiCollapse, UiIcon, UiKanban, UiScheduler, UiScrollProgress, UiSortable, UiSplit, UiTable, UiVirtualList,
   generateTheme, registerIcons, resetMessages, setMessages, themeToCSS, toast,
-} from '@nova-ui/react';
+} from '@omni/react';
 
 /* ---------- Split panes ---------- */
 function SplitPanel() {

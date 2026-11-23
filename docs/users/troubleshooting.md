@@ -4,8 +4,8 @@ Symptom, likely cause, fix. If your problem isn't here, check the browser consol
 
 ## The component renders as plain text or an empty box
 
-- **Stylesheet not imported.** Add `@import '@nova-ui/css/nova.css';` once in your app.
-- **Component not registered.** In plain HTML, call `defineCustomElements()` from `@nova-ui/core/loader`. In React and Angular the wrappers register components when imported; if you see `not defined`, import the loader once in your entry file.
+- **Stylesheet not imported.** Add `@import '@omni/css/nova.css';` once in your app.
+- **Component not registered.** In plain HTML, call `defineCustomElements()` from `@omni/core/loader`. In React and Angular the wrappers register components when imported; if you see `not defined`, import the loader once in your entry file.
 - **Wrong tag name.** Tags are `ui-` followed by the kebab-case name: `ui-date-picker`, not `ui-datepicker`.
 
 ## "`<ui-toaster>` is not registered" when calling `toast()`
@@ -14,7 +14,7 @@ Render `<UiToaster />` (or `<ui-toaster>`) once near the root of your app. `toas
 
 ## Dark mode flashes on page load
 
-Add the theme script before your stylesheet in `<head>`. In Next.js use `themeInitScript` from `@nova-ui/react/server` in the root layout (see [Next.js](frameworks/nextjs.md)).
+Add the theme script before your stylesheet in `<head>`. In Next.js use `themeInitScript` from `@omni/react/server` in the root layout (see [Next.js](frameworks/nextjs.md)).
 
 ## Form values are missing on submit
 
@@ -48,7 +48,7 @@ Focus rings are drawn by the component. Don't add your own `outline: none` to No
 
 ## Text is not translated
 
-Call `setMessages()` before the first render, and use keys from `DEFAULT_MESSAGES` (exported from `@nova-ui/core`).
+Call `setMessages()` before the first render, and use keys from `DEFAULT_MESSAGES` (exported from `@omni/core`).
 
 ## Tailwind classes have no effect
 

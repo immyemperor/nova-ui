@@ -10,9 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@nova-ui/core": "workspace:*",
-    "@nova-ui/css": "workspace:*",
-    "@nova-ui/react": "workspace:*",
+    "@omni/core": "workspace:*",
+    "@omni/css": "workspace:*",
+    "@omni/react": "workspace:*",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { isMounted, nextPhase } from '@nova-ui/core';
-import type { Phase } from '@nova-ui/core';
+import { isMounted, nextPhase } from '@omni/core';
+import type { Phase } from '@omni/core';
 
 /**
  * Exit animations for React. Keeps an element mounted while it animates out, then removes it.

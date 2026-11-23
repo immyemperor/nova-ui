@@ -3,10 +3,10 @@ import {
   UiAlert, UiAvatar, UiBadge, UiButton, UiCard, UiCheckbox, UiCounter, UiIcon, UiInput, UiProgress,
   UiRadio, UiRadioGroup, UiRating, UiReveal, UiSkeleton, UiSlider, UiSpinner, UiStagger, UiSwitch,
   UiTextarea, UiThemeToggle, useTheme,
-} from '@nova-ui/react';
+} from '@omni/react';
 import { SourceFile } from '../../shared/react/CodeBlock';
-import { setIconLibrary, getIconLibrary } from '@nova-ui/react';
-import type { IconLibrary } from '@nova-ui/react';
+import { setIconLibrary, getIconLibrary } from '@omni/react';
+import type { IconLibrary } from '@omni/react';
 import appSrc from './App.tsx?raw';
 import newFeaturesSrc from './NewFeaturesDemo.tsx?raw';
 import featuresSrc from './FeaturesDemo.tsx?raw';
@@ -63,7 +63,7 @@ export function App() {
     <>
       <a className="nova-skip-link" href="#main">Skip to content</a>
 
-      {/* App shell from @nova-ui/css: header, sidebar (md+), main. On phones everything stacks. */}
+      {/* App shell from @omni/css: header, sidebar (md+), main. On phones everything stacks. */}
       <div className="nova-shell nova-shell-sidebar nova-shell-sticky-side">
         <header className="nova-shell__header nova-sticky-top nova-z-20 nova-bg-surface nova-border-b">
           <div className="nova-cluster nova-cluster-between nova-px-4 nova-py-3">
@@ -95,7 +95,7 @@ export function App() {
           <div className="nova-container-lg nova-stack nova-stack-xl nova-ps-0 nova-pe-0">
             {alertOpen && (
               <UiAlert tone="info" heading="Layout classes wired in" dismissible onUiDismiss={() => setAlertOpen(false)}>
-                This page is laid out with @nova-ui/css (shell, container, stack, cluster, grid-auto) around the web components.
+                This page is laid out with @omni/css (shell, container, stack, cluster, grid-auto) around the web components.
               </UiAlert>
             )}
 
@@ -180,7 +180,7 @@ export function App() {
           </div>
             <section className="nova-stack nova-stack-sm" id="source">
               <h2 className="nova-h3">Source code</h2>
-              <p className="nova-caption">Every demo is plain React and @nova-ui/react. Open a file to read it, copy it, or wrap long lines.</p>
+              <p className="nova-caption">Every demo is plain React and @omni/react. Open a file to read it, copy it, or wrap long lines.</p>
               <SourceFile title="App.tsx" code={appSrc} />
               <SourceFile title="NewFeaturesDemo.tsx" code={newFeaturesSrc} />
               <SourceFile title="FeaturesDemo.tsx" code={featuresSrc} />

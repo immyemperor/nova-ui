@@ -1,9 +1,9 @@
 import type { CSSProperties } from 'react';
-import { UiBadge, UiButton, UiCard, UiCounter, UiProgress, UiTable } from '@nova-ui/react';
-import type { TableColumn } from '@nova-ui/react';
+import { UiBadge, UiButton, UiCard, UiCounter, UiProgress, UiTable } from '@omni/react';
+import type { TableColumn } from '@omni/react';
 
 /**
- * @nova-ui/css lays out the page; the web components fill it.
+ * @omni/css lays out the page; the web components fill it.
  * Nothing here uses a media query: every layout reflows from the space it is given.
  */
 const stats = [

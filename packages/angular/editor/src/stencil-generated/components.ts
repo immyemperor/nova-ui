@@ -4,9 +4,9 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Even
 
 import { ProxyCmp } from './angular-component-lib/utils';
 
-import type { Components } from '@nova-ui/editor/components';
+import type { Components } from '@omni/editor/components';
 
-import { defineCustomElement as defineUiEditor } from '@nova-ui/editor/components/ui-editor.js';
+import { defineCustomElement as defineUiEditor } from '@omni/editor/components/ui-editor.js';
 @ProxyCmp({
   defineCustomElementFn: defineUiEditor,
   inputs: ['accept', 'attachmentAccept', 'disabled', 'error', 'focusOnLoad', 'hint', 'label', 'maxFileSize', 'maxHeight', 'maxLength', 'mentionProvider', 'minHeight', 'name', 'placeholder', 'preset', 'readonly', 'required', 'slashCommands', 'toolbar', 'uploadHandler', 'value'],
@@ -36,7 +36,7 @@ export class UiEditor {
 }
 
 
-import type { UiEditorCustomEvent } from '@nova-ui/editor/components';
+import type { UiEditorCustomEvent } from '@omni/editor/components';
 
 export declare interface UiEditor extends Components.UiEditor {
   /**

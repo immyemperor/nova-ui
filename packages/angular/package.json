@@ -1,5 +1,5 @@
 {
-  "name": "@nova-ui/angular",
+  "name": "@omni/angular",
   "version": "0.1.0",
   "description": "Angular standalone component proxies and theme service for Nova UI.",
   "license": "MIT",
@@ -8,14 +8,14 @@
     "build": "ng-packagr -p ng-package.json -c tsconfig.lib.json"
   },
   "dependencies": {
-    "@nova-ui/core": "workspace:*",
+    "@omni/core": "0.1.0",
     "tslib": "^2.6.0"
   },
   "peerDependencies": {
     "@angular/common": ">=17",
     "@angular/core": ">=17",
-    "@nova-ui/core": "workspace:^",
-    "@nova-ui/editor": "^0.1.0"
+    "@omni/core": "0.1.0",
+    "@omni/editor": "^0.1.0"
   },
   "devDependencies": {
     "@angular/common": "^19.0.0",
@@ -26,14 +26,14 @@
     "rxjs": "^7.8.0",
     "typescript": "~5.6.0",
     "zone.js": "^0.15.0",
-    "@nova-ui/core": "workspace:^",
-    "@nova-ui/editor": "workspace:*"
+    "@omni/core": "0.1.0",
+    "@omni/editor": "0.1.0"
   },
   "publishConfig": {
     "access": "public"
   },
   "peerDependenciesMeta": {
-    "@nova-ui/editor": {
+    "@omni/editor": {
       "optional": true
     }
   },

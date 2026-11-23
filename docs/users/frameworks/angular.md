@@ -5,20 +5,20 @@ Works with Angular 17 and later, using standalone components. Each Nova componen
 ## Install
 
 ```bash
-pnpm add @nova-ui/core @nova-ui/css @nova-ui/angular
+pnpm add @omni/core @omni/css @omni/angular
 ```
 
 Add the stylesheet to `angular.json`:
 
 ```json
-"styles": ["node_modules/@nova-ui/css/dist/nova.min.css", "src/styles.css"]
+"styles": ["node_modules/@omni/css/dist/nova.min.css", "src/styles.css"]
 ```
 
 ## Use components
 
 ```ts
 import { Component, inject, signal } from '@angular/core';
-import { UiButton, UiInput, UiCard, ThemeService, toast, confirm } from '@nova-ui/angular';
+import { UiButton, UiInput, UiCard, ThemeService, toast, confirm } from '@omni/angular';
 
 @Component({
   selector: 'app-profile',
@@ -59,16 +59,16 @@ Events are outputs in the `ui*` form: `(uiChange)`, `(uiInput)`, `(uiSearch)`. T
 
 ## Exit animations
 
-Angular has no built-in exit animation for removed content. Call `playExit(element)` from `@nova-ui/angular` before you remove an element, or use the `phase` approach from [Motion](../features/motion.md).
+Angular has no built-in exit animation for removed content. Call `playExit(element)` from `@omni/angular` before you remove an element, or use the `phase` approach from [Motion](../features/motion.md).
 
 ## The rich text editor
 
 ```ts
-import { UiEditor } from '@nova-ui/angular/editor';
+import { UiEditor } from '@omni/angular/editor';
 ```
 
 ## Gotchas
 
 - **`ui-*` elements not known**: import the standalone component, or add `CUSTOM_ELEMENTS_SCHEMA` only as a last resort.
-- **Entry-point build**: the editor is a secondary entry point, so import it from `@nova-ui/angular/editor`.
+- **Entry-point build**: the editor is a secondary entry point, so import it from `@omni/angular/editor`.
 - **Playground**: `apps/playground-angular` shows a working setup. It has not yet been built in CI; see [Testing](../../humans/testing.md).

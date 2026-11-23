@@ -17,8 +17,8 @@ A single-file version of the user and agent docs is at `docs/llms-full.txt`. The
 
 ## Using Nova in an application
 
-- Import the stylesheet once: `@import '@nova-ui/css/nova.css';`.
-- Use the wrapper for the framework: `@nova-ui/react`, `@nova-ui/angular`, `@nova-ui/vue`, or the plain `ui-*` tags.
+- Import the stylesheet once: `@import '@omni/css/nova.css';`.
+- Use the wrapper for the framework: `@omni/react`, `@omni/angular`, `@omni/vue`, or the plain `ui-*` tags.
 - Pass arrays and objects as properties, never as attributes.
 - Listen to `ui`-prefixed events and read `event.detail`.
 - Give every control a `label` or accessible name.

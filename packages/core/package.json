@@ -1,5 +1,5 @@
 {
-  "name": "@nova-ui/core",
+  "name": "@omni/core",
   "version": "0.1.0",
   "description": "Framework-agnostic UI components, tokens, theming and motion built with Stencil web components.",
   "license": "MIT",

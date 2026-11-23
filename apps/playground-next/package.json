@@ -9,13 +9,13 @@
     "start": "next start"
   },
   "dependencies": {
-    "@nova-ui/core": "workspace:*",
-    "@nova-ui/react": "workspace:*",
+    "@omni/core": "workspace:*",
+    "@omni/react": "workspace:*",
     "next": "^15.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "@nova-ui/css": "workspace:*",
-    "@nova-ui/editor": "workspace:*"
+    "@omni/css": "workspace:*",
+    "@omni/editor": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

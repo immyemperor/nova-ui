@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { getIconLibrary, setIconLibrary } from '@nova-ui/react';
-import type { IconLibrary } from '@nova-ui/react';
+import { getIconLibrary, setIconLibrary } from '@omni/react';
+import type { IconLibrary } from '@omni/react';
 
 /** Switches every icon on the page between Nova and Google Material Symbols. */
 export function IconSetToggle() {

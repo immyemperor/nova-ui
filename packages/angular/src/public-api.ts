@@ -3,16 +3,16 @@
 export * from './lib/stencil-generated/components';
 export { DIRECTIVES } from './lib/stencil-generated';
 export * from './lib/theme.service';
-export { confirm, prompt, sanitizeHTML, setMessages, resetMessages, DEFAULT_MESSAGES } from '@nova-ui/core';
-export { setIconLibrary, getIconLibrary, onIconLibraryChange, materialName, MATERIAL_NAMES } from '@nova-ui/core';
-export type { IconLibrary } from '@nova-ui/core';
-export { generateTheme, themeToCSS, toCSV, safeFilename, contrastRatio } from '@nova-ui/core';
-export type { GeneratedTheme, CsvColumn } from '@nova-ui/core';
-export { linearScale, niceTicks, compact, extent } from '@nova-ui/core';
-export type { ChartSeries } from '@nova-ui/core';
-export type { ConfirmOptions, PromptOptions, DateRange, UploadItem, FileProblem, FileRules, MessageKey, Messages } from '@nova-ui/core';
+export { confirm, prompt, sanitizeHTML, setMessages, resetMessages, DEFAULT_MESSAGES } from '@omni/core';
+export { setIconLibrary, getIconLibrary, onIconLibraryChange, materialName, MATERIAL_NAMES } from '@omni/core';
+export type { IconLibrary } from '@omni/core';
+export { generateTheme, themeToCSS, toCSV, safeFilename, contrastRatio } from '@omni/core';
+export type { GeneratedTheme, CsvColumn } from '@omni/core';
+export { linearScale, niceTicks, compact, extent } from '@omni/core';
+export type { ChartSeries } from '@omni/core';
+export type { ConfirmOptions, PromptOptions, DateRange, UploadItem, FileProblem, FileRules, MessageKey, Messages } from '@omni/core';
 
-export { registerIcons, listIcons, animateIn, staggerIn, prefersReducedMotion, toast } from '@nova-ui/core';
+export { registerIcons, listIcons, animateIn, staggerIn, prefersReducedMotion, toast } from '@omni/core';
 export type {
   ThemeMode,
   ResolvedTheme,
@@ -28,8 +28,8 @@ export type {
   TableSort,
   TableQuery,
   TreeNode,
-} from '@nova-ui/core';
+} from '@omni/core';
 
-// Exit animations: call playExit(element) before removing an element; see @nova-ui/core presence helpers.
-export { nextPhase, isMounted, playExit, withViewTransition } from '@nova-ui/core';
-export type { Phase } from '@nova-ui/core';
+// Exit animations: call playExit(element) before removing an element; see @omni/core presence helpers.
+export { nextPhase, isMounted, playExit, withViewTransition } from '@omni/core';
+export type { Phase } from '@omni/core';

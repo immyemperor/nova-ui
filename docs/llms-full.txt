@@ -26,8 +26,8 @@ A single-file version of the user and agent docs is at `docs/llms-full.txt`. The
 
 ## Using Nova in an application
 
-- Import the stylesheet once: `@import '@nova-ui/css/nova.css';`.
-- Use the wrapper for the framework: `@nova-ui/react`, `@nova-ui/angular`, `@nova-ui/vue`, or the plain `ui-*` tags.
+- Import the stylesheet once: `@import '@omni/css/nova.css';`.
+- Use the wrapper for the framework: `@omni/react`, `@omni/angular`, `@omni/vue`, or the plain `ui-*` tags.
 - Pass arrays and objects as properties, never as attributes.
 - Listen to `ui`-prefixed events and read `event.detail`.
 - Give every control a `label` or accessible name.
@@ -101,7 +101,7 @@ Read this before generating code that uses Nova UI. It states the rules that mat
 
 ## Rules
 
-1. **Import once.** `@import '@nova-ui/css/nova.css'` once per app. Import framework wrappers from the framework package.
+1. **Import once.** `@import '@omni/css/nova.css'` once per app. Import framework wrappers from the framework package.
 2. **Arrays and objects are properties.** Set `options`, `columns`, `rows`, `series`, `labels`, `nodes`, `commands`, `items`, `cards`, `layout`, `events`, `tiers`, `swatches`, `validate`, `uploadFn`, `renderRow`, `toolbar`, `mentionProvider`, `uploadHandler` as JavaScript values. Never as HTML attributes.
 3. **Use the event `detail`.** The new value is in `event.detail`. In React: `onUiChange={(e) => set(e.detail)}`. In Angular: `(uiChange)="set($event.detail)"`. In Vue: `@ui-change="(e) => set(e.detail)"`.
 4. **Every control has a name.** `label` on inputs and selects, `label` on icon-only buttons, `label` on charts and tables with a `caption`.
@@ -117,11 +117,11 @@ Read this before generating code that uses Nova UI. It states the rules that mat
 
 | Framework | Components | Editor | Helpers |
 | --- | --- | --- | --- |
-| React | `import { UiButton } from '@nova-ui/react'` | `import { UiEditor } from '@nova-ui/react/editor'` | `import { toast, confirm } from '@nova-ui/react'` |
+| React | `import { UiButton } from '@omni/react'` | `import { UiEditor } from '@omni/react/editor'` | `import { toast, confirm } from '@omni/react'` |
 | Next.js | as React, in a `'use client'` file | as React, with `dynamic(..., { ssr: false })` | as React |
-| Angular | `import { UiButton } from '@nova-ui/angular'` (standalone) | `import { UiEditor } from '@nova-ui/angular/editor'` | `import { ThemeService, toast } from '@nova-ui/angular'` |
-| Vue 3 | `import { UiButton } from '@nova-ui/vue'` | not yet provided | not yet provided |
-| Plain HTML | `<ui-button>` after `defineCustomElements()` | `import '@nova-ui/editor'` | `import { toast } from '@nova-ui/core'` |
+| Angular | `import { UiButton } from '@omni/angular'` (standalone) | `import { UiEditor } from '@omni/angular/editor'` | `import { ThemeService, toast } from '@omni/angular'` |
+| Vue 3 | `import { UiButton } from '@omni/vue'` | not yet provided | not yet provided |
+| Plain HTML | `<ui-button>` after `defineCustomElements()` | `import '@omni/editor'` | `import { toast } from '@omni/core'` |
 
 ## Common mistakes
 
@@ -176,7 +176,7 @@ Components set roles, states and keyboard handling for you. You provide the text
 
 ## Layout is CSS, not components
 
-Use layout classes from `@nova-ui/css` (`nova-container`, `nova-stack`, `nova-grid-auto`) to arrange components. Components are never responsible for page layout. See [Layout and CSS](features/layout-and-css.md).
+Use layout classes from `@omni/css` (`nova-container`, `nova-stack`, `nova-grid-auto`) to arrange components. Components are never responsible for page layout. See [Layout and CSS](features/layout-and-css.md).
 
 ## Optional packages stay optional
 
@@ -313,7 +313,7 @@ Sparklines are small trend lines for tables and cards. The label should say the 
 
 ## Maths helpers
 
-`linearScale`, `niceTicks`, `extent`, `compact`, `linePath`, `areaPath`, `bars` and `donutSlices` are exported from `@nova-ui/core`. Use them when you draw your own SVG and want the same scales.
+`linearScale`, `niceTicks`, `extent`, `compact`, `linePath`, `areaPath`, `bars` and `donutSlices` are exported from `@omni/core`. Use them when you draw your own SVG and want the same scales.
 
 
 ==== SOURCE: docs/users/features/colour.md ====
@@ -342,7 +342,7 @@ Custom swatches are a property: `picker.swatches = ['#ef4444', '#22c55e', '#3b82
 Check a colour before you use it for text:
 
 ```ts
-import { contrastRatio } from '@nova-ui/core';
+import { contrastRatio } from '@omni/core';
 contrastRatio('#ffffff', '#0b7a6c'); // ≥ 4.5 passes WCAG AA for body text
 ```
 
@@ -491,12 +491,12 @@ Events on a calendar with month and week views are in [Lists, boards and schedul
 `<ui-editor>` is a rich text editor built on Tiptap, with a toolbar made from Nova buttons, menus and icons. It's a separate package so it only loads where you use it.
 
 ```bash
-pnpm add @nova-ui/editor
+pnpm add @omni/editor
 ```
 
 ```tsx
 // React
-import { UiEditor } from '@nova-ui/react/editor';
+import { UiEditor } from '@omni/react/editor';
 
 <UiEditor
   label="Description"
@@ -507,7 +507,7 @@ import { UiEditor } from '@nova-ui/react/editor';
 />
 ```
 
-Angular: `import { UiEditor } from '@nova-ui/angular/editor'`. HTML: `import '@nova-ui/editor'`, then `<ui-editor preset="standard"></ui-editor>`.
+Angular: `import { UiEditor } from '@omni/angular/editor'`. HTML: `import '@omni/editor'`, then `<ui-editor preset="standard"></ui-editor>`.
 
 ## Toolbar
 
@@ -763,7 +763,7 @@ form.addEventListener('submit', (e) => {
 Visible text inside components (labels, placeholders, aria-labels, messages) comes from one catalogue with English defaults. Override any of it.
 
 ```ts
-import { setMessages, DEFAULT_MESSAGES } from '@nova-ui/core';
+import { setMessages, DEFAULT_MESSAGES } from '@omni/core';
 
 setMessages({
   close: 'Fermer',
@@ -813,27 +813,27 @@ Skip this if you use only the Nova set.
 
 ## Offline: bundled Material icons
 
-Instead of the Google link, `@nova-ui/css` can ship the Material Symbols font itself. A maintainer runs this once, and rebuilds:
+Instead of the Google link, `@omni/css` can ship the Material Symbols font itself. A maintainer runs this once, and rebuilds:
 
 ```bash
-pnpm --filter @nova-ui/css icons:update
-pnpm --filter @nova-ui/css build
+pnpm --filter @omni/css icons:update
+pnpm --filter @omni/css build
 ```
 
 Then load the generated stylesheet and use the `nova-icon` classes (no network needed):
 
 ```html
-<link rel="stylesheet" href="/node_modules/@nova-ui/css/icons.css" />
+<link rel="stylesheet" href="/node_modules/@omni/css/icons.css" />
 <span class="nova-icon nova-icon-home" aria-hidden="true"></span>
 <span class="nova-icon nova-icon-star nova-icon-filled nova-icon-lg"></span>
 ```
 
-Sizes: `nova-icon-xs`, `-sm`, `-md`, `-lg`, `-xl`. The icon names are listed in `@nova-ui/css/material-icon-names.json`. The official licence is copied alongside the font.
+Sizes: `nova-icon-xs`, `-sm`, `-md`, `-lg`, `-xl`. The icon names are listed in `@omni/css/material-icon-names.json`. The official licence is copied alongside the font.
 
 ## Choose the set
 
 ```js
-import { setIconLibrary } from '@nova-ui/core';
+import { setIconLibrary } from '@omni/core';
 
 setIconLibrary('material'); // every <ui-icon> on the page switches; icons redraw automatically
 setIconLibrary('nova');
@@ -874,12 +874,12 @@ In the Material set, Nova names map to Material names. Some common ones:
 | `plus` | `add` | `calendar` | `calendar_month` |
 | `upload` | `upload` | `download` | `download` |
 
-Use a Material name directly if it isn't in the table. It's looked up as a Material ligature. Run `MATERIAL_NAMES` from `@nova-ui/core` for the complete mapping.
+Use a Material name directly if it isn't in the table. It's looked up as a Material ligature. Run `MATERIAL_NAMES` from `@omni/core` for the complete mapping.
 
 ## Add your own
 
 ```js
-import { registerIcons } from '@nova-ui/core';
+import { registerIcons } from '@omni/core';
 
 registerIcons({
   logo: '<path d="M4 4h16v16H4z"/>', // inner SVG, 24 x 24 viewBox, stroked
@@ -899,7 +899,7 @@ A registered icon keeps its own drawing in either set, unless its name is also i
 
 # Layout and CSS
 
-`@nova-ui/css` provides layout primitives, responsive utilities, container queries, typography and CSS-only components. It's useful with or without the web components.
+`@omni/css` provides layout primitives, responsive utilities, container queries, typography and CSS-only components. It's useful with or without the web components.
 
 The complete guide, with breakpoints, a decision table ("which layout tool do I use?"), recipes and accessibility notes, is in **[packages/css/GUIDELINES.md](../../../packages/css/GUIDELINES.md)**. A live, resizable version is at `packages/css/docs/index.html`.
 
@@ -1046,7 +1046,7 @@ A fixed bar that tracks how far the page has scrolled, or a container with `targ
 ## Helpers
 
 ```ts
-import { animateIn, staggerIn, playExit, withViewTransition } from '@nova-ui/core';
+import { animateIn, staggerIn, playExit, withViewTransition } from '@omni/core';
 
 await animateIn(el, 'fade', { duration: 300 });
 await playExit(el);                          // animate out before removing
@@ -1058,7 +1058,7 @@ await withViewTransition(() => swapPage());  // cross-fade between states
 
 ## Scroll-linked CSS
 
-With `@nova-ui/css`: `nova-scroll-reveal` ties an element's fade and rise to its position in the viewport, and `nova-scroll-progress` scales an element with page scroll. No JavaScript runs.
+With `@omni/css`: `nova-scroll-reveal` ties an element's fade and rise to its position in the viewport, and `nova-scroll-progress` scales an element with page scroll. No JavaScript runs.
 
 
 ==== SOURCE: docs/users/features/navigation.md ====
@@ -1225,7 +1225,7 @@ Overlays float above the page: dialogs, drawers, menus, tooltips and notificatio
 For the common case, skip the modal entirely:
 
 ```ts
-import { confirm, prompt } from '@nova-ui/core';
+import { confirm, prompt } from '@omni/core';
 
 if (await confirm({ title: 'Delete project?', message: 'This cannot be undone.', confirmLabel: 'Delete', danger: true })) {
   // delete
@@ -1299,7 +1299,7 @@ Set `commands` to an array of `{ id, label, group, icon, shortcut, keywords }`. 
 ## Notifications
 
 ```ts
-import { toast } from '@nova-ui/core';
+import { toast } from '@omni/core';
 
 toast.success('Saved');
 toast.error({ title: 'Upload failed', description: 'Check your connection.', actionLabel: 'Retry', onAction: retry });
@@ -1316,7 +1316,7 @@ Render `<ui-toaster>` once near the root. Toasts pause while hovered and sit abo
 Blocks are ready-made page compositions built from Nova components and layout classes. They're starting points: copy one into your app and change the content.
 
 ```tsx
-import { LoginBlock, PricingBlock, SettingsBlock, DashboardBlock, OnboardingBlock } from '@nova-ui/react';
+import { LoginBlock, PricingBlock, SettingsBlock, DashboardBlock, OnboardingBlock } from '@omni/react';
 ```
 
 | Block | Use it for | Key props |
@@ -1357,7 +1357,7 @@ html.allowImages = false; // strips <img> elements
 ## Functions
 
 ```ts
-import { sanitizeHTML, isSafeLink, isSafeImage } from '@nova-ui/core';
+import { sanitizeHTML, isSafeLink, isSafeImage } from '@omni/core';
 const clean = sanitizeHTML(untrusted);
 ```
 
@@ -1375,7 +1375,7 @@ Nova has a light and a dark theme, and you can change any colour, radius, shadow
 ## Light, dark and system
 
 ```js
-import { setThemeMode, getThemeMode, onThemeChange } from '@nova-ui/core';
+import { setThemeMode, getThemeMode, onThemeChange } from '@omni/core';
 
 setThemeMode('dark');         // 'light' | 'dark' | 'system'
 onThemeChange((mode, resolved) => console.log(mode, resolved));
@@ -1390,7 +1390,7 @@ The page gets `data-theme="light"` or `"dark"` on `<html>`. Nova's tokens switch
 Generate a complete palette from one colour. The generator guarantees that text on the accent and the accent on the surface meet WCAG AA (4.5:1) in both themes:
 
 ```ts
-import { generateTheme, themeToCSS } from '@nova-ui/core';
+import { generateTheme, themeToCSS } from '@omni/core';
 
 const theme = generateTheme('#7c3aed');
 console.log(theme.warnings);            // [] when every pair passes
@@ -1451,14 +1451,14 @@ Override a tint to change how strong a state looks:
 
 ## Contrast
 
-Built-in colour pairs are checked against WCAG AA in both themes on every build. If you add colours, check them with `contrastRatio` from `@nova-ui/core`.
+Built-in colour pairs are checked against WCAG AA in both themes on every build. If you add colours, check them with `contrastRatio` from `@omni/core`.
 
 
 ==== SOURCE: docs/users/features/utilities.md ====
 
 # Utilities
 
-Helpers exported from `@nova-ui/core` for logic your app shares with the components.
+Helpers exported from `@omni/core` for logic your app shares with the components.
 
 | Area | Functions | Use |
 | --- | --- | --- |
@@ -1512,20 +1512,20 @@ Works with Angular 17 and later, using standalone components. Each Nova componen
 ## Install
 
 ```bash
-pnpm add @nova-ui/core @nova-ui/css @nova-ui/angular
+pnpm add @omni/core @omni/css @omni/angular
 ```
 
 Add the stylesheet to `angular.json`:
 
 ```json
-"styles": ["node_modules/@nova-ui/css/dist/nova.min.css", "src/styles.css"]
+"styles": ["node_modules/@omni/css/dist/nova.min.css", "src/styles.css"]
 ```
 
 ## Use components
 
 ```ts
 import { Component, inject, signal } from '@angular/core';
-import { UiButton, UiInput, UiCard, ThemeService, toast, confirm } from '@nova-ui/angular';
+import { UiButton, UiInput, UiCard, ThemeService, toast, confirm } from '@omni/angular';
 
 @Component({
   selector: 'app-profile',
@@ -1566,18 +1566,18 @@ Events are outputs in the `ui*` form: `(uiChange)`, `(uiInput)`, `(uiSearch)`. T
 
 ## Exit animations
 
-Angular has no built-in exit animation for removed content. Call `playExit(element)` from `@nova-ui/angular` before you remove an element, or use the `phase` approach from [Motion](../features/motion.md).
+Angular has no built-in exit animation for removed content. Call `playExit(element)` from `@omni/angular` before you remove an element, or use the `phase` approach from [Motion](../features/motion.md).
 
 ## The rich text editor
 
 ```ts
-import { UiEditor } from '@nova-ui/angular/editor';
+import { UiEditor } from '@omni/angular/editor';
 ```
 
 ## Gotchas
 
 - **`ui-*` elements not known**: import the standalone component, or add `CUSTOM_ELEMENTS_SCHEMA` only as a last resort.
-- **Entry-point build**: the editor is a secondary entry point, so import it from `@nova-ui/angular/editor`.
+- **Entry-point build**: the editor is a secondary entry point, so import it from `@omni/angular/editor`.
 - **Playground**: `apps/playground-angular` shows a working setup. It has not yet been built in CI; see [Testing](../../humans/testing.md).
 
 
@@ -1585,16 +1585,16 @@ import { UiEditor } from '@nova-ui/angular/editor';
 
 # CSS-only usage
 
-Use `@nova-ui/css` alone for static pages, server-rendered templates or email-to-web layouts where no JavaScript runs. You get layout, typography, utilities and CSS-only components (buttons, cards, badges, alerts, form fields, tables).
+Use `@omni/css` alone for static pages, server-rendered templates or email-to-web layouts where no JavaScript runs. You get layout, typography, utilities and CSS-only components (buttons, cards, badges, alerts, form fields, tables).
 
 ## Install and load
 
 ```bash
-pnpm add @nova-ui/css
+pnpm add @omni/css
 ```
 
 ```html
-<link rel="stylesheet" href="/node_modules/@nova-ui/css/dist/nova.min.css" />
+<link rel="stylesheet" href="/node_modules/@omni/css/dist/nova.min.css" />
 <body class="nova-base">
   <main class="nova-container nova-section nova-stack">
     <h1 class="nova-h2">Pricing</h1>
@@ -1634,7 +1634,7 @@ Nova works with the App Router and the Pages Router. Components are client compo
 ## Install
 
 ```bash
-pnpm add @nova-ui/core @nova-ui/css @nova-ui/react
+pnpm add @omni/core @omni/css @omni/react
 ```
 
 ## Root layout: stylesheet, theme script, no flash
@@ -1642,8 +1642,8 @@ pnpm add @nova-ui/core @nova-ui/css @nova-ui/react
 ```tsx
 // app/layout.tsx
 import type { ReactNode } from 'react';
-import '@nova-ui/css/nova.css';
-import { themeInitScript } from '@nova-ui/react/server';
+import '@omni/css/nova.css';
+import { themeInitScript } from '@omni/react/server';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -1671,7 +1671,7 @@ Mark any file that uses Nova components as a client component:
 ```tsx
 'use client';
 
-import { UiButton, UiCard, useTheme } from '@nova-ui/react';
+import { UiButton, UiCard, useTheme } from '@omni/react';
 
 export default function Page() {
   const { mode, resolved } = useTheme();
@@ -1686,7 +1686,7 @@ Components can be imported from server files, because the package is marked `"us
 ```tsx
 'use client';
 import dynamic from 'next/dynamic';
-const UiEditor = dynamic(() => import('@nova-ui/react/editor').then((m) => m.UiEditor), { ssr: false });
+const UiEditor = dynamic(() => import('@omni/react/editor').then((m) => m.UiEditor), { ssr: false });
 ```
 
 Loading the editor with `ssr: false` keeps Tiptap out of the server bundle.
@@ -1707,14 +1707,14 @@ Works with React 18 and 19. Components are wrapped so props and events look like
 ## Install
 
 ```bash
-pnpm add @nova-ui/core @nova-ui/css @nova-ui/react
+pnpm add @omni/core @omni/css @omni/react
 ```
 
 Import the stylesheet in your entry file, once:
 
 ```tsx
 // src/main.tsx
-import '@nova-ui/css/nova.css';
+import '@omni/css/nova.css';
 import { App } from './App';
 ```
 
@@ -1722,7 +1722,7 @@ import { App } from './App';
 
 ```tsx
 import { useState } from 'react';
-import { UiButton, UiInput, UiSelect, UiCard, toast } from '@nova-ui/react';
+import { UiButton, UiInput, UiSelect, UiCard, toast } from '@omni/react';
 
 export function Profile() {
   const [owner, setOwner] = useState('');
@@ -1770,7 +1770,7 @@ Controls with values also accept `value` and `onUiChange` if you prefer controll
 ## Exit animations
 
 ```tsx
-import { usePresence, UiCard } from '@nova-ui/react';
+import { usePresence, UiCard } from '@omni/react';
 
 const { mounted, phase } = usePresence(open, 180);
 {mounted && <UiCard className={phase === 'exiting' ? 'fade-out' : 'fade-in'}>…</UiCard>}
@@ -1781,7 +1781,7 @@ const { mounted, phase } = usePresence(open, 180);
 ## The rich text editor
 
 ```tsx
-import { UiEditor } from '@nova-ui/react/editor';
+import { UiEditor } from '@omni/react/editor';
 ```
 
 It's a separate entry point, so it only loads where you import it. See [Rich text editor](../features/editor.md).
@@ -1789,7 +1789,7 @@ It's a separate entry point, so it only loads where you import it. See [Rich tex
 ## Page blocks
 
 ```tsx
-import { LoginBlock, PricingBlock, DashboardBlock, SettingsBlock, OnboardingBlock } from '@nova-ui/react';
+import { LoginBlock, PricingBlock, DashboardBlock, SettingsBlock, OnboardingBlock } from '@omni/react';
 ```
 
 Copy and adapt them. See [Page blocks](../features/page-blocks.md).
@@ -1810,7 +1810,7 @@ The preset adds Nova colours, radii, shadows, fonts, durations and z-indexes to 
 ## Install
 
 ```bash
-pnpm add -D @nova-ui/tailwind tailwindcss
+pnpm add -D @omni/tailwind tailwindcss
 ```
 
 ## Configure
@@ -1818,7 +1818,7 @@ pnpm add -D @nova-ui/tailwind tailwindcss
 ```js
 // tailwind.config.js
 module.exports = {
-  presets: [require('@nova-ui/tailwind')],
+  presets: [require('@omni/tailwind')],
   content: ['./src/**/*.{html,tsx,vue,ts}'],
 };
 ```
@@ -1826,7 +1826,7 @@ module.exports = {
 Import the Nova stylesheet too, so the variables exist:
 
 ```css
-@import '@nova-ui/css/nova.css';
+@import '@omni/css/nova.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -1865,7 +1865,7 @@ Use this when you're not using a framework, or when you want to use Nova in any 
 ## Install and load
 
 ```bash
-pnpm add @nova-ui/core @nova-ui/css
+pnpm add @omni/core @omni/css
 ```
 
 ```html
@@ -1874,9 +1874,9 @@ pnpm add @nova-ui/core @nova-ui/css
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <link rel="stylesheet" href="/node_modules/@nova-ui/css/dist/nova.min.css" />
+    <link rel="stylesheet" href="/node_modules/@omni/css/dist/nova.min.css" />
     <script type="module">
-      import { defineCustomElements } from '/node_modules/@nova-ui/core/loader/index.js';
+      import { defineCustomElements } from '/node_modules/@omni/core/loader/index.js';
       defineCustomElements();
     </script>
   </head>
@@ -1887,7 +1887,7 @@ pnpm add @nova-ui/core @nova-ui/css
 </html>
 ```
 
-Bundlers resolve these paths for you. In a bundled app, write `import '@nova-ui/css/nova.css'` and `import { defineCustomElements } from '@nova-ui/core/loader'`.
+Bundlers resolve these paths for you. In a bundled app, write `import '@omni/css/nova.css'` and `import { defineCustomElements } from '@omni/core/loader'`.
 
 ## Setting objects and arrays
 
@@ -1931,14 +1931,14 @@ Vite works with React, Vue, Angular or plain JavaScript. Use the framework guide
 ```bash
 pnpm create vite my-app --template react-ts   # or vue-ts, vanilla-ts
 cd my-app
-pnpm add @nova-ui/core @nova-ui/css @nova-ui/react
+pnpm add @omni/core @omni/css @omni/react
 ```
 
 ## Entry file
 
 ```tsx
 // src/main.tsx
-import '@nova-ui/css/nova.css';
+import '@omni/css/nova.css';
 import { createRoot } from 'react-dom/client';
 import { App } from './App';
 
@@ -1964,7 +1964,7 @@ Add the theme script to `index.html` before your scripts:
 The rich text editor is large. Import it from its own entry point so Vite puts it in a separate chunk:
 
 ```tsx
-const { UiEditor } = await import('@nova-ui/react/editor');
+const { UiEditor } = await import('@omni/react/editor');
 ```
 
 ## Workspace development
@@ -1981,7 +1981,7 @@ Vue wrappers are generated from the same component manifest as the other framewo
 ## Install
 
 ```bash
-pnpm add @nova-ui/core @nova-ui/css @nova-ui/vue
+pnpm add @omni/core @omni/css @omni/vue
 ```
 
 ## Setup
@@ -1989,8 +1989,8 @@ pnpm add @nova-ui/core @nova-ui/css @nova-ui/vue
 ```ts
 // src/main.ts
 import { createApp } from 'vue';
-import '@nova-ui/css/nova.css';
-import { defineCustomElements } from '@nova-ui/core/loader';
+import '@omni/css/nova.css';
+import { defineCustomElements } from '@omni/core/loader';
 import App from './App.vue';
 
 defineCustomElements();
@@ -2002,7 +2002,7 @@ createApp(App).mount('#app');
 ```vue
 <script setup lang="ts">
 import { ref } from 'vue';
-import { UiButton, UiInput, UiSelect } from '@nova-ui/vue';
+import { UiButton, UiInput, UiSelect } from '@omni/vue';
 
 const owner = ref('');
 const owners = [{ value: 'ada', label: 'Ada Lovelace' }, { value: 'grace', label: 'Grace Hopper' }];
@@ -2045,13 +2045,13 @@ Nova UI is a design system with one set of components that works in plain HTML, 
 Choose what you need. Most apps need only the first line.
 
 ```bash
-pnpm add @nova-ui/core            # web components, tokens, theme, utilities
-pnpm add @nova-ui/css             # layout classes, utilities, CSS-only components (optional)
-pnpm add @nova-ui/react           # React wrappers (React, Next.js, Vite + React)
-pnpm add @nova-ui/angular         # Angular standalone wrappers
-pnpm add @nova-ui/vue             # Vue 3 wrappers
-pnpm add @nova-ui/editor          # rich text editor (optional, heavy, built on Tiptap)
-pnpm add -D @nova-ui/tailwind     # Tailwind preset (optional)
+pnpm add @omni/core            # web components, tokens, theme, utilities
+pnpm add @omni/css             # layout classes, utilities, CSS-only components (optional)
+pnpm add @omni/react           # React wrappers (React, Next.js, Vite + React)
+pnpm add @omni/angular         # Angular standalone wrappers
+pnpm add @omni/vue             # Vue 3 wrappers
+pnpm add @omni/editor          # rich text editor (optional, heavy, built on Tiptap)
+pnpm add -D @omni/tailwind     # Tailwind preset (optional)
 ```
 
 ## 2. Add the stylesheet
@@ -2059,7 +2059,7 @@ pnpm add -D @nova-ui/tailwind     # Tailwind preset (optional)
 Import one stylesheet once, near the top of your app. It contains the design tokens, the reset, layout classes and utilities.
 
 ```css
-@import '@nova-ui/css/nova.css';
+@import '@omni/css/nova.css';
 ```
 
 Also set the viewport so the layout respects phone notches and users can still zoom:
@@ -2081,7 +2081,7 @@ Every framework uses the same component names and the same props. Only the synta
 | HTML | `<ui-button variant="primary">Save</ui-button>` |
 | React | `<UiButton variant="primary">Save</UiButton>` |
 | Angular | `<ui-button variant="primary">Save</ui-button>` (standalone import `UiButton`) |
-| Vue | `<UiButton variant="primary">Save</UiButton>` (from `@nova-ui/vue`) |
+| Vue | `<UiButton variant="primary">Save</UiButton>` (from `@omni/vue`) |
 
 ## 4. Respond to events
 
@@ -2140,19 +2140,19 @@ Nova UI is published as seven npm packages. You install only the ones you use.
 
 | Package | Install it when | Needs |
 | --- | --- | --- |
-| `@nova-ui/core` | Always: the web components, tokens, theme and utilities | Nothing |
-| `@nova-ui/css` | You want layout classes, utilities or CSS-only components | Nothing |
-| `@nova-ui/react` | Your app uses React, Next.js or Vite with React | `react`, `react-dom` |
-| `@nova-ui/angular` | Your app uses Angular | `@angular/core`, `@angular/common` |
-| `@nova-ui/vue` | Your app uses Vue 3 | `vue` |
-| `@nova-ui/editor` | You want the rich text editor | Nothing extra (it uses `@nova-ui/core`) |
-| `@nova-ui/tailwind` | You use Tailwind CSS and want Nova colours and radii as classes | `tailwindcss` |
+| `@omni/core` | Always: the web components, tokens, theme and utilities | Nothing |
+| `@omni/css` | You want layout classes, utilities or CSS-only components | Nothing |
+| `@omni/react` | Your app uses React, Next.js or Vite with React | `react`, `react-dom` |
+| `@omni/angular` | Your app uses Angular | `@angular/core`, `@angular/common` |
+| `@omni/vue` | Your app uses Vue 3 | `vue` |
+| `@omni/editor` | You want the rich text editor | Nothing extra (it uses `@omni/core`) |
+| `@omni/tailwind` | You use Tailwind CSS and want Nova colours and radii as classes | `tailwindcss` |
 
 A typical React app installs `core`, `css` and `react`. An Angular app installs `core`, `css` and `angular`.
 
 ## 2. Versions
 
-All seven packages are released together, at the same version, so `@nova-ui/react@0.3.0` works with `@nova-ui/core@0.3.0`. Keep them on the same version.
+All seven packages are released together, at the same version, so `@omni/react@0.3.0` works with `@omni/core@0.3.0`. Keep them on the same version.
 
 Nova is pre-1.0. The version number means:
 
@@ -2168,19 +2168,19 @@ Install the packages for your framework, at the same version:
 
 ```bash
 # React, Next.js or Vite with React
-npm install @nova-ui/core @nova-ui/css @nova-ui/react
+npm install @omni/core @omni/css @omni/react
 
 # Angular
-npm install @nova-ui/core @nova-ui/css @nova-ui/angular
+npm install @omni/core @omni/css @omni/angular
 
 # Vue 3
-npm install @nova-ui/core @nova-ui/css @nova-ui/vue
+npm install @omni/core @omni/css @omni/vue
 
 # Add the rich text editor (optional)
-npm install @nova-ui/editor
+npm install @omni/editor
 
 # Add Tailwind preset (optional)
-npm install -D @nova-ui/tailwind
+npm install -D @omni/tailwind
 ```
 
 pnpm and yarn work the same way: use `pnpm add` or `yarn add` with the same package names.
@@ -2188,7 +2188,7 @@ pnpm and yarn work the same way: use `pnpm add` or `yarn add` with the same pack
 Then import the stylesheet once, in your entry file:
 
 ```js
-import '@nova-ui/css/nova.css';
+import '@omni/css/nova.css';
 ```
 
 See [Getting started](getting-started.md) for the first component.
@@ -2199,12 +2199,12 @@ Some packages expect you to install a framework yourself. npm 7 and later instal
 
 | Package | Peer | Version range |
 | --- | --- | --- |
-| `@nova-ui/react` | `react`, `react-dom` | `>=18` |
-| `@nova-ui/angular` | `@angular/core`, `@angular/common` | `>=17` |
-| `@nova-ui/vue` | `vue` | `>=3.3.0` |
-| `@nova-ui/tailwind` | `tailwindcss` | `>=3.3.0` |
-| `@nova-ui/react`, `@nova-ui/angular` | `@nova-ui/editor` | optional: only if you use the editor entry point |
-| `@nova-ui/editor`, `@nova-ui/vue` | `@nova-ui/core` | `^0.1.0` (the same minor as your other Nova packages) |
+| `@omni/react` | `react`, `react-dom` | `>=18` |
+| `@omni/angular` | `@angular/core`, `@angular/common` | `>=17` |
+| `@omni/vue` | `vue` | `>=3.3.0` |
+| `@omni/tailwind` | `tailwindcss` | `>=3.3.0` |
+| `@omni/react`, `@omni/angular` | `@omni/editor` | optional: only if you use the editor entry point |
+| `@omni/editor`, `@omni/vue` | `@omni/core` | `^0.1.0` (the same minor as your other Nova packages) |
 
 If npm reports a peer conflict, install the framework version in the range above, or upgrade the Nova packages together.
 
@@ -2213,7 +2213,7 @@ If npm reports a peer conflict, install the framework version in the range above
 Upgrade every Nova package together:
 
 ```bash
-npm install @nova-ui/core@latest @nova-ui/css@latest @nova-ui/react@latest
+npm install @omni/core@latest @omni/css@latest @omni/react@latest
 ```
 
 Then, in this order:
@@ -2227,18 +2227,18 @@ Then, in this order:
 To see what would change before installing:
 
 ```bash
-npm outdated @nova-ui/core @nova-ui/css @nova-ui/react
+npm outdated @omni/core @omni/css @omni/react
 ```
 
 To see every version that exists:
 
 ```bash
-npm view @nova-ui/core versions --json
+npm view @omni/core versions --json
 ```
 
 ## 6. Reading a changelog
 
-Each package has a `CHANGELOG.md`, on npm (`npm view @nova-ui/core` shows the repository link) and in the GitHub release for each version. Every entry is one of:
+Each package has a `CHANGELOG.md`, on npm (`npm view @omni/core` shows the repository link) and in the GitHub release for each version. Every entry is one of:
 
 - **Major changes**: removed or renamed APIs. Read these first.
 - **Minor changes**: new features.
@@ -2257,7 +2257,7 @@ The [component reference](../../packages/core/dist-docs/API.md) describes the cu
 Release candidates are published under the `next` tag, so the default install keeps getting the latest stable version:
 
 ```bash
-npm install @nova-ui/core@next @nova-ui/css@next @nova-ui/react@next
+npm install @omni/core@next @omni/css@next @omni/react@next
 ```
 
 Pre-releases can change between releases. Use them to test an upcoming version, not in production.
@@ -2265,7 +2265,7 @@ Pre-releases can change between releases. Use them to test an upcoming version, 
 To go back to stable:
 
 ```bash
-npm install @nova-ui/core@latest @nova-ui/css@latest @nova-ui/react@latest
+npm install @omni/core@latest @omni/css@latest @omni/react@latest
 ```
 
 ## 8. Pinning and rolling back
@@ -2274,8 +2274,8 @@ To stop upgrades from happening automatically, pin the exact version in `package
 
 ```json
 "dependencies": {
-  "@nova-ui/core": "0.3.0",
-  "@nova-ui/react": "0.3.0"
+  "@omni/core": "0.3.0",
+  "@omni/react": "0.3.0"
 }
 ```
 
@@ -2284,7 +2284,7 @@ Without the `^`, npm will not move to a newer version when you run `npm install`
 To roll back after a bad upgrade, install the previous version of every Nova package:
 
 ```bash
-npm install @nova-ui/core@0.2.0 @nova-ui/css@0.2.0 @nova-ui/react@0.2.0
+npm install @omni/core@0.2.0 @omni/css@0.2.0 @omni/react@0.2.0
 ```
 
 Then check the lockfile (`package-lock.json`) is committed, so the rolled-back versions are what everyone on the team gets.
@@ -2306,7 +2306,7 @@ It prints `OK` for each file that matches.
 **Installed files.** The package contains only the built output, not source:
 
 ```bash
-npm pack @nova-ui/angular@0.3.0 --dry-run
+npm pack @omni/angular@0.3.0 --dry-run
 ```
 
 You should see `dist/` files and `package.json`, not `src/`.
@@ -2337,15 +2337,15 @@ Once Nova reaches 1.0, APIs will be deprecated in one release and removed no ear
 
 **`npm ERR! peer dep conflict`.** A peer dependency is outside the range in section 4. Install the framework version the message asks for, or upgrade the Nova packages together.
 
-**Components render as unstyled or not at all.** The stylesheet is missing. Import `@nova-ui/css/nova.css` once in your entry file (section 3).
+**Components render as unstyled or not at all.** The stylesheet is missing. Import `@omni/css/nova.css` once in your entry file (section 3).
 
-**`@nova-ui/core` versions don't match.** Two Nova packages are on different versions. Install all of them at the same version, then delete `node_modules` and the lockfile only if the install still fails.
+**`@omni/core` versions don't match.** Two Nova packages are on different versions. Install all of them at the same version, then delete `node_modules` and the lockfile only if the install still fails.
 
 **Icons show as empty squares.** You switched to the Material icon set without loading its font. Load the font, or use the Nova set. See [Icons](features/icons.md).
 
 **After upgrading, a prop or event stopped working.** Check the changelog for that version under Major or Minor changes. The migration note tells you the new name.
 
-**Still stuck.** Open an issue at the repository with the package versions (`npm ls @nova-ui/core @nova-ui/css @nova-ui/react`), your framework version and a minimal reproduction.
+**Still stuck.** Open an issue at the repository with the package versions (`npm ls @omni/core @omni/css @omni/react`), your framework version and a minimal reproduction.
 
 
 ==== SOURCE: docs/users/troubleshooting.md ====
@@ -2356,8 +2356,8 @@ Symptom, likely cause, fix. If your problem isn't here, check the browser consol
 
 ## The component renders as plain text or an empty box
 
-- **Stylesheet not imported.** Add `@import '@nova-ui/css/nova.css';` once in your app.
-- **Component not registered.** In plain HTML, call `defineCustomElements()` from `@nova-ui/core/loader`. In React and Angular the wrappers register components when imported; if you see `not defined`, import the loader once in your entry file.
+- **Stylesheet not imported.** Add `@import '@omni/css/nova.css';` once in your app.
+- **Component not registered.** In plain HTML, call `defineCustomElements()` from `@omni/core/loader`. In React and Angular the wrappers register components when imported; if you see `not defined`, import the loader once in your entry file.
 - **Wrong tag name.** Tags are `ui-` followed by the kebab-case name: `ui-date-picker`, not `ui-datepicker`.
 
 ## "`<ui-toaster>` is not registered" when calling `toast()`
@@ -2366,7 +2366,7 @@ Render `<UiToaster />` (or `<ui-toaster>`) once near the root of your app. `toas
 
 ## Dark mode flashes on page load
 
-Add the theme script before your stylesheet in `<head>`. In Next.js use `themeInitScript` from `@nova-ui/react/server` in the root layout (see [Next.js](frameworks/nextjs.md)).
+Add the theme script before your stylesheet in `<head>`. In Next.js use `themeInitScript` from `@omni/react/server` in the root layout (see [Next.js](frameworks/nextjs.md)).
 
 ## Form values are missing on submit
 
@@ -2400,7 +2400,7 @@ Focus rings are drawn by the component. Don't add your own `outline: none` to No
 
 ## Text is not translated
 
-Call `setMessages()` before the first render, and use keys from `DEFAULT_MESSAGES` (exported from `@nova-ui/core`).
+Call `setMessages()` before the first render, and use keys from `DEFAULT_MESSAGES` (exported from `@omni/core`).
 
 ## Tailwind classes have no effect
 
@@ -2423,13 +2423,13 @@ For maintainers and contributors. Read this before changing the packages.
 
 ```
 packages/
-  core/      @nova-ui/core     Stencil web components (71 in core), tokens, theme, utilities, i18n, docs generator
-  editor/    @nova-ui/editor   rich text editor (Tiptap), separate so Tiptap isn't a core dependency
-  react/     @nova-ui/react    generated React wrappers + hooks + page blocks; /editor and /server entry points
-  angular/   @nova-ui/angular  generated standalone proxies + ThemeService; /editor secondary entry point
-  vue/       @nova-ui/vue      Vue 3 wrappers generated from the manifest (scripts/generate.mjs)
-  css/       @nova-ui/css      layout, utilities, CSS-only components, print, guidelines; framework-free
-  tailwind/  @nova-ui/tailwind Tailwind preset mapping utilities to --nova-* tokens
+  core/      @omni/core     Stencil web components (71 in core), tokens, theme, utilities, i18n, docs generator
+  editor/    @omni/editor   rich text editor (Tiptap), separate so Tiptap isn't a core dependency
+  react/     @omni/react    generated React wrappers + hooks + page blocks; /editor and /server entry points
+  angular/   @omni/angular  generated standalone proxies + ThemeService; /editor secondary entry point
+  vue/       @omni/vue      Vue 3 wrappers generated from the manifest (scripts/generate.mjs)
+  css/       @omni/css      layout, utilities, CSS-only components, print, guidelines; framework-free
+  tailwind/  @omni/tailwind Tailwind preset mapping utilities to --nova-* tokens
 apps/
   playground-vite/   React + Vite demo of every feature
   playground-next/   Next.js App Router demo
@@ -2451,7 +2451,7 @@ docs/                user, human and agent documentation (this folder)
 | --- | --- | --- |
 | `packages/react/src/components/stencil-generated/*` | `@stencil/react-output-target` | `pnpm build` |
 | `packages/angular/src/lib/stencil-generated/*` | `@stencil/angular-output-target` | `pnpm build` |
-| `packages/css/src/generated/utilities.css` | `scripts/generate-utilities.mjs` | `pnpm --filter @nova-ui/css generate` |
+| `packages/css/src/generated/utilities.css` | `scripts/generate-utilities.mjs` | `pnpm --filter @omni/css generate` |
 | `packages/core/dist-docs/*` | `scripts/generate-docs.mjs` | `pnpm docs` |
 | `packages/vue/src/components.ts` | `scripts/generate.mjs` | `pnpm docs` |
 | `docs/llms-full.txt` | `scripts/build-llms.mjs` | `pnpm docs:agents` |

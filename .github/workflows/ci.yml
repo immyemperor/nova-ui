@@ -25,9 +25,9 @@ jobs:
         run: pnpm -r test
       - name: CSS checks and browser layout tests
         run: |
-          pnpm --filter @nova-ui/css test
-          pnpm --filter @nova-ui/css exec playwright install --with-deps chromium
-          pnpm --filter @nova-ui/css test:browser
+          pnpm --filter @omni/css test
+          pnpm --filter @omni/css exec playwright install --with-deps chromium
+          pnpm --filter @omni/css test:browser
       - name: Prop names do not shadow DOM members
         run: pnpm check:names
       - name: Documentation covers every component and every link resolves

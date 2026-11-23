@@ -5,7 +5,7 @@ Use this when you're not using a framework, or when you want to use Nova in any 
 ## Install and load
 
 ```bash
-pnpm add @nova-ui/core @nova-ui/css
+pnpm add @omni/core @omni/css
 ```
 
 ```html
@@ -14,9 +14,9 @@ pnpm add @nova-ui/core @nova-ui/css
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <link rel="stylesheet" href="/node_modules/@nova-ui/css/dist/nova.min.css" />
+    <link rel="stylesheet" href="/node_modules/@omni/css/dist/nova.min.css" />
     <script type="module">
-      import { defineCustomElements } from '/node_modules/@nova-ui/core/loader/index.js';
+      import { defineCustomElements } from '/node_modules/@omni/core/loader/index.js';
       defineCustomElements();
     </script>
   </head>
@@ -27,7 +27,7 @@ pnpm add @nova-ui/core @nova-ui/css
 </html>
 ```
 
-Bundlers resolve these paths for you. In a bundled app, write `import '@nova-ui/css/nova.css'` and `import { defineCustomElements } from '@nova-ui/core/loader'`.
+Bundlers resolve these paths for you. In a bundled app, write `import '@omni/css/nova.css'` and `import { defineCustomElements } from '@omni/core/loader'`.
 
 ## Setting objects and arrays
 

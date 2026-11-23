@@ -2,8 +2,8 @@ import { useState } from 'react';
 import {
   UiButton, UiCommandPalette, UiContextMenu, UiDrawer, UiDropdown, UiIcon, UiMenuItem, UiModal,
   UiPopover, UiSelect, UiToaster, UiTooltip, toast,
-} from '@nova-ui/react';
-import type { Command, SelectOption } from '@nova-ui/react';
+} from '@omni/react';
+import type { Command, SelectOption } from '@omni/react';
 
 const people: SelectOption[] = [
   { value: 'ada', label: 'Ada Lovelace', description: 'Engineering' },

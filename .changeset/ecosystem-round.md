@@ -1,10 +1,10 @@
 ---
-"@nova-ui/core": minor
-"@nova-ui/react": minor
-"@nova-ui/angular": minor
-"@nova-ui/css": minor
-"@nova-ui/tailwind": minor
-"@nova-ui/vue": minor
+"@omni/core": minor
+"@omni/react": minor
+"@omni/angular": minor
+"@omni/css": minor
+"@omni/tailwind": minor
+"@omni/vue": minor
 ---
 
 Split panes, virtual list and virtual table rows, sortable lists, kanban with keyboard moves, month and week

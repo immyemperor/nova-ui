@@ -16,8 +16,8 @@
     "lib": ["ES2022", "dom"],
     "baseUrl": ".",
   "paths": {
-    "@nova-ui/angular": ["../../packages/angular/dist"],
-    "@nova-ui/angular/editor": ["../../packages/angular/dist/editor"]
+    "@omni/angular": ["../../packages/angular/dist"],
+    "@omni/angular/editor": ["../../packages/angular/dist/editor"]
   },
   },
   "angularCompilerOptions": { "strictTemplates": true }

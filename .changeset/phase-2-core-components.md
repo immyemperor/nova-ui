@@ -1,7 +1,7 @@
 ---
-"@nova-ui/core": minor
-"@nova-ui/react": minor
-"@nova-ui/angular": minor
+"@omni/core": minor
+"@omni/react": minor
+"@omni/angular": minor
 ---
 
 Phase 2: form controls (input, textarea, checkbox, radio group, switch, slider, rating) with native form

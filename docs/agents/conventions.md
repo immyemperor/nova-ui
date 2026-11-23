@@ -35,7 +35,7 @@ Read this before generating code that uses Nova UI. It states the rules that mat
 
 ## Rules
 
-1. **Import once.** `@import '@nova-ui/css/nova.css'` once per app. Import framework wrappers from the framework package.
+1. **Import once.** `@import '@omni/css/nova.css'` once per app. Import framework wrappers from the framework package.
 2. **Arrays and objects are properties.** Set `options`, `columns`, `rows`, `series`, `labels`, `nodes`, `commands`, `items`, `cards`, `layout`, `events`, `tiers`, `swatches`, `validate`, `uploadFn`, `renderRow`, `toolbar`, `mentionProvider`, `uploadHandler` as JavaScript values. Never as HTML attributes.
 3. **Use the event `detail`.** The new value is in `event.detail`. In React: `onUiChange={(e) => set(e.detail)}`. In Angular: `(uiChange)="set($event.detail)"`. In Vue: `@ui-change="(e) => set(e.detail)"`.
 4. **Every control has a name.** `label` on inputs and selects, `label` on icon-only buttons, `label` on charts and tables with a `caption`.
@@ -51,11 +51,11 @@ Read this before generating code that uses Nova UI. It states the rules that mat
 
 | Framework | Components | Editor | Helpers |
 | --- | --- | --- | --- |
-| React | `import { UiButton } from '@nova-ui/react'` | `import { UiEditor } from '@nova-ui/react/editor'` | `import { toast, confirm } from '@nova-ui/react'` |
+| React | `import { UiButton } from '@omni/react'` | `import { UiEditor } from '@omni/react/editor'` | `import { toast, confirm } from '@omni/react'` |
 | Next.js | as React, in a `'use client'` file | as React, with `dynamic(..., { ssr: false })` | as React |
-| Angular | `import { UiButton } from '@nova-ui/angular'` (standalone) | `import { UiEditor } from '@nova-ui/angular/editor'` | `import { ThemeService, toast } from '@nova-ui/angular'` |
-| Vue 3 | `import { UiButton } from '@nova-ui/vue'` | not yet provided | not yet provided |
-| Plain HTML | `<ui-button>` after `defineCustomElements()` | `import '@nova-ui/editor'` | `import { toast } from '@nova-ui/core'` |
+| Angular | `import { UiButton } from '@omni/angular'` (standalone) | `import { UiEditor } from '@omni/angular/editor'` | `import { ThemeService, toast } from '@omni/angular'` |
+| Vue 3 | `import { UiButton } from '@omni/vue'` | not yet provided | not yet provided |
+| Plain HTML | `<ui-button>` after `defineCustomElements()` | `import '@omni/editor'` | `import { toast } from '@omni/core'` |
 
 ## Common mistakes
 

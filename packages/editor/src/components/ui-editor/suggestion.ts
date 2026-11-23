@@ -1,5 +1,5 @@
 import type { Editor } from '@tiptap/core';
-import { computePosition, hideFloating, showFloating } from '@nova-ui/core';
+import { computePosition, hideFloating, showFloating } from '@omni/core';
 
 export interface SlashItem {
   id: string;

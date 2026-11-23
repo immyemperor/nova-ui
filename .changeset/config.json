@@ -4,13 +4,13 @@
   "commit": false,
   "fixed": [
     [
-      "@nova-ui/core",
-      "@nova-ui/react",
-      "@nova-ui/angular",
-      "@nova-ui/editor",
-      "@nova-ui/css",
-      "@nova-ui/vue",
-      "@nova-ui/tailwind"
+      "@omni/core",
+      "@omni/react",
+      "@omni/angular",
+      "@omni/editor",
+      "@omni/css",
+      "@omni/vue",
+      "@omni/tailwind"
     ]
   ],
   "linked": [],

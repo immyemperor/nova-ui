@@ -8,9 +8,9 @@ import type { FormEvent } from 'react';
 import {
   UiAlert, UiBadge, UiButton, UiCard, UiChart, UiDateRangePicker, UiField, UiIcon, UiInput, UiModal, UiSelect, UiSidebar,
   UiSidebarItem, UiTable, UiTabs, UiTab, UiTabPanel, UiThemeToggle, UiToaster, confirm, prompt, toast,
-} from '@nova-ui/react';
-import type { DateRange, IconLibrary, TableColumn } from '@nova-ui/react';
-import { getIconLibrary, setIconLibrary } from '@nova-ui/react';
+} from '@omni/react';
+import type { DateRange, IconLibrary, TableColumn } from '@omni/react';
+import { getIconLibrary, setIconLibrary } from '@omni/react';
 import { fetchInvoices } from './api';
 import type { Invoice, Query } from './api';
 

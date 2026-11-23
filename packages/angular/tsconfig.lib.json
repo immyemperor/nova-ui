@@ -6,9 +6,9 @@
     "moduleResolution": "bundler",
     "baseUrl": ".",
     "paths": {
-    "@nova-ui/core": ["../core/dist/types/index.d.ts"],
-    "@nova-ui/core/components": ["../core/dist/types/components.d.ts"],
-    "@nova-ui/core/components/*": ["../core/dist/components/*"]
+    "@omni/core": ["../core/dist/types/index.d.ts"],
+    "@omni/core/components": ["../core/dist/types/components.d.ts"],
+    "@omni/core/components/*": ["../core/dist/components/*"]
     },
     "lib": ["ES2022", "DOM"],
     "declaration": true,

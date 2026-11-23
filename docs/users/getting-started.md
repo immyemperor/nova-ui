@@ -7,13 +7,13 @@ Nova UI is a design system with one set of components that works in plain HTML, 
 Choose what you need. Most apps need only the first line.
 
 ```bash
-pnpm add @nova-ui/core            # web components, tokens, theme, utilities
-pnpm add @nova-ui/css             # layout classes, utilities, CSS-only components (optional)
-pnpm add @nova-ui/react           # React wrappers (React, Next.js, Vite + React)
-pnpm add @nova-ui/angular         # Angular standalone wrappers
-pnpm add @nova-ui/vue             # Vue 3 wrappers
-pnpm add @nova-ui/editor          # rich text editor (optional, heavy, built on Tiptap)
-pnpm add -D @nova-ui/tailwind     # Tailwind preset (optional)
+pnpm add @omni/core            # web components, tokens, theme, utilities
+pnpm add @omni/css             # layout classes, utilities, CSS-only components (optional)
+pnpm add @omni/react           # React wrappers (React, Next.js, Vite + React)
+pnpm add @omni/angular         # Angular standalone wrappers
+pnpm add @omni/vue             # Vue 3 wrappers
+pnpm add @omni/editor          # rich text editor (optional, heavy, built on Tiptap)
+pnpm add -D @omni/tailwind     # Tailwind preset (optional)
 ```
 
 ## 2. Add the stylesheet
@@ -21,7 +21,7 @@ pnpm add -D @nova-ui/tailwind     # Tailwind preset (optional)
 Import one stylesheet once, near the top of your app. It contains the design tokens, the reset, layout classes and utilities.
 
 ```css
-@import '@nova-ui/css/nova.css';
+@import '@omni/css/nova.css';
 ```
 
 Also set the viewport so the layout respects phone notches and users can still zoom:
@@ -43,7 +43,7 @@ Every framework uses the same component names and the same props. Only the synta
 | HTML | `<ui-button variant="primary">Save</ui-button>` |
 | React | `<UiButton variant="primary">Save</UiButton>` |
 | Angular | `<ui-button variant="primary">Save</ui-button>` (standalone import `UiButton`) |
-| Vue | `<UiButton variant="primary">Save</UiButton>` (from `@nova-ui/vue`) |
+| Vue | `<UiButton variant="primary">Save</UiButton>` (from `@omni/vue`) |
 
 ## 4. Respond to events
 

@@ -139,4 +139,4 @@ for (const [from, to] of iconFiles) {
 }
 console.log(copied.length
   ? `icons: ${copied.length} files copied to dist (${copied.join(', ')})`
-  : 'icons: not generated yet. Run pnpm --filter @nova-ui/css icons:update to add Material Symbols.');
+  : 'icons: not generated yet. Run pnpm --filter @omni/css icons:update to add Material Symbols.');

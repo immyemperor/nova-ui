@@ -7,14 +7,14 @@ Vite works with React, Vue, Angular or plain JavaScript. Use the framework guide
 ```bash
 pnpm create vite my-app --template react-ts   # or vue-ts, vanilla-ts
 cd my-app
-pnpm add @nova-ui/core @nova-ui/css @nova-ui/react
+pnpm add @omni/core @omni/css @omni/react
 ```
 
 ## Entry file
 
 ```tsx
 // src/main.tsx
-import '@nova-ui/css/nova.css';
+import '@omni/css/nova.css';
 import { createRoot } from 'react-dom/client';
 import { App } from './App';
 
@@ -40,7 +40,7 @@ Add the theme script to `index.html` before your scripts:
 The rich text editor is large. Import it from its own entry point so Vite puts it in a separate chunk:
 
 ```tsx
-const { UiEditor } = await import('@nova-ui/react/editor');
+const { UiEditor } = await import('@omni/react/editor');
 ```
 
 ## Workspace development

@@ -38,10 +38,10 @@ importers:
       '@angular/router':
         specifier: ^19.0.0
         version: 19.2.25(@angular/common@19.2.25(@angular/core@19.2.25(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@19.2.25(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@19.2.25(@angular/common@19.2.25(@angular/core@19.2.25(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@19.2.25(rxjs@7.8.2)(zone.js@0.15.1)))(rxjs@7.8.2)
-      '@nova-ui/angular':
+      '@omni/angular':
         specifier: workspace:*
         version: link:../../packages/angular
-      '@nova-ui/core':
+      '@omni/core':
         specifier: workspace:*
         version: link:../../packages/core
       rxjs:
@@ -69,16 +69,16 @@ importers:
 
   apps/playground-next:
     dependencies:
-      '@nova-ui/core':
+      '@omni/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@nova-ui/css':
+      '@omni/css':
         specifier: workspace:*
         version: link:../../packages/css
-      '@nova-ui/editor':
+      '@omni/editor':
         specifier: workspace:*
         version: link:../../packages/editor
-      '@nova-ui/react':
+      '@omni/react':
         specifier: workspace:*
         version: link:../../packages/react
       next:
@@ -106,13 +106,13 @@ importers:
 
   apps/playground-react:
     dependencies:
-      '@nova-ui/core':
+      '@omni/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@nova-ui/css':
+      '@omni/css':
         specifier: workspace:*
         version: link:../../packages/css
-      '@nova-ui/react':
+      '@omni/react':
         specifier: workspace:*
         version: link:../../packages/react
       react:
@@ -140,16 +140,16 @@ importers:
 
   apps/playground-vite:
     dependencies:
-      '@nova-ui/core':
+      '@omni/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@nova-ui/css':
+      '@omni/css':
         specifier: workspace:*
         version: link:../../packages/css
-      '@nova-ui/editor':
+      '@omni/editor':
         specifier: workspace:*
         version: link:../../packages/editor
-      '@nova-ui/react':
+      '@omni/react':
         specifier: workspace:*
         version: link:../../packages/react
       react:
@@ -177,10 +177,10 @@ importers:
 
   apps/shared:
     dependencies:
-      '@nova-ui/core':
+      '@omni/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@nova-ui/react':
+      '@omni/react':
         specifier: workspace:*
         version: link:../../packages/react
       react:
@@ -196,7 +196,7 @@ importers:
 
   packages/angular:
     dependencies:
-      '@nova-ui/core':
+      '@omni/core':
         specifier: workspace:*
         version: link:../core
       tslib:
@@ -215,7 +215,7 @@ importers:
       '@angular/core':
         specifier: ^19.0.0
         version: 19.2.25(rxjs@7.8.2)(zone.js@0.15.1)
-      '@nova-ui/editor':
+      '@omni/editor':
         specifier: workspace:*
         version: link:../editor
       ng-packagr:
@@ -322,7 +322,7 @@ importers:
         specifier: ^2.10.0
         version: 2.27.3(@tiptap/core@2.27.3(@tiptap/pm@2.27.3))(@tiptap/pm@2.27.3)
     devDependencies:
-      '@nova-ui/core':
+      '@omni/core':
         specifier: workspace:*
         version: link:../core
       '@stencil/angular-output-target':
@@ -337,14 +337,14 @@ importers:
 
   packages/react:
     dependencies:
-      '@nova-ui/core':
+      '@omni/core':
         specifier: workspace:*
         version: link:../core
       '@stencil/react-output-target':
         specifier: ^1.8.1
         version: 1.8.1(@stencil/core@4.45.2)(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
     devDependencies:
-      '@nova-ui/editor':
+      '@omni/editor':
         specifier: workspace:*
         version: link:../editor
       '@types/react':
@@ -371,7 +371,7 @@ importers:
 
   packages/vue:
     dependencies:
-      '@nova-ui/core':
+      '@omni/core':
         specifier: workspace:*
         version: link:../core
     devDependencies:

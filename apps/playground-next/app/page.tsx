@@ -1,4 +1,4 @@
-import { LoginBlock, PricingBlock, UiCard, UiButton, UiBadge, UiIcon, UiReveal, UiStagger, UiThemeToggle } from '@nova-ui/react';
+import { LoginBlock, PricingBlock, UiCard, UiButton, UiBadge, UiIcon, UiReveal, UiStagger, UiThemeToggle } from '@omni/react';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { NewFeatures } from './_features/NewFeatures';
@@ -21,7 +21,7 @@ export default function Home() {
       <a className="nova-skip-link" href="#main">Skip to content</a>
       <header className="nova-bg-surface nova-border-b">
         <div className="nova-container nova-cluster nova-cluster-between nova-py-3">
-          <strong>Nova UI on Next.js</strong>
+          <strong>Omni UI on Next.js</strong>
           <div className="nova-cluster">
             <a className="nova-btn nova-btn-ghost nova-btn-sm" href="/components">Components</a>
             <a className="nova-btn nova-btn-ghost nova-btn-sm" href="/icons/material">Icons</a>
@@ -35,7 +35,7 @@ export default function Home() {
         <div className="nova-stack">
           <p className="nova-eyebrow">App Router</p>
           <h1 className="nova-display">Layouts that fit every screen</h1>
-          <p className="nova-lead">Web components for behaviour, @nova-ui/css for layout.</p>
+          <p className="nova-lead">Web components for behaviour, @omni/css for layout.</p>
           <div className="nova-cluster">
             <UiButton>
               <UiIcon slot="start" name="check" />

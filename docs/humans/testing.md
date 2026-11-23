@@ -4,12 +4,12 @@ Testing has four layers. Know which one covers what before you claim something i
 
 | Layer | Command | What it proves | Runs in CI |
 | --- | --- | --- | --- |
-| Logic unit tests | `pnpm --filter @nova-ui/core test` | Pure rules: dates, colour, search, layout maths, sanitiser, CSV, files, charts, presence, theme generation | Yes |
+| Logic unit tests | `pnpm --filter @omni/core test` | Pure rules: dates, colour, search, layout maths, sanitiser, CSV, files, charts, presence, theme generation | Yes |
 | Sanitiser security tests | (part of core tests) | XSS vectors against the real DOM (Playwright) | Yes, when Playwright is installed |
-| CSS checks | `pnpm --filter @nova-ui/css test` | Built CSS is well formed, minifier safe, compat build has no layers, 46 contrast pairs pass, docs classes exist | Yes |
-| Browser layout tests | `pnpm --filter @nova-ui/css test:browser` | Real Chromium: no overflow at 9 widths, shell reflow, grids, container queries, focus rings, both builds | Yes |
+| CSS checks | `pnpm --filter @omni/css test` | Built CSS is well formed, minifier safe, compat build has no layers, 46 contrast pairs pass, docs classes exist | Yes |
+| Browser layout tests | `pnpm --filter @omni/css test:browser` | Real Chromium: no overflow at 9 widths, shell reflow, grids, container queries, focus rings, both builds | Yes |
 | Name check | `pnpm check:names` | No `@Prop` or `@Method` shadows a DOM member | Yes |
-| Docs and wrapper checks | `pnpm docs:check`, `pnpm --filter @nova-ui/vue test`, `pnpm --filter @nova-ui/tailwind test` | Docs cover every component; links resolve; Vue output parses; Tailwind tokens exist | Yes |
+| Docs and wrapper checks | `pnpm docs:check`, `pnpm --filter @omni/vue test`, `pnpm --filter @omni/tailwind test` | Docs cover every component; links resolve; Vue output parses; Tailwind tokens exist | Yes |
 
 ## What is not tested yet
 

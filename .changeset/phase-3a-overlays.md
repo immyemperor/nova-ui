@@ -1,7 +1,7 @@
 ---
-"@nova-ui/core": minor
-"@nova-ui/react": minor
-"@nova-ui/angular": minor
+"@omni/core": minor
+"@omni/react": minor
+"@omni/angular": minor
 ---
 
 Phase 3a: modal, drawer, popover, tooltip, dropdown + menu item, context menu, searchable select

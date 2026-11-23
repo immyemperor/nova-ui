@@ -2,7 +2,7 @@
  * Tailwind CSS preset for Nova UI. Colours, radius, shadows and fonts resolve to the same CSS variables the
  * components use, so Tailwind classes follow light, dark and brand themes automatically.
  *   // tailwind.config.js
- *   module.exports = { presets: [require('@nova-ui/tailwind')], content: [...] }
+ *   module.exports = { presets: [require('@omni/tailwind')], content: [...] }
  *   <button class="bg-nova-accent text-nova-on-accent rounded-nova">Save</button>
  */
 const v = (name) => `var(--nova-${name})`;

@@ -31,15 +31,15 @@ export const config: Config = {
     { type: 'dist', esmLoaderPath: '../loader' },
     { type: 'dist-custom-elements', customElementsExportBehavior: 'auto-define-custom-elements' , externalRuntime: false },
     // Editor wrappers go into their own entry points so the editor stays optional:
-    //   import { UiEditor } from '@nova-ui/react/editor'
-    //   import { UiEditor } from '@nova-ui/angular/editor'
+    //   import { UiEditor } from '@omni/react/editor'
+    //   import { UiEditor } from '@omni/angular/editor'
     reactOutputTarget({
       outDir: '../react/src/editor/stencil-generated/',
       customElementsDir: 'components',
       excludeComponents: coreComponentTags,
     }),
     angularOutputTarget({
-      componentCorePackage: '@nova-ui/editor',
+      componentCorePackage: '@omni/editor',
       outputType: 'standalone',
       directivesProxyFile: '../angular/editor/src/stencil-generated/components.ts',
       directivesArrayFile: '../angular/editor/src/stencil-generated/index.ts',
@@ -48,10 +48,10 @@ export const config: Config = {
       valueAccessorConfigs: [{ elementSelectors: ['ui-editor'], event: 'uiChange', targetAttr: 'value', type: 'text' }],
     }),
   ],
-  // @nova-ui/core is a peer dependency: never bundle a second copy of its components.
+  // @omni/core is a peer dependency: never bundle a second copy of its components.
   rollupConfig: {
   inputOptions: {
-    external: ['@nova-ui/core'],
+    external: ['@omni/core'],
   },
 },
   testing: { browserHeadless: 'shell' },

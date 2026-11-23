@@ -26,7 +26,7 @@ Overlays float above the page: dialogs, drawers, menus, tooltips and notificatio
 For the common case, skip the modal entirely:
 
 ```ts
-import { confirm, prompt } from '@nova-ui/core';
+import { confirm, prompt } from '@omni/core';
 
 if (await confirm({ title: 'Delete project?', message: 'This cannot be undone.', confirmLabel: 'Delete', danger: true })) {
   // delete
@@ -100,7 +100,7 @@ Set `commands` to an array of `{ id, label, group, icon, shortcut, keywords }`. 
 ## Notifications
 
 ```ts
-import { toast } from '@nova-ui/core';
+import { toast } from '@omni/core';
 
 toast.success('Saved');
 toast.error({ title: 'Upload failed', description: 'Check your connection.', actionLabel: 'Retry', onAction: retry });

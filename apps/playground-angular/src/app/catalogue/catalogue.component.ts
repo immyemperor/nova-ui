@@ -3,9 +3,9 @@ import {
   ThemeService, UiButton, UiChart, UiCollapse, UiDateRangePicker, UiFileUpload, UiKanban, UiScheduler,
   UiScrollProgress, UiSidebar, UiSidebarItem, UiSortable, UiSparkline, UiSplit, UiTable, UiTimePicker, UiVirtualList,
   confirm, prompt, toast,
-} from '@nova-ui/angular';
-import type { DateRange, IconLibrary, TableColumn, TableRow } from '@nova-ui/angular';
-import { getIconLibrary, setIconLibrary } from '@nova-ui/angular';
+} from '@omni/angular';
+import type { DateRange, IconLibrary, TableColumn, TableRow } from '@omni/angular';
+import { getIconLibrary, setIconLibrary } from '@omni/angular';
 import { CodeBlockComponent } from '../code-block.component';
 import { SOURCES } from '../source';
 
