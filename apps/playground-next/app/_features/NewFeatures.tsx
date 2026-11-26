@@ -24,40 +24,40 @@ export function NewFeatures() {
   ];
 
   return (
-    <div className="nova-stack nova-stack-lg">
-      <section className="nova-stack nova-stack-sm">
-        <h2 className="nova-h4">Sidebar and split panes</h2>
-        <div className="nova-cluster nova-gap-4">
+    <div className="kvui-stack kvui-stack-lg">
+      <section className="kvui-stack kvui-stack-sm">
+        <h2 className="kvui-h4">Sidebar and split panes</h2>
+        <div className="kvui-cluster kvui-gap-4">
           <UiSidebar label="Demo navigation" storageKey="next-sidebar">
             <UiSidebarItem label="Overview" icon="home" current href="#" />
             <UiSidebarItem label="Reports" icon="bar-chart" group open>
               <UiSidebarItem label="Weekly" href="#" />
             </UiSidebarItem>
           </UiSidebar>
-          <UiSplit ratio={0.35} minA={140} minB={220} storageKey="next-split" style={{ flex: 1, height: 180, border: '1px solid var(--nova-color-border)', borderRadius: 12 }}>
-            <div slot="a" className="nova-p-3 nova-small">List pane</div>
-            <div slot="b" className="nova-p-3 nova-small">Detail pane</div>
+          <UiSplit ratio={0.35} minA={140} minB={220} storageKey="next-split" style={{ flex: 1, height: 180, border: '1px solid var(--kvui-color-border)', borderRadius: 12 }}>
+            <div slot="a" className="kvui-p-3 kvui-small">List pane</div>
+            <div slot="b" className="kvui-p-3 kvui-small">Detail pane</div>
           </UiSplit>
         </div>
       </section>
 
-      <section className="nova-stack nova-stack-sm">
-        <h2 className="nova-h4">Dates and times</h2>
-        <div className="nova-grid-auto nova-grid-auto-md nova-gap-4">
+      <section className="kvui-stack kvui-stack-sm">
+        <h2 className="kvui-h4">Dates and times</h2>
+        <div className="kvui-grid-auto kvui-grid-auto-md kvui-gap-4">
           <UiDateRangePicker label="Report period" presets value={range} onUiChange={(e: CustomEvent<DateRange>) => setRange(e.detail)} />
           <UiTimePicker label="Meeting time" value={time} min="08:00" max="18:00" step={15} onUiChange={(e: CustomEvent<string>) => setTime(e.detail)} />
         </div>
       </section>
 
-      <section className="nova-stack nova-stack-sm">
-        <h2 className="nova-h4">Charts and table</h2>
+      <section className="kvui-stack kvui-stack-sm">
+        <h2 className="kvui-h4">Charts and table</h2>
         <UiChart type="area" label="Revenue in thousands" labels={months} series={[{ name: 'Revenue', values: [12, 18, 15, 22, 27, 31] }]} />
         <UiTable exportable caption="Recent activity" columns={[{ key: 'event', label: 'Event', sortable: true }, { key: 'when', label: 'When' }]}
           rows={[{ id: 1, event: 'Invoice paid', when: 'Today' }, { id: 2, event: 'New signup', when: 'Yesterday' }]} paginate={false} />
       </section>
 
-      <section className="nova-stack nova-stack-sm">
-        <h2 className="nova-h4">Kanban and schedule</h2>
+      <section className="kvui-stack kvui-stack-sm">
+        <h2 className="kvui-h4">Kanban and schedule</h2>
         <UiKanban label="Board" columns={[{ id: 'todo', title: 'To do' }, { id: 'doing', title: 'Doing' }, { id: 'done', title: 'Done' }]} cards={cards} layout={layout}
           onUiMove={(e: CustomEvent<{ layout: Record<string, string[]> }>) => setLayout(e.detail.layout)} />
         <UiScheduler label="Week" view="week" date="2026-11-16" dayStart={8} dayEnd={18}
@@ -65,30 +65,30 @@ export function NewFeatures() {
           onUiEventClick={(e: CustomEvent<{ title: string }>) => toast.info(e.detail.title)} />
       </section>
 
-      <section className="nova-stack nova-stack-sm">
-        <h2 className="nova-h4">Collapse, upload and exit animation</h2>
+      <section className="kvui-stack kvui-stack-sm">
+        <h2 className="kvui-h4">Collapse, upload and exit animation</h2>
         <UiCollapse peek="Shipping details">
           <span slot="label">Delivery</span>
           Full details here.
         </UiCollapse>
         <UiFileUpload label="Attachments" accept=".pdf,.png" maxSize={5 * 1024 * 1024} maxFiles={3} />
-        <div className="nova-cluster">
+        <div className="kvui-cluster">
           <UiButton variant="secondary" onClick={() => setOpen((o) => !o)}>{open ? 'Hide' : 'Show'} notice</UiButton>
-          <span className="nova-caption">phase: {phase}</span>
+          <span className="kvui-caption">phase: {phase}</span>
         </div>
         {mounted && (
-          <div className={phase === 'exiting' ? 'nova-fade-out' : 'nova-fade-in'} role="status">
+          <div className={phase === 'exiting' ? 'kvui-fade-out' : 'kvui-fade-in'} role="status">
             <UiIcon name="info" /> This notice fades out before it leaves the page.
           </div>
         )}
       </section>
 
-      <section className="nova-stack nova-stack-sm">
-        <h2 className="nova-h4">Rich text editor (client-only)</h2>
+      <section className="kvui-stack kvui-stack-sm">
+        <h2 className="kvui-h4">Rich text editor (client-only)</h2>
         <UiEditor label="Notes" preset="minimal" value={html} onUiChange={(e: CustomEvent<string>) => setHtml(e.detail)} />
         <UiCollapse>
           <span slot="label">Stored HTML</span>
-          <code className="nova-small nova-break-words">{html}</code>
+          <code className="kvui-small kvui-break-words">{html}</code>
         </UiCollapse>
       </section>
     </div>

@@ -1,14 +1,14 @@
-:host { --_s: var(--nova-control-md); display: block; font-family: var(--nova-font-sans); font-size: var(--nova-text-sm); }
-:host([size='sm']) { --_s: var(--nova-control-sm); font-size: var(--nova-text-xs); }
-.list { display: flex; flex-wrap: wrap; align-items: center; gap: var(--nova-space-1); margin: 0; padding: 0; list-style: none; }
+:host { --_s: var(--kvui-control-md); display: block; font-family: var(--kvui-font-sans); font-size: var(--kvui-text-sm); }
+:host([size='sm']) { --_s: var(--kvui-control-sm); font-size: var(--kvui-text-xs); }
+.list { display: flex; flex-wrap: wrap; align-items: center; gap: var(--kvui-space-1); margin: 0; padding: 0; list-style: none; }
 .btn {
   all: unset; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center;
-  min-width: var(--_s); height: var(--_s); padding: 0 var(--nova-space-2); border-radius: var(--nova-radius-control);
-  color: var(--nova-color-fg); font-variant-numeric: tabular-nums; cursor: pointer;
-  transition: background var(--nova-duration-fast) var(--nova-ease-standard);
+  min-width: var(--_s); height: var(--_s); padding: 0 var(--kvui-space-2); border-radius: var(--kvui-radius-control);
+  color: var(--kvui-color-fg); font-variant-numeric: tabular-nums; cursor: pointer;
+  transition: background var(--kvui-duration-fast) var(--kvui-ease-standard);
 }
-.btn:hover:not(:disabled):not(.current) { background: var(--nova-color-surface-sunken); }
-.btn:focus-visible { box-shadow: var(--nova-focus-ring); }
+.btn:hover:not(:disabled):not(.current) { background: var(--kvui-color-surface-sunken); }
+.btn:focus-visible { box-shadow: var(--kvui-focus-ring); }
 .btn:disabled { opacity: 0.4; cursor: not-allowed; }
-.btn.current { background: var(--nova-color-accent); color: var(--nova-color-fg-on-accent); font-weight: var(--nova-weight-semibold); cursor: default; }
-.gap { min-width: var(--_s); text-align: center; color: var(--nova-color-fg-subtle); }
+.btn.current { background: var(--kvui-color-accent); color: var(--kvui-color-fg-on-accent); font-weight: var(--kvui-weight-semibold); cursor: default; }
+.gap { min-width: var(--_s); text-align: center; color: var(--kvui-color-fg-subtle); }

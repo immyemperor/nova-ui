@@ -1,6 +1,6 @@
 import { Component, Element, Event, EventEmitter, Host, Method, Prop, State, Watch, h } from '@stencil/core';
 import { Editor } from '@tiptap/core';
-// Make sure every Nova element used in the toolbar exists, even if the app never imported it.
+// Make sure every Kvui element used in the toolbar exists, even if the app never imported it.
 import '@kvui/core/components/ui-alert.js';
 import '@kvui/core/components/ui-button.js';
 import '@kvui/core/components/ui-color-picker.js';
@@ -58,7 +58,7 @@ const BUTTONS: Record<string, Btn> = {
 const stop = (e: Event) => e.stopPropagation();
 
 /**
- * Rich text editor built on Tiptap, with a configurable toolbar made of Nova buttons and icons,
+ * Rich text editor built on Tiptap, with a configurable toolbar made of Kvui buttons and icons,
  * "/" commands, @mentions, tables, links, image and file uploads. Value is HTML.
  *
  * Renders in light DOM on purpose: ProseMirror (selection, IME, spellcheck, browser extensions)
@@ -260,7 +260,7 @@ export class UiEditor {
       }),
       editorProps: {
         attributes: {
-          class: 'nova-ed__prose',
+          class: 'kvui-ed__prose',
           role: 'textbox',
           'aria-multiline': 'true',
           'aria-label': this.label ?? 'Rich text editor',
@@ -546,7 +546,7 @@ export class UiEditor {
             <ui-button slot="trigger" class="tb" variant="ghost" size="sm" icon-only label={label} pressed={!!current} disabled={off}>
               <ui-icon name={isText ? 'text-color' : 'highlighter'} style={current ? { color: current } : undefined} />
             </ui-button>
-            <div class="nova-ed__panel" {...({ onUiChange: stop, onUiInput: stop } as any)}>
+            <div class="kvui-ed__panel" {...({ onUiChange: stop, onUiInput: stop } as any)}>
               <ui-color-picker
                 inline
                 value={current ?? (isText ? '#14201c' : '#fde68a')}
@@ -593,7 +593,7 @@ export class UiEditor {
               <ui-icon name="link" />
             </ui-button>
             <div
-              class="nova-ed__panel"
+              class="kvui-ed__panel"
               {...({ onUiChange: stop, onUiInput: stop } as any)}
               onKeyDown={(ev: KeyboardEvent) => {
                 if (ev.key === 'Enter') {
@@ -612,7 +612,7 @@ export class UiEditor {
                   this.linkUrl = ev.detail;
                 }}
               />
-              <div class="nova-ed__actions">
+              <div class="kvui-ed__actions">
                 <ui-button size="sm" onClick={() => this.applyLink()}>
                   Apply
                 </ui-button>
@@ -634,13 +634,13 @@ export class UiEditor {
             <ui-button slot="trigger" class="tb" variant="ghost" size="sm" icon-only label="Image" disabled={off}>
               <ui-icon name="image" />
             </ui-button>
-            <div class="nova-ed__panel nova-ed__panel--image" {...({ onUiChange: stop, onUiInput: stop } as any)}>
+            <div class="kvui-ed__panel kvui-ed__panel--image" {...({ onUiChange: stop, onUiInput: stop } as any)}>
               <ui-tabs value="upload" label="Add image">
                 <ui-tab value="upload">Upload</ui-tab>
                 <ui-tab value="url">From address</ui-tab>
                 <ui-tab-panel value="upload">
                   <div
-                    class={{ 'nova-ed__drop': true, 'is-active': this.dropActive }}
+                    class={{ 'kvui-ed__drop': true, 'is-active': this.dropActive }}
                     onDragOver={(ev: DragEvent) => {
                       ev.preventDefault();
                       this.dropActive = true;
@@ -662,7 +662,7 @@ export class UiEditor {
                   </div>
                 </ui-tab-panel>
                 <ui-tab-panel value="url">
-                  <div class="nova-ed__stack">
+                  <div class="kvui-ed__stack">
                     <ui-input label="Image address" placeholder="https://..." value={this.imageUrl} onUiInput={(ev: CustomEvent<string>) => ((this.imageUrl = ev.detail), ev.stopPropagation())} />
                     <ui-input label="Description (alt text)" value={this.imageAlt} onUiInput={(ev: CustomEvent<string>) => ((this.imageAlt = ev.detail), ev.stopPropagation())} />
                     <ui-button size="sm" onClick={() => this.insertImageFromUrl()}>
@@ -729,44 +729,44 @@ export class UiEditor {
     const quiet = { onUiChange: stop, onUiInput: stop, onUiSelect: stop, onUiToggle: stop, onUiDismiss: stop } as any;
 
     return (
-      <Host class={{ 'nova-ed': true, 'is-focused': this.focused, 'is-invalid': !!this.error, 'is-disabled': this.disabled, 'is-readonly': this.readonly }}>
+      <Host class={{ 'kvui-ed': true, 'is-focused': this.focused, 'is-invalid': !!this.error, 'is-disabled': this.disabled, 'is-readonly': this.readonly }}>
         {this.label && (
-          <label class="nova-ed__label" onClick={() => this.editor?.commands.focus()}>
+          <label class="kvui-ed__label" onClick={() => this.editor?.commands.focus()}>
             {this.label}
-            {this.required && <span class="nova-ed__req" aria-hidden="true"> *</span>}
+            {this.required && <span class="kvui-ed__req" aria-hidden="true"> *</span>}
           </label>
         )}
 
-        <div class="nova-ed__frame" style={{ '--nova-ed-min': this.minHeight, '--nova-ed-max': this.maxHeight ?? 'none' }} {...quiet}>
+        <div class="kvui-ed__frame" style={{ '--kvui-ed-min': this.minHeight, '--kvui-ed-max': this.maxHeight ?? 'none' }} {...quiet}>
           {showToolbar && (
-            <div class="nova-ed__toolbar" role="toolbar" aria-label="Formatting" ref={(el) => (this.toolbarEl = el)} onKeyDown={this.onToolbarKey}>
+            <div class="kvui-ed__toolbar" role="toolbar" aria-label="Formatting" ref={(el) => (this.toolbarEl = el)} onKeyDown={this.onToolbarKey}>
               {e &&
                 items.map((id, i) =>
-                  id === '|' ? <span key={`sep-${i}`} class="nova-ed__sep" role="separator" aria-orientation="vertical" /> : this.renderItem(id, e),
+                  id === '|' ? <span key={`sep-${i}`} class="kvui-ed__sep" role="separator" aria-orientation="vertical" /> : this.renderItem(id, e),
                 )}
             </div>
           )}
 
           {this.notice && (
-            <ui-alert class="nova-ed__notice" tone="danger" dismissible onUiDismiss={() => (this.notice = undefined)}>
+            <ui-alert class="kvui-ed__notice" tone="danger" dismissible onUiDismiss={() => (this.notice = undefined)}>
               {this.notice}
             </ui-alert>
           )}
 
-          <div class="nova-ed__content" ref={(el) => (this.contentEl = el)} />
+          <div class="kvui-ed__content" ref={(el) => (this.contentEl = el)} />
 
           {(this.uploads.length > 0 || this.maxLength != null) && (
-            <div class="nova-ed__status" aria-live="polite">
-              <span class="nova-ed__uploads">
+            <div class="kvui-ed__status" aria-live="polite">
+              <span class="kvui-ed__uploads">
                 {this.uploads.map((u) => (
-                  <span key={u.id} class="nova-ed__upload">
+                  <span key={u.id} class="kvui-ed__upload">
                     <ui-spinner size="sm" label={`Uploading ${u.name}`} />
                     {u.name}
                   </span>
                 ))}
               </span>
               {this.maxLength != null && (
-                <span class="nova-ed__count" data-over={count >= this.maxLength ? 'true' : 'false'}>
+                <span class="kvui-ed__count" data-over={count >= this.maxLength ? 'true' : 'false'}>
                   {count} / {this.maxLength}
                 </span>
               )}
@@ -775,7 +775,7 @@ export class UiEditor {
         </div>
 
         {message && (
-          <p class={{ 'nova-ed__msg': true, 'is-error': !!this.error }} id={`${this.uid}-msg`} role={this.error ? 'alert' : undefined}>
+          <p class={{ 'kvui-ed__msg': true, 'is-error': !!this.error }} id={`${this.uid}-msg`} role={this.error ? 'alert' : undefined}>
             {message}
           </p>
         )}
@@ -784,7 +784,7 @@ export class UiEditor {
         {this.name && <input type="hidden" name={this.name} value={isEmpty ? '' : this.value} />}
         {this.required && (
           <input
-            class="nova-ed__validity"
+            class="kvui-ed__validity"
             type="text"
             tabindex={-1}
             aria-hidden="true"
@@ -794,9 +794,9 @@ export class UiEditor {
           />
         )}
 
-        <input class="nova-ed__file" type="file" hidden accept={this.accept} multiple ref={(el) => (this.imageInput = el)} onChange={(ev) => this.onFilesChosen(ev, true)} />
-        <input class="nova-ed__file" type="file" hidden accept={this.attachmentAccept || undefined} multiple ref={(el) => (this.attachInput = el)} onChange={(ev) => this.onFilesChosen(ev)} />
-        <div class="nova-ed__popups" ref={(el) => (this.popupsEl = el)} />
+        <input class="kvui-ed__file" type="file" hidden accept={this.accept} multiple ref={(el) => (this.imageInput = el)} onChange={(ev) => this.onFilesChosen(ev, true)} />
+        <input class="kvui-ed__file" type="file" hidden accept={this.attachmentAccept || undefined} multiple ref={(el) => (this.attachInput = el)} onChange={(ev) => this.onFilesChosen(ev)} />
+        <div class="kvui-ed__popups" ref={(el) => (this.popupsEl = el)} />
       </Host>
     );
   }

@@ -12,5 +12,5 @@ export function pathHref(target: Route): string {
 
 /** Client wrapper: the server pages pass only serialisable data (the route), never functions. */
 export function ExplorerClient({ route }: { route: Route }) {
-  return <ExplorerLayout route={route} hrefFor={pathHref} appName="Nova UI on Next.js" backHref="/" backLabel="Home" />;
+  return <ExplorerLayout route={route} hrefFor={pathHref} appName="Kvui UI on Next.js" backHref="/" backLabel="Home" />;
 }

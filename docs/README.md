@@ -1,4 +1,4 @@
-# Nova UI documentation
+# Kvui UI documentation
 
 Three audiences, one set of facts. Pick your reader below.
 

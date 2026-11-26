@@ -1,5 +1,5 @@
 ::slotted([slot='prefix']),
 ::slotted([slot='suffix']) {
-  color: var(--nova-color-fg-subtle);
+  color: var(--kvui-color-fg-subtle);
   display: inline-flex;
 }

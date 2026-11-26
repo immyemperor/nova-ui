@@ -17,22 +17,22 @@ test('parses the codepoint catalogue, skipping blank and malformed lines', () =>
 
 test('each icon has a CSS escape with ONE backslash, so the glyph shows (not the text)', () => {
   const css = M.buildCss(entries);
-  assert.ok(css.includes('.nova-icon-home::before{content:"\\e88a "}'), 'single backslash escape');
+  assert.ok(css.includes('.kvui-icon-home::before{content:"\\e88a "}'), 'single backslash escape');
   assert.ok(!css.includes('content:"\\\\e88a'), 'no doubled backslash');
 });
 
-test('names with underscores become dashed class names; digits are allowed after the nova- prefix', () => {
+test('names with underscores become dashed class names; digits are allowed after the kvui- prefix', () => {
   const css = M.buildCss(entries);
-  assert.ok(css.includes('.nova-icon-settings-ethernet::before'));
-  assert.ok(css.includes('.nova-icon-3d-rotation::before'));
+  assert.ok(css.includes('.kvui-icon-settings-ethernet::before'));
+  assert.ok(css.includes('.kvui-icon-3d-rotation::before'));
 });
 
-test('the CSS declares the bundled font and the icon classes inside the nova layers', () => {
+test('the CSS declares the bundled font and the icon classes inside the kvui layers', () => {
   const css = M.buildCss(entries);
-  assert.ok(css.includes('font-family:"Nova Material Symbols"'));
+  assert.ok(css.includes('font-family:"Kvui Material Symbols"'));
   assert.ok(css.includes('url("./material-symbols-outlined.woff2")'));
-  assert.ok(css.includes('@layer nova.utilities{'));
-  assert.ok(css.includes('.nova-icon-filled::before'));
+  assert.ok(css.includes('@layer kvui.utilities{'));
+  assert.ok(css.includes('.kvui-icon-filled::before'));
 });
 
 test('the names file is a JSON array in catalogue order', () => {
@@ -42,7 +42,7 @@ test('the names file is a JSON array in catalogue order', () => {
 test('the gallery loads the generated icon CSS and lists every icon', () => {
   const html = M.buildGallery(entries);
   assert.ok(html.includes('href="../dist/icons.css"'), 'icons.css linked');
-  assert.ok(html.includes('href="../dist/nova.min.css"'), 'nova css linked');
+  assert.ok(html.includes('href="../dist/kvui.min.css"'), 'kvui css linked');
   assert.ok(html.includes('"home","search","settings_ethernet","3d_rotation"'), 'names embedded');
   assert.ok(html.includes('Search 4 Google Material Symbols'), 'count shown');
 });
@@ -70,7 +70,7 @@ test('updateMaterialIcons writes every output file using the injected fetch (no 
     assert.ok(existsSync(join(outDir, f)), f);
   }
   assert.ok(existsSync(join(docsDir, 'icons.html')));
-  assert.ok(readFileSync(join(outDir, 'material-icons.css'), 'utf8').includes('.nova-icon-home'));
+  assert.ok(readFileSync(join(outDir, 'material-icons.css'), 'utf8').includes('.kvui-icon-home'));
 });
 
 test('a failed download stops with a clear message and writes nothing', async () => {

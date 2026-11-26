@@ -1,4 +1,4 @@
-# Nova CSS guidelines
+# Kvui CSS guidelines
 
 How to build layouts that work on every screen, from a 320px phone to a 4K monitor, with `@kvui/css`.
 Open `docs/index.html` for the same material with live, resizable examples.
@@ -25,14 +25,14 @@ Open `docs/index.html` for the same material with live, resizable examples.
 
 ## 1. Principles
 
-1. **Mobile first.** Write the small-screen layout as the default and add `nova-md-*` / `nova-lg-*` classes only
+1. **Mobile first.** Write the small-screen layout as the default and add `kvui-md-*` / `kvui-lg-*` classes only
    where more room lets you do something better. Every breakpoint is `min-width`.
-2. **Intrinsic before breakpoints.** Most layouts don't need a breakpoint at all. `nova-grid-auto`, `nova-sidebar`
-   and `nova-switcher` reflow based on the space they're given, which also makes them correct inside a narrow
+2. **Intrinsic before breakpoints.** Most layouts don't need a breakpoint at all. `kvui-grid-auto`, `kvui-sidebar`
+   and `kvui-switcher` reflow based on the space they're given, which also makes them correct inside a narrow
    column, a modal or a split view where the *screen* is wide but the *space* isn't.
 3. **Components respond to their container, pages respond to the viewport.** Use media-query utilities for
-   page structure. Use container queries (`nova-cq`) for cards and widgets that appear in many places.
-4. **Tokens, not magic numbers.** Spacing, colour, radius and type all come from `--nova-*` custom properties.
+   page structure. Use container queries (`kvui-cq`) for cards and widgets that appear in many places.
+4. **Tokens, not magic numbers.** Spacing, colour, radius and type all come from `--kvui-*` custom properties.
    Change a token once and the whole product follows, including dark mode.
 5. **Logical properties.** Everything uses `inline`/`block`/`start`/`end` instead of `left`/`right`/`top`/`bottom`,
    so right-to-left languages work without extra CSS.
@@ -54,35 +54,35 @@ pnpm add @kvui/css
     <meta charset="utf-8" />
     <!-- viewport-fit=cover lets the container's safe-area padding keep content clear of notches. -->
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <link rel="stylesheet" href="/node_modules/@kvui/css/dist/nova.min.css" />
+    <link rel="stylesheet" href="/node_modules/@kvui/css/dist/kvui.min.css" />
   </head>
-  <body class="nova-base">
-    <a class="nova-skip-link" href="#main">Skip to content</a>
-    <header class="nova-container nova-py-4">...</header>
-    <main id="main" class="nova-container nova-section">...</main>
+  <body class="kvui-base">
+    <a class="kvui-skip-link" href="#main">Skip to content</a>
+    <header class="kvui-container kvui-py-4">...</header>
+    <main id="main" class="kvui-container kvui-section">...</main>
   </body>
 </html>
 ```
 
-In a bundler: `import '@kvui/css';` (resolves to `dist/nova.css`).
+In a bundler: `import '@kvui/css';` (resolves to `dist/kvui.css`).
 
 **Never** add `maximum-scale=1` or `user-scalable=no` to the viewport tag. It blocks pinch zoom and fails WCAG 1.4.4.
 
-**Pick what you need.** `nova.css` contains everything (96 KB, 17 KB gzipped; 12.9 KB minified and gzipped). To ship less,
+**Pick what you need.** `kvui.css` contains everything (96 KB, 17 KB gzipped; 12.9 KB minified and gzipped). To ship less,
 import modules separately. `tokens.css` is required by the others.
 
 | File | Contains |
 | --- | --- |
 | `tokens.css` | Colour, type, space, radius, shadow, motion and layout tokens; light and dark themes |
 | `reset.css` | A small modern reset |
-| `typography.css` | `.nova-base`, heading scale, `.nova-prose`, type classes |
+| `typography.css` | `.kvui-base`, heading scale, `.kvui-prose`, type classes |
 | `layout.css` | Container, page, grid, stack, cluster, sidebar, switcher, cover, reel, shell and more |
 | `components.css` | CSS-only button, card, badge, alert, form fields, table |
 | `utilities.css` | About 1,300 single-purpose classes, plus print helpers |
-| `nova.min.css` | Everything, minified |
-| `nova.compat.css` | Everything, without cascade layers (see [section 16](#16-browser-support)) |
+| `kvui.min.css` | Everything, minified |
+| `kvui.compat.css` | Everything, without cascade layers (see [section 16](#16-browser-support)) |
 
-Using the web components too? `nova.css` already includes the same tokens, so you don't also need
+Using the web components too? `kvui.css` already includes the same tokens, so you don't also need
 `@kvui/core/styles.css`.
 
 ## 3. Screen sizes
@@ -102,97 +102,97 @@ layout sooner, which is what they need.
 **Test at these widths**: 320, 360, 390, 768, 1024, 1280, 1536 and 1920px; phones in landscape; browser zoom at 200% and
 400%; and "text only" zoom. Test with a real touch device before shipping.
 
-**Naming.** `nova-{utility}` applies at every size. `nova-{bp}-{utility}` applies from that breakpoint up.
+**Naming.** `kvui-{utility}` applies at every size. `kvui-{bp}-{utility}` applies from that breakpoint up.
 
 ```html
 <!-- 1 column on phones, 2 from 640px, 4 from 1024px -->
-<div class="nova-d-grid nova-cols-1 nova-sm-cols-2 nova-lg-cols-4 nova-gap-4">...</div>
+<div class="kvui-d-grid kvui-cols-1 kvui-sm-cols-2 kvui-lg-cols-4 kvui-gap-4">...</div>
 ```
 
 ## 4. Which layout tool do I use?
 
 | I want to... | Use | Needs breakpoints? |
 | --- | --- | --- |
-| Centre my page content with safe margins | `nova-container` | No |
-| Centre content but let a banner touch the screen edges | `nova-page` + `nova-bleed` | No |
-| Space things vertically | `nova-stack` (or `nova-flow` for CMS content) | No |
-| A row of buttons, tags or chips that wraps | `nova-cluster` | No |
-| A grid of cards that fills the space | `nova-grid-auto` | No |
-| Exact column control (a 8/4 split) | `nova-grid` + `nova-col-8 nova-col-4` (with `nova-md-*`) | Yes |
-| Equal columns that change count by screen | `nova-d-grid nova-cols-1 nova-md-cols-3` | Yes |
-| Fixed-width side next to fluid content | `nova-sidebar` | No |
-| 2-4 items that sit in a row, then stack | `nova-switcher` | No |
-| A full-screen hero or empty state | `nova-cover` | No |
-| A horizontal swipe rail | `nova-reel` | No |
-| An image cropped to a ratio | `nova-frame` | No |
-| An app with header, side navigation, main, footer | `nova-shell` | Built in |
-| A component that adapts to where it's placed | `nova-cq` + `nova-cq-md-*` | Container-based |
+| Centre my page content with safe margins | `kvui-container` | No |
+| Centre content but let a banner touch the screen edges | `kvui-page` + `kvui-bleed` | No |
+| Space things vertically | `kvui-stack` (or `kvui-flow` for CMS content) | No |
+| A row of buttons, tags or chips that wraps | `kvui-cluster` | No |
+| A grid of cards that fills the space | `kvui-grid-auto` | No |
+| Exact column control (a 8/4 split) | `kvui-grid` + `kvui-col-8 kvui-col-4` (with `kvui-md-*`) | Yes |
+| Equal columns that change count by screen | `kvui-d-grid kvui-cols-1 kvui-md-cols-3` | Yes |
+| Fixed-width side next to fluid content | `kvui-sidebar` | No |
+| 2-4 items that sit in a row, then stack | `kvui-switcher` | No |
+| A full-screen hero or empty state | `kvui-cover` | No |
+| A horizontal swipe rail | `kvui-reel` | No |
+| An image cropped to a ratio | `kvui-frame` | No |
+| An app with header, side navigation, main, footer | `kvui-shell` | Built in |
+| A component that adapts to where it's placed | `kvui-cq` + `kvui-cq-md-*` | Container-based |
 
 ## 5. Containers and gutters
 
-`nova-container` centres its content, caps the width, and adds side padding.
+`kvui-container` centres its content, caps the width, and adds side padding.
 
 | Class | Max width | Use for |
 | --- | --- | --- |
-| `nova-container` | `76rem` (1216px) | Default pages |
-| `nova-container-sm` | `36rem` (576px) | Sign-in, narrow forms |
-| `nova-container-md` | `46rem` (736px) | Articles with wide media |
-| `nova-container-lg` | `62rem` (992px) | Dense content |
-| `nova-container-xl` / `-2xl` | `76rem` / `90rem` | Wide dashboards |
-| `nova-container-prose` | `65ch` | Long-form reading |
-| `nova-container-fluid` | none | Edge to edge, still with gutters |
+| `kvui-container` | `76rem` (1216px) | Default pages |
+| `kvui-container-sm` | `36rem` (576px) | Sign-in, narrow forms |
+| `kvui-container-md` | `46rem` (736px) | Articles with wide media |
+| `kvui-container-lg` | `62rem` (992px) | Dense content |
+| `kvui-container-xl` / `-2xl` | `76rem` / `90rem` | Wide dashboards |
+| `kvui-container-prose` | `65ch` | Long-form reading |
+| `kvui-container-fluid` | none | Edge to edge, still with gutters |
 
-The gutter is `--nova-gutter`: 16px on a 320px phone, growing smoothly to 32px, and never below the device's
+The gutter is `--kvui-gutter`: 16px on a 320px phone, growing smoothly to 32px, and never below the device's
 safe area (notches, rounded corners, landscape camera cut-outs).
 
-**Full-bleed bands.** Put `nova-page` on the wrapper instead. Its children sit in the content column; add
-`nova-bleed` to any child that should run edge to edge, and put a `nova-container` inside it to line its content back up.
+**Full-bleed bands.** Put `kvui-page` on the wrapper instead. Its children sit in the content column; add
+`kvui-bleed` to any child that should run edge to edge, and put a `kvui-container` inside it to line its content back up.
 
 ```html
-<div class="nova-page">
+<div class="kvui-page">
   <h1>Normal content</h1>
-  <section class="nova-bleed nova-bg-accent-soft nova-py-8">
-    <div class="nova-container"><p>Background runs edge to edge. Text lines up with the page.</p></div>
+  <section class="kvui-bleed kvui-bg-accent-soft kvui-py-8">
+    <div class="kvui-container"><p>Background runs edge to edge. Text lines up with the page.</p></div>
   </section>
 </div>
 ```
 
-**Section rhythm.** `nova-section` adds fluid vertical padding (32px on phones to 80px on large screens).
+**Section rhythm.** `kvui-section` adds fluid vertical padding (32px on phones to 80px on large screens).
 
 ## 6. Grids
 
 **12-column grid** for exact control. Spans are mobile first, so list the smallest size first.
 
 ```html
-<div class="nova-grid">
-  <main class="nova-col-12 nova-lg-col-8">Main</main>
-  <aside class="nova-col-12 nova-lg-col-4">Aside</aside>
+<div class="kvui-grid">
+  <main class="kvui-col-12 kvui-lg-col-8">Main</main>
+  <aside class="kvui-col-12 kvui-lg-col-4">Aside</aside>
 </div>
 ```
 
 **Equal columns**, count changing by size:
 
 ```html
-<div class="nova-d-grid nova-cols-1 nova-sm-cols-2 nova-xl-cols-4 nova-gap-5">...</div>
+<div class="kvui-d-grid kvui-cols-1 kvui-sm-cols-2 kvui-xl-cols-4 kvui-gap-5">...</div>
 ```
 
-**Auto grid** with no breakpoints. Columns are at least `--nova-grid-min` wide, as many as fit:
+**Auto grid** with no breakpoints. Columns are at least `--kvui-grid-min` wide, as many as fit:
 
 ```html
-<ul class="nova-grid-auto nova-grid-auto-md" role="list">...</ul>
-<!-- sizes: -xs 9rem, -sm 12rem, -md 16rem (default), -lg 22rem, -xl 30rem. Or set --nova-grid-min yourself. -->
+<ul class="kvui-grid-auto kvui-grid-auto-md" role="list">...</ul>
+<!-- sizes: -xs 9rem, -sm 12rem, -md 16rem (default), -lg 22rem, -xl 30rem. Or set --kvui-grid-min yourself. -->
 ```
 
-`nova-grid-fill` keeps empty tracks, so a lone card keeps its size instead of stretching across the row.
+`kvui-grid-fill` keeps empty tracks, so a lone card keeps its size instead of stretching across the row.
 
-**Gap** is `--nova-gap`, or use `nova-gap-4`, `nova-gap-x-4`, `nova-gap-y-4` (also responsive: `nova-md-gap-8`).
+**Gap** is `--kvui-gap`, or use `kvui-gap-4`, `kvui-gap-x-4`, `kvui-gap-y-4` (also responsive: `kvui-md-gap-8`).
 
-**Reordering.** Keep the DOM in reading order and reorder visually with `nova-order-first`, `nova-md-order-none`, etc.
+**Reordering.** Keep the DOM in reading order and reorder visually with `kvui-order-first`, `kvui-md-order-none`, etc.
 Screen readers and keyboard users follow the DOM, so don't reorder things whose order carries meaning.
 
 ## 7. Spacing
 
-A 4px scale. Use the tokens (`var(--nova-space-4)`) in your own CSS and `nova-p-4`, `nova-mt-4`, `nova-gap-4` in markup.
+A 4px scale. Use the tokens (`var(--kvui-space-4)`) in your own CSS and `kvui-p-4`, `kvui-mt-4`, `kvui-gap-4` in markup.
 
 | Token / key | rem | px | Typical use |
 | --- | --- | --- | --- |
@@ -206,17 +206,17 @@ A 4px scale. Use the tokens (`var(--nova-space-4)`) in your own CSS and `nova-p-
 | `10` | 4 | 64 | |
 | `12` | 6 | 96 | |
 | `16` | 8 | 128 | |
-| `--nova-space-fluid-s/m/l/xl` | clamp | 16-24 / 24-48 / 32-80 / 48-128 | Spacing that should breathe on bigger screens |
+| `--kvui-space-fluid-s/m/l/xl` | clamp | 16-24 / 24-48 / 32-80 / 48-128 | Spacing that should breathe on bigger screens |
 
 Rules of thumb:
 
-- **Prefer `gap` over margins.** `nova-stack`, `nova-cluster` and the grids own the spacing between children, so a
+- **Prefer `gap` over margins.** `kvui-stack`, `kvui-cluster` and the grids own the spacing between children, so a
   child never needs to know what's next to it.
 - **Space belongs to the parent.** Don't put `margin-top` on a card to separate it from the previous one.
 - **Related things closer than unrelated things.** Step down the scale for related items, up for new groups.
-- **Single-side utilities** (`nova-mt-4`, `nova-pb-6`, `nova-ps-4`, `nova-pe-4`) exist for all keys. Responsive variants
-  exist for `p`, `px`, `py`, `m`, `mx`, `my` and `gap` (`nova-md-px-8`).
-- **Notches.** `nova-pt-safe`, `nova-pb-safe`, `nova-px-safe` add the device's safe-area inset. Use them on fixed bars
+- **Single-side utilities** (`kvui-mt-4`, `kvui-pb-6`, `kvui-ps-4`, `kvui-pe-4`) exist for all keys. Responsive variants
+  exist for `p`, `px`, `py`, `m`, `mx`, `my` and `gap` (`kvui-md-px-8`).
+- **Notches.** `kvui-pt-safe`, `kvui-pb-safe`, `kvui-px-safe` add the device's safe-area inset. Use them on fixed bars
   that touch the screen edge (bottom tab bars, sticky headers).
 
 ## 8. Typography
@@ -226,7 +226,7 @@ breakpoint for a heading.
 
 | Token / class | Phone (320px) | Desktop (1440px) | Use |
 | --- | --- | --- | --- |
-| `xs` / `nova-text-xs` | 12px | 12px | Captions, badges |
+| `xs` / `kvui-text-xs` | 12px | 12px | Captions, badges |
 | `sm` | 14px | 14px | Secondary text, tables |
 | `md` | 16px | 16px | Body. Never smaller on inputs (iOS zooms below 16px) |
 | `lg` | 18px | 18px | Lead text |
@@ -234,14 +234,14 @@ breakpoint for a heading.
 | `2xl` | 24px | 30px | h3 |
 | `3xl` | 28px | 40px | h2 |
 | `4xl` | 34px | 56px | h1 |
-| `5xl` / `nova-display` | 40px | 72px | Hero |
+| `5xl` / `kvui-display` | 40px | 72px | Hero |
 
-- **Heading level is structure; size is style.** Use `<h2 class="nova-h4">` when the outline says h2 but the design wants smaller.
-- **Line length** 45-75 characters. `nova-prose`, `nova-center` and `nova-container-prose` cap at `65ch`.
-- **Line height** 1.5 for body (`--nova-leading-normal`), 1.25 for headings, 1.65 for long reading.
-- `nova-text-balance` evens out short headings; `nova-text-pretty` avoids one-word last lines.
-- Wrap CMS or markdown output in `nova-prose`.
-- Truncation: `nova-truncate` for one line, `nova-line-clamp-3` for three. Always make sure the full text is reachable
+- **Heading level is structure; size is style.** Use `<h2 class="kvui-h4">` when the outline says h2 but the design wants smaller.
+- **Line length** 45-75 characters. `kvui-prose`, `kvui-center` and `kvui-container-prose` cap at `65ch`.
+- **Line height** 1.5 for body (`--kvui-leading-normal`), 1.25 for headings, 1.65 for long reading.
+- `kvui-text-balance` evens out short headings; `kvui-text-pretty` avoids one-word last lines.
+- Wrap CMS or markdown output in `kvui-prose`.
+- Truncation: `kvui-truncate` for one line, `kvui-line-clamp-3` for three. Always make sure the full text is reachable
   (tooltip, expand, or detail page).
 
 ## 9. Recipes
@@ -249,9 +249,9 @@ breakpoint for a heading.
 ### Card grid
 
 ```html
-<ul class="nova-grid-auto nova-grid-auto-md" role="list">
-  <li class="nova-card"><img class="nova-card__media" src="..." alt="" />
-    <div class="nova-card__body nova-stack nova-stack-sm"><h3 class="nova-h5">Title</h3><p class="nova-small">Text</p></div></li>
+<ul class="kvui-grid-auto kvui-grid-auto-md" role="list">
+  <li class="kvui-card"><img class="kvui-card__media" src="..." alt="" />
+    <div class="kvui-card__body kvui-stack kvui-stack-sm"><h3 class="kvui-h5">Title</h3><p class="kvui-small">Text</p></div></li>
 </ul>
 ```
 
@@ -260,88 +260,88 @@ breakpoint for a heading.
 The sidebar stacks above the article when the article would drop below half the row.
 
 ```html
-<div class="nova-sidebar" style="--nova-sidebar-width: 18rem">
+<div class="kvui-sidebar" style="--kvui-sidebar-width: 18rem">
   <nav aria-label="Contents">...</nav>
-  <article class="nova-prose">...</article>
+  <article class="kvui-prose">...</article>
 </div>
 ```
 
 ### Pricing or feature columns
 
 ```html
-<div class="nova-switcher" style="--nova-threshold: 48rem">
-  <section class="nova-card nova-card__body">Free</section>
-  <section class="nova-card nova-card__body">Team</section>
-  <section class="nova-card nova-card__body">Enterprise</section>
+<div class="kvui-switcher" style="--kvui-threshold: 48rem">
+  <section class="kvui-card kvui-card__body">Free</section>
+  <section class="kvui-card kvui-card__body">Team</section>
+  <section class="kvui-card kvui-card__body">Enterprise</section>
 </div>
 ```
 
 ### Dashboard shell
 
 ```html
-<div class="nova-shell nova-shell-sidebar nova-shell-aside nova-shell-sticky-side">
-  <header class="nova-shell__header">...</header>
-  <nav class="nova-shell__sidebar" aria-label="Main">...</nav>
-  <main class="nova-shell__main nova-p-5" id="main">...</main>
-  <aside class="nova-shell__aside nova-p-5">...</aside>
-  <footer class="nova-shell__footer">...</footer>
+<div class="kvui-shell kvui-shell-sidebar kvui-shell-aside kvui-shell-sticky-side">
+  <header class="kvui-shell__header">...</header>
+  <nav class="kvui-shell__sidebar" aria-label="Main">...</nav>
+  <main class="kvui-shell__main kvui-p-5" id="main">...</main>
+  <aside class="kvui-shell__aside kvui-p-5">...</aside>
+  <footer class="kvui-shell__footer">...</footer>
 </div>
 ```
 
 On phones everything stacks in reading order. From `md` the sidebar is a column; from `xl` the aside joins it.
-Only add `nova-shell-sidebar` / `nova-shell-aside` for regions you use. Give side regions
-`--nova-shell-sidebar` / `--nova-shell-aside` widths.
+Only add `kvui-shell-sidebar` / `kvui-shell-aside` for regions you use. Give side regions
+`--kvui-shell-sidebar` / `--kvui-shell-aside` widths.
 
 ### Header with desktop menu and mobile button
 
 ```html
-<header class="nova-container nova-cluster nova-cluster-between nova-py-3">
+<header class="kvui-container kvui-cluster kvui-cluster-between kvui-py-3">
   <a href="/">Brand</a>
-  <nav class="nova-hide-below-md" aria-label="Main">...links...</nav>
-  <ui-button class="nova-hide-md-up" icon-only label="Menu">...</ui-button>
+  <nav class="kvui-hide-below-md" aria-label="Main">...links...</nav>
+  <ui-button class="kvui-hide-md-up" icon-only label="Menu">...</ui-button>
 </header>
 ```
 
-`nova-hide-below-md` hides under 768px; `nova-hide-md-up` hides from 768px up. Hidden elements are removed from the
+`kvui-hide-below-md` hides under 768px; `kvui-hide-md-up` hides from 768px up. Hidden elements are removed from the
 accessibility tree, so the hidden one is not announced twice.
 
 ### Toolbar
 
 ```html
-<div class="nova-cluster nova-cluster-between"><h2 class="nova-h4">Projects</h2><div class="nova-cluster"><button class="nova-btn nova-btn-secondary">Filter</button><button class="nova-btn">New</button></div></div>
+<div class="kvui-cluster kvui-cluster-between"><h2 class="kvui-h4">Projects</h2><div class="kvui-cluster"><button class="kvui-btn kvui-btn-secondary">Filter</button><button class="kvui-btn">New</button></div></div>
 ```
 
 ### Form
 
 ```html
-<form class="nova-stack">
-  <div class="nova-form-row">
-    <div class="nova-field"><label class="nova-label" for="a">First name</label><input class="nova-input" id="a" autocomplete="given-name" /></div>
-    <div class="nova-field"><label class="nova-label" for="b">Last name</label><input class="nova-input" id="b" autocomplete="family-name" /></div>
+<form class="kvui-stack">
+  <div class="kvui-form-row">
+    <div class="kvui-field"><label class="kvui-label" for="a">First name</label><input class="kvui-input" id="a" autocomplete="given-name" /></div>
+    <div class="kvui-field"><label class="kvui-label" for="b">Last name</label><input class="kvui-input" id="b" autocomplete="family-name" /></div>
   </div>
-  <button class="nova-btn nova-btn-block">Save</button>
+  <button class="kvui-btn kvui-btn-block">Save</button>
 </form>
 ```
 
-`nova-form-row` puts fields side by side when there's room and stacks them when there isn't. Inputs are 16px or larger,
-so iOS doesn't zoom the page on focus. `nova-btn-block` makes the button full width, which suits phones; use a plain
-`nova-btn` inside `<div class="nova-cluster nova-cluster-end">` for a right-aligned button on wider layouts.
+`kvui-form-row` puts fields side by side when there's room and stacks them when there isn't. Inputs are 16px or larger,
+so iOS doesn't zoom the page on focus. `kvui-btn-block` makes the button full width, which suits phones; use a plain
+`kvui-btn` inside `<div class="kvui-cluster kvui-cluster-end">` for a right-aligned button on wider layouts.
 
 ### Data tables: three choices
 
-1. **Scroll** (default): wrap in `nova-table-wrap`. Keep the first column recognisable. Simple and safe.
-2. **Stack** (`nova-table-stack`): each row becomes a labelled card under 640px. Add `data-label` to every `<td>`,
+1. **Scroll** (default): wrap in `kvui-table-wrap`. Keep the first column recognisable. Simple and safe.
+2. **Stack** (`kvui-table-stack`): each row becomes a labelled card under 640px. Add `data-label` to every `<td>`,
    and add `role="table"`, `role="row"`, `role="cell"` so assistive tech keeps announcing a table.
-3. **Cards**: for rows with rich content, don't use a table on phones at all; use `nova-grid-auto`.
+3. **Cards**: for rows with rich content, don't use a table on phones at all; use `kvui-grid-auto`.
 
 For sortable, paginated, selectable tables use the `ui-table` web component.
 
 ### Full-bleed hero with a readable column
 
 ```html
-<div class="nova-page">
-  <header class="nova-bleed nova-bg-accent-soft nova-section">
-    <div class="nova-container nova-stack"><p class="nova-eyebrow">New</p><h1 class="nova-display">Headline</h1></div>
+<div class="kvui-page">
+  <header class="kvui-bleed kvui-bg-accent-soft kvui-section">
+    <div class="kvui-container kvui-stack"><p class="kvui-eyebrow">New</p><h1 class="kvui-display">Headline</h1></div>
   </header>
   <main>...</main>
 </div>
@@ -350,7 +350,7 @@ For sortable, paginated, selectable tables use the `ui-table` web component.
 ### Swipe rail
 
 ```html
-<ul class="nova-reel" role="list" style="--nova-reel-item: min(85%, 18rem)">...</ul>
+<ul class="kvui-reel" role="list" style="--kvui-reel-item: min(85%, 18rem)">...</ul>
 ```
 
 Keyboard users can scroll it, but give each item focusable content (links) so the rail is reachable.
@@ -360,17 +360,17 @@ Keyboard users can scroll it, but give each item focusable content (links) so th
 Use them for anything reusable: a product card that must work in a 3-column grid, a sidebar and a modal.
 
 ```html
-<div class="nova-cq">
-  <div class="nova-d-grid nova-cols-1 nova-cq-md-cols-2 nova-gap-4">...</div>
+<div class="kvui-cq">
+  <div class="kvui-d-grid kvui-cols-1 kvui-cq-md-cols-2 kvui-gap-4">...</div>
 </div>
 ```
 
 | Class | Container is at least |
 | --- | --- |
-| `nova-cq-sm-*` | 24rem (384px) |
-| `nova-cq-md-*` | 32rem (512px) |
-| `nova-cq-lg-*` | 48rem (768px) |
-| `nova-cq-xl-*` | 64rem (1024px) |
+| `kvui-cq-sm-*` | 24rem (384px) |
+| `kvui-cq-md-*` | 32rem (512px) |
+| `kvui-cq-lg-*` | 48rem (768px) |
+| `kvui-cq-xl-*` | 64rem (1024px) |
 
 Available: `cols-1..6`, `flex-row`, `flex-col`, `d-none`, `d-block`, `d-flex`, `d-grid`. For anything else, write the query:
 
@@ -379,8 +379,8 @@ Available: `cols-1..6`, `flex-row`, `flex-col`, `d-none`, `d-block`, `d-flex`, `
 @container (min-width: 32rem) { .product-card { grid-template-columns: 12rem 1fr; } }
 ```
 
-The element with `nova-cq` is the container; styles apply to its **descendants**, never to itself.
-`nova-cq-named` also gives the container the name `nova`, for `@container nova (min-width: ...)`.
+The element with `kvui-cq` is the container; styles apply to its **descendants**, never to itself.
+`kvui-cq-named` also gives the container the name `kvui`, for `@container kvui (min-width: ...)`.
 
 ## 11. Utilities
 
@@ -389,26 +389,26 @@ beat component and layout styles.
 
 | Family | Examples | Responsive? |
 | --- | --- | --- |
-| Display | `nova-d-flex`, `nova-d-grid`, `nova-d-none` | Yes |
-| Flex | `nova-flex-col`, `nova-flex-wrap`, `nova-justify-between`, `nova-items-center` | Yes |
-| Flex items | `nova-flex-1`, `nova-grow`, `nova-shrink-0`, `nova-self-end` | No |
-| Grid | `nova-cols-3`, `nova-col-6`, `nova-col-full`, `nova-row-2` | cols and col: Yes |
-| Gap | `nova-gap-4`, `nova-gap-x-2`, `nova-gap-y-6` | Yes |
-| Padding / margin | `nova-p-4`, `nova-px-6`, `nova-mt-8`, `nova-mx-auto` | `p`, `px`, `py`, `m`, `mx`, `my`: Yes |
-| Order | `nova-order-first`, `nova-order-2` | Yes |
-| Text align | `nova-text-center`, `nova-text-end` | Yes |
-| Show / hide | `nova-hide-md-up`, `nova-hide-below-md` | Per breakpoint |
-| Size | `nova-w-full`, `nova-max-w-prose`, `nova-min-h-screen`, `nova-h-dvh` | No |
-| Position | `nova-relative`, `nova-sticky-top`, `nova-inset-0`, `nova-z-10` | No |
-| Type | `nova-text-lg`, `nova-font-semibold`, `nova-uppercase`, `nova-truncate` | No |
-| Colour | `nova-text-muted`, `nova-bg-surface`, `nova-bg-accent-soft` | No (theme-aware) |
-| Border, radius, shadow | `nova-border`, `nova-rounded-lg`, `nova-shadow-md` | No |
-| Accessibility | `nova-sr-only`, `nova-not-sr-only` | No |
+| Display | `kvui-d-flex`, `kvui-d-grid`, `kvui-d-none` | Yes |
+| Flex | `kvui-flex-col`, `kvui-flex-wrap`, `kvui-justify-between`, `kvui-items-center` | Yes |
+| Flex items | `kvui-flex-1`, `kvui-grow`, `kvui-shrink-0`, `kvui-self-end` | No |
+| Grid | `kvui-cols-3`, `kvui-col-6`, `kvui-col-full`, `kvui-row-2` | cols and col: Yes |
+| Gap | `kvui-gap-4`, `kvui-gap-x-2`, `kvui-gap-y-6` | Yes |
+| Padding / margin | `kvui-p-4`, `kvui-px-6`, `kvui-mt-8`, `kvui-mx-auto` | `p`, `px`, `py`, `m`, `mx`, `my`: Yes |
+| Order | `kvui-order-first`, `kvui-order-2` | Yes |
+| Text align | `kvui-text-center`, `kvui-text-end` | Yes |
+| Show / hide | `kvui-hide-md-up`, `kvui-hide-below-md` | Per breakpoint |
+| Size | `kvui-w-full`, `kvui-max-w-prose`, `kvui-min-h-screen`, `kvui-h-dvh` | No |
+| Position | `kvui-relative`, `kvui-sticky-top`, `kvui-inset-0`, `kvui-z-10` | No |
+| Type | `kvui-text-lg`, `kvui-font-semibold`, `kvui-uppercase`, `kvui-truncate` | No |
+| Colour | `kvui-text-muted`, `kvui-bg-surface`, `kvui-bg-accent-soft` | No (theme-aware) |
+| Border, radius, shadow | `kvui-border`, `kvui-rounded-lg`, `kvui-shadow-md` | No |
+| Accessibility | `kvui-sr-only`, `kvui-not-sr-only` | No |
 
 Notes:
 
-- **Hide wins.** Show/hide classes come last, so `nova-d-flex nova-hide-md-up` is hidden from `md` up.
-- **Colours are tokens**, so `nova-bg-surface nova-text-fg` is correct in light and dark without any `dark:` variants.
+- **Hide wins.** Show/hide classes come last, so `kvui-d-flex kvui-hide-md-up` is hidden from `md` up.
+- **Colours are tokens**, so `kvui-bg-surface kvui-text-fg` is correct in light and dark without any `dark:` variants.
 - **When to stop using utilities.** If you copy the same 8 classes a third time, make it a component class in your own
   CSS (or a web component) and use the tokens inside it.
 - Need a value that isn't here? Write it in your own CSS using the tokens, or add it to
@@ -417,9 +417,9 @@ Notes:
 ## 12. Accessibility
 
 - **Reflow.** Content must work at 320 CSS px wide (a 1280px screen at 400% zoom) with no two-dimensional scrolling,
-  except data tables and code. Use `nova-table-wrap` for tables, `nova-break-words` for long strings.
+  except data tables and code. Use `kvui-table-wrap` for tables, `kvui-break-words` for long strings.
 - **Zoom and text size.** Breakpoints and spacing are in `rem`/`em`, so larger text makes layouts adapt instead of overflow.
-- **Touch targets.** Controls grow to `--nova-touch-target` (44px) on touch screens (`@media (pointer: coarse)`).
+- **Touch targets.** Controls grow to `--kvui-touch-target` (44px) on touch screens (`@media (pointer: coarse)`).
   Keep at least 8px between adjacent targets.
 - **Focus.** One consistent 2px outline (`:focus-visible`). Don't remove it; restyle it if you must, and keep 3:1 contrast
   against its background.
@@ -429,11 +429,11 @@ Notes:
 - **Colour is not the only signal.** Pair status colours with an icon or text (the alert and badge components do).
 - **Motion.** The reset shortens animations and transitions for people who choose reduced motion, and smooth scrolling
   only turns on when they haven't. Don't rely on motion to convey information.
-- **Order.** Visual reordering (`nova-order-*`, grid placement) doesn't change keyboard or screen-reader order. Keep the
+- **Order.** Visual reordering (`kvui-order-*`, grid placement) doesn't change keyboard or screen-reader order. Keep the
   DOM order logical.
-- **Hidden content.** `nova-hide-*` uses `display: none`, so hidden content is removed from the accessibility tree. Use
-  `nova-sr-only` for text that should be read but not seen.
-- **Landmarks and skip link.** One `<main>`, labelled `<nav>`s, and a `nova-skip-link` as the first focusable element.
+- **Hidden content.** `kvui-hide-*` uses `display: none`, so hidden content is removed from the accessibility tree. Use
+  `kvui-sr-only` for text that should be read but not seen.
+- **Landmarks and skip link.** One `<main>`, labelled `<nav>`s, and a `kvui-skip-link` as the first focusable element.
 - **Language and direction.** Set `lang` on `<html>`, and `dir="rtl"` for right-to-left languages.
 
 ## 13. Theming and dark mode
@@ -455,15 +455,15 @@ Put that in `<head>`, before the stylesheet's first paint, to avoid a flash of t
 
 ```css
 :root {
-  --nova-color-accent: #5b3fd1;
-  --nova-color-accent-hover: #4a32b0;
-  --nova-color-accent-active: #3b2891;
-  --nova-color-accent-soft: #eeeafb;
+  --kvui-color-accent: #5b3fd1;
+  --kvui-color-accent-hover: #4a32b0;
+  --kvui-color-accent-active: #3b2891;
+  --kvui-color-accent-soft: #eeeafb;
 }
 [data-theme='dark'] {
-  --nova-color-accent: #a99bff;
-  --nova-color-accent-hover: #c1b7ff;
-  --nova-color-accent-soft: #231d4a;
+  --kvui-color-accent: #a99bff;
+  --kvui-color-accent-hover: #c1b7ff;
+  --kvui-color-accent-soft: #231d4a;
 }
 ```
 
@@ -472,49 +472,49 @@ utilities, the editor) follows automatically.
 
 ## 14. Overriding and layers
 
-Nova's CSS is organised in cascade layers, lowest to highest priority:
+Kvui's CSS is organised in cascade layers, lowest to highest priority:
 
 ```
-nova.reset  <  nova.tokens  <  nova.base  <  nova.layout  <  nova.components  <  nova.utilities
+kvui.reset  <  kvui.tokens  <  kvui.base  <  kvui.layout  <  kvui.components  <  kvui.utilities
 ```
 
 **Your own unlayered CSS beats all of it**, whatever its specificity. So overriding is just writing a normal rule:
 
 ```css
-.nova-btn { border-radius: 999px; }   /* wins, no !important, no specificity tricks */
+.kvui-btn { border-radius: 999px; }   /* wins, no !important, no specificity tricks */
 ```
 
-Base rules inside Nova use `:where()` (zero specificity), so a modifier class always overrides a primitive.
+Base rules inside Kvui use `:where()` (zero specificity), so a modifier class always overrides a primitive.
 
 **Your own layer.** To slot your styles between components and utilities (so utilities still win), declare the order
 *before* the stylesheet loads:
 
 ```html
-<style>@layer nova.reset, nova.tokens, nova.base, nova.layout, nova.components, app, nova.utilities;</style>
-<link rel="stylesheet" href=".../nova.min.css" />
+<style>@layer kvui.reset, kvui.tokens, kvui.base, kvui.layout, kvui.components, app, kvui.utilities;</style>
+<link rel="stylesheet" href=".../kvui.min.css" />
 <style>@layer app { .hero { ... } }</style>
 ```
 
 Customising a layout primitive is done with custom properties it exposes. They are registered as **non-inheriting**
-(`@property`), so setting one on an element affects that element only. A `--nova-gap` on an outer wrapper never changes
+(`@property`), so setting one on an element affects that element only. A `--kvui-gap` on an outer wrapper never changes
 the spacing of a cluster or grid nested inside it:
-`--nova-gap`, `--nova-grid-min`, `--nova-sidebar-width`, `--nova-content-min`, `--nova-threshold`,
-`--nova-cover-min`, `--nova-reel-item`, `--nova-column-width`, `--nova-ratio`, `--nova-sticky-offset`,
-`--nova-shell-sidebar`, `--nova-shell-aside`, `--nova-flow-space`, `--nova-measure`.
+`--kvui-gap`, `--kvui-grid-min`, `--kvui-sidebar-width`, `--kvui-content-min`, `--kvui-threshold`,
+`--kvui-cover-min`, `--kvui-reel-item`, `--kvui-column-width`, `--kvui-ratio`, `--kvui-sticky-offset`,
+`--kvui-shell-sidebar`, `--kvui-shell-aside`, `--kvui-flow-space`, `--kvui-measure`.
 
 ## 15. Right-to-left, print, performance
 
 **RTL.** Everything uses logical properties, so `<html dir="rtl">` flips padding, margins, borders, text alignment,
-`nova-sidebar-end` and the shell. Icons that imply direction (arrows, chevrons) need flipping in your own CSS:
+`kvui-sidebar-end` and the shell. Icons that imply direction (arrows, chevrons) need flipping in your own CSS:
 `[dir='rtl'] .icon-arrow { transform: scaleX(-1); }`.
 
-**Print.** `print.css` (included) hides `nova-print-hidden` elements, shows `nova-print-only`, removes shadows and
-backgrounds, avoids breaking cards and table rows across pages, prints link URLs inside `nova-prose`, and drops the
+**Print.** `print.css` (included) hides `kvui-print-hidden` elements, shows `kvui-print-only`, removes shadows and
+backgrounds, avoids breaking cards and table rows across pages, prints link URLs inside `kvui-prose`, and drops the
 shell's side regions.
 
 **Performance.**
 
-- `nova.min.css` is 12.9 KB over the wire. Utilities are about two thirds of that. If size matters, import
+- `kvui.min.css` is 12.9 KB over the wire. Utilities are about two thirds of that. If size matters, import
   `tokens.css`, `reset.css`, `typography.css`, `layout.css` and `components.css` (about 9 KB gzipped together) and write the rest yourself.
 - The stylesheet is render-blocking; keep it in `<head>`, serve it with long-lived caching and compression.
 - Layout primitives rely on the browser's layout engine, not JavaScript. Nothing here runs script.
@@ -527,24 +527,24 @@ Built for current evergreen browsers (Chrome, Edge, Safari, Firefox).
 | Feature | Used for | Available since |
 | --- | --- | --- |
 | Cascade layers (`@layer`) | Easy overriding | 2022 |
-| Container queries | `nova-cq-*` | early 2023 |
+| Container queries | `kvui-cq-*` | early 2023 |
 | `:where()`, logical properties, `aspect-ratio`, `clamp()`, `gap` | Everywhere | 2020-2022 |
 | `dvh` units | Full-height layouts (with a `vh` fallback) | 2022 |
 | `color-mix()` | Hover shades | 2023 |
 | `text-wrap: balance / pretty` | Nicer line breaks | Progressive: ignored where unsupported |
 
 **Older browsers.** A browser without cascade-layer support ignores every `@layer` block, so *none* of the layered
-stylesheet applies. If you must support those, use `nova.compat.css`: the same rules without layers (it keeps Nova's own
+stylesheet applies. If you must support those, use `kvui.compat.css`: the same rules without layers (it keeps Kvui's own
 precedence, but your CSS then wins by source order and specificity instead of automatically). Container-query utilities
-simply don't apply there, so design `nova-cq-*` layouts so the default (narrow) state is usable.
+simply don't apply there, so design `kvui-cq-*` layouts so the default (narrow) state is usable.
 
 ## 17. Conventions
 
-- **Prefix.** Everything is `nova-` (classes) and `--nova-` (custom properties), so it can't collide with other CSS.
-- **Blocks and parts.** Components use `nova-card` with parts `nova-card__body`; variants are `nova-card-raised`.
-  Layout modifiers are `nova-stack-lg`, `nova-container-prose`.
+- **Prefix.** Everything is `kvui-` (classes) and `--kvui-` (custom properties), so it can't collide with other CSS.
+- **Blocks and parts.** Components use `kvui-card` with parts `kvui-card__body`; variants are `kvui-card-raised`.
+  Layout modifiers are `kvui-stack-lg`, `kvui-container-prose`.
 - **States** are `is-invalid` / `is-disabled`, or the native attribute (`:disabled`, `aria-invalid="true"`). Prefer the attribute.
-- **Responsive prefix** is always before the utility: `nova-md-col-6`, never `nova-col-6-md`.
+- **Responsive prefix** is always before the utility: `kvui-md-col-6`, never `kvui-col-6-md`.
 - **Adding utilities.** Edit `scripts/generate-utilities.mjs`, run `pnpm --filter @kvui/css build`. Don't edit
   `src/generated/utilities.css` by hand.
 - **Tokens have one home.** Colour, type, radius, shadow and motion tokens live in `@kvui/core`

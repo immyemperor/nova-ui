@@ -1,17 +1,17 @@
-:host { display: block; font-family: var(--nova-font-sans); color: var(--nova-color-fg); }
-:host([orientation='vertical']) { display: flex; gap: var(--nova-space-5); }
+:host { display: block; font-family: var(--kvui-font-sans); color: var(--kvui-color-fg); }
+:host([orientation='vertical']) { display: flex; gap: var(--kvui-space-5); }
 
-.list { position: relative; display: flex; gap: var(--nova-space-1); overflow-x: auto; border-bottom: 1px solid var(--nova-color-border); scrollbar-width: none; }
+.list { position: relative; display: flex; gap: var(--kvui-space-1); overflow-x: auto; border-bottom: 1px solid var(--kvui-color-border); scrollbar-width: none; }
 .list::-webkit-scrollbar { display: none; }
-:host([orientation='vertical']) .list { flex: none; flex-direction: column; overflow: visible; border-bottom: 0; border-right: 1px solid var(--nova-color-border); }
+:host([orientation='vertical']) .list { flex: none; flex-direction: column; overflow: visible; border-bottom: 0; border-right: 1px solid var(--kvui-color-border); }
 
-.indicator { position: absolute; left: 0; bottom: -1px; height: 2px; width: var(--_size, 0); transform: translateX(var(--_pos, 0)); background: var(--nova-color-accent); border-radius: 2px; pointer-events: none; }
-.indicator[data-ready] { transition: transform var(--nova-duration-base) var(--nova-ease-emphasized), width var(--nova-duration-base) var(--nova-ease-emphasized); }
+.indicator { position: absolute; left: 0; bottom: -1px; height: 2px; width: var(--_size, 0); transform: translateX(var(--_pos, 0)); background: var(--kvui-color-accent); border-radius: 2px; pointer-events: none; }
+.indicator[data-ready] { transition: transform var(--kvui-duration-base) var(--kvui-ease-emphasized), width var(--kvui-duration-base) var(--kvui-ease-emphasized); }
 :host([orientation='vertical']) .indicator { left: auto; right: -1px; bottom: auto; top: 0; width: 2px; height: var(--_size, 0); transform: translateY(var(--_pos, 0)); }
 
-:host([variant='pills']) .list { width: fit-content; max-width: 100%; padding: 4px; gap: 2px; border: 0; background: var(--nova-color-surface-sunken); border-radius: calc(var(--nova-radius-control) + 4px); }
-:host([variant='pills']) .indicator { top: 4px; bottom: auto; height: calc(100% - 8px); background: var(--nova-color-surface-raised); box-shadow: var(--nova-shadow-sm); border-radius: var(--nova-radius-control); }
+:host([variant='pills']) .list { width: fit-content; max-width: 100%; padding: 4px; gap: 2px; border: 0; background: var(--kvui-color-surface-sunken); border-radius: calc(var(--kvui-radius-control) + 4px); }
+:host([variant='pills']) .indicator { top: 4px; bottom: auto; height: calc(100% - 8px); background: var(--kvui-color-surface-raised); box-shadow: var(--kvui-shadow-sm); border-radius: var(--kvui-radius-control); }
 :host([variant='pills'][orientation='vertical']) .indicator { top: 0; left: 4px; right: auto; width: calc(100% - 8px); height: var(--_size, 0); }
 
-.panels { flex: 1; min-width: 0; padding-top: var(--nova-space-4); }
+.panels { flex: 1; min-width: 0; padding-top: var(--kvui-space-4); }
 :host([orientation='vertical']) .panels { padding-top: 0; }

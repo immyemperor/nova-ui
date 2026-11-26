@@ -1,6 +1,6 @@
 // Bundles src/*.css into dist/. Zero dependencies.
 //  - inlines @import (including `layer(name)` imports, which are wrapped in @layer blocks)
-//  - writes one file per module, plus nova.css (everything) and nova.min.css
+//  - writes one file per module, plus kvui.css (everything) and kvui.min.css
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -11,7 +11,7 @@ const SRC = join(root, 'src');
 const DIST = join(root, 'dist');
 const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
 
-const LAYER_ORDER = '@layer nova.reset, nova.tokens, nova.base, nova.layout, nova.components, nova.utilities;';
+const LAYER_ORDER = '@layer kvui.reset, kvui.tokens, kvui.base, kvui.layout, kvui.components, kvui.utilities;';
 const IMPORT_RE = /@import\s+(?:url\(\s*)?['"]([^'"]+)['"]\s*\)?\s*(?:layer\(\s*([\w.-]+)\s*\))?\s*;/g;
 
 /** Replace each @import with the file's contents (recursively). */
@@ -34,7 +34,7 @@ function inline(css, baseDir, stack = []) {
 /** Keep the first layer-order statement, drop the repeats every module carries. */
 function dedupeLayerOrder(css) {
   let seen = false;
-  return css.replace(/@layer nova\.reset,[^;]*;\s*/g, (m) => (seen ? '' : ((seen = true), m)));
+  return css.replace(/@layer kvui\.reset,[^;]*;\s*/g, (m) => (seen ? '' : ((seen = true), m)));
 }
 
 /**
@@ -58,7 +58,7 @@ function minify(css) {
 
 /**
  * Browsers without cascade-layer support (before 2022) ignore every @layer block, so nothing would apply.
- * This removes the layer wrappers. Rule order already matches layer order, so Nova's own precedence is kept;
+ * This removes the layer wrappers. Rule order already matches layer order, so Kvui's own precedence is kept;
  * what you lose is "your CSS always wins", so you rely on source order and specificity instead.
  */
 function unlayer(css) {
@@ -90,8 +90,8 @@ function unlayer(css) {
 const banner = `/*! ${pkg.name} v${pkg.version} | MIT | mobile-first, cascade-layered CSS */\n`;
 
 const entries = {
-  nova: readFileSync(join(SRC, 'index.css'), 'utf8'),
-  tokens: `@import url('../../core/src/global/tokens.css') layer(nova.tokens);\n@import url('./tokens.css');`,
+  kvui: readFileSync(join(SRC, 'index.css'), 'utf8'),
+  tokens: `@import url('../../core/src/global/tokens.css') layer(kvui.tokens);\n@import url('./tokens.css');`,
   reset: `@import url('./reset.css');`,
   typography: `@import url('./typography.css');`,
   layout: `@import url('./layout.css');`,
@@ -107,15 +107,15 @@ for (const [name, source] of Object.entries(entries)) {
   writeFileSync(join(DIST, `${name}.css`), css);
   let min = null;
   let compat = null;
-  if (name === 'nova') {
+  if (name === 'kvui') {
     min = banner + minify(css.replace(banner, '')) + '\n';
-    writeFileSync(join(DIST, 'nova.min.css'), min);
+    writeFileSync(join(DIST, 'kvui.min.css'), min);
     compat = `/*! ${pkg.name} v${pkg.version} | compat build: no cascade layers (for browsers older than 2022) */\n` + minify(unlayer(css)) + '\n';
-    writeFileSync(join(DIST, 'nova.compat.css'), compat);
+    writeFileSync(join(DIST, 'kvui.compat.css'), compat);
   }
   rows.push([`${name}.css`, css.length, gzipSync(css).length]);
-  if (min) rows.push(['nova.min.css', min.length, gzipSync(min).length]);
-  if (compat) rows.push(['nova.compat.css', compat.length, gzipSync(compat).length]);
+  if (min) rows.push(['kvui.min.css', min.length, gzipSync(min).length]);
+  if (compat) rows.push(['kvui.compat.css', compat.length, gzipSync(compat).length]);
 }
 
 const kb = (n) => `${(n / 1024).toFixed(1)} KB`;

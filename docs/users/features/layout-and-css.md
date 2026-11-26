@@ -7,39 +7,39 @@ The complete guide, with breakpoints, a decision table ("which layout tool do I 
 ## The essentials
 
 ```html
-<div class="nova-container nova-section nova-stack">
-  <h1 class="nova-h2">Dashboard</h1>
-  <div class="nova-grid-auto nova-grid-auto-md nova-gap-4">…</div>
-  <div class="nova-cluster nova-cluster-between">…</div>
+<div class="kvui-container kvui-section kvui-stack">
+  <h1 class="kvui-h2">Dashboard</h1>
+  <div class="kvui-grid-auto kvui-grid-auto-md kvui-gap-4">…</div>
+  <div class="kvui-cluster kvui-cluster-between">…</div>
 </div>
 ```
 
 | Need | Class |
 | --- | --- |
-| Centred content with safe margins | `nova-container` (sizes: `-sm`, `-md`, `-lg`, `-prose`) |
-| Vertical spacing | `nova-stack` (`nova-stack-sm`, `-lg`) |
-| Wrapping row | `nova-cluster` |
-| Cards that fill the space | `nova-grid-auto` (`nova-grid-auto-sm`, `-md`, `-lg`) |
-| Fixed side and fluid main | `nova-sidebar` |
-| Row that stacks below a width | `nova-switcher` |
-| App frame | `nova-shell`, `nova-shell-sidebar`, `nova-shell-aside` |
+| Centred content with safe margins | `kvui-container` (sizes: `-sm`, `-md`, `-lg`, `-prose`) |
+| Vertical spacing | `kvui-stack` (`kvui-stack-sm`, `-lg`) |
+| Wrapping row | `kvui-cluster` |
+| Cards that fill the space | `kvui-grid-auto` (`kvui-grid-auto-sm`, `-md`, `-lg`) |
+| Fixed side and fluid main | `kvui-sidebar` |
+| Row that stacks below a width | `kvui-switcher` |
+| App frame | `kvui-shell`, `kvui-shell-sidebar`, `kvui-shell-aside` |
 
 ## Responsive without thinking
 
-Classes are mobile first. `nova-md-cols-3` means "three columns from 768px up". Visibility works the same way: `nova-hide-below-md`, `nova-hide-md-up`.
+Classes are mobile first. `kvui-md-cols-3` means "three columns from 768px up". Visibility works the same way: `kvui-hide-below-md`, `kvui-hide-md-up`.
 
 ## Container queries
 
-`nova-cq` on a parent makes its children respond to its width, not the screen: `nova-cq-md-cols-2`.
+`kvui-cq` on a parent makes its children respond to its width, not the screen: `kvui-cq-md-cols-2`.
 
 ## Themes
 
-Every colour in these classes is a token, so `nova-bg-surface` and `nova-text-muted` follow light and dark mode.
+Every colour in these classes is a token, so `kvui-bg-surface` and `kvui-text-muted` follow light and dark mode.
 
 ## Motion helpers
 
-`nova-scroll-reveal` and `nova-scroll-progress` animate with the browser's scroll timeline. They are inert where unsupported, and disabled for reduced motion.
+`kvui-scroll-reveal` and `kvui-scroll-progress` animate with the browser's scroll timeline. They are inert where unsupported, and disabled for reduced motion.
 
 ## Tailwind
 
-If you use Tailwind, add the [preset](../frameworks/tailwind.md). Nova's layout classes and Tailwind's can sit side by side.
+If you use Tailwind, add the [preset](../frameworks/tailwind.md). Kvui's layout classes and Tailwind's can sit side by side.

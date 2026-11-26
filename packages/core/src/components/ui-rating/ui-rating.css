@@ -3,11 +3,11 @@
 :host([size='lg']) { font-size: 1.75rem; }
 .stars { display: inline-flex; gap: 0.125em; }
 .star {
-  all: unset; display: inline-flex; padding: 0.1em; border-radius: var(--nova-radius-control);
-  color: var(--nova-color-border-strong); cursor: pointer;
-  transition: color var(--nova-duration-fast) var(--nova-ease-standard), transform var(--nova-duration-fast) var(--nova-ease-emphasized);
+  all: unset; display: inline-flex; padding: 0.1em; border-radius: var(--kvui-radius-control);
+  color: var(--kvui-color-border-strong); cursor: pointer;
+  transition: color var(--kvui-duration-fast) var(--kvui-ease-standard), transform var(--kvui-duration-fast) var(--kvui-ease-emphasized);
 }
-.star.on { color: var(--nova-color-warning); }
+.star.on { color: var(--kvui-color-warning); }
 .star:hover:not(:disabled) { transform: scale(1.12); }
-.star:focus-visible { box-shadow: var(--nova-focus-ring); }
+.star:focus-visible { box-shadow: var(--kvui-focus-ring); }
 .star:disabled { cursor: default; }

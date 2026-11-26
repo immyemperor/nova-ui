@@ -1,7 +1,7 @@
 {
   "name": "@kvui/editor",
-  "version": "0.1.0",
-  "description": "Rich text editor web component for Nova UI: configurable toolbar, slash commands, mentions, tables, uploads. Built on Tiptap.",
+  "version": "0.1.1",
+  "description": "Rich text editor web component for Kvui UI: configurable toolbar, slash commands, mentions, tables, uploads. Built on Tiptap.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.cjs.js",
@@ -95,11 +95,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/immyemperor/nova-ui.git",
+    "url": "git+https://github.com/immyemperor/kvui.git",
     "directory": "packages/editor"
   },
-  "homepage": "https://github.com/immyemperor/nova-ui#readme",
+  "homepage": "https://github.com/immyemperor/kvui#readme",
   "bugs": {
-    "url": "https://github.com/immyemperor/nova-ui/issues"
+    "url": "https://github.com/immyemperor/kvui/issues"
   }
 }

@@ -14,7 +14,7 @@ pnpm add @kvui/core @kvui/css @kvui/react
 
 ```tsx
 // src/main.tsx
-import '@kvui/css/nova.css';
+import '@kvui/css/kvui.css';
 import { createRoot } from 'react-dom/client';
 import { App } from './App';
 
@@ -30,7 +30,7 @@ Add the theme script to `index.html` before your scripts:
 ```html
 <script>
   document.documentElement.dataset.theme =
-    localStorage.getItem('nova-ui-theme') ||
+    localStorage.getItem('kvui-theme') ||
     (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
 </script>
 ```
@@ -45,4 +45,4 @@ const { UiEditor } = await import('@kvui/react/editor');
 
 ## Workspace development
 
-If you're developing Nova and an app together in one monorepo, depend on the packages with `workspace:*` so changes appear without publishing.
+If you're developing Kvui and an app together in one monorepo, depend on the packages with `workspace:*` so changes appear without publishing.

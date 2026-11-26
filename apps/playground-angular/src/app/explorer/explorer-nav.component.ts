@@ -10,19 +10,19 @@ import { CATEGORIES } from './catalog';
   imports: [RouterLink, RouterLinkActive],
   template: `
     <div class="explorer">
-      <div class="nova-field nova-mb-3">
-        <label class="nova-sr-only" for="explorer-search">Find a component</label>
-        <input id="explorer-search" class="nova-input" type="search" placeholder="Find a component" autocomplete="off"
+      <div class="kvui-field kvui-mb-3">
+        <label class="kvui-sr-only" for="explorer-search">Find a component</label>
+        <input id="explorer-search" class="kvui-input" type="search" placeholder="Find a component" autocomplete="off"
           [value]="query()" (input)="query.set(valueOf($event))" />
       </div>
       <ul class="explorer__list" role="list">
         <li><a class="explorer__link" routerLink="/components" routerLinkActive="is-current" [routerLinkActiveOptions]="{ exact: true }">All components</a></li>
         <li><a class="explorer__link" routerLink="/icons/material" routerLinkActive="is-current">Icons: Material</a></li>
-        <li><a class="explorer__link" routerLink="/icons/nova" routerLinkActive="is-current">Icons: Nova</a></li>
+        <li><a class="explorer__link" routerLink="/icons/kvui" routerLinkActive="is-current">Icons: Kvui</a></li>
       </ul>
       @for (c of visible(); track c.id) {
         <details class="explorer__group" [open]="!!query() || c.tags.length > 0">
-          <summary>{{ c.label }} <span class="nova-caption">({{ c.tags.length }})</span></summary>
+          <summary>{{ c.label }} <span class="kvui-caption">({{ c.tags.length }})</span></summary>
           <ul class="explorer__list" role="list">
             @for (t of c.tags; track t) {
               <li><a class="explorer__link" [routerLink]="['/components', t]" routerLinkActive="is-current"><code>{{ t }}</code></a></li>
@@ -30,7 +30,7 @@ import { CATEGORIES } from './catalog';
           </ul>
         </details>
       } @empty {
-        <p class="nova-caption">No component matches.</p>
+        <p class="kvui-caption">No component matches.</p>
       }
     </div>
   `,

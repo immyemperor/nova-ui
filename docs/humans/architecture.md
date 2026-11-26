@@ -12,7 +12,7 @@ packages/
   angular/   @kvui/angular  generated standalone proxies + ThemeService; /editor secondary entry point
   vue/       @kvui/vue      Vue 3 wrappers generated from the manifest (scripts/generate.mjs)
   css/       @kvui/css      layout, utilities, CSS-only components, print, guidelines; framework-free
-  tailwind/  @kvui/tailwind Tailwind preset mapping utilities to --nova-* tokens
+  tailwind/  @kvui/tailwind Tailwind preset mapping utilities to --kvui-* tokens
 apps/
   playground-vite/   React + Vite demo of every feature
   playground-next/   Next.js App Router demo
@@ -22,7 +22,7 @@ docs/                user, human and agent documentation (this folder)
 
 ## Layers
 
-1. **Tokens** (`core/src/global/tokens.css`, `css/src/tokens.css`). Colours, type, space, radius, shadow, motion, layout sizes, all as `--nova-*` custom properties. Single source of truth for every framework.
+1. **Tokens** (`core/src/global/tokens.css`, `css/src/tokens.css`). Colours, type, space, radius, shadow, motion, layout sizes, all as `--kvui-*` custom properties. Single source of truth for every framework.
 2. **Pure logic** (`core/src/utils/*.ts`, `core/src/i18n`, `editor/src/.../uploads.ts`). No DOM and no framework. Every rule that matters lives here so it can be tested in Node.
 3. **Components** (`core/src/components/*`). Stencil web components. Each has a `.tsx` and a `.css`. Components use the logic layer and tokens; they don't hard-code colours or strings.
 4. **Wrappers**. Generated for React, Angular and Vue from the component metadata. Hand-written only for hooks, helpers and blocks.

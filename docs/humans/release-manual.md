@@ -1,6 +1,6 @@
 # Release manual
 
-Step-by-step instructions for releasing Nova UI. Use it for a first release, for an emergency, or when GitHub Actions is unavailable. Two ways are described: **by hand from your machine**, and **through GitHub Actions** (the normal route). Both publish the same tarballs.
+Step-by-step instructions for releasing Kvui UI. Use it for a first release, for an emergency, or when GitHub Actions is unavailable. Two ways are described: **by hand from your machine**, and **through GitHub Actions** (the normal route). Both publish the same tarballs.
 
 Read the whole manual once before your first release.
 
@@ -46,7 +46,7 @@ Do this once per machine, and once per repository.
 **npm account and scope**
 
 1. Log in at npmjs.com, and turn on two-factor authentication (2FA).
-2. Make sure you can publish to the `@omni` scope. The first publish of a new scope needs the organisation to exist: create it at npmjs.com if it doesn't.
+2. Make sure you can publish to the `@kvui` scope. The first publish of a new scope needs the organisation to exist: create it at npmjs.com if it doesn't.
 3. On your machine, log in:
 
    ```bash
@@ -64,7 +64,7 @@ git --version
 
 **GitHub (for the release page and CI publishing only)**
 
-- A repository secret named `NPM_TOKEN`: an npm automation token with publish rights for `@omni`.
+- A repository secret named `NPM_TOKEN`: an npm automation token with publish rights for `@kvui`.
 - Optional: a GitHub environment named `npm` with required reviewers.
 
 ## 3. Before you start
@@ -164,7 +164,7 @@ You should see seven `.tgz` files, one per package, plus `SHA256SUMS.txt`.
 Check what is inside one of them. Pick the Angular package, since it is packed from its build folder:
 
 ```bash
-tar -tzf dist-tarballs/nova-ui-angular-*.tgz | head -20
+tar -tzf dist-tarballs/kvui-angular-*.tgz | head -20
 ```
 
 Expected: paths starting with `package/`, such as `package/package.json`, `package/fesm2022/...`, `package/index.d.ts`. Not expected: `package/src/...` or `package/node_modules/...`. If you see source files, stop: the wrong folder was packed.
@@ -208,7 +208,7 @@ Tag the release commit, so the source for version 0.2.0 can always be found:
 
 ```bash
 VERSION=$(node -p "require('./packages/core/package.json').version")
-git tag -a "v$VERSION" -m "Nova UI $VERSION"
+git tag -a "v$VERSION" -m "Kvui UI $VERSION"
 git push origin main
 git push origin "v$VERSION"
 ```
@@ -217,7 +217,7 @@ Create the GitHub release and attach the tarballs and checksums:
 
 ```bash
 gh release create "v$VERSION" dist-tarballs/* \
-  --title "Nova UI $VERSION" \
+  --title "Kvui UI $VERSION" \
   --generate-notes
 ```
 
@@ -238,7 +238,7 @@ done
 Install into a clean project, and check the package works. This catches a missing file that the checks cannot:
 
 ```bash
-mkdir /tmp/nova-smoke && cd /tmp/nova-smoke
+mkdir /tmp/kvui-smoke && cd /tmp/kvui-smoke
 npm init -y >/dev/null
 npm install @kvui/core@$VERSION @kvui/css@$VERSION @kvui/react@$VERSION
 node -e "console.log(require.resolve('@kvui/core/package.json'))"
@@ -255,7 +255,7 @@ This is the normal route, and needs no local publishing.
 
 1. Complete steps 1 (`pnpm version-packages`) and commit, as above.
 2. Push the commit to `main`. The CI workflow runs.
-3. Push a tag: `git tag -a v0.2.0 -m "Nova UI 0.2.0" && git push origin v0.2.0`.
+3. Push a tag: `git tag -a v0.2.0 -m "Kvui UI 0.2.0" && git push origin v0.2.0`.
 4. The `dist` workflow runs: it builds, tests, packs, publishes with provenance, and creates the GitHub release with the bundles attached.
 5. Watch the run in the Actions tab. If the `npm` environment requires a reviewer, approve it there.
 
@@ -287,7 +287,7 @@ npm deprecate "@kvui/core@0.2.0" "Broken build. Use 0.2.1."
 
 **Angular shipped source files.** This happens if the Angular package was packed from its folder, not from `dist/`. Do not use `changeset publish` for this repository: it packs each package folder directly. Use `node scripts/release.mjs` (or `pnpm release`), which packs from `dist/` for Angular. If source was published, deprecate that version, publish a fix, and tell users.
 
-**`npm publish` says 403 Forbidden.** Your account lacks rights to the `@omni` scope, or 2FA needs a code. Check `npm whoami`, check the scope membership at npmjs.com, and retry with `--otp`.
+**`npm publish` says 403 Forbidden.** Your account lacks rights to the `@kvui` scope, or 2FA needs a code. Check `npm whoami`, check the scope membership at npmjs.com, and retry with `--otp`.
 
 **`npm publish` says the version already exists.** Another publish already succeeded. Run `node scripts/release.mjs publish` again: it skips versions already on npm.
 

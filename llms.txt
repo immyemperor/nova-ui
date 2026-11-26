@@ -1,13 +1,13 @@
-# Nova UI
+# Kvui UI
 
-> Nova UI is a design system of 72 web components (Stencil) with wrappers for React, Next.js, Angular and Vue, a responsive CSS library, a Tailwind preset and an optional rich text editor. Components are framework-neutral, themed with CSS variables, accessible by default, and follow WCAG 2.2 AA.
+> Kvui UI is a design system of 72 web components (Stencil) with wrappers for React, Next.js, Angular and Vue, a responsive CSS library, a Tailwind preset and an optional rich text editor. Components are framework-neutral, themed with CSS variables, accessible by default, and follow WCAG 2.2 AA.
 
 ## Start here
 
 - [Getting started](docs/users/getting-started.md): install and first component in five minutes
 - [Concepts](docs/users/concepts.md): how props, events, slots and forms work
 - [Troubleshooting](docs/users/troubleshooting.md): common problems and fixes
-- [Releases](docs/users/releases.md): installing, upgrading, pinning and rolling back Nova UI
+- [Releases](docs/users/releases.md): installing, upgrading, pinning and rolling back Kvui UI
 
 ## Frameworks
 

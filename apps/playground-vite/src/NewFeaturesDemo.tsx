@@ -9,13 +9,13 @@ import {
 /* ---------- Split panes ---------- */
 function SplitPanel() {
   return (
-    <UiSplit ratio={0.3} minA={160} minB={240} storageKey="pg-split" label="Resize file list" style={{ height: 220, border: '1px solid var(--nova-color-border)', borderRadius: 12 }}>
-      <div slot="a" className="nova-p-3 nova-stack nova-stack-xs">
-        <strong className="nova-small">Files</strong>
-        {['README.md', 'index.ts', 'styles.css'].map((f) => <span key={f} className="nova-small nova-text-muted">{f}</span>)}
+    <UiSplit ratio={0.3} minA={160} minB={240} storageKey="pg-split" label="Resize file list" style={{ height: 220, border: '1px solid var(--kvui-color-border)', borderRadius: 12 }}>
+      <div slot="a" className="kvui-p-3 kvui-stack kvui-stack-xs">
+        <strong className="kvui-small">Files</strong>
+        {['README.md', 'index.ts', 'styles.css'].map((f) => <span key={f} className="kvui-small kvui-text-muted">{f}</span>)}
       </div>
-      <div slot="b" className="nova-p-4">
-        <p className="nova-small">Drag the divider, or focus it and use the arrow keys. Double-click resets. The position is remembered.</p>
+      <div slot="b" className="kvui-p-4">
+        <p className="kvui-small">Drag the divider, or focus it and use the arrow keys. Double-click resets. The position is remembered.</p>
       </div>
     </UiSplit>
   );
@@ -30,10 +30,10 @@ function VirtualDemo() {
     { key: 'balance', label: 'Balance', align: 'end' as const, sortable: true, format: (v: unknown) => `$${Number(v).toLocaleString()}` },
   ];
   return (
-    <div className="nova-stack nova-stack-sm">
-      <p className="nova-caption">2,000 rows, only the visible ones are in the DOM. Resize columns, sort, and export.</p>
+    <div className="kvui-stack kvui-stack-sm">
+      <p className="kvui-caption">2,000 rows, only the visible ones are in the DOM. Resize columns, sort, and export.</p>
       <UiTable virtual maxHeight="320px" rowHeight={44} paginate={false} searchable exportable resizable caption="Accounts" columns={columns} rows={rows} />
-      <p className="nova-caption">Plain virtual list (10,000 items):</p>
+      <p className="kvui-caption">Plain virtual list (10,000 items):</p>
       <UiVirtualList count={10000} rowHeight={36} height={200} label="Ten thousand items" renderRow={(i: number) => <span>Item {i + 1}</span>} />
     </div>
   );
@@ -47,8 +47,8 @@ function ExpandableTable() {
   ];
   return (
     <UiTable caption="Projects" expandable columns={[{ key: 'name', label: 'Project' }, { key: 'owner', label: 'Owner' }, { key: 'budget', label: 'Budget', align: 'end' as const }]} rows={rows}>
-      <div slot="expand:a" className="nova-small">Milestones: design sign-off (done), build (in progress), launch (March).</div>
-      <div slot="expand:b" className="nova-small">Risk: legacy data export. Owner: Grace. Review every Friday.</div>
+      <div slot="expand:a" className="kvui-small">Milestones: design sign-off (done), build (in progress), launch (March).</div>
+      <div slot="expand:b" className="kvui-small">Risk: legacy data export. Owner: Grace. Review every Friday.</div>
     </UiTable>
   );
 }
@@ -57,8 +57,8 @@ function ExpandableTable() {
 function SortableDemo() {
   const [items, setItems] = useState([{ id: 'a', label: 'Write spec' }, { id: 'b', label: 'Design review' }, { id: 'c', label: 'Build' }, { id: 'd', label: 'Ship' }]);
   return (
-    <div className="nova-stack nova-stack-sm">
-      <p className="nova-caption">Drag, or focus an item and press Alt with the arrow keys.</p>
+    <div className="kvui-stack kvui-stack-sm">
+      <p className="kvui-caption">Drag, or focus an item and press Alt with the arrow keys.</p>
       <UiSortable items={items} label="Launch steps" onUiReorder={(e: CustomEvent<{ id: string; label: string }[]>) => setItems(e.detail)} />
     </div>
   );
@@ -73,8 +73,8 @@ function KanbanDemo() {
   ];
   const [layout, setLayout] = useState<Record<string, string[]>>({ todo: ['1', '2'], doing: ['3'], done: [] });
   return (
-    <div className="nova-stack nova-stack-sm">
-      <p className="nova-caption">Drag cards between columns, or focus a card and press Alt with an arrow key to move it.</p>
+    <div className="kvui-stack kvui-stack-sm">
+      <p className="kvui-caption">Drag cards between columns, or focus a card and press Alt with an arrow key to move it.</p>
       <UiKanban label="Launch board" columns={columns} cards={cards} layout={layout} onUiMove={(e: CustomEvent<{ layout: Record<string, string[]> }>) => setLayout(e.detail.layout)} />
     </div>
   );
@@ -83,7 +83,7 @@ function KanbanDemo() {
 /* ---------- Scheduler ---------- */
 function SchedulerDemo() {
   const events = [
-    { id: 'e1', title: 'Design review', start: '2026-11-16', startTime: '10:00', endTime: '11:00', color: 'var(--nova-color-accent-soft)' },
+    { id: 'e1', title: 'Design review', start: '2026-11-16', startTime: '10:00', endTime: '11:00', color: 'var(--kvui-color-accent-soft)' },
     { id: 'e2', title: 'Customer call', start: '2026-11-16', startTime: '10:30', endTime: '11:30' },
     { id: 'e3', title: 'Conference', start: '2026-11-18', end: '2026-11-20' },
   ];
@@ -98,7 +98,7 @@ function SchedulerDemo() {
 /* ---------- Collapse ---------- */
 function CollapseDemo() {
   return (
-    <div className="nova-stack nova-stack-xs">
+    <div className="kvui-stack kvui-stack-xs">
       <UiCollapse peek="Shipping, returns and exchanges">
         <span slot="label">Delivery</span>
         Full delivery details appear here. The height animates smoothly.
@@ -116,16 +116,16 @@ function BrandDemo() {
   const [brand, setBrand] = useState('#7c3aed');
   const theme = useMemo(() => generateTheme(brand), [brand]);
   return (
-    <div className="nova-stack nova-stack-sm">
+    <div className="kvui-stack kvui-stack-sm">
       <style>{themeToCSS(theme)}</style>
-      <div className="nova-cluster">
-        <label className="nova-small">Brand colour{' '}
+      <div className="kvui-cluster">
+        <label className="kvui-small">Brand colour{' '}
           <input type="color" value={brand} onChange={(e: ChangeEvent<HTMLInputElement>) => setBrand(e.target.value)} aria-label="Brand colour" />
         </label>
         <UiButton>Primary action</UiButton>
         <UiButton variant="secondary">Secondary</UiButton>
       </div>
-      <p className="nova-caption">
+      <p className="kvui-caption">
         {theme.warnings.length ? `Warnings: ${theme.warnings.join('; ')}` : 'Every text and accent pair meets WCAG AA in both themes.'} Changes the whole page.
       </p>
     </div>
@@ -137,8 +137,8 @@ registerIcons({ 'pg-spark': '<path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7.4L12 17l-6.3
 function IconsDemo() {
   const names = ['check', 'search', 'bell', 'calendar', 'download', 'settings', 'user', 'star', 'pg-spark', 'alert-triangle'];
   return (
-    <div className="nova-cluster nova-gap-4" aria-label="Icon examples">
-      {names.map((n) => <span key={n} className="nova-cluster nova-gap-1 nova-caption"><UiIcon name={n} label={n} size="1.5rem" />{n}</span>)}
+    <div className="kvui-cluster kvui-gap-4" aria-label="Icon examples">
+      {names.map((n) => <span key={n} className="kvui-cluster kvui-gap-1 kvui-caption"><UiIcon name={n} label={n} size="1.5rem" />{n}</span>)}
     </div>
   );
 }
@@ -148,8 +148,8 @@ function I18nDemo() {
   const [french, setFrench] = useState(false);
   const [page, setPage] = useState('A');
   return (
-    <div className="nova-stack nova-stack-sm">
-      <div className="nova-cluster">
+    <div className="kvui-stack kvui-stack-sm">
+      <div className="kvui-cluster">
         <UiButton variant="secondary" onClick={() => { if (french) { resetMessages(); } else { setMessages({ close: 'Fermer', dismiss: 'Ignorer', noResults: 'Aucun résultat' }); } setFrench((f) => !f); }}>
           {french ? 'Back to English' : 'Show in French'}
         </UiButton>
@@ -158,7 +158,7 @@ function I18nDemo() {
         </UiButton>
       </div>
       <UiCard style={{ viewTransitionName: 'pg-card' } as CSSProperties}>
-        <p className="nova-small">Page {page}. Labels inside components follow the language you choose.</p>
+        <p className="kvui-small">Page {page}. Labels inside components follow the language you choose.</p>
       </UiCard>
     </div>
   );
@@ -166,22 +166,22 @@ function I18nDemo() {
 
 export function NewFeaturesDemo() {
   return (
-    <section className="nova-stack nova-stack-lg" id="new-features">
+    <section className="kvui-stack kvui-stack-lg" id="new-features">
       <UiScrollProgress label="Reading progress" />
-      <h2 className="nova-h3">Newest features</h2>
+      <h2 className="kvui-h3">Newest features</h2>
 
-      <div className="nova-stack nova-stack-sm"><h3 className="nova-h5">Split panes</h3><SplitPanel /></div>
-      <div className="nova-stack nova-stack-sm"><h3 className="nova-h5">Virtual rows and export</h3><VirtualDemo /></div>
-      <div className="nova-stack nova-stack-sm"><h3 className="nova-h5">Expandable rows</h3><ExpandableTable /></div>
-      <div className="nova-grid-auto nova-grid-auto-md nova-gap-6">
-        <div className="nova-stack nova-stack-sm"><h3 className="nova-h5">Sortable list</h3><SortableDemo /></div>
-        <div className="nova-stack nova-stack-sm"><h3 className="nova-h5">Collapse</h3><CollapseDemo /></div>
+      <div className="kvui-stack kvui-stack-sm"><h3 className="kvui-h5">Split panes</h3><SplitPanel /></div>
+      <div className="kvui-stack kvui-stack-sm"><h3 className="kvui-h5">Virtual rows and export</h3><VirtualDemo /></div>
+      <div className="kvui-stack kvui-stack-sm"><h3 className="kvui-h5">Expandable rows</h3><ExpandableTable /></div>
+      <div className="kvui-grid-auto kvui-grid-auto-md kvui-gap-6">
+        <div className="kvui-stack kvui-stack-sm"><h3 className="kvui-h5">Sortable list</h3><SortableDemo /></div>
+        <div className="kvui-stack kvui-stack-sm"><h3 className="kvui-h5">Collapse</h3><CollapseDemo /></div>
       </div>
-      <div className="nova-stack nova-stack-sm"><h3 className="nova-h5">Kanban board</h3><KanbanDemo /></div>
-      <div className="nova-stack nova-stack-sm"><h3 className="nova-h5">Scheduler</h3><SchedulerDemo /></div>
-      <div className="nova-stack nova-stack-sm"><h3 className="nova-h5">Brand palette from one colour</h3><BrandDemo /></div>
-      <div className="nova-stack nova-stack-sm"><h3 className="nova-h5">Icons</h3><IconsDemo /></div>
-      <div className="nova-stack nova-stack-sm"><h3 className="nova-h5">Translation and transitions</h3><I18nDemo /></div>
+      <div className="kvui-stack kvui-stack-sm"><h3 className="kvui-h5">Kanban board</h3><KanbanDemo /></div>
+      <div className="kvui-stack kvui-stack-sm"><h3 className="kvui-h5">Scheduler</h3><SchedulerDemo /></div>
+      <div className="kvui-stack kvui-stack-sm"><h3 className="kvui-h5">Brand palette from one colour</h3><BrandDemo /></div>
+      <div className="kvui-stack kvui-stack-sm"><h3 className="kvui-h5">Icons</h3><IconsDemo /></div>
+      <div className="kvui-stack kvui-stack-sm"><h3 className="kvui-h5">Translation and transitions</h3><I18nDemo /></div>
     </section>
   );
 }

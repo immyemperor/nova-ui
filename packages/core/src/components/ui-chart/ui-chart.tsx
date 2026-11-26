@@ -35,7 +35,7 @@ export class UiChart {
 
   private colour(i: number, s?: ChartSeries): string {
     if (s?.color) return s.color;
-    const palette = ['var(--nova-color-accent)', 'var(--nova-color-info)', 'var(--nova-color-warning)', 'var(--nova-color-danger)', 'var(--nova-color-success)', 'var(--nova-color-fg-muted)'];
+    const palette = ['var(--kvui-color-accent)', 'var(--kvui-color-info)', 'var(--kvui-color-warning)', 'var(--kvui-color-danger)', 'var(--kvui-color-success)', 'var(--kvui-color-fg-muted)'];
     return palette[i % palette.length];
   }
 

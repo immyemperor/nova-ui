@@ -9,15 +9,15 @@ pnpm add @kvui/css
 ```
 
 ```html
-<link rel="stylesheet" href="/node_modules/@kvui/css/dist/nova.min.css" />
-<body class="nova-base">
-  <main class="nova-container nova-section nova-stack">
-    <h1 class="nova-h2">Pricing</h1>
-    <div class="nova-grid-auto nova-grid-auto-md nova-gap-4">
-      <article class="nova-card nova-card-raised">
-        <div class="nova-card__body nova-stack nova-stack-sm">
-          <h2 class="nova-h5">Team</h2>
-          <button class="nova-btn">Choose</button>
+<link rel="stylesheet" href="/node_modules/@kvui/css/dist/kvui.min.css" />
+<body class="kvui-base">
+  <main class="kvui-container kvui-section kvui-stack">
+    <h1 class="kvui-h2">Pricing</h1>
+    <div class="kvui-grid-auto kvui-grid-auto-md kvui-gap-4">
+      <article class="kvui-card kvui-card-raised">
+        <div class="kvui-card__body kvui-stack kvui-stack-sm">
+          <h2 class="kvui-h5">Team</h2>
+          <button class="kvui-btn">Choose</button>
         </div>
       </article>
     </div>
@@ -27,11 +27,11 @@ pnpm add @kvui/css
 
 ## What you get
 
-- Layout primitives: `nova-container`, `nova-page`, `nova-stack`, `nova-cluster`, `nova-grid-auto`, `nova-sidebar`, `nova-switcher`, `nova-shell`.
-- Responsive utilities: `nova-md-cols-3`, `nova-hide-below-md`, `nova-md-px-8`.
-- Container queries: `nova-cq` with `nova-cq-md-cols-2`.
+- Layout primitives: `kvui-container`, `kvui-page`, `kvui-stack`, `kvui-cluster`, `kvui-grid-auto`, `kvui-sidebar`, `kvui-switcher`, `kvui-shell`.
+- Responsive utilities: `kvui-md-cols-3`, `kvui-hide-below-md`, `kvui-md-px-8`.
+- Container queries: `kvui-cq` with `kvui-cq-md-cols-2`.
 - CSS-only components with the same look as the web components.
-- Scroll-linked motion: `nova-scroll-reveal`, `nova-scroll-progress`.
+- Scroll-linked motion: `kvui-scroll-reveal`, `kvui-scroll-progress`.
 
 The full guide, with breakpoints, recipes and accessibility notes, is in [packages/css/GUIDELINES.md](../../../packages/css/GUIDELINES.md). A live, resizable version is in `packages/css/docs/index.html`.
 

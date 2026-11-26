@@ -64,4 +64,4 @@ await withViewTransition(() => swapPage());  // cross-fade between states
 
 ## Scroll-linked CSS
 
-With `@kvui/css`: `nova-scroll-reveal` ties an element's fade and rise to its position in the viewport, and `nova-scroll-progress` scales an element with page scroll. No JavaScript runs.
+With `@kvui/css`: `kvui-scroll-reveal` ties an element's fade and rise to its position in the viewport, and `kvui-scroll-progress` scales an element with page scroll. No JavaScript runs.

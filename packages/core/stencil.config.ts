@@ -3,8 +3,8 @@ import { reactOutputTarget } from '@stencil/react-output-target';
 import { angularOutputTarget } from '@stencil/angular-output-target';
 
 export const config: Config = {
-  namespace: 'nova-ui',
-  // Emitted as dist/nova-ui/nova-ui.css and exposed as "@kvui/core/styles.css".
+  namespace: 'kvui',
+  // Emitted as dist/kvui/kvui.css and exposed as "@kvui/core/styles.css".
   globalStyle: 'src/global/global.css',
   outputTargets: [
     { type: 'dist', esmLoaderPath: '../loader' },

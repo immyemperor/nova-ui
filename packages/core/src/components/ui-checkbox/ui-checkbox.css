@@ -1,16 +1,16 @@
-:host { display: inline-block; font-family: var(--nova-font-sans); color: var(--nova-color-fg); }
-.root { display: inline-flex; align-items: center; gap: var(--nova-space-2); cursor: pointer; font-size: var(--nova-text-sm); }
+:host { display: inline-block; font-family: var(--kvui-font-sans); color: var(--kvui-color-fg); }
+.root { display: inline-flex; align-items: center; gap: var(--kvui-space-2); cursor: pointer; font-size: var(--kvui-text-sm); }
 :host([disabled]) .root { opacity: 0.55; cursor: not-allowed; }
 .native { position: absolute; width: 1px; height: 1px; opacity: 0; margin: 0; }
 .box {
   display: inline-flex; align-items: center; justify-content: center;
   flex: none; width: 1.125rem; height: 1.125rem; box-sizing: border-box;
-  border: 1.5px solid var(--nova-color-border-strong);
+  border: 1.5px solid var(--kvui-color-border-strong);
   border-radius: 4px;
-  background: var(--nova-color-surface);
-  color: var(--nova-color-fg-on-accent);
-  transition: background var(--nova-duration-fast) var(--nova-ease-standard), border-color var(--nova-duration-fast) var(--nova-ease-standard);
+  background: var(--kvui-color-surface);
+  color: var(--kvui-color-fg-on-accent);
+  transition: background var(--kvui-duration-fast) var(--kvui-ease-standard), border-color var(--kvui-duration-fast) var(--kvui-ease-standard);
 }
-.root:hover .box { border-color: var(--nova-color-fg-subtle); }
-.native:checked + .box, .native:indeterminate + .box { background: var(--nova-color-accent); border-color: var(--nova-color-accent); }
-.native:focus-visible + .box { box-shadow: var(--nova-focus-ring); }
+.root:hover .box { border-color: var(--kvui-color-fg-subtle); }
+.native:checked + .box, .native:indeterminate + .box { background: var(--kvui-color-accent); border-color: var(--kvui-color-accent); }
+.native:focus-visible + .box { box-shadow: var(--kvui-focus-ring); }

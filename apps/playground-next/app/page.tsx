@@ -18,25 +18,25 @@ const features = [
 export default function Home() {
   return (
     <>
-      <a className="nova-skip-link" href="#main">Skip to content</a>
-      <header className="nova-bg-surface nova-border-b">
-        <div className="nova-container nova-cluster nova-cluster-between nova-py-3">
-          <strong>Omni UI on Next.js</strong>
-          <div className="nova-cluster">
-            <a className="nova-btn nova-btn-ghost nova-btn-sm" href="/components">Components</a>
-            <a className="nova-btn nova-btn-ghost nova-btn-sm" href="/icons/material">Icons</a>
+      <a className="kvui-skip-link" href="#main">Skip to content</a>
+      <header className="kvui-bg-surface kvui-border-b">
+        <div className="kvui-container kvui-cluster kvui-cluster-between kvui-py-3">
+          <strong>Kvui UI on Next.js</strong>
+          <div className="kvui-cluster">
+            <a className="kvui-btn kvui-btn-ghost kvui-btn-sm" href="/components">Components</a>
+            <a className="kvui-btn kvui-btn-ghost kvui-btn-sm" href="/icons/material">Icons</a>
             <IconSetToggle />
             <UiThemeToggle />
           </div>
         </div>
       </header>
 
-      <main id="main" className="nova-container nova-section nova-stack nova-stack-lg">
-        <div className="nova-stack">
-          <p className="nova-eyebrow">App Router</p>
-          <h1 className="nova-display">Layouts that fit every screen</h1>
-          <p className="nova-lead">Web components for behaviour, @kvui/css for layout.</p>
-          <div className="nova-cluster">
+      <main id="main" className="kvui-container kvui-section kvui-stack kvui-stack-lg">
+        <div className="kvui-stack">
+          <p className="kvui-eyebrow">App Router</p>
+          <h1 className="kvui-display">Layouts that fit every screen</h1>
+          <p className="kvui-lead">Web components for behaviour, @kvui/css for layout.</p>
+          <div className="kvui-cluster">
             <UiButton>
               <UiIcon slot="start" name="check" />
               Save changes
@@ -46,13 +46,13 @@ export default function Home() {
           </div>
         </div>
 
-        <ul className="nova-grid-auto nova-grid-auto-md" role="list">
+        <ul className="kvui-grid-auto kvui-grid-auto-md" role="list">
           {features.map((f) => (
             <li key={f.title}>
               <UiCard variant="raised">
-                <div className="nova-stack nova-stack-sm">
-                  <h2 className="nova-h5">{f.title}</h2>
-                  <p className="nova-small nova-text-muted">{f.text}</p>
+                <div className="kvui-stack kvui-stack-sm">
+                  <h2 className="kvui-h5">{f.title}</h2>
+                  <p className="kvui-small kvui-text-muted">{f.text}</p>
                 </div>
               </UiCard>
             </li>
@@ -66,8 +66,8 @@ export default function Home() {
 
         <NewFeatures />
 
-        <section className="nova-stack nova-stack-sm">
-          <h2 className="nova-h4">Page blocks</h2>
+        <section className="kvui-stack kvui-stack-sm">
+          <h2 className="kvui-h4">Page blocks</h2>
           <LoginBlock />
           <PricingBlock tiers={[
             { name: 'Free', price: '$0', period: '/month', features: ['1 project'] },
@@ -75,14 +75,14 @@ export default function Home() {
           ]} />
         </section>
 
-        <section className="nova-stack nova-stack-sm" id="source">
-          <h2 className="nova-h4">Source code</h2>
-          <p className="nova-caption">The client features and this page are plain React. Open a file to copy it.</p>
+        <section className="kvui-stack kvui-stack-sm" id="source">
+          <h2 className="kvui-h4">Source code</h2>
+          <p className="kvui-caption">The client features and this page are plain React. Open a file to copy it.</p>
           <SourceFile title="app/page.tsx" code={source('app/page.tsx')} />
           <SourceFile title="app/_features/NewFeatures.tsx" code={source('app/_features/NewFeatures.tsx')} />
         </section>
 
-        <section className="nova-section-lg">
+        <section className="kvui-section-lg">
           <UiReveal animation="fade">
             <p>Revealed on scroll.</p>
           </UiReveal>

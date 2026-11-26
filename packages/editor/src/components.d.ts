@@ -11,7 +11,7 @@ export { MentionItem, ToolbarItem, UploadHandler } from "./types";
 export { Editor } from "@tiptap/core";
 export namespace Components {
     /**
-     * Rich text editor built on Tiptap, with a configurable toolbar made of Nova buttons and icons,
+     * Rich text editor built on Tiptap, with a configurable toolbar made of Kvui buttons and icons,
      * "/" commands,
      * @mentions , tables, links, image and file uploads. Value is HTML.
      * Renders in light DOM on purpose: ProseMirror (selection, IME, spellcheck, browser extensions)
@@ -126,7 +126,7 @@ declare global {
         "uiUploadError": { file: File; message: string };
     }
     /**
-     * Rich text editor built on Tiptap, with a configurable toolbar made of Nova buttons and icons,
+     * Rich text editor built on Tiptap, with a configurable toolbar made of Kvui buttons and icons,
      * "/" commands,
      * @mentions , tables, links, image and file uploads. Value is HTML.
      * Renders in light DOM on purpose: ProseMirror (selection, IME, spellcheck, browser extensions)
@@ -152,7 +152,7 @@ declare global {
 }
 declare namespace LocalJSX {
     /**
-     * Rich text editor built on Tiptap, with a configurable toolbar made of Nova buttons and icons,
+     * Rich text editor built on Tiptap, with a configurable toolbar made of Kvui buttons and icons,
      * "/" commands,
      * @mentions , tables, links, image and file uploads. Value is HTML.
      * Renders in light DOM on purpose: ProseMirror (selection, IME, spellcheck, browser extensions)
@@ -281,7 +281,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             /**
-             * Rich text editor built on Tiptap, with a configurable toolbar made of Nova buttons and icons,
+             * Rich text editor built on Tiptap, with a configurable toolbar made of Kvui buttons and icons,
              * "/" commands,
              * @mentions , tables, links, image and file uploads. Value is HTML.
              * Renders in light DOM on purpose: ProseMirror (selection, IME, spellcheck, browser extensions)

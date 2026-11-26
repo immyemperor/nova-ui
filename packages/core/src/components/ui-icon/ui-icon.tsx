@@ -3,8 +3,8 @@ import { getIcon, materialName, onIconLibraryChange, usesMaterial } from './icon
 import type { IconLibrary } from './icons';
 
 /**
- * An icon from the Nova set (inline SVG) or the Material Symbols set (font ligature).
- * Nova names are drawn as SVG; in material mode, the Material ligature name is written as text.
+ * An icon from the Kvui set (inline SVG) or the Material Symbols set (font ligature).
+ * Kvui names are drawn as SVG; in material mode, the Material ligature name is written as text.
  */
 @Component({
   tag: 'ui-icon',
@@ -50,9 +50,9 @@ export class UiIcon {
 
     /** Put the registered SVG shapes inside the <svg> element. Done here, not with innerHTML in JSX. */
 
-    // Nova: the registered SVG markup, drawn as an SVG element (never as text).
+    // Kvui: the registered SVG markup, drawn as an SVG element (never as text).
     const markup = getIcon(this.name);
-    // Nova: the registered SVG shapes, drawn as an SVG element (never as text).
+    // Kvui: the registered SVG shapes, drawn as an SVG element (never as text).
     const svg = `<svg class="svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true">${ markup ?? ''}</svg>`;
     return (
       <Host style={style} {...access}>

@@ -9,8 +9,8 @@ export function NavDemo() {
   const [page, setPage] = useState(4);
 
   return (
-    <section className="nova-stack nova-stack-lg" id="navigation">
-      <h2 className="nova-h3">Navigation</h2>
+    <section className="kvui-stack kvui-stack-lg" id="navigation">
+      <h2 className="kvui-h3">Navigation</h2>
 
       <UiMenubar>
         <UiMenubarMenu label="File" onUiSelect={(e) => toast(`File: ${e.detail.label}`)}>
@@ -41,7 +41,7 @@ export function NavDemo() {
       <UiBreadcrumb maxItems={3}>
         <UiBreadcrumbItem href="#">Home</UiBreadcrumbItem>
         <UiBreadcrumbItem href="#">Projects</UiBreadcrumbItem>
-        <UiBreadcrumbItem href="#">Nova</UiBreadcrumbItem>
+        <UiBreadcrumbItem href="#">Kvui</UiBreadcrumbItem>
         <UiBreadcrumbItem href="#">Components</UiBreadcrumbItem>
         <UiBreadcrumbItem>Navigation</UiBreadcrumbItem>
       </UiBreadcrumb>
@@ -67,7 +67,7 @@ export function NavDemo() {
       </UiTabs>
 
       <UiAccordion>
-        <UiAccordionItem heading="What is Nova UI?" open>
+        <UiAccordionItem heading="What is Kvui UI?" open>
           A framework-agnostic component library built with web components.
         </UiAccordionItem>
         <UiAccordionItem heading="Does it work with Angular?">
@@ -78,22 +78,22 @@ export function NavDemo() {
         </UiAccordionItem>
       </UiAccordion>
 
-      <div className="nova-stack">
+      <div className="kvui-stack">
         <UiStepper current={step} clickable onUiChange={(e) => setStep(e.detail)}>
           <UiStep heading="Account" description="Your details" />
           <UiStep heading="Workspace" description="Name it" />
           <UiStep heading="Invite" description="Add teammates" />
           <UiStep heading="Done" />
         </UiStepper>
-        <div className="nova-cluster">
+        <div className="kvui-cluster">
           <UiButton variant="secondary" size="sm" onClick={() => setStep((s) => Math.max(0, s - 1))}>Back</UiButton>
           <UiButton size="sm" onClick={() => setStep((s) => Math.min(3, s + 1))}>Next</UiButton>
         </div>
       </div>
 
-      <div className="nova-stack nova-stack-sm">
+      <div className="kvui-stack kvui-stack-sm">
         <UiPagination page={page} total={240} pageSize={10} onUiChange={(e) => setPage(e.detail)} />
-        <span className="nova-small nova-text-muted">Page {page} of 24</span>
+        <span className="kvui-small kvui-text-muted">Page {page} of 24</span>
       </div>
     </section>
   );

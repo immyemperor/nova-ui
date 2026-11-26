@@ -57,7 +57,7 @@ export function buildExtensions(o: ExtensionOptions): AnyExtension[] {
     CharacterCount.configure({ limit: o.maxLength }),
     // Ctrl/Cmd+K opens the link popover.
     Extension.create({
-      name: 'novaLinkShortcut',
+      name: 'kvuiLinkShortcut',
       addKeyboardShortcuts() {
         return {
           'Mod-k': () => o.openLink(),
@@ -70,12 +70,12 @@ export function buildExtensions(o: ExtensionOptions): AnyExtension[] {
     const getItems = o.slashItems;
     extensions.push(
       Extension.create({
-        name: 'novaSlash',
+        name: 'kvuiSlash',
         addProseMirrorPlugins() {
           return [
             Suggestion({
               editor: this.editor,
-              pluginKey: new PluginKey('novaSlash'),
+              pluginKey: new PluginKey('kvuiSlash'),
               char: '/',
               allowSpaces: false,
               items: ({ query }: { query: string }) => filterSlashItems(getItems(), query),
@@ -95,7 +95,7 @@ export function buildExtensions(o: ExtensionOptions): AnyExtension[] {
     const provider = o.mention;
     extensions.push(
       Mention.configure({
-        HTMLAttributes: { class: 'nova-ed-mention' },
+        HTMLAttributes: { class: 'kvui-ed-mention' },
         renderLabel: ({ node }: any) => `@${node.attrs.label ?? node.attrs.id}`,
         suggestion: {
           char: '@',

@@ -1,5 +1,5 @@
 {
-  "name": "omni-monorepo",
+  "name": "kvui-monorepo",
   "private": true,
   "packageManager": "pnpm@9.15.0",
   "engines": {
@@ -34,5 +34,8 @@
     "@types/node": "^26.6.6",
     "playwright": "^1.50.0",
     "typescript": "^5.6.0"
+  },
+  "dependencies": {
+    "@kvui/core": "^0.1.0"
   }
 }

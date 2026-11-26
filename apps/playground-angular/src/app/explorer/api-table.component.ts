@@ -17,12 +17,12 @@ export interface ManifestDeclaration {
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: `
-    <div class="nova-stack nova-stack-lg">
-      <div class="nova-stack nova-stack-xs">
-        <h4 class="nova-h6">Properties ({{ decl().attributes.length }})</h4>
+    <div class="kvui-stack kvui-stack-lg">
+      <div class="kvui-stack kvui-stack-xs">
+        <h4 class="kvui-h6">Properties ({{ decl().attributes.length }})</h4>
         @if (decl().attributes.length) {
-          <div class="nova-table-wrap">
-            <table class="nova-table">
+          <div class="kvui-table-wrap">
+            <table class="kvui-table">
               <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
               <tbody>
                 @for (p of decl().attributes; track p.name) {
@@ -37,46 +37,46 @@ export interface ManifestDeclaration {
             </table>
           </div>
         } @else {
-          <p class="nova-caption">No properties.</p>
+          <p class="kvui-caption">No properties.</p>
         }
       </div>
 
-      <div class="nova-stack nova-stack-xs">
-        <h4 class="nova-h6">Events ({{ decl().events.length }})</h4>
+      <div class="kvui-stack kvui-stack-xs">
+        <h4 class="kvui-h6">Events ({{ decl().events.length }})</h4>
         @if (decl().events.length) {
-          <ul class="nova-stack nova-stack-xs nova-small" role="list">
+          <ul class="kvui-stack kvui-stack-xs kvui-small" role="list">
             @for (e of decl().events; track e.name) {
-              <li><code>{{ e.name }}</code> <span class="nova-text-muted">detail: <code>{{ e.type.text }}</code></span> {{ e.description ?? '' }}</li>
+              <li><code>{{ e.name }}</code> <span class="kvui-text-muted">detail: <code>{{ e.type.text }}</code></span> {{ e.description ?? '' }}</li>
             }
           </ul>
         } @else {
-          <p class="nova-caption">This component emits no events.</p>
+          <p class="kvui-caption">This component emits no events.</p>
         }
       </div>
 
-      <div class="nova-stack nova-stack-xs">
-        <h4 class="nova-h6">Methods ({{ decl().methods.length }})</h4>
+      <div class="kvui-stack kvui-stack-xs">
+        <h4 class="kvui-h6">Methods ({{ decl().methods.length }})</h4>
         @if (decl().methods.length) {
-          <ul class="nova-stack nova-stack-xs nova-small" role="list">
+          <ul class="kvui-stack kvui-stack-xs kvui-small" role="list">
             @for (m of decl().methods; track m.name) {
               <li><code>{{ m.name }}({{ m.parameters ?? '' }})</code> {{ m.description ?? '' }}</li>
             }
           </ul>
         } @else {
-          <p class="nova-caption">No methods.</p>
+          <p class="kvui-caption">No methods.</p>
         }
       </div>
 
-      <div class="nova-stack nova-stack-xs">
-        <h4 class="nova-h6">Slots ({{ decl().slots.length }})</h4>
+      <div class="kvui-stack kvui-stack-xs">
+        <h4 class="kvui-h6">Slots ({{ decl().slots.length }})</h4>
         @if (decl().slots.length) {
-          <ul class="nova-cluster nova-small" role="list">
+          <ul class="kvui-cluster kvui-small" role="list">
             @for (s of decl().slots; track s.name) {
               <li><code>{{ s.name || 'default' }}</code></li>
             }
           </ul>
         } @else {
-          <p class="nova-caption">No named slots. Content goes in the default slot.</p>
+          <p class="kvui-caption">No named slots. Content goes in the default slot.</p>
         }
       </div>
     </div>

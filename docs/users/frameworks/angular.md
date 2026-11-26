@@ -1,6 +1,6 @@
 # Angular
 
-Works with Angular 17 and later, using standalone components. Each Nova component is a standalone Angular component with inputs, outputs and forms integration.
+Works with Angular 17 and later, using standalone components. Each Kvui component is a standalone Angular component with inputs, outputs and forms integration.
 
 ## Install
 
@@ -11,7 +11,7 @@ pnpm add @kvui/core @kvui/css @kvui/angular
 Add the stylesheet to `angular.json`:
 
 ```json
-"styles": ["node_modules/@kvui/css/dist/nova.min.css", "src/styles.css"]
+"styles": ["node_modules/@kvui/css/dist/kvui.min.css", "src/styles.css"]
 ```
 
 ## Use components

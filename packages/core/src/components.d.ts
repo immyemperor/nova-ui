@@ -660,8 +660,8 @@ export namespace Components {
         "prose": boolean;
     }
     /**
-     * An icon from the Nova set (inline SVG) or the Material Symbols set (font ligature).
-     * Nova names are drawn as SVG; in material mode, the Material ligature name is written as text.
+     * An icon from the Kvui set (inline SVG) or the Material Symbols set (font ligature).
+     * Kvui names are drawn as SVG; in material mode, the Material ligature name is written as text.
      */
     interface UiIcon {
         /**
@@ -1238,7 +1238,7 @@ export namespace Components {
     /**
      * App sidebar: a navigation column that collapses to an icon rail (`collapsed`), and becomes an
      * off-canvas drawer on phones. Put <ui-sidebar-item> children inside, optionally in groups.
-     * Sidebar and the page's own layout: pair it with `.nova-shell-sidebar` from
+     * Sidebar and the page's own layout: pair it with `.kvui-shell-sidebar` from
      * @kvui /css.
      */
     interface UiSidebar {
@@ -2481,8 +2481,8 @@ declare global {
         new (): HTMLUiHtmlElement;
     };
     /**
-     * An icon from the Nova set (inline SVG) or the Material Symbols set (font ligature).
-     * Nova names are drawn as SVG; in material mode, the Material ligature name is written as text.
+     * An icon from the Kvui set (inline SVG) or the Material Symbols set (font ligature).
+     * Kvui names are drawn as SVG; in material mode, the Material ligature name is written as text.
      */
     interface HTMLUiIconElement extends Components.UiIcon, HTMLStencilElement {
     }
@@ -2817,7 +2817,7 @@ declare global {
     /**
      * App sidebar: a navigation column that collapses to an icon rail (`collapsed`), and becomes an
      * off-canvas drawer on phones. Put <ui-sidebar-item> children inside, optionally in groups.
-     * Sidebar and the page's own layout: pair it with `.nova-shell-sidebar` from
+     * Sidebar and the page's own layout: pair it with `.kvui-shell-sidebar` from
      * @kvui /css.
      */
     interface HTMLUiSidebarElement extends Components.UiSidebar, HTMLStencilElement {
@@ -3940,8 +3940,8 @@ declare namespace LocalJSX {
         "prose"?: boolean;
     }
     /**
-     * An icon from the Nova set (inline SVG) or the Material Symbols set (font ligature).
-     * Nova names are drawn as SVG; in material mode, the Material ligature name is written as text.
+     * An icon from the Kvui set (inline SVG) or the Material Symbols set (font ligature).
+     * Kvui names are drawn as SVG; in material mode, the Material ligature name is written as text.
      */
     interface UiIcon {
         /**
@@ -4588,7 +4588,7 @@ declare namespace LocalJSX {
     /**
      * App sidebar: a navigation column that collapses to an icon rail (`collapsed`), and becomes an
      * off-canvas drawer on phones. Put <ui-sidebar-item> children inside, optionally in groups.
-     * Sidebar and the page's own layout: pair it with `.nova-shell-sidebar` from
+     * Sidebar and the page's own layout: pair it with `.kvui-shell-sidebar` from
      * @kvui /css.
      */
     interface UiSidebar {
@@ -6021,8 +6021,8 @@ declare module "@stencil/core" {
              */
             "ui-html": LocalJSX.IntrinsicElements["ui-html"] & JSXBase.HTMLAttributes<HTMLUiHtmlElement>;
             /**
-             * An icon from the Nova set (inline SVG) or the Material Symbols set (font ligature).
-             * Nova names are drawn as SVG; in material mode, the Material ligature name is written as text.
+             * An icon from the Kvui set (inline SVG) or the Material Symbols set (font ligature).
+             * Kvui names are drawn as SVG; in material mode, the Material ligature name is written as text.
              */
             "ui-icon": LocalJSX.IntrinsicElements["ui-icon"] & JSXBase.HTMLAttributes<HTMLUiIconElement>;
             "ui-input": LocalJSX.IntrinsicElements["ui-input"] & JSXBase.HTMLAttributes<HTMLUiInputElement>;
@@ -6097,7 +6097,7 @@ declare module "@stencil/core" {
             /**
              * App sidebar: a navigation column that collapses to an icon rail (`collapsed`), and becomes an
              * off-canvas drawer on phones. Put <ui-sidebar-item> children inside, optionally in groups.
-             * Sidebar and the page's own layout: pair it with `.nova-shell-sidebar` from
+             * Sidebar and the page's own layout: pair it with `.kvui-shell-sidebar` from
              * @kvui /css.
              */
             "ui-sidebar": LocalJSX.IntrinsicElements["ui-sidebar"] & JSXBase.HTMLAttributes<HTMLUiSidebarElement>;

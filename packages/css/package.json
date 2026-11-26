@@ -1,18 +1,18 @@
 {
   "name": "@kvui/css",
-  "version": "0.1.0",
-  "description": "Responsive CSS library for Nova UI: design tokens, reset, layout primitives (container, grid, stack, sidebar, shell), utilities and CSS-only components. Mobile-first, cascade-layered, logical properties.",
+  "version": "0.1.1",
+  "description": "Responsive CSS library for Kvui UI: design tokens, reset, layout primitives (container, grid, stack, sidebar, shell), utilities and CSS-only components. Mobile-first, cascade-layered, logical properties.",
   "license": "MIT",
   "type": "module",
-  "style": "./dist/nova.css",
+  "style": "./dist/kvui.css",
   "exports": {
     ".": {
-      "style": "./dist/nova.css",
-      "default": "./dist/nova.css"
+      "style": "./dist/kvui.css",
+      "default": "./dist/kvui.css"
     },
-    "./nova.css": "./dist/nova.css",
-    "./nova.min.css": "./dist/nova.min.css",
-    "./nova.compat.css": "./dist/nova.compat.css",
+    "./kvui.css": "./dist/kvui.css",
+    "./kvui.min.css": "./dist/kvui.min.css",
+    "./kvui.compat.css": "./dist/kvui.compat.css",
     "./tokens.css": "./dist/tokens.css",
     "./reset.css": "./dist/reset.css",
     "./typography.css": "./dist/typography.css",
@@ -59,11 +59,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/immyemperor/nova-ui.git",
+    "url": "git+https://github.com/immyemperor/kvui.git",
     "directory": "packages/css"
   },
-  "homepage": "https://github.com/immyemperor/nova-ui#readme",
+  "homepage": "https://github.com/immyemperor/kvui#readme",
   "bugs": {
-    "url": "https://github.com/immyemperor/nova-ui/issues"
+    "url": "https://github.com/immyemperor/kvui/issues"
   }
 }

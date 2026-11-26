@@ -1,5 +1,5 @@
-ui-popover { display: block; --ui-popover-anchor-display: block; --ui-popover-padding: var(--nova-space-3); }
-.icon-btn { all: unset; display: inline-flex; padding: 0.25em; border-radius: var(--nova-radius-control); color: var(--nova-color-fg-subtle); cursor: pointer; }
-.icon-btn:hover:not(:disabled) { color: var(--nova-color-fg); background: var(--nova-color-surface-sunken); }
-.icon-btn:focus-visible { box-shadow: var(--nova-focus-ring); }
+ui-popover { display: block; --ui-popover-anchor-display: block; --ui-popover-padding: var(--kvui-space-3); }
+.icon-btn { all: unset; display: inline-flex; padding: 0.25em; border-radius: var(--kvui-radius-control); color: var(--kvui-color-fg-subtle); cursor: pointer; }
+.icon-btn:hover:not(:disabled) { color: var(--kvui-color-fg); background: var(--kvui-color-surface-sunken); }
+.icon-btn:focus-visible { box-shadow: var(--kvui-focus-ring); }
 .icon-btn:disabled { cursor: not-allowed; }

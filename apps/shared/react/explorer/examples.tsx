@@ -15,7 +15,7 @@ import {
 // @example ui-button
 function ButtonExample() {
   return (
-    <div className="nova-cluster">
+    <div className="kvui-cluster">
       <UiButton>Save</UiButton>
       <UiButton variant="secondary">Cancel</UiButton>
       <UiButton variant="ghost">Ghost</UiButton>
@@ -29,7 +29,7 @@ function ButtonExample() {
 // @example ui-icon
 function IconExample() {
   return (
-    <div className="nova-cluster">
+    <div className="kvui-cluster">
       <UiIcon name="check" label="Done" />
       <UiIcon name="star" filled label="Starred" />
       <UiIcon name="alert-triangle" size="2rem" label="Warning" />
@@ -131,7 +131,7 @@ function ColourExample() {
 // @example ui-alert
 function AlertExample() {
   return (
-    <div className="nova-stack nova-stack-sm">
+    <div className="kvui-stack kvui-stack-sm">
       <UiAlert tone="success" heading="Saved">Your changes are live.</UiAlert>
       <UiAlert tone="danger" heading="Could not save" dismissible>Check your connection and try again.</UiAlert>
     </div>
@@ -142,7 +142,7 @@ function AlertExample() {
 // @example ui-badge
 function BadgeExample() {
   return (
-    <div className="nova-cluster">
+    <div className="kvui-cluster">
       <UiBadge tone="success" dot>Active</UiBadge>
       <UiBadge tone="warning" variant="outline">Pending</UiBadge>
       <UiBadge tone="danger" variant="solid">Failed</UiBadge>
@@ -154,7 +154,7 @@ function BadgeExample() {
 // @example ui-avatar
 function AvatarExample() {
   return (
-    <div className="nova-cluster">
+    <div className="kvui-cluster">
       <UiAvatar name="Ada Lovelace" />
       <UiAvatar name="Grace Hopper" shape="square" size="lg" />
     </div>
@@ -165,7 +165,7 @@ function AvatarExample() {
 // @example ui-progress
 function ProgressExample() {
   return (
-    <div className="nova-stack nova-stack-sm">
+    <div className="kvui-stack kvui-stack-sm">
       <UiProgress label="Upload" value={64} showValue />
       <UiProgress label="Processing" />
     </div>
@@ -188,7 +188,7 @@ function CounterExample() {
 // @example ui-toaster
 function ToasterExample() {
   return (
-    <div className="nova-cluster">
+    <div className="kvui-cluster">
       <UiButton onClick={() => toast.success('Saved')}>Success toast</UiButton>
       <UiButton variant="secondary" onClick={() => toast.error({ title: 'Upload failed', description: 'Check your connection.', actionLabel: 'Retry', onAction: () => toast('Retrying') })}>Error toast</UiButton>
       <UiToaster />
@@ -205,7 +205,7 @@ function ModalExample() {
       <UiButton onClick={() => setOpen(true)}>Open dialog</UiButton>
       <UiModal open={open} heading="Delete project?" size="sm" onUiClose={() => setOpen(false)}>
         This removes every file in it.
-        <div slot="footer" className="nova-cluster nova-cluster-end nova-d-contents">
+        <div slot="footer" className="kvui-cluster kvui-cluster-end kvui-d-contents">
           <UiButton variant="ghost" onClick={() => setOpen(false)}>Cancel</UiButton>
           <UiButton variant="danger" onClick={() => setOpen(false)}>Delete</UiButton>
         </div>
@@ -257,7 +257,7 @@ function TabsExample() {
 function AccordionExample() {
   return (
     <UiAccordion>
-      <UiAccordionItem heading="What is Nova UI?" open>A framework-agnostic component library.</UiAccordionItem>
+      <UiAccordionItem heading="What is Kvui UI?" open>A framework-agnostic component library.</UiAccordionItem>
       <UiAccordionItem heading="Does it work with Angular?">Yes, with generated standalone wrappers.</UiAccordionItem>
     </UiAccordion>
   );
@@ -268,9 +268,9 @@ function AccordionExample() {
 function PaginationExample() {
   const [page, setPage] = useState(4);
   return (
-    <div className="nova-stack nova-stack-xs">
+    <div className="kvui-stack kvui-stack-xs">
       <UiPagination page={page} total={240} pageSize={10} onUiChange={(e: CustomEvent<number>) => setPage(e.detail)} />
-      <span className="nova-caption">Page {page} of 24</span>
+      <span className="kvui-caption">Page {page} of 24</span>
     </div>
   );
 }
@@ -384,9 +384,9 @@ function ChartExample() {
 // @example ui-sparkline
 function SparklineExample() {
   return (
-    <div className="nova-cluster">
+    <div className="kvui-cluster">
       <UiSparkline label="Revenue trend" values={[3, 5, 4, 7, 6, 8, 9, 11]} area />
-      <span className="nova-small nova-text-muted">Last eight weeks</span>
+      <span className="kvui-small kvui-text-muted">Last eight weeks</span>
     </div>
   );
 }
@@ -398,7 +398,7 @@ function CardExample() {
     <UiCard variant="raised">
       <span slot="header">Profile</span>
       <p>Card body content.</p>
-      <div slot="footer" className="nova-cluster nova-cluster-end"><UiButton size="sm">Save</UiButton></div>
+      <div slot="footer" className="kvui-cluster kvui-cluster-end"><UiButton size="sm">Save</UiButton></div>
     </UiCard>
   );
 }
@@ -407,9 +407,9 @@ function CardExample() {
 // @example ui-split
 function SplitExample() {
   return (
-    <UiSplit ratio={0.3} minA={160} minB={240} label="Resize file list" style={{ height: 180, border: '1px solid var(--nova-color-border)', borderRadius: 12 }}>
-      <div slot="a" className="nova-p-3 nova-small">List pane</div>
-      <div slot="b" className="nova-p-3 nova-small">Detail pane. Drag the divider or use the arrow keys.</div>
+    <UiSplit ratio={0.3} minA={160} minB={240} label="Resize file list" style={{ height: 180, border: '1px solid var(--kvui-color-border)', borderRadius: 12 }}>
+      <div slot="a" className="kvui-p-3 kvui-small">List pane</div>
+      <div slot="b" className="kvui-p-3 kvui-small">Detail pane. Drag the divider or use the arrow keys.</div>
     </UiSplit>
   );
 }

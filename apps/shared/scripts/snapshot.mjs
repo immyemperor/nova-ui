@@ -3,7 +3,7 @@
 // Writes:
 //   apps/shared/generated/library.ts                 React apps: component API, example source, Material names
 //   apps/playground-angular/src/app/explorer/library-data.ts   Angular: the same, for its own examples
-// Copies packages/css/dist/icons.css to public/nova-icons.css of every app (when it has been built).
+// Copies packages/css/dist/icons.css to public/kvui-icons.css of every app (when it has been built).
 import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -56,7 +56,7 @@ copyFileSync(join(apps, 'shared/react/explorer/catalog.ts'), join(angularDir, 'c
 const copied = [];
 const iconsDist = join(repo, 'packages/css/dist');
 const iconFiles = [
-  ['icons.css', 'nova-icons.css'],
+  ['icons.css', 'kvui-icons.css'],
   ['material-symbols-outlined.woff2', 'material-symbols-outlined.woff2'],
 ];
 for (const app of ['playground-vite', 'playground-react', 'playground-next', 'playground-angular']) {

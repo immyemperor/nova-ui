@@ -1,6 +1,6 @@
 # Plain HTML and web components
 
-Use this when you're not using a framework, or when you want to use Nova in any framework that can render HTML.
+Use this when you're not using a framework, or when you want to use Kvui in any framework that can render HTML.
 
 ## Install and load
 
@@ -14,20 +14,20 @@ pnpm add @kvui/core @kvui/css
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <link rel="stylesheet" href="/node_modules/@kvui/css/dist/nova.min.css" />
+    <link rel="stylesheet" href="/node_modules/@kvui/css/dist/kvui.min.css" />
     <script type="module">
       import { defineCustomElements } from '/node_modules/@kvui/core/loader/index.js';
       defineCustomElements();
     </script>
   </head>
-  <body class="nova-base">
+  <body class="kvui-base">
     <ui-button variant="primary">Save</ui-button>
     <ui-input label="Email" type="email" name="email" required></ui-input>
   </body>
 </html>
 ```
 
-Bundlers resolve these paths for you. In a bundled app, write `import '@kvui/css/nova.css'` and `import { defineCustomElements } from '@kvui/core/loader'`.
+Bundlers resolve these paths for you. In a bundled app, write `import '@kvui/css/kvui.css'` and `import { defineCustomElements } from '@kvui/core/loader'`.
 
 ## Setting objects and arrays
 

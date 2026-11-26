@@ -50,7 +50,7 @@ export function createSuggestionRender<T>(getHost: () => HTMLElement | undefined
       el.textContent = '';
       if (!items.length) {
         const empty = document.createElement('div');
-        empty.className = 'nova-ed-suggest__empty';
+        empty.className = 'kvui-ed-suggest__empty';
         empty.textContent = emptyText;
         el.appendChild(empty);
         return;
@@ -59,7 +59,7 @@ export function createSuggestionRender<T>(getHost: () => HTMLElement | undefined
         const v = view(item);
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = 'nova-ed-suggest__item' + (i === index ? ' is-active' : '');
+        btn.className = 'kvui-ed-suggest__item' + (i === index ? ' is-active' : '');
         btn.setAttribute('role', 'option');
         btn.setAttribute('aria-selected', i === index ? 'true' : 'false');
         if (v.icon) {
@@ -68,14 +68,14 @@ export function createSuggestionRender<T>(getHost: () => HTMLElement | undefined
           btn.appendChild(icon);
         }
         const text = document.createElement('span');
-        text.className = 'nova-ed-suggest__text';
+        text.className = 'kvui-ed-suggest__text';
         const label = document.createElement('span');
-        label.className = 'nova-ed-suggest__label';
+        label.className = 'kvui-ed-suggest__label';
         label.textContent = v.label;
         text.appendChild(label);
         if (v.description) {
           const desc = document.createElement('span');
-          desc.className = 'nova-ed-suggest__desc';
+          desc.className = 'kvui-ed-suggest__desc';
           desc.textContent = v.description;
           text.appendChild(desc);
         }
@@ -91,7 +91,7 @@ export function createSuggestionRender<T>(getHost: () => HTMLElement | undefined
     return {
       onStart: (props: any) => {
         el = document.createElement('div');
-        el.className = 'nova-ed-suggest';
+        el.className = 'kvui-ed-suggest';
         el.setAttribute('role', 'listbox');
         el.setAttribute('popover', 'manual');
         (getHost() ?? document.body).appendChild(el);

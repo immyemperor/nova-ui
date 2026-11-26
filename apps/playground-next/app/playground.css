@@ -1,13 +1,13 @@
-/* Playground chrome only. Unlayered, so it beats Nova's layers without specificity tricks. */
+/* Playground chrome only. Unlayered, so it beats Kvui's layers without specificity tricks. */
 .pg-nav a {
   display: block;
-  padding: var(--nova-space-1) var(--nova-space-3);
-  border-radius: var(--nova-radius-control);
-  color: var(--nova-color-fg-muted);
-  font-size: var(--nova-text-sm);
+  padding: var(--kvui-space-1) var(--kvui-space-3);
+  border-radius: var(--kvui-radius-control);
+  color: var(--kvui-color-fg-muted);
+  font-size: var(--kvui-text-sm);
   text-decoration: none;
 }
-.pg-nav a:hover { background: var(--nova-color-surface-sunken); color: var(--nova-color-fg); }
+.pg-nav a:hover { background: var(--kvui-color-surface-sunken); color: var(--kvui-color-fg); }
 
 /* Drag the corner to see container queries react to the box, not the screen */
 .pg-resizable {
@@ -15,13 +15,13 @@
   overflow: auto;
   min-inline-size: 15rem;
   max-inline-size: 100%;
-  padding: var(--nova-space-4);
-  border: 1px dashed var(--nova-color-border-strong);
-  border-radius: var(--nova-radius-surface);
+  padding: var(--kvui-space-4);
+  border: 1px dashed var(--kvui-color-border-strong);
+  border-radius: var(--kvui-radius-surface);
 }
 
 /* Exit animations used by the presence demo */
 @keyframes pg-fade-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @keyframes pg-fade-out { to { opacity: 0; transform: translateY(-6px); } }
-.nova-fade-in { animation: pg-fade-in 180ms var(--nova-ease-emphasized) both; }
-.nova-fade-out { animation: pg-fade-out 180ms var(--nova-ease-standard) forwards; }
+.kvui-fade-in { animation: pg-fade-in 180ms var(--kvui-ease-emphasized) both; }
+.kvui-fade-out { animation: pg-fade-out 180ms var(--kvui-ease-standard) forwards; }

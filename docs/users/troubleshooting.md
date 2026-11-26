@@ -4,7 +4,7 @@ Symptom, likely cause, fix. If your problem isn't here, check the browser consol
 
 ## The component renders as plain text or an empty box
 
-- **Stylesheet not imported.** Add `@import '@kvui/css/nova.css';` once in your app.
+- **Stylesheet not imported.** Add `@import '@kvui/css/kvui.css';` once in your app.
 - **Component not registered.** In plain HTML, call `defineCustomElements()` from `@kvui/core/loader`. In React and Angular the wrappers register components when imported; if you see `not defined`, import the loader once in your entry file.
 - **Wrong tag name.** Tags are `ui-` followed by the kebab-case name: `ui-date-picker`, not `ui-datepicker`.
 
@@ -24,7 +24,7 @@ Add the theme script before your stylesheet in `<head>`. In Next.js use `themeIn
 
 ## Angular form binding does nothing
 
-Use `ngModel` or `formControl` with the Nova form controls. They provide value accessors automatically. If you bind with `[value]` and `(uiChange)`, update your model in the handler.
+Use `ngModel` or `formControl` with the Kvui form controls. They provide value accessors automatically. If you bind with `[value]` and `(uiChange)`, update your model in the handler.
 
 ## Table rows are not sorted or filtered in server mode
 
@@ -44,7 +44,7 @@ The editor's value is HTML. Store it as HTML, sanitise it before rendering it an
 
 ## Focus ring is missing or doubled
 
-Focus rings are drawn by the component. Don't add your own `outline: none` to Nova elements. If a focusable element you built yourself shows a double ring, add `class="hydrated"` only to Nova components; the reset leaves custom elements alone.
+Focus rings are drawn by the component. Don't add your own `outline: none` to Kvui elements. If a focusable element you built yourself shows a double ring, add `class="hydrated"` only to Kvui components; the reset leaves custom elements alone.
 
 ## Text is not translated
 
@@ -52,7 +52,7 @@ Call `setMessages()` before the first render, and use keys from `DEFAULT_MESSAGE
 
 ## Tailwind classes have no effect
 
-Add the preset to `tailwind.config.js` and include the Nova paths in `content` if you use components with Tailwind classes. Classes such as `bg-nova-accent` need the preset loaded.
+Add the preset to `tailwind.config.js` and include the Kvui paths in `content` if you use components with Tailwind classes. Classes such as `bg-kvui-accent` need the preset loaded.
 
 ## Something still broken
 

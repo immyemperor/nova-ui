@@ -1,215 +1,215 @@
-@layer nova.reset, nova.tokens, nova.base, nova.layout, nova.components, nova.utilities;
+@layer kvui.reset, kvui.tokens, kvui.base, kvui.layout, kvui.components, kvui.utilities;
 
 /*
   CSS-ONLY COMPONENTS
   For static pages, server-rendered templates and emails-to-web where JavaScript isn't available.
   They match the web components visually. When you need behaviour (menus, dialogs, validation), use the web components.
 */
-@layer nova.components {
+@layer kvui.components {
 
   /* ---------- Button ---------- */
-  .nova-btn {
-    --_bg: var(--nova-color-accent);
-    --_bg-hover: var(--nova-color-accent-hover);
-    --_fg: var(--nova-color-fg-on-accent);
+  .kvui-btn {
+    --_bg: var(--kvui-color-accent);
+    --_bg-hover: var(--kvui-color-accent-hover);
+    --_fg: var(--kvui-color-fg-on-accent);
     --_border: transparent;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--nova-space-2);
+    gap: var(--kvui-space-2);
     box-sizing: border-box;
-    min-block-size: var(--nova-control-md);
-    padding-inline: var(--nova-space-4);
+    min-block-size: var(--kvui-control-md);
+    padding-inline: var(--kvui-space-4);
     border: 1px solid var(--_border);
-    border-radius: var(--nova-radius-control);
+    border-radius: var(--kvui-radius-control);
     background: var(--_bg);
     color: var(--_fg);
     font: inherit;
-    font-weight: var(--nova-weight-medium);
+    font-weight: var(--kvui-weight-medium);
     line-height: 1;
     text-decoration: none;
     white-space: nowrap;
     cursor: pointer;
-    transition: background var(--nova-duration-fast) var(--nova-ease-standard), box-shadow var(--nova-duration-fast) var(--nova-ease-standard);
+    transition: background var(--kvui-duration-fast) var(--kvui-ease-standard), box-shadow var(--kvui-duration-fast) var(--kvui-ease-standard);
   }
-  .nova-btn:hover { background: var(--_bg-hover); }
-  .nova-btn:focus-visible { outline: none; box-shadow: var(--nova-focus-ring); }
-  .nova-btn:where(:disabled, [aria-disabled='true'], .is-disabled) { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
-  .nova-btn-secondary { --_bg: var(--nova-color-surface); --_bg-hover: var(--nova-color-surface-sunken); --_fg: var(--nova-color-fg); --_border: var(--nova-color-border-strong); }
-  .nova-btn-ghost { --_bg: transparent; --_bg-hover: var(--nova-color-surface-sunken); --_fg: var(--nova-color-fg); }
-  .nova-btn-danger { --_bg: var(--nova-color-danger); --_bg-hover: color-mix(in srgb, var(--nova-color-danger) 88%, black); --_fg: #fff; }
-  .nova-btn-sm { min-block-size: var(--nova-control-sm); padding-inline: var(--nova-space-3); font-size: var(--nova-text-xs); }
-  .nova-btn-lg { min-block-size: var(--nova-control-lg); padding-inline: var(--nova-space-5); font-size: var(--nova-text-md); }
-  .nova-btn-block { display: flex; inline-size: 100%; }
-  .nova-btn-icon { padding-inline: 0; inline-size: var(--nova-control-md); }
+  .kvui-btn:hover { background: var(--_bg-hover); }
+  .kvui-btn:focus-visible { outline: none; box-shadow: var(--kvui-focus-ring); }
+  .kvui-btn:where(:disabled, [aria-disabled='true'], .is-disabled) { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+  .kvui-btn-secondary { --_bg: var(--kvui-color-surface); --_bg-hover: var(--kvui-color-surface-sunken); --_fg: var(--kvui-color-fg); --_border: var(--kvui-color-border-strong); }
+  .kvui-btn-ghost { --_bg: transparent; --_bg-hover: var(--kvui-color-surface-sunken); --_fg: var(--kvui-color-fg); }
+  .kvui-btn-danger { --_bg: var(--kvui-color-danger); --_bg-hover: color-mix(in srgb, var(--kvui-color-danger) 88%, black); --_fg: #fff; }
+  .kvui-btn-sm { min-block-size: var(--kvui-control-sm); padding-inline: var(--kvui-space-3); font-size: var(--kvui-text-xs); }
+  .kvui-btn-lg { min-block-size: var(--kvui-control-lg); padding-inline: var(--kvui-space-5); font-size: var(--kvui-text-md); }
+  .kvui-btn-block { display: flex; inline-size: 100%; }
+  .kvui-btn-icon { padding-inline: 0; inline-size: var(--kvui-control-md); }
   /* Fingers are bigger than cursors: grow targets on touch screens */
   @media (pointer: coarse) {
-    .nova-btn { min-block-size: var(--nova-touch-target); }
-    .nova-btn-icon { inline-size: var(--nova-touch-target); }
+    .kvui-btn { min-block-size: var(--kvui-touch-target); }
+    .kvui-btn-icon { inline-size: var(--kvui-touch-target); }
   }
 
   /* ---------- Card ---------- */
-  .nova-card {
+  .kvui-card {
     box-sizing: border-box;
     overflow: hidden;
-    background: var(--nova-color-surface);
-    color: var(--nova-color-fg);
-    border: 1px solid var(--nova-color-border);
-    border-radius: var(--nova-radius-surface);
+    background: var(--kvui-color-surface);
+    color: var(--kvui-color-fg);
+    border: 1px solid var(--kvui-color-border);
+    border-radius: var(--kvui-radius-surface);
   }
-  .nova-card-raised { border-color: transparent; background: var(--nova-color-surface-raised); box-shadow: var(--nova-shadow-md); }
-  .nova-card-flat { border-color: transparent; background: var(--nova-color-surface-sunken); }
-  .nova-card-interactive { transition: border-color var(--nova-duration-base) var(--nova-ease-standard), box-shadow var(--nova-duration-base) var(--nova-ease-standard); }
-  .nova-card-interactive:hover { border-color: var(--nova-color-border-strong); box-shadow: var(--nova-shadow-md); }
-  .nova-card__header { padding: var(--nova-space-4) var(--nova-space-5); border-block-end: 1px solid var(--nova-color-border); font-weight: var(--nova-weight-semibold); }
-  .nova-card__body { padding: var(--nova-space-5); }
-  .nova-card__footer { padding: var(--nova-space-3) var(--nova-space-5); border-block-start: 1px solid var(--nova-color-border); background: var(--nova-color-surface-sunken); }
-  .nova-card__media { display: block; inline-size: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+  .kvui-card-raised { border-color: transparent; background: var(--kvui-color-surface-raised); box-shadow: var(--kvui-shadow-md); }
+  .kvui-card-flat { border-color: transparent; background: var(--kvui-color-surface-sunken); }
+  .kvui-card-interactive { transition: border-color var(--kvui-duration-base) var(--kvui-ease-standard), box-shadow var(--kvui-duration-base) var(--kvui-ease-standard); }
+  .kvui-card-interactive:hover { border-color: var(--kvui-color-border-strong); box-shadow: var(--kvui-shadow-md); }
+  .kvui-card__header { padding: var(--kvui-space-4) var(--kvui-space-5); border-block-end: 1px solid var(--kvui-color-border); font-weight: var(--kvui-weight-semibold); }
+  .kvui-card__body { padding: var(--kvui-space-5); }
+  .kvui-card__footer { padding: var(--kvui-space-3) var(--kvui-space-5); border-block-start: 1px solid var(--kvui-color-border); background: var(--kvui-color-surface-sunken); }
+  .kvui-card__media { display: block; inline-size: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
 
   /* ---------- Badge ---------- */
-  .nova-badge {
-    --_c: var(--nova-color-fg-muted);
-    --_soft: var(--nova-color-surface-sunken);
+  .kvui-badge {
+    --_c: var(--kvui-color-fg-muted);
+    --_soft: var(--kvui-color-surface-sunken);
     display: inline-flex;
     align-items: center;
     gap: 0.375em;
     box-sizing: border-box;
     block-size: 1.375rem;
-    padding-inline: var(--nova-space-2);
-    border-radius: var(--nova-radius-pill);
+    padding-inline: var(--kvui-space-2);
+    border-radius: var(--kvui-radius-pill);
     background: var(--_soft);
     color: var(--_c);
-    font-size: var(--nova-text-xs);
-    font-weight: var(--nova-weight-medium);
+    font-size: var(--kvui-text-xs);
+    font-weight: var(--kvui-weight-medium);
     line-height: 1;
     white-space: nowrap;
   }
-  .nova-badge-accent { --_c: var(--nova-color-accent); --_soft: var(--nova-color-accent-soft); }
-  .nova-badge-success { --_c: var(--nova-color-success); --_soft: var(--nova-color-success-soft); }
-  .nova-badge-warning { --_c: var(--nova-color-warning); --_soft: var(--nova-color-warning-soft); }
-  .nova-badge-danger { --_c: var(--nova-color-danger); --_soft: var(--nova-color-danger-soft); }
-  .nova-badge-info { --_c: var(--nova-color-info); --_soft: var(--nova-color-info-soft); }
+  .kvui-badge-accent { --_c: var(--kvui-color-accent); --_soft: var(--kvui-color-accent-soft); }
+  .kvui-badge-success { --_c: var(--kvui-color-success); --_soft: var(--kvui-color-success-soft); }
+  .kvui-badge-warning { --_c: var(--kvui-color-warning); --_soft: var(--kvui-color-warning-soft); }
+  .kvui-badge-danger { --_c: var(--kvui-color-danger); --_soft: var(--kvui-color-danger-soft); }
+  .kvui-badge-info { --_c: var(--kvui-color-info); --_soft: var(--kvui-color-info-soft); }
 
   /* ---------- Alert ---------- */
-  .nova-alert {
-    --_c: var(--nova-color-info);
-    --_soft: var(--nova-color-info-soft);
-    padding: var(--nova-space-3) var(--nova-space-4);
+  .kvui-alert {
+    --_c: var(--kvui-color-info);
+    --_soft: var(--kvui-color-info-soft);
+    padding: var(--kvui-space-3) var(--kvui-space-4);
     background: var(--_soft);
-    color: var(--nova-color-fg);
+    color: var(--kvui-color-fg);
     border: 1px solid color-mix(in srgb, var(--_c) 40%, transparent);
     border-inline-start: 4px solid var(--_c);
-    border-radius: var(--nova-radius-control);
-    font-size: var(--nova-text-sm);
+    border-radius: var(--kvui-radius-control);
+    font-size: var(--kvui-text-sm);
   }
-  .nova-alert-success { --_c: var(--nova-color-success); --_soft: var(--nova-color-success-soft); }
-  .nova-alert-warning { --_c: var(--nova-color-warning); --_soft: var(--nova-color-warning-soft); }
-  .nova-alert-danger { --_c: var(--nova-color-danger); --_soft: var(--nova-color-danger-soft); }
-  .nova-alert__title { margin: 0 0 var(--nova-space-1); font-weight: var(--nova-weight-semibold); }
+  .kvui-alert-success { --_c: var(--kvui-color-success); --_soft: var(--kvui-color-success-soft); }
+  .kvui-alert-warning { --_c: var(--kvui-color-warning); --_soft: var(--kvui-color-warning-soft); }
+  .kvui-alert-danger { --_c: var(--kvui-color-danger); --_soft: var(--kvui-color-danger-soft); }
+  .kvui-alert__title { margin: 0 0 var(--kvui-space-1); font-weight: var(--kvui-weight-semibold); }
 
   /* ---------- Form fields ---------- */
-  .nova-field { display: grid; gap: var(--nova-space-1); }
-  .nova-label { font-size: var(--nova-text-sm); font-weight: var(--nova-weight-medium); }
-  .nova-hint { font-size: var(--nova-text-xs); color: var(--nova-color-fg-muted); }
-  .nova-error { font-size: var(--nova-text-xs); color: var(--nova-color-danger); }
-  .nova-input, .nova-select, .nova-textarea {
+  .kvui-field { display: grid; gap: var(--kvui-space-1); }
+  .kvui-label { font-size: var(--kvui-text-sm); font-weight: var(--kvui-weight-medium); }
+  .kvui-hint { font-size: var(--kvui-text-xs); color: var(--kvui-color-fg-muted); }
+  .kvui-error { font-size: var(--kvui-text-xs); color: var(--kvui-color-danger); }
+  .kvui-input, .kvui-select, .kvui-textarea {
     box-sizing: border-box;
     inline-size: 100%;
-    min-block-size: var(--nova-control-md);
-    padding: var(--nova-space-2) var(--nova-space-3);
-    background: var(--nova-color-surface);
-    color: var(--nova-color-fg);
-    border: 1px solid var(--nova-color-border-strong);
-    border-radius: var(--nova-radius-control);
+    min-block-size: var(--kvui-control-md);
+    padding: var(--kvui-space-2) var(--kvui-space-3);
+    background: var(--kvui-color-surface);
+    color: var(--kvui-color-fg);
+    border: 1px solid var(--kvui-color-border-strong);
+    border-radius: var(--kvui-radius-control);
     font: inherit;
     /* 16px stops iOS Safari zooming the page when a field is focused */
-    font-size: max(1rem, var(--nova-text-sm));
-    transition: border-color var(--nova-duration-fast) var(--nova-ease-standard), box-shadow var(--nova-duration-fast) var(--nova-ease-standard);
+    font-size: max(1rem, var(--kvui-text-sm));
+    transition: border-color var(--kvui-duration-fast) var(--kvui-ease-standard), box-shadow var(--kvui-duration-fast) var(--kvui-ease-standard);
   }
-  .nova-input::placeholder, .nova-textarea::placeholder { color: var(--nova-color-fg-subtle); }
-  .nova-input:hover, .nova-select:hover, .nova-textarea:hover { border-color: var(--nova-color-fg-subtle); }
-  .nova-input:focus-visible, .nova-select:focus-visible, .nova-textarea:focus-visible { outline: none; border-color: var(--nova-color-accent); box-shadow: var(--nova-focus-ring); }
-  .nova-input:where([aria-invalid='true'], .is-invalid), .nova-select:where([aria-invalid='true'], .is-invalid), .nova-textarea:where([aria-invalid='true'], .is-invalid) { border-color: var(--nova-color-danger); }
-  .nova-input:disabled, .nova-select:disabled, .nova-textarea:disabled { opacity: 0.55; background: var(--nova-color-surface-sunken); cursor: not-allowed; }
-  .nova-textarea { min-block-size: 6rem; resize: vertical; }
-  .nova-check { display: inline-flex; align-items: center; gap: var(--nova-space-2); cursor: pointer; }
-  .nova-check > input { inline-size: 1.125rem; block-size: 1.125rem; accent-color: var(--nova-color-accent); }
+  .kvui-input::placeholder, .kvui-textarea::placeholder { color: var(--kvui-color-fg-subtle); }
+  .kvui-input:hover, .kvui-select:hover, .kvui-textarea:hover { border-color: var(--kvui-color-fg-subtle); }
+  .kvui-input:focus-visible, .kvui-select:focus-visible, .kvui-textarea:focus-visible { outline: none; border-color: var(--kvui-color-accent); box-shadow: var(--kvui-focus-ring); }
+  .kvui-input:where([aria-invalid='true'], .is-invalid), .kvui-select:where([aria-invalid='true'], .is-invalid), .kvui-textarea:where([aria-invalid='true'], .is-invalid) { border-color: var(--kvui-color-danger); }
+  .kvui-input:disabled, .kvui-select:disabled, .kvui-textarea:disabled { opacity: 0.55; background: var(--kvui-color-surface-sunken); cursor: not-allowed; }
+  .kvui-textarea { min-block-size: 6rem; resize: vertical; }
+  .kvui-check { display: inline-flex; align-items: center; gap: var(--kvui-space-2); cursor: pointer; }
+  .kvui-check > input { inline-size: 1.125rem; block-size: 1.125rem; accent-color: var(--kvui-color-accent); }
   /* Form layout that stacks on phones and goes inline when there's room */
-  .nova-form-row { display: grid; gap: var(--nova-space-4); grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr)); }
+  .kvui-form-row { display: grid; gap: var(--kvui-space-4); grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr)); }
 
   /* ---------- Table ---------- */
-  .nova-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--nova-color-border); border-radius: var(--nova-radius-surface); }
-  .nova-table { inline-size: 100%; border-collapse: collapse; font-size: var(--nova-text-sm); }
-  .nova-table :is(th, td) { padding: var(--nova-space-3) var(--nova-space-4); text-align: start; border-block-end: 1px solid var(--nova-color-border); }
-  .nova-table thead th { background: var(--nova-color-surface-sunken); color: var(--nova-color-fg-muted); font-size: var(--nova-text-xs); font-weight: var(--nova-weight-semibold); white-space: nowrap; }
-  .nova-table tbody tr:last-child td { border-block-end: 0; }
-  .nova-table-striped tbody tr:nth-child(even) { background: color-mix(in srgb, var(--nova-color-surface-sunken) 55%, transparent); }
-  .nova-table-hover tbody tr:hover { background: var(--nova-color-surface-sunken); }
+  .kvui-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--kvui-color-border); border-radius: var(--kvui-radius-surface); }
+  .kvui-table { inline-size: 100%; border-collapse: collapse; font-size: var(--kvui-text-sm); }
+  .kvui-table :is(th, td) { padding: var(--kvui-space-3) var(--kvui-space-4); text-align: start; border-block-end: 1px solid var(--kvui-color-border); }
+  .kvui-table thead th { background: var(--kvui-color-surface-sunken); color: var(--kvui-color-fg-muted); font-size: var(--kvui-text-xs); font-weight: var(--kvui-weight-semibold); white-space: nowrap; }
+  .kvui-table tbody tr:last-child td { border-block-end: 0; }
+  .kvui-table-striped tbody tr:nth-child(even) { background: color-mix(in srgb, var(--kvui-color-surface-sunken) 55%, transparent); }
+  .kvui-table-hover tbody tr:hover { background: var(--kvui-color-surface-sunken); }
   /* Rows become labelled cards on phones. Give each <td> a data-label, and keep role="table|row|cell" on the elements
      so assistive tech still announces a table (display changes can drop table semantics). */
   @media (max-width: 39.99em) {
-    .nova-table-stack thead { position: absolute; inline-size: 1px; block-size: 1px; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
-    .nova-table-stack, .nova-table-stack tbody { display: block; }
-    .nova-table-stack tr { display: block; padding-block: var(--nova-space-2); border-block-end: 1px solid var(--nova-color-border); }
-    .nova-table-stack td { display: flex; justify-content: space-between; gap: var(--nova-space-4); border: 0; padding-block: var(--nova-space-1); text-align: end; }
-    .nova-table-stack td::before { content: attr(data-label); font-weight: var(--nova-weight-semibold); color: var(--nova-color-fg-muted); text-align: start; }
+    .kvui-table-stack thead { position: absolute; inline-size: 1px; block-size: 1px; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
+    .kvui-table-stack, .kvui-table-stack tbody { display: block; }
+    .kvui-table-stack tr { display: block; padding-block: var(--kvui-space-2); border-block-end: 1px solid var(--kvui-color-border); }
+    .kvui-table-stack td { display: flex; justify-content: space-between; gap: var(--kvui-space-4); border: 0; padding-block: var(--kvui-space-1); text-align: end; }
+    .kvui-table-stack td::before { content: attr(data-label); font-weight: var(--kvui-weight-semibold); color: var(--kvui-color-fg-muted); text-align: start; }
   }
 
   /* ---------- Small bits ---------- */
-  .nova-divider { border: 0; border-block-start: 1px solid var(--nova-color-border); margin-block: var(--nova-space-5); }
-  .nova-divider-vertical { align-self: stretch; border: 0; border-inline-start: 1px solid var(--nova-color-border); margin: 0; inline-size: 0; }
-  .nova-kbd { display: inline-block; padding: 0.1em 0.45em; border: 1px solid var(--nova-color-border-strong); border-block-end-width: 2px; border-radius: 4px; background: var(--nova-color-surface); font-family: var(--nova-font-mono); font-size: 0.85em; line-height: 1.4; }
-  .nova-link { color: var(--nova-color-accent); text-decoration-thickness: 0.08em; text-underline-offset: 0.18em; }
-  .nova-link:hover { color: var(--nova-color-accent-hover); }
-  .nova-avatar { display: inline-flex; align-items: center; justify-content: center; flex: none; inline-size: 2.25rem; block-size: 2.25rem; border-radius: 50%; background: var(--nova-color-accent-soft); color: var(--nova-color-accent); font-weight: var(--nova-weight-semibold); font-size: var(--nova-text-sm); overflow: hidden; }
-  .nova-avatar > img { inline-size: 100%; block-size: 100%; object-fit: cover; }
+  .kvui-divider { border: 0; border-block-start: 1px solid var(--kvui-color-border); margin-block: var(--kvui-space-5); }
+  .kvui-divider-vertical { align-self: stretch; border: 0; border-inline-start: 1px solid var(--kvui-color-border); margin: 0; inline-size: 0; }
+  .kvui-kbd { display: inline-block; padding: 0.1em 0.45em; border: 1px solid var(--kvui-color-border-strong); border-block-end-width: 2px; border-radius: 4px; background: var(--kvui-color-surface); font-family: var(--kvui-font-mono); font-size: 0.85em; line-height: 1.4; }
+  .kvui-link { color: var(--kvui-color-accent); text-decoration-thickness: 0.08em; text-underline-offset: 0.18em; }
+  .kvui-link:hover { color: var(--kvui-color-accent-hover); }
+  .kvui-avatar { display: inline-flex; align-items: center; justify-content: center; flex: none; inline-size: 2.25rem; block-size: 2.25rem; border-radius: 50%; background: var(--kvui-color-accent-soft); color: var(--kvui-color-accent); font-weight: var(--kvui-weight-semibold); font-size: var(--kvui-text-sm); overflow: hidden; }
+  .kvui-avatar > img { inline-size: 100%; block-size: 100%; object-fit: cover; }
 
   /* Skip link: first focusable element on the page; appears only when focused */
-  .nova-skip-link {
+  .kvui-skip-link {
     position: absolute;
-    inset-block-start: var(--nova-space-2);
-    inset-inline-start: var(--nova-space-2);
-    z-index: var(--nova-z-toast);
-    padding: var(--nova-space-2) var(--nova-space-4);
-    border-radius: var(--nova-radius-control);
-    background: var(--nova-color-fg);
-    color: var(--nova-color-bg);
+    inset-block-start: var(--kvui-space-2);
+    inset-inline-start: var(--kvui-space-2);
+    z-index: var(--kvui-z-toast);
+    padding: var(--kvui-space-2) var(--kvui-space-4);
+    border-radius: var(--kvui-radius-control);
+    background: var(--kvui-color-fg);
+    color: var(--kvui-color-bg);
     transform: translateY(-200%);
   }
-  .nova-skip-link:focus { transform: none; }
+  .kvui-skip-link:focus { transform: none; }
 
   /* Forced colours: keep borders and selected states visible (Windows High Contrast) */
   @media (forced-colors: active) {
-    .nova-btn, .nova-badge, .nova-card, .nova-alert, .nova-input, .nova-select, .nova-textarea, .nova-table-wrap { border: 1px solid ButtonText; }
-    .nova-btn:focus-visible, .nova-input:focus-visible, .nova-select:focus-visible, .nova-textarea:focus-visible { outline: 3px solid Highlight; outline-offset: 2px; }
-    .nova-btn:where(:disabled, [aria-disabled='true']), .nova-input:disabled { color: GrayText; border-color: GrayText; }
-    .nova-skip-link { border: 2px solid ButtonText; }
+    .kvui-btn, .kvui-badge, .kvui-card, .kvui-alert, .kvui-input, .kvui-select, .kvui-textarea, .kvui-table-wrap { border: 1px solid ButtonText; }
+    .kvui-btn:focus-visible, .kvui-input:focus-visible, .kvui-select:focus-visible, .kvui-textarea:focus-visible { outline: 3px solid Highlight; outline-offset: 2px; }
+    .kvui-btn:where(:disabled, [aria-disabled='true']), .kvui-input:disabled { color: GrayText; border-color: GrayText; }
+    .kvui-skip-link { border: 2px solid ButtonText; }
   }
 }
 
 /* ---------- Scroll-linked motion ----------
    Elements fade and rise as they move through the viewport. Driven by the browser's scroll timeline where
    supported (no JavaScript). Elsewhere they simply show, so content is never hidden. */
-@layer nova.components {
+@layer kvui.components {
   @supports (animation-timeline: view()) {
-    .nova-scroll-reveal {
-      animation: nova-scroll-reveal linear both;
+    .kvui-scroll-reveal {
+      animation: kvui-scroll-reveal linear both;
       animation-timeline: view();
       animation-range: entry 0% cover 35%;
     }
-    @keyframes nova-scroll-reveal {
+    @keyframes kvui-scroll-reveal {
       from { opacity: 0; transform: translateY(24px); }
       to { opacity: 1; transform: none; }
     }
     /* Scroll-linked progress bar for a container: width follows how far the page has scrolled */
-    .nova-scroll-progress {
+    .kvui-scroll-progress {
       transform-origin: 0 50%;
-      animation: nova-scroll-grow linear both;
+      animation: kvui-scroll-grow linear both;
       animation-timeline: scroll(root block);
     }
-    @keyframes nova-scroll-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+    @keyframes kvui-scroll-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
   }
   @media (prefers-reduced-motion: reduce) {
-    .nova-scroll-reveal, .nova-scroll-progress { animation: none; }
+    .kvui-scroll-reveal, .kvui-scroll-progress { animation: none; }
   }
 }

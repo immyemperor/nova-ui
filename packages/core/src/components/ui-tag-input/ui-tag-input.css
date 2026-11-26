@@ -1,7 +1,7 @@
-.control { flex-wrap: wrap; cursor: text; padding-top: var(--nova-space-1); padding-bottom: var(--nova-space-1); }
+.control { flex-wrap: wrap; cursor: text; padding-top: var(--kvui-space-1); padding-bottom: var(--kvui-space-1); }
 .tags { display: contents; list-style: none; margin: 0; padding: 0; }
 .native { min-width: 8rem; }
-.chip { display: inline-flex; align-items: center; gap: 0.25em; max-width: 100%; height: 1.5rem; padding: 0 0.25rem 0 var(--nova-space-2); border-radius: var(--nova-radius-control); background: var(--nova-color-accent-soft); color: var(--nova-color-accent); font-size: var(--nova-text-xs); font-weight: var(--nova-weight-medium); }
+.chip { display: inline-flex; align-items: center; gap: 0.25em; max-width: 100%; height: 1.5rem; padding: 0 0.25rem 0 var(--kvui-space-2); border-radius: var(--kvui-radius-control); background: var(--kvui-color-accent-soft); color: var(--kvui-color-accent); font-size: var(--kvui-text-xs); font-weight: var(--kvui-weight-medium); }
 .chip-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .chip-x { all: unset; display: inline-flex; flex: none; padding: 0.15em; border-radius: 50%; cursor: pointer; }
-.chip-x:hover { background: color-mix(in srgb, var(--nova-color-accent) 18%, transparent); }
+.chip-x:hover { background: color-mix(in srgb, var(--kvui-color-accent) 18%, transparent); }

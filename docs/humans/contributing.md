@@ -15,7 +15,7 @@ Node 20 or later. Use pnpm 9 (the version pinned in `package.json`).
 
 1. **Find the rule.** Put logic in `core/src/utils` if it's pure. Put DOM behaviour in the component.
 2. **Write or update the test first** for any rule (see [Testing](testing.md)).
-3. **Keep tokens and strings out of components.** Use `--nova-*` variables and `t('key')`. Add new strings to `DEFAULT_MESSAGES`.
+3. **Keep tokens and strings out of components.** Use `--kvui-*` variables and `t('key')`. Add new strings to `DEFAULT_MESSAGES`.
 4. **Use the existing patterns.** Look at a similar component. Props that objects go through are `@Prop()` with no attribute parsing; events are `@Event()` with `EventEmitter<T>`.
 5. **Regenerate** any generated files you touched (table in [Architecture](architecture.md)).
 6. **Update the docs** in `docs/users/features/` for any user-visible change, and run `pnpm docs:check`.

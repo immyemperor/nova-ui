@@ -1,10 +1,10 @@
 # AGENTS.md
 
-Instructions for AI coding agents working with or inside the Nova UI repository.
+Instructions for AI coding agents working with or inside the Kvui UI repository.
 
 ## What this repository is
 
-Nova UI is a design system: web components (Stencil) with generated wrappers for React, Angular and Vue, a CSS library, a Tailwind preset, and an optional rich text editor. Monorepo managed with pnpm.
+Kvui UI is a design system: web components (Stencil) with generated wrappers for React, Angular and Vue, a CSS library, a Tailwind preset, and an optional rich text editor. Monorepo managed with pnpm.
 
 ## Read these first
 
@@ -15,14 +15,14 @@ Nova UI is a design system: web components (Stencil) with generated wrappers for
 
 A single-file version of the user and agent docs is at `docs/llms-full.txt`. The index is `llms.txt`.
 
-## Using Nova in an application
+## Using Kvui in an application
 
-- Import the stylesheet once: `@import '@kvui/css/nova.css';`.
+- Import the stylesheet once: `@import '@kvui/css/kvui.css';`.
 - Use the wrapper for the framework: `@kvui/react`, `@kvui/angular`, `@kvui/vue`, or the plain `ui-*` tags.
 - Pass arrays and objects as properties, never as attributes.
 - Listen to `ui`-prefixed events and read `event.detail`.
 - Give every control a `label` or accessible name.
-- Use CSS variables (`--nova-*`) for colour and spacing.
+- Use CSS variables (`--kvui-*`) for colour and spacing.
 - Sanitise any HTML you didn't write, with `ui-html` or `sanitizeHTML`.
 
 ## Working inside this repository
@@ -31,7 +31,7 @@ A single-file version of the user and agent docs is at `docs/llms-full.txt`. The
 - **Don't edit generated files.** `packages/core/dist-docs/*`, `packages/vue/src/components.ts`, `packages/react/src/components/stencil-generated/*`, `packages/angular/src/lib/stencil-generated/*`, `packages/css/src/generated/utilities.css`, `docs/llms-full.txt`. Change the generator's source, then regenerate.
 - **Put logic in `packages/core/src/utils`** when it's pure, and test it in `packages/core/test`. Components call the logic.
 - **Add strings to `packages/core/src/i18n/messages.ts`** and call `t('key')`. Don't hard-code visible text in components.
-- **Use `--nova-*` tokens**, not literal colours or sizes, in component CSS.
+- **Use `--kvui-*` tokens**, not literal colours or sizes, in component CSS.
 - **Props that the component sets itself must be `mutable`.** Stencil warns otherwise.
 - **Prop names must not shadow DOM members.** `pnpm check:names` checks this.
 - **Local variables named `t` shadow the translator** in files that call `t()`. Use another name.

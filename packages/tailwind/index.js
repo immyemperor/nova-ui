@@ -1,17 +1,17 @@
 /**
- * Tailwind CSS preset for Nova UI. Colours, radius, shadows and fonts resolve to the same CSS variables the
+ * Tailwind CSS preset for Kvui UI. Colours, radius, shadows and fonts resolve to the same CSS variables the
  * components use, so Tailwind classes follow light, dark and brand themes automatically.
  *   // tailwind.config.js
  *   module.exports = { presets: [require('@kvui/tailwind')], content: [...] }
- *   <button class="bg-nova-accent text-nova-on-accent rounded-nova">Save</button>
+ *   <button class="bg-kvui-accent text-kvui-on-accent rounded-kvui">Save</button>
  */
-const v = (name) => `var(--nova-${name})`;
+const v = (name) => `var(--kvui-${name})`;
 
 module.exports = {
   theme: {
     extend: {
       colors: {
-        nova: {
+        kvui: {
           bg: v('color-bg'),
           surface: v('color-surface'),
           raised: v('color-surface-raised'),
@@ -32,27 +32,27 @@ module.exports = {
         },
       },
       borderRadius: {
-        'nova-control': v('radius-control'),
-        'nova-surface': v('radius-surface'),
-        'nova-pill': v('radius-pill'),
+        'kvui-control': v('radius-control'),
+        'kvui-surface': v('radius-surface'),
+        'kvui-pill': v('radius-pill'),
       },
       boxShadow: {
-        'nova-sm': v('shadow-sm'),
-        'nova-md': v('shadow-md'),
-        'nova-lg': v('shadow-lg'),
+        'kvui-sm': v('shadow-sm'),
+        'kvui-md': v('shadow-md'),
+        'kvui-lg': v('shadow-lg'),
       },
       fontFamily: {
-        'nova-sans': v('font-sans'),
-        'nova-mono': v('font-mono'),
+        'kvui-sans': v('font-sans'),
+        'kvui-mono': v('font-mono'),
       },
       transitionDuration: {
-        'nova-fast': v('duration-fast'),
-        'nova-base': v('duration-base'),
+        'kvui-fast': v('duration-fast'),
+        'kvui-base': v('duration-base'),
       },
       zIndex: {
-        'nova-dropdown': v('z-dropdown'),
-        'nova-modal': v('z-modal'),
-        'nova-toast': v('z-toast'),
+        'kvui-dropdown': v('z-dropdown'),
+        'kvui-modal': v('z-modal'),
+        'kvui-toast': v('z-toast'),
       },
     },
   },

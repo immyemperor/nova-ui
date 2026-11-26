@@ -1,4 +1,4 @@
-:host { display: inline-block; inline-size: 120px; block-size: 32px; color: var(--nova-color-accent); vertical-align: middle; }
+:host { display: inline-block; inline-size: 120px; block-size: 32px; color: var(--kvui-color-accent); vertical-align: middle; }
 .svg { display: block; inline-size: 100%; block-size: 100%; overflow: visible; }
 .line { fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
 .area { fill: currentColor; opacity: 0.15; }

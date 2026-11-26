@@ -9,24 +9,24 @@ import { ExplorerNavComponent } from './explorer/explorer-nav.component';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [RouterOutlet, RouterLink, ExplorerNavComponent],
   template: `
-    <a class="nova-skip-link" href="#main">Skip to content</a>
-    <div class="nova-shell nova-shell-sidebar nova-shell-sticky-side">
-      <header class="nova-shell__header nova-sticky-top nova-z-20 nova-bg-surface nova-border-b">
-        <div class="nova-cluster nova-cluster-between nova-px-4 nova-py-3">
-          <div class="nova-cluster">
-            <a class="nova-link" routerLink="/">Demos</a>
-            <strong>Nova UI on Angular</strong>
+    <a class="kvui-skip-link" href="#main">Skip to content</a>
+    <div class="kvui-shell kvui-shell-sidebar kvui-shell-sticky-side">
+      <header class="kvui-shell__header kvui-sticky-top kvui-z-20 kvui-bg-surface kvui-border-b">
+        <div class="kvui-cluster kvui-cluster-between kvui-px-4 kvui-py-3">
+          <div class="kvui-cluster">
+            <a class="kvui-link" routerLink="/">Demos</a>
+            <strong>Kvui UI on Angular</strong>
           </div>
-          <div class="nova-cluster">
-            <a class="nova-btn nova-btn-ghost nova-btn-sm" routerLink="/components">Components</a>
-            <a class="nova-btn nova-btn-ghost nova-btn-sm" routerLink="/icons/material">Icons</a>
+          <div class="kvui-cluster">
+            <a class="kvui-btn kvui-btn-ghost kvui-btn-sm" routerLink="/components">Components</a>
+            <a class="kvui-btn kvui-btn-ghost kvui-btn-sm" routerLink="/icons/material">Icons</a>
           </div>
         </div>
       </header>
-      <nav class="nova-shell__sidebar nova-hide-below-md nova-p-4 nova-border-e" aria-label="Component explorer">
+      <nav class="kvui-shell__sidebar kvui-hide-below-md kvui-p-4 kvui-border-e" aria-label="Component explorer">
         <app-explorer-nav />
       </nav>
-      <main class="nova-shell__main nova-p-4 nova-md-p-6" id="main">
+      <main class="kvui-shell__main kvui-p-4 kvui-md-p-6" id="main">
         <router-outlet />
       </main>
     </div>

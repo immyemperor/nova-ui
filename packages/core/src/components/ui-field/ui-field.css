@@ -1,8 +1,8 @@
-:host { display: grid; gap: var(--nova-space-1); font-family: var(--nova-font-sans); color: var(--nova-color-fg); }
-:host([inline]) { grid-template-columns: minmax(8rem, 12rem) minmax(0, 1fr); align-items: start; column-gap: var(--nova-space-4); }
+:host { display: grid; gap: var(--kvui-space-1); font-family: var(--kvui-font-sans); color: var(--kvui-color-fg); }
+:host([inline]) { grid-template-columns: minmax(8rem, 12rem) minmax(0, 1fr); align-items: start; column-gap: var(--kvui-space-4); }
 :host([inline]) .msg { grid-column: 2; }
-.label { font-size: var(--nova-text-sm); font-weight: var(--nova-weight-medium); }
+.label { font-size: var(--kvui-text-sm); font-weight: var(--kvui-weight-medium); }
 :host([inline]) .label { grid-row: span 2; padding-block-start: 0.5rem; }
-.req { color: var(--nova-color-danger); }
-.msg { margin: 0; font-size: var(--nova-text-xs); color: var(--nova-color-fg-muted); }
-.msg.error { color: var(--nova-color-danger); }
+.req { color: var(--kvui-color-danger); }
+.msg { margin: 0; font-size: var(--kvui-text-xs); color: var(--kvui-color-fg-muted); }
+.msg.error { color: var(--kvui-color-danger); }

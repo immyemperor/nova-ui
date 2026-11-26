@@ -102,20 +102,20 @@ function InviteForm() {
 
   return (
     <UiCard variant="raised">
-      <form onSubmit={submit} className="nova-stack">
+      <form onSubmit={submit} className="kvui-stack">
         <UiInput name="email" type="email" label="Email" required value={email} error={emailError} onUiInput={(e: CustomEvent<string>) => setEmail(e.detail)} />
         <UiSelect name="role" label="Role" value={role} options={[{ value: 'member', label: 'Member' }, { value: 'admin', label: 'Admin' }]} onUiChange={(e: CustomEvent<string | string[]>) => setRole(String(e.detail))} />
         <UiDateRangePicker name="access" label="Access period" presets value={range} onUiChange={(e: CustomEvent<DateRange>) => setRange(e.detail)} />
         <UiField label="Note" hint="Shown to the invitee">
           <UiButton variant="secondary" onClick={askNote}><UiIcon slot="start" name="pencil" /> Add a note</UiButton>
         </UiField>
-        <div className="nova-cluster nova-cluster-end">
+        <div className="kvui-cluster kvui-cluster-end">
           <UiButton type="submit">Send invitation</UiButton>
         </div>
       </form>
       <UiModal open={confirmOpen} heading="Send invitation?" size="sm" onUiClose={() => setConfirmOpen(false)}>
-        <p className="nova-small">We will email <strong>{pending?.email}</strong> as {role}.</p>
-        <div slot="footer" className="nova-cluster nova-cluster-end nova-d-contents">
+        <p className="kvui-small">We will email <strong>{pending?.email}</strong> as {role}.</p>
+        <div slot="footer" className="kvui-cluster kvui-cluster-end kvui-d-contents">
           <UiButton variant="ghost" onClick={() => setConfirmOpen(false)}>Cancel</UiButton>
           <UiButton onClick={send}>Send</UiButton>
         </div>
@@ -127,10 +127,10 @@ function InviteForm() {
 /* ---------- Dashboard ---------- */
 function Dashboard() {
   return (
-    <div className="nova-stack nova-stack-lg">
-      <div className="nova-grid-auto nova-grid-auto-sm nova-gap-4">
-        <UiCard><div className="nova-stack nova-stack-xs"><span className="nova-caption">Collected</span><span className="nova-text-3xl nova-font-bold">$84,200</span><UiBadge tone="success">+12%</UiBadge></div></UiCard>
-        <UiCard><div className="nova-stack nova-stack-xs"><span className="nova-caption">Overdue</span><span className="nova-text-3xl nova-font-bold">$6,410</span><UiBadge tone="danger">+3%</UiBadge></div></UiCard>
+    <div className="kvui-stack kvui-stack-lg">
+      <div className="kvui-grid-auto kvui-grid-auto-sm kvui-gap-4">
+        <UiCard><div className="kvui-stack kvui-stack-xs"><span className="kvui-caption">Collected</span><span className="kvui-text-3xl kvui-font-bold">$84,200</span><UiBadge tone="success">+12%</UiBadge></div></UiCard>
+        <UiCard><div className="kvui-stack kvui-stack-xs"><span className="kvui-caption">Overdue</span><span className="kvui-text-3xl kvui-font-bold">$6,410</span><UiBadge tone="danger">+3%</UiBadge></div></UiCard>
       </div>
       <UiChart type="bar" label="Collected by month, thousands" labels={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']} series={[{ name: 'Collected', values: [42, 51, 47, 60, 58, 84] }]} />
     </div>
@@ -143,7 +143,7 @@ export function App() {
   const route = useRoute();
   const [iconSet, setIconSet] = useState<IconLibrary>(getIconLibrary());
   const toggleIcons = () => {
-    const next: IconLibrary = iconSet === 'nova' ? 'material' : 'nova';
+    const next: IconLibrary = iconSet === 'kvui' ? 'material' : 'kvui';
     setIconLibrary(next);
     setIconSet(next);
   };
@@ -154,19 +154,19 @@ export function App() {
   }
 
   return (
-    <div className="nova-shell nova-shell-sidebar nova-shell-sticky-side">
-      <header className="nova-shell__header nova-bg-surface nova-border-b nova-sticky-top nova-z-20">
-        <div className="nova-cluster nova-cluster-between nova-px-4 nova-py-3">
+    <div className="kvui-shell kvui-shell-sidebar kvui-shell-sticky-side">
+      <header className="kvui-shell__header kvui-bg-surface kvui-border-b kvui-sticky-top kvui-z-20">
+        <div className="kvui-cluster kvui-cluster-between kvui-px-4 kvui-py-3">
           <strong>Billing</strong>
-          <div className="nova-cluster">
-            <a className="nova-btn nova-btn-ghost nova-btn-sm" href="#/component/ui-button">Components</a>
-            <button type="button" className="nova-btn nova-btn-ghost nova-btn-sm" onClick={toggleIcons}>Icons: {iconSet === 'nova' ? 'Nova' : 'Material'}</button>
+          <div className="kvui-cluster">
+            <a className="kvui-btn kvui-btn-ghost kvui-btn-sm" href="#/component/ui-button">Components</a>
+            <button type="button" className="kvui-btn kvui-btn-ghost kvui-btn-sm" onClick={toggleIcons}>Icons: {iconSet === 'kvui' ? 'Kvui' : 'Material'}</button>
             <UiThemeToggle />
           </div>
         </div>
       </header>
 
-      <nav className="nova-shell__sidebar nova-hide-below-md nova-p-4 nova-border-e">
+      <nav className="kvui-shell__sidebar kvui-hide-below-md kvui-p-4 kvui-border-e">
         <UiSidebar label="Main" storageKey="react-app-sidebar">
           {[['dashboard', 'Dashboard', 'home'], ['invoices', 'Invoices', 'file'], ['team', 'Team', 'users']].map(([id, label, icon]) => (
             <UiSidebarItem key={id} label={label} icon={icon} current={section === id} onUiSelect={() => setSection(id)} href={`#${id}`} />
@@ -174,14 +174,14 @@ export function App() {
         </UiSidebar>
       </nav>
 
-      <main className="nova-shell__main nova-p-4 nova-md-p-6" id="main">
-        <div className="nova-container-lg nova-stack nova-stack-lg">
+      <main className="kvui-shell__main kvui-p-4 kvui-md-p-6" id="main">
+        <div className="kvui-container-lg kvui-stack kvui-stack-lg">
           {banner && (
             <UiAlert tone="info" heading="Sample data" dismissible onUiDismiss={() => setBanner(false)}>
               Everything here is served by a local stand-in API. Replace src/api.ts with your backend.
             </UiAlert>
           )}
-          <h1 className="nova-h2">{section === 'dashboard' ? 'Dashboard' : section === 'invoices' ? 'Invoices' : 'Team'}</h1>
+          <h1 className="kvui-h2">{section === 'dashboard' ? 'Dashboard' : section === 'invoices' ? 'Invoices' : 'Team'}</h1>
 
           <UiTabs label="Sections" value={section} onUiChange={(e: CustomEvent<string>) => setSection(String(e.detail))}>
             <UiTab value="dashboard">Dashboard</UiTab>
@@ -192,9 +192,9 @@ export function App() {
             <UiTabPanel value="team"><InviteForm /></UiTabPanel>
           </UiTabs>
 
-          <section className="nova-stack nova-stack-sm" id="source">
-            <h2 className="nova-h4">Source code</h2>
-            <p className="nova-caption">Copy any file. The invoice API is in src/api.ts; replace it with your backend.</p>
+          <section className="kvui-stack kvui-stack-sm" id="source">
+            <h2 className="kvui-h4">Source code</h2>
+            <p className="kvui-caption">Copy any file. The invoice API is in src/api.ts; replace it with your backend.</p>
             <SourceFile title="App.tsx" code={appSrc} />
             <SourceFile title="api.ts" code={apiSrc} />
           </section>

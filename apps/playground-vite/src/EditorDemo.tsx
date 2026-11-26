@@ -22,8 +22,8 @@ export function EditorDemo() {
   const [comment, setComment] = useState('');
 
   return (
-    <section className="nova-stack nova-stack-lg" id="editor">
-      <h2 className="nova-h3">Rich text editor</h2>
+    <section className="kvui-stack kvui-stack-lg" id="editor">
+      <h2 className="kvui-h3">Rich text editor</h2>
 
       <UiEditor
         label="Description"
@@ -40,8 +40,8 @@ export function EditorDemo() {
       />
 
       <details>
-        <summary className="nova-cursor-pointer">HTML output</summary>
-        <pre className="nova-text-xs nova-font-mono nova-break-words" style={{ whiteSpace: 'pre-wrap' }}>{html}</pre>
+        <summary className="kvui-cursor-pointer">HTML output</summary>
+        <pre className="kvui-text-xs kvui-font-mono kvui-break-words" style={{ whiteSpace: 'pre-wrap' }}>{html}</pre>
       </details>
 
       <UiEditor

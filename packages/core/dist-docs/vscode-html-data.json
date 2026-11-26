@@ -3,7 +3,7 @@
   "tags": [
     {
       "name": "ui-accordion",
-      "description": "Nova UiAccordion",
+      "description": "Kvui UiAccordion",
       "attributes": [
         {
           "name": "multiple",
@@ -26,7 +26,7 @@
     },
     {
       "name": "ui-accordion-item",
-      "description": "Nova UiAccordionItem",
+      "description": "Kvui UiAccordionItem",
       "attributes": [
         {
           "name": "heading",
@@ -58,7 +58,7 @@
     },
     {
       "name": "ui-alert",
-      "description": "Nova UiAlert",
+      "description": "Kvui UiAlert",
       "attributes": [
         {
           "name": "tone",
@@ -100,7 +100,7 @@
     },
     {
       "name": "ui-avatar",
-      "description": "Nova UiAvatar",
+      "description": "Kvui UiAvatar",
       "attributes": [
         {
           "name": "src",
@@ -144,7 +144,7 @@
     },
     {
       "name": "ui-badge",
-      "description": "Nova UiBadge",
+      "description": "Kvui UiBadge",
       "attributes": [
         {
           "name": "tone",
@@ -194,7 +194,7 @@
     },
     {
       "name": "ui-breadcrumb",
-      "description": "Nova UiBreadcrumb",
+      "description": "Kvui UiBreadcrumb",
       "attributes": [
         {
           "name": "max-items",
@@ -208,7 +208,7 @@
     },
     {
       "name": "ui-breadcrumb-item",
-      "description": "Nova UiBreadcrumbItem",
+      "description": "Kvui UiBreadcrumbItem",
       "attributes": [
         {
           "name": "href",
@@ -242,7 +242,7 @@
     },
     {
       "name": "ui-button",
-      "description": "Nova UiButton",
+      "description": "Kvui UiButton",
       "attributes": [
         {
           "name": "variant",
@@ -328,7 +328,7 @@
     },
     {
       "name": "ui-calendar",
-      "description": "Nova UiCalendar",
+      "description": "Kvui UiCalendar",
       "attributes": [
         {
           "name": "value",
@@ -358,7 +358,7 @@
     },
     {
       "name": "ui-card",
-      "description": "Nova UiCard",
+      "description": "Kvui UiCard",
       "attributes": [
         {
           "name": "variant",
@@ -384,7 +384,7 @@
     },
     {
       "name": "ui-carousel",
-      "description": "Nova UiCarousel",
+      "description": "Kvui UiCarousel",
       "attributes": [
         {
           "name": "slides-per-view",
@@ -425,7 +425,7 @@
     },
     {
       "name": "ui-chart",
-      "description": "Nova UiChart",
+      "description": "Kvui UiChart",
       "attributes": [
         {
           "name": "type",
@@ -480,7 +480,7 @@
     },
     {
       "name": "ui-checkbox",
-      "description": "Nova UiCheckbox",
+      "description": "Kvui UiCheckbox",
       "attributes": [
         {
           "name": "checked",
@@ -522,7 +522,7 @@
     },
     {
       "name": "ui-collapse",
-      "description": "Nova UiCollapse",
+      "description": "Kvui UiCollapse",
       "attributes": [
         {
           "name": "open",
@@ -541,7 +541,7 @@
     },
     {
       "name": "ui-color-picker",
-      "description": "Nova UiColorPicker",
+      "description": "Kvui UiColorPicker",
       "attributes": [
         {
           "name": "value",
@@ -581,7 +581,7 @@
     },
     {
       "name": "ui-command-palette",
-      "description": "Nova UiCommandPalette",
+      "description": "Kvui UiCommandPalette",
       "attributes": [
         {
           "name": "open",
@@ -620,7 +620,7 @@
     },
     {
       "name": "ui-context-menu",
-      "description": "Nova UiContextMenu",
+      "description": "Kvui UiContextMenu",
       "attributes": [
         {
           "name": "disabled",
@@ -635,7 +635,7 @@
     },
     {
       "name": "ui-counter",
-      "description": "Nova UiCounter",
+      "description": "Kvui UiCounter",
       "attributes": [
         {
           "name": "value",
@@ -677,7 +677,7 @@
     },
     {
       "name": "ui-date-picker",
-      "description": "Nova UiDatePicker",
+      "description": "Kvui UiDatePicker",
       "attributes": [
         {
           "name": "value",
@@ -757,7 +757,7 @@
     },
     {
       "name": "ui-date-range-picker",
-      "description": "Nova UiDateRangePicker",
+      "description": "Kvui UiDateRangePicker",
       "attributes": [
         {
           "name": "value",
@@ -822,12 +822,12 @@
     },
     {
       "name": "ui-dialog-host",
-      "description": "Nova UiDialogHost",
+      "description": "Kvui UiDialogHost",
       "attributes": []
     },
     {
       "name": "ui-drawer",
-      "description": "Nova UiDrawer",
+      "description": "Kvui UiDrawer",
       "attributes": [
         {
           "name": "open",
@@ -892,7 +892,7 @@
     },
     {
       "name": "ui-dropdown",
-      "description": "Nova UiDropdown",
+      "description": "Kvui UiDropdown",
       "attributes": [
         {
           "name": "open",
@@ -915,7 +915,7 @@
     },
     {
       "name": "ui-editor",
-      "description": "Nova UiEditor",
+      "description": "Kvui UiEditor",
       "attributes": [
         {
           "name": "value",
@@ -1049,7 +1049,7 @@
     },
     {
       "name": "ui-field",
-      "description": "Nova UiField",
+      "description": "Kvui UiField",
       "attributes": [
         {
           "name": "label",
@@ -1077,7 +1077,7 @@
     },
     {
       "name": "ui-file-upload",
-      "description": "Nova UiFileUpload",
+      "description": "Kvui UiFileUpload",
       "attributes": [
         {
           "name": "accept",
@@ -1141,7 +1141,7 @@
     },
     {
       "name": "ui-html",
-      "description": "Nova UiHtml",
+      "description": "Kvui UiHtml",
       "attributes": [
         {
           "name": "html",
@@ -1161,7 +1161,7 @@
     },
     {
       "name": "ui-icon",
-      "description": "Nova UiIcon",
+      "description": "Kvui UiIcon",
       "attributes": [
         {
           "name": "name",
@@ -1188,7 +1188,7 @@
     },
     {
       "name": "ui-input",
-      "description": "Nova UiInput",
+      "description": "Kvui UiInput",
       "attributes": [
         {
           "name": "value",
@@ -1296,7 +1296,7 @@
     },
     {
       "name": "ui-kanban",
-      "description": "Nova UiKanban",
+      "description": "Kvui UiKanban",
       "attributes": [
         {
           "name": "columns",
@@ -1322,7 +1322,7 @@
     },
     {
       "name": "ui-marquee",
-      "description": "Nova UiMarquee",
+      "description": "Kvui UiMarquee",
       "attributes": [
         {
           "name": "speed",
@@ -1353,7 +1353,7 @@
     },
     {
       "name": "ui-menu-item",
-      "description": "Nova UiMenuItem",
+      "description": "Kvui UiMenuItem",
       "attributes": [
         {
           "name": "value",
@@ -1389,7 +1389,7 @@
     },
     {
       "name": "ui-menubar",
-      "description": "Nova UiMenubar",
+      "description": "Kvui UiMenubar",
       "attributes": [
         {
           "name": "label",
@@ -1399,7 +1399,7 @@
     },
     {
       "name": "ui-menubar-menu",
-      "description": "Nova UiMenubarMenu",
+      "description": "Kvui UiMenubarMenu",
       "attributes": [
         {
           "name": "label",
@@ -1432,7 +1432,7 @@
     },
     {
       "name": "ui-modal",
-      "description": "Nova UiModal",
+      "description": "Kvui UiModal",
       "attributes": [
         {
           "name": "open",
@@ -1511,7 +1511,7 @@
     },
     {
       "name": "ui-nav-item",
-      "description": "Nova UiNavItem",
+      "description": "Kvui UiNavItem",
       "attributes": [
         {
           "name": "label",
@@ -1539,7 +1539,7 @@
     },
     {
       "name": "ui-nav-menu",
-      "description": "Nova UiNavMenu",
+      "description": "Kvui UiNavMenu",
       "attributes": [
         {
           "name": "label",
@@ -1549,7 +1549,7 @@
     },
     {
       "name": "ui-otp-input",
-      "description": "Nova UiOtpInput",
+      "description": "Kvui UiOtpInput",
       "attributes": [
         {
           "name": "value",
@@ -1629,7 +1629,7 @@
     },
     {
       "name": "ui-pagination",
-      "description": "Nova UiPagination",
+      "description": "Kvui UiPagination",
       "attributes": [
         {
           "name": "page",
@@ -1679,7 +1679,7 @@
     },
     {
       "name": "ui-popover",
-      "description": "Nova UiPopover",
+      "description": "Kvui UiPopover",
       "attributes": [
         {
           "name": "open",
@@ -1754,7 +1754,7 @@
     },
     {
       "name": "ui-progress",
-      "description": "Nova UiProgress",
+      "description": "Kvui UiProgress",
       "attributes": [
         {
           "name": "value",
@@ -1795,7 +1795,7 @@
     },
     {
       "name": "ui-radio",
-      "description": "Nova UiRadio",
+      "description": "Kvui UiRadio",
       "attributes": [
         {
           "name": "value",
@@ -1815,7 +1815,7 @@
     },
     {
       "name": "ui-radio-group",
-      "description": "Nova UiRadioGroup",
+      "description": "Kvui UiRadioGroup",
       "attributes": [
         {
           "name": "value",
@@ -1859,7 +1859,7 @@
     },
     {
       "name": "ui-rating",
-      "description": "Nova UiRating",
+      "description": "Kvui UiRating",
       "attributes": [
         {
           "name": "value",
@@ -1901,7 +1901,7 @@
     },
     {
       "name": "ui-reveal",
-      "description": "Nova UiReveal",
+      "description": "Kvui UiReveal",
       "attributes": [
         {
           "name": "animation",
@@ -1932,7 +1932,7 @@
     },
     {
       "name": "ui-scheduler",
-      "description": "Nova UiScheduler",
+      "description": "Kvui UiScheduler",
       "attributes": [
         {
           "name": "events",
@@ -1990,7 +1990,7 @@
     },
     {
       "name": "ui-scroll-progress",
-      "description": "Nova UiScrollProgress",
+      "description": "Kvui UiScrollProgress",
       "attributes": [
         {
           "name": "target",
@@ -2016,7 +2016,7 @@
     },
     {
       "name": "ui-select",
-      "description": "Nova UiSelect",
+      "description": "Kvui UiSelect",
       "attributes": [
         {
           "name": "value",
@@ -2107,7 +2107,7 @@
     },
     {
       "name": "ui-sidebar",
-      "description": "Nova UiSidebar",
+      "description": "Kvui UiSidebar",
       "attributes": [
         {
           "name": "collapsed",
@@ -2130,7 +2130,7 @@
     },
     {
       "name": "ui-sidebar-item",
-      "description": "Nova UiSidebarItem",
+      "description": "Kvui UiSidebarItem",
       "attributes": [
         {
           "name": "label",
@@ -2175,7 +2175,7 @@
     },
     {
       "name": "ui-skeleton",
-      "description": "Nova UiSkeleton",
+      "description": "Kvui UiSkeleton",
       "attributes": [
         {
           "name": "shape",
@@ -2213,7 +2213,7 @@
     },
     {
       "name": "ui-slider",
-      "description": "Nova UiSlider",
+      "description": "Kvui UiSlider",
       "attributes": [
         {
           "name": "value",
@@ -2261,7 +2261,7 @@
     },
     {
       "name": "ui-sortable",
-      "description": "Nova UiSortable",
+      "description": "Kvui UiSortable",
       "attributes": [
         {
           "name": "items",
@@ -2279,7 +2279,7 @@
     },
     {
       "name": "ui-sparkline",
-      "description": "Nova UiSparkline",
+      "description": "Kvui UiSparkline",
       "attributes": [
         {
           "name": "values",
@@ -2306,7 +2306,7 @@
     },
     {
       "name": "ui-spinner",
-      "description": "Nova UiSpinner",
+      "description": "Kvui UiSpinner",
       "attributes": [
         {
           "name": "size",
@@ -2331,7 +2331,7 @@
     },
     {
       "name": "ui-split",
-      "description": "Nova UiSplit",
+      "description": "Kvui UiSplit",
       "attributes": [
         {
           "name": "orientation",
@@ -2373,7 +2373,7 @@
     },
     {
       "name": "ui-stagger",
-      "description": "Nova UiStagger",
+      "description": "Kvui UiStagger",
       "attributes": [
         {
           "name": "animation",
@@ -2403,7 +2403,7 @@
     },
     {
       "name": "ui-step",
-      "description": "Nova UiStep",
+      "description": "Kvui UiStep",
       "attributes": [
         {
           "name": "heading",
@@ -2466,7 +2466,7 @@
     },
     {
       "name": "ui-stepper",
-      "description": "Nova UiStepper",
+      "description": "Kvui UiStepper",
       "attributes": [
         {
           "name": "current",
@@ -2501,7 +2501,7 @@
     },
     {
       "name": "ui-switch",
-      "description": "Nova UiSwitch",
+      "description": "Kvui UiSwitch",
       "attributes": [
         {
           "name": "checked",
@@ -2534,7 +2534,7 @@
     },
     {
       "name": "ui-tab",
-      "description": "Nova UiTab",
+      "description": "Kvui UiTab",
       "attributes": [
         {
           "name": "value",
@@ -2554,7 +2554,7 @@
     },
     {
       "name": "ui-tab-panel",
-      "description": "Nova UiTabPanel",
+      "description": "Kvui UiTabPanel",
       "attributes": [
         {
           "name": "value",
@@ -2569,7 +2569,7 @@
     },
     {
       "name": "ui-table",
-      "description": "Nova UiTable",
+      "description": "Kvui UiTable",
       "attributes": [
         {
           "name": "columns",
@@ -2714,7 +2714,7 @@
     },
     {
       "name": "ui-tabs",
-      "description": "Nova UiTabs",
+      "description": "Kvui UiTabs",
       "attributes": [
         {
           "name": "value",
@@ -2768,7 +2768,7 @@
     },
     {
       "name": "ui-tag-input",
-      "description": "Nova UiTagInput",
+      "description": "Kvui UiTagInput",
       "attributes": [
         {
           "name": "value",
@@ -2848,7 +2848,7 @@
     },
     {
       "name": "ui-textarea",
-      "description": "Nova UiTextarea",
+      "description": "Kvui UiTextarea",
       "attributes": [
         {
           "name": "value",
@@ -2929,12 +2929,12 @@
     },
     {
       "name": "ui-theme-toggle",
-      "description": "Nova UiThemeToggle",
+      "description": "Kvui UiThemeToggle",
       "attributes": []
     },
     {
       "name": "ui-time-picker",
-      "description": "Nova UiTimePicker",
+      "description": "Kvui UiTimePicker",
       "attributes": [
         {
           "name": "value",
@@ -3005,7 +3005,7 @@
     },
     {
       "name": "ui-toaster",
-      "description": "Nova UiToaster",
+      "description": "Kvui UiToaster",
       "attributes": [
         {
           "name": "placement",
@@ -3043,7 +3043,7 @@
     },
     {
       "name": "ui-tooltip",
-      "description": "Nova UiTooltip",
+      "description": "Kvui UiTooltip",
       "attributes": [
         {
           "name": "content",
@@ -3066,7 +3066,7 @@
     },
     {
       "name": "ui-tree",
-      "description": "Nova UiTree",
+      "description": "Kvui UiTree",
       "attributes": [
         {
           "name": "nodes",
@@ -3096,7 +3096,7 @@
     },
     {
       "name": "ui-virtual-list",
-      "description": "Nova UiVirtualList",
+      "description": "Kvui UiVirtualList",
       "attributes": [
         {
           "name": "count",

@@ -3,7 +3,7 @@ import { contrastRatio, mix, normaliseHex, readableOn } from './color';
 /**
  * Generate a full light and dark palette from one brand colour. The output is checked by construction:
  * text on accent and accent on surface meet WCAG AA (4.5:1), so a brand colour can never silently break contrast.
- * Output is a set of --nova-color-* values you can drop into :root and [data-theme='dark'].
+ * Output is a set of --kvui-color-* values you can drop into :root and [data-theme='dark'].
  */
 export interface GeneratedTheme {
   light: Record<string, string>;
@@ -53,22 +53,22 @@ export function generateTheme(brand: string): GeneratedTheme {
   if (contrastRatio(onD, accD) < AA) warnings.push('text on dark accent is below 4.5:1');
 
   const light = {
-    '--nova-color-accent': accL,
-    '--nova-color-accent-hover': lHover,
-    '--nova-color-accent-active': lActive,
-    '--nova-color-accent-soft': lSoft,
-    '--nova-color-fg-on-accent': onL,
-    '--nova-color-bg': lightBg,
-    '--nova-color-surface': lightSurface,
+    '--kvui-color-accent': accL,
+    '--kvui-color-accent-hover': lHover,
+    '--kvui-color-accent-active': lActive,
+    '--kvui-color-accent-soft': lSoft,
+    '--kvui-color-fg-on-accent': onL,
+    '--kvui-color-bg': lightBg,
+    '--kvui-color-surface': lightSurface,
   };
   const dark = {
-    '--nova-color-accent': accD,
-    '--nova-color-accent-hover': dHover,
-    '--nova-color-accent-active': dActive,
-    '--nova-color-accent-soft': dSoft,
-    '--nova-color-fg-on-accent': onD,
-    '--nova-color-bg': darkBg,
-    '--nova-color-surface': darkSurface,
+    '--kvui-color-accent': accD,
+    '--kvui-color-accent-hover': dHover,
+    '--kvui-color-accent-active': dActive,
+    '--kvui-color-accent-soft': dSoft,
+    '--kvui-color-fg-on-accent': onD,
+    '--kvui-color-bg': darkBg,
+    '--kvui-color-surface': darkSurface,
   };
   return { light, dark, warnings };
 }

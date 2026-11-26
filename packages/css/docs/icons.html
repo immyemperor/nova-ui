@@ -3,40 +3,40 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Material Symbols | Nova UI</title>
-  <link rel="stylesheet" href="../dist/nova.min.css" />
+  <title>Material Symbols | Kvui UI</title>
+  <link rel="stylesheet" href="../dist/kvui.min.css" />
   <link rel="stylesheet" href="../dist/icons.css" />
   <style>
-    body { min-block-size: 100vh; background: var(--nova-color-bg); }
-    .icon-page { max-inline-size: 82rem; margin-inline: auto; padding: var(--nova-space-6) var(--nova-gutter); }
-    .icon-header { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--nova-space-4); margin-block-end: var(--nova-space-5); }
-    .icon-header h1 { margin: 0; font-size: var(--nova-text-2xl); }
-    .icon-header p { margin: var(--nova-space-1) 0 0; color: var(--nova-color-fg-muted); }
-    .icon-search { position: sticky; inset-block-start: 0; z-index: 1; padding-block: var(--nova-space-3); background: var(--nova-color-bg); }
-    .icon-search input { box-sizing: border-box; inline-size: 100%; max-inline-size: 34rem; min-block-size: var(--nova-control-lg); padding-inline: var(--nova-space-3); border: 1px solid var(--nova-color-border-strong); border-radius: var(--nova-radius-control); background: var(--nova-color-surface); color: var(--nova-color-fg); font: inherit; }
-    .icon-search input:focus-visible { outline: 2px solid var(--nova-color-accent); outline-offset: 2px; }
-    .icon-count { min-block-size: 1.5em; margin: var(--nova-space-2) 0; color: var(--nova-color-fg-muted); font-size: var(--nova-text-sm); }
-    .icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 8.5rem), 1fr)); gap: var(--nova-space-2); }
-    .icon-tile { display: grid; min-block-size: 7rem; place-items: center; gap: var(--nova-space-2); padding: var(--nova-space-3); overflow-wrap: anywhere; border: 1px solid var(--nova-color-border); border-radius: var(--nova-radius-control); background: var(--nova-color-surface); color: var(--nova-color-fg); text-align: center; }
-    .icon-tile .nova-icon { font-size: 1.75rem; color: var(--nova-color-accent); }
-    .icon-tile code { font-size: .6875rem; color: var(--nova-color-fg-muted); }
-    .icon-more { display: block; min-block-size: var(--nova-control-lg); margin: var(--nova-space-5) auto; padding-inline: var(--nova-space-4); border: 1px solid var(--nova-color-border-strong); border-radius: var(--nova-radius-control); background: var(--nova-color-surface); color: var(--nova-color-fg); font: inherit; cursor: pointer; }
-    .icon-more:hover { background: var(--nova-color-surface-sunken); }
+    body { min-block-size: 100vh; background: var(--kvui-color-bg); }
+    .icon-page { max-inline-size: 82rem; margin-inline: auto; padding: var(--kvui-space-6) var(--kvui-gutter); }
+    .icon-header { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--kvui-space-4); margin-block-end: var(--kvui-space-5); }
+    .icon-header h1 { margin: 0; font-size: var(--kvui-text-2xl); }
+    .icon-header p { margin: var(--kvui-space-1) 0 0; color: var(--kvui-color-fg-muted); }
+    .icon-search { position: sticky; inset-block-start: 0; z-index: 1; padding-block: var(--kvui-space-3); background: var(--kvui-color-bg); }
+    .icon-search input { box-sizing: border-box; inline-size: 100%; max-inline-size: 34rem; min-block-size: var(--kvui-control-lg); padding-inline: var(--kvui-space-3); border: 1px solid var(--kvui-color-border-strong); border-radius: var(--kvui-radius-control); background: var(--kvui-color-surface); color: var(--kvui-color-fg); font: inherit; }
+    .icon-search input:focus-visible { outline: 2px solid var(--kvui-color-accent); outline-offset: 2px; }
+    .icon-count { min-block-size: 1.5em; margin: var(--kvui-space-2) 0; color: var(--kvui-color-fg-muted); font-size: var(--kvui-text-sm); }
+    .icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 8.5rem), 1fr)); gap: var(--kvui-space-2); }
+    .icon-tile { display: grid; min-block-size: 7rem; place-items: center; gap: var(--kvui-space-2); padding: var(--kvui-space-3); overflow-wrap: anywhere; border: 1px solid var(--kvui-color-border); border-radius: var(--kvui-radius-control); background: var(--kvui-color-surface); color: var(--kvui-color-fg); text-align: center; }
+    .icon-tile .kvui-icon { font-size: 1.75rem; color: var(--kvui-color-accent); }
+    .icon-tile code { font-size: .6875rem; color: var(--kvui-color-fg-muted); }
+    .icon-more { display: block; min-block-size: var(--kvui-control-lg); margin: var(--kvui-space-5) auto; padding-inline: var(--kvui-space-4); border: 1px solid var(--kvui-color-border-strong); border-radius: var(--kvui-radius-control); background: var(--kvui-color-surface); color: var(--kvui-color-fg); font: inherit; cursor: pointer; }
+    .icon-more:hover { background: var(--kvui-color-surface-sunken); }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; } }
   </style>
 </head>
-<body class="nova-base">
+<body class="kvui-base">
   <main class="icon-page">
     <header class="icon-header">
       <div>
-        <a href="./index.html" class="nova-link">Nova CSS docs</a>
+        <a href="./index.html" class="kvui-link">Kvui CSS docs</a>
         <h1>Material Symbols</h1>
         <p>Search 4,304 Google Material Symbols. Each tile shows the CSS class name.</p>
       </div>
-      <span class="nova-badge nova-badge-accent">Outlined variable font</span>
+      <span class="kvui-badge kvui-badge-accent">Outlined variable font</span>
     </header>
     <div class="icon-search">
-      <label class="nova-sr-only" for="icon-filter">Search icons by name</label>
+      <label class="kvui-sr-only" for="icon-filter">Search icons by name</label>
       <input id="icon-filter" type="search" placeholder="Search by name, e.g. arrow or home" autocomplete="off" />
       <p class="icon-count" id="icon-count" role="status" aria-live="polite"></p>
     </div>
@@ -67,10 +67,10 @@
         const tile = document.createElement('div');
         tile.className = 'icon-tile';
         const icon = document.createElement('span');
-        icon.className = 'nova-icon nova-icon-' + className;
+        icon.className = 'kvui-icon kvui-icon-' + className;
         icon.setAttribute('aria-hidden', 'true');
         const label = document.createElement('code');
-        label.textContent = 'nova-icon-' + className;
+        label.textContent = 'kvui-icon-' + className;
         tile.append(icon, label);
         fragment.append(tile);
       }

@@ -22,31 +22,31 @@ function balanced(name, css) {
   return false;
 }
 
-const files = ['nova', 'tokens', 'reset', 'typography', 'layout', 'components', 'utilities', 'print'];
+const files = ['kvui', 'tokens', 'reset', 'typography', 'layout', 'components', 'utilities', 'print'];
 for (const f of files) {
   const p = join(root, 'dist', `${f}.css`);
   if (!existsSync(p)) { fail(`dist/${f}.css missing. Run the build first.`); continue; }
   if (balanced(`${f}.css`, readFileSync(p, 'utf8'))) ok(`${f}.css is well-formed`);
 }
 
-const full = readFileSync(join(root, 'dist/nova.css'), 'utf8');
-const min = readFileSync(join(root, 'dist/nova.min.css'), 'utf8');
-balanced('nova.min.css', min);
-const compat = readFileSync(join(root, 'dist/nova.compat.css'), 'utf8');
-if (balanced('nova.compat.css', compat)) {
-  if (/@layer/.test(compat)) fail('nova.compat.css still contains @layer');
+const full = readFileSync(join(root, 'dist/kvui.css'), 'utf8');
+const min = readFileSync(join(root, 'dist/kvui.min.css'), 'utf8');
+balanced('kvui.min.css', min);
+const compat = readFileSync(join(root, 'dist/kvui.compat.css'), 'utf8');
+if (balanced('kvui.compat.css', compat)) {
+  if (/@layer/.test(compat)) fail('kvui.compat.css still contains @layer');
   else if (blocksCount(compat) >= blocksCount(min)) fail('compat build should have fewer blocks than the layered build (layer wrappers removed)');
   else ok(`compat build has no @layer (${blocksCount(min) - blocksCount(compat)} wrappers removed, all other rules kept)`);
 }
 if (blocks(full) === blocks(min)) ok(`minified output keeps every rule (${blocks(full) - 1} blocks)`);
 else fail(`minifier changed the rule count: ${blocks(full)} vs ${blocks(min)}`);
 if (/;;/.test(min) || /\{;/.test(min)) fail('minified output has empty declarations');
-if (!/^\/\*![^]*?\*\/\s*@layer nova\.reset/.test(min)) fail('layer order statement must come first in nova.min.css');
+if (!/^\/\*![^]*?\*\/\s*@layer kvui\.reset/.test(min)) fail('layer order statement must come first in kvui.min.css');
 else ok('layer order statement comes first');
-if (/@import/.test(full)) fail('nova.css still contains @import');
+if (/@import/.test(full)) fail('kvui.css still contains @import');
 else ok('no unresolved @import');
-for (const token of ['--nova-color-accent', '--nova-gutter', '--nova-container-xl', '--nova-space-fluid-l']) {
-  if (!full.includes(token + ':')) fail(`token ${token} is not defined in nova.css`);
+for (const token of ['--kvui-color-accent', '--kvui-gutter', '--kvui-container-xl', '--kvui-space-fluid-l']) {
+  if (!full.includes(token + ':')) fail(`token ${token} is not defined in kvui.css`);
 }
 ok('core and layout tokens are present');
 
@@ -54,9 +54,9 @@ ok('core and layout tokens are present');
 const lin = (c) => { const s = c / 255; return s <= 0.03928 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4; };
 const lum = (h) => { const [r, g, b] = [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16)); return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b); };
 const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m); return (x + 0.05) / (y + 0.05); };
-const tokensIn = (block) => Object.fromEntries([...block.matchAll(/--nova-((?:color|tint)-[\w-]+):\s*(#[0-9a-fA-F]{6}|rgb\([^)]*\))/g)].map((m) => [m[1].replace(/^color-/, ''), m[2]]));
+const tokensIn = (block) => Object.fromEntries([...block.matchAll(/--kvui-((?:color|tint)-[\w-]+):\s*(#[0-9a-fA-F]{6}|rgb\([^)]*\))/g)].map((m) => [m[1].replace(/^color-/, ''), m[2]]));
 const noComments = full.replace(/\/\*[\s\S]*?\*\//g, '');
-const blocksWithBg = [...noComments.matchAll(/([^{}]*)\{([^{}]*--nova-color-bg:[^{}]*)\}/g)];
+const blocksWithBg = [...noComments.matchAll(/([^{}]*)\{([^{}]*--kvui-color-bg:[^{}]*)\}/g)];
 const light = blocksWithBg.find((m) => /data-theme='light'/.test(m[1]));
 const dark = blocksWithBg.find((m) => /data-theme='dark'/.test(m[1]));
 
@@ -108,13 +108,13 @@ else {
   if (!bad) ok(`contrast: ${(TEXT.length + UI.length) * 2 + TINTS.length * TINT_TEXT.length * 2} token pairs (including translucent tints) meet WCAG AA in light and dark`);
 }
 
-// Every .nova-* class used in the docs page must exist in the CSS.
+// Every .kvui-* class used in the docs page must exist in the CSS.
 const docs = join(root, 'docs/index.html');
 if (existsSync(docs)) {
   const html = readFileSync(docs, 'utf8');
   const used = new Set();
-  for (const m of html.matchAll(/class="([^"]+)"/g)) m[1].split(/\s+/).filter((c) => c.startsWith('nova-')).forEach((c) => used.add(c));
-  const defined = new Set([...strip(full).matchAll(/\.(nova-[\w-]+)/g)].map((m) => m[1]));
+  for (const m of html.matchAll(/class="([^"]+)"/g)) m[1].split(/\s+/).filter((c) => c.startsWith('kvui-')).forEach((c) => used.add(c));
+  const defined = new Set([...strip(full).matchAll(/\.(kvui-[\w-]+)/g)].map((m) => m[1]));
   const missing = [...used].filter((c) => !defined.has(c));
   if (missing.length) fail(`docs use classes that don't exist: ${missing.join(', ')}`);
   else ok(`docs page uses ${used.size} classes, all defined`);

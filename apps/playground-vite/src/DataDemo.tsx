@@ -61,10 +61,10 @@ export function DataDemo() {
   const logos = useMemo(() => ['Acme', 'Globex', 'Initech', 'Umbrella', 'Hooli', 'Stark'], []);
 
   return (
-    <section className="nova-stack nova-stack-lg" id="data">
-      <h2 className="nova-h3">Data</h2>
+    <section className="kvui-stack kvui-stack-lg" id="data">
+      <h2 className="kvui-h3">Data</h2>
 
-      <div className="nova-stack nova-stack-sm">
+      <div className="kvui-stack kvui-stack-sm">
         <strong>Table: all rows in the browser</strong>
         <UiTable
           caption="Team members"
@@ -90,7 +90,7 @@ export function DataDemo() {
         </UiTable>
       </div>
 
-      <div className="nova-stack nova-stack-sm">
+      <div className="kvui-stack kvui-stack-sm">
         <strong>Table: server-side (manual) with loading state</strong>
         <UiTable
           manual
@@ -110,14 +110,14 @@ export function DataDemo() {
         />
       </div>
 
-      <div className="nova-grid-auto nova-grid-auto-md nova-gap-6">
+      <div className="kvui-grid-auto kvui-grid-auto-md kvui-gap-6">
         <UiCard>
           <span slot="header">Tree</span>
           <UiTree label="Project files" nodes={tree} expanded={['src']} onUiSelect={(e) => toast(`Selected ${e.detail.node.label}`)} />
         </UiCard>
         <UiCard>
           <span slot="header">Inputs</span>
-          <div className="nova-stack">
+          <div className="kvui-stack">
             <UiOtpInput label="Verification code" length={6} onUiComplete={(e) => toast.success(`Code ${e.detail}`)} />
             <UiTagInput
               label="Invite by email"
@@ -133,7 +133,7 @@ export function DataDemo() {
 
       <UiCarousel label="Highlights" slidesPerView={2} autoplay={5000}>
         {['One', 'Two', 'Three', 'Four', 'Five'].map((n, i) => (
-          <div key={n} className="nova-d-grid nova-place-center nova-rounded-lg nova-font-semibold" style={{ height: 120, background: `color-mix(in srgb, var(--nova-color-accent) ${15 + i * 12}%, var(--nova-color-surface))` }}>
+          <div key={n} className="kvui-d-grid kvui-place-center kvui-rounded-lg kvui-font-semibold" style={{ height: 120, background: `color-mix(in srgb, var(--kvui-color-accent) ${15 + i * 12}%, var(--kvui-color-surface))` }}>
             Slide {n}
           </div>
         ))}
@@ -141,7 +141,7 @@ export function DataDemo() {
 
       <UiMarquee speed={40}>
         {logos.map((l) => (
-          <span key={l} className="nova-font-bold nova-text-xl nova-text-muted">{l}</span>
+          <span key={l} className="kvui-font-bold kvui-text-xl kvui-text-muted">{l}</span>
         ))}
       </UiMarquee>
     </section>

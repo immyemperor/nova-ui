@@ -25,33 +25,33 @@ const rows: TableRow[] = [
 
 export function ChartsDemo() {
   return (
-    <section className="nova-stack nova-stack-lg" id="charts">
-      <h2 className="nova-h3">Charts and export</h2>
+    <section className="kvui-stack kvui-stack-lg" id="charts">
+      <h2 className="kvui-h3">Charts and export</h2>
 
-      <div className="nova-grid-auto nova-grid-auto-lg nova-gap-6">
-        <div className="nova-stack nova-stack-sm">
-          <h3 className="nova-h5">Revenue (area)</h3>
+      <div className="kvui-grid-auto kvui-grid-auto-lg kvui-gap-6">
+        <div className="kvui-stack kvui-stack-sm">
+          <h3 className="kvui-h5">Revenue (area)</h3>
           <UiChart type="area" label="Monthly revenue in thousands" labels={months} series={[{ name: 'Revenue', values: revenue }]} />
         </div>
-        <div className="nova-stack nova-stack-sm">
-          <h3 className="nova-h5">Signups (line, two series)</h3>
+        <div className="kvui-stack kvui-stack-sm">
+          <h3 className="kvui-h5">Signups (line, two series)</h3>
           <UiChart type="line" label="Signups by month" labels={months} series={[
             { name: 'Signups', values: signups },
-            { name: 'Target', values: months.map(() => 60), color: 'var(--nova-color-fg-muted)' },
+            { name: 'Target', values: months.map(() => 60), color: 'var(--kvui-color-fg-muted)' },
           ]} />
         </div>
-        <div className="nova-stack nova-stack-sm">
-          <h3 className="nova-h5">Revenue (bars)</h3>
+        <div className="kvui-stack kvui-stack-sm">
+          <h3 className="kvui-h5">Revenue (bars)</h3>
           <UiChart type="bar" label="Monthly revenue in thousands, bars" labels={months} series={[{ name: 'Revenue', values: revenue }]} />
         </div>
-        <div className="nova-stack nova-stack-sm">
-          <h3 className="nova-h5">Share by region (donut)</h3>
+        <div className="kvui-stack kvui-stack-sm">
+          <h3 className="kvui-h5">Share by region (donut)</h3>
           <UiChart type="donut" label="Orders by region" labels={regions.map((r) => r.label)} series={[{ name: 'Orders', values: regions.map((r) => r.value) }]} />
         </div>
       </div>
 
-      <div className="nova-stack nova-stack-sm">
-        <h3 className="nova-h5">Sparklines in a table</h3>
+      <div className="kvui-stack kvui-stack-sm">
+        <h3 className="kvui-h5">Sparklines in a table</h3>
         <UiTable
           exportable
           exportFilename="campaigns"
@@ -66,9 +66,9 @@ export function ChartsDemo() {
             <UiSparkline key={String(r.id)} slot={`cell:${r.id}:trend`} values={r.trend as number[]} area label={`${r.name} trend`} />
           ))}
         </UiTable>
-        <div className="nova-cluster">
+        <div className="kvui-cluster">
           <UiSparkline values={revenue} label="Revenue trend" area />
-          <span className="nova-small nova-text-muted">Inline trend next to text.</span>
+          <span className="kvui-small kvui-text-muted">Inline trend next to text.</span>
         </div>
       </div>
     </section>

@@ -107,7 +107,7 @@ jobs:
       - name: Upload bundles
         uses: actions/upload-artifact@v5
         with:
-          name: nova-ui-dist-${{ github.sha }}
+          name: kvui-dist-${{ github.sha }}
           path: dist-tarballs/
           retention-days: 30
           if-no-files-found: error
@@ -131,7 +131,7 @@ jobs:
 
   #     - uses: actions/download-artifact@v5
   #       with:
-  #         name: nova-ui-dist-${{ github.sha }}
+  #         name: kvui-dist-${{ github.sha }}
   #         path: dist-tarballs
 
   #     - name: Publish every package not yet on npm
@@ -166,7 +166,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v5
         with:
-          name: nova-ui-dist-${{ github.sha }}
+          name: kvui-dist-${{ github.sha }}
           path: dist-tarballs
 
       - name: Create the GitHub release with the bundles

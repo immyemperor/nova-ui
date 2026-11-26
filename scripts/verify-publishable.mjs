@@ -1,4 +1,4 @@
-// Every package under packages/ must ship: public, scoped to @omni, versioned together, and packable.
+// Every package under packages/ must ship: public, scoped to @kvui, versioned together, and packable.
 //   node scripts/verify-publishable.mjs     (exits non-zero on any problem)
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -10,7 +10,7 @@ const repo = join(dirname(fileURLToPath(import.meta.url)), '..');
 export function publishProblems(pkg, fixedGroup) {
   const problems = [];
   if (pkg.private) problems.push(`${pkg.name} is private, so it would not ship`);
-  if (!String(pkg.name).startsWith('@kvui/')) problems.push(`${pkg.name} is not in the @omni scope`);
+  if (!String(pkg.name).startsWith('@kvui/')) problems.push(`${pkg.name} is not in the @kvui scope`);
   if (pkg.publishConfig?.access !== 'public') problems.push(`${pkg.name} has no publishConfig.access "public" (scoped packages are private by default)`);
   if (!pkg.version) problems.push(`${pkg.name} has no version`);
   if (!fixedGroup.includes(pkg.name)) problems.push(`${pkg.name} is not in the changeset fixed group, so its version can drift`);

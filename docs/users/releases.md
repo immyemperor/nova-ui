@@ -1,6 +1,6 @@
-# Release guide: installing and upgrading Nova UI
+# Release guide: installing and upgrading Kvui UI
 
-For developers using Nova UI in their own apps. It covers what you install, how versions work, how to upgrade safely, and how to check a release.
+For developers using Kvui UI in their own apps. It covers what you install, how versions work, how to upgrade safely, and how to check a release.
 
 Maintainers who publish releases should read [docs/humans/release-manual.md](../humans/release-manual.md) instead.
 
@@ -21,7 +21,7 @@ Maintainers who publish releases should read [docs/humans/release-manual.md](../
 
 ## 1. What you install
 
-Nova UI is published as seven npm packages. You install only the ones you use.
+Kvui UI is published as seven npm packages. You install only the ones you use.
 
 | Package | Install it when | Needs |
 | --- | --- | --- |
@@ -31,7 +31,7 @@ Nova UI is published as seven npm packages. You install only the ones you use.
 | `@kvui/angular` | Your app uses Angular | `@angular/core`, `@angular/common` |
 | `@kvui/vue` | Your app uses Vue 3 | `vue` |
 | `@kvui/editor` | You want the rich text editor | Nothing extra (it uses `@kvui/core`) |
-| `@kvui/tailwind` | You use Tailwind CSS and want Nova colours and radii as classes | `tailwindcss` |
+| `@kvui/tailwind` | You use Tailwind CSS and want Kvui colours and radii as classes | `tailwindcss` |
 
 A typical React app installs `core`, `css` and `react`. An Angular app installs `core`, `css` and `angular`.
 
@@ -39,7 +39,7 @@ A typical React app installs `core`, `css` and `react`. An Angular app installs 
 
 All seven packages are released together, at the same version, so `@kvui/react@0.3.0` works with `@kvui/core@0.3.0`. Keep them on the same version.
 
-Nova is pre-1.0. The version number means:
+Kvui is pre-1.0. The version number means:
 
 - **Patch** (`0.3.1`): bug fixes. Safe to take without reading anything else.
 - **Minor** (`0.3.0`): new components, props, events or tokens. Existing code keeps working, but read the changelog.
@@ -73,7 +73,7 @@ pnpm and yarn work the same way: use `pnpm add` or `yarn add` with the same pack
 Then import the stylesheet once, in your entry file:
 
 ```js
-import '@kvui/css/nova.css';
+import '@kvui/css/kvui.css';
 ```
 
 See [Getting started](getting-started.md) for the first component.
@@ -89,13 +89,13 @@ Some packages expect you to install a framework yourself. npm 7 and later instal
 | `@kvui/vue` | `vue` | `>=3.3.0` |
 | `@kvui/tailwind` | `tailwindcss` | `>=3.3.0` |
 | `@kvui/react`, `@kvui/angular` | `@kvui/editor` | optional: only if you use the editor entry point |
-| `@kvui/editor`, `@kvui/vue` | `@kvui/core` | `^0.1.0` (the same minor as your other Nova packages) |
+| `@kvui/editor`, `@kvui/vue` | `@kvui/core` | `^0.1.0` (the same minor as your other Kvui packages) |
 
-If npm reports a peer conflict, install the framework version in the range above, or upgrade the Nova packages together.
+If npm reports a peer conflict, install the framework version in the range above, or upgrade the Kvui packages together.
 
 ## 5. Upgrading
 
-Upgrade every Nova package together:
+Upgrade every Kvui package together:
 
 ```bash
 npm install @kvui/core@latest @kvui/css@latest @kvui/react@latest
@@ -166,7 +166,7 @@ To stop upgrades from happening automatically, pin the exact version in `package
 
 Without the `^`, npm will not move to a newer version when you run `npm install`.
 
-To roll back after a bad upgrade, install the previous version of every Nova package:
+To roll back after a bad upgrade, install the previous version of every Kvui package:
 
 ```bash
 npm install @kvui/core@0.2.0 @kvui/css@0.2.0 @kvui/react@0.2.0
@@ -198,35 +198,35 @@ You should see `dist/` files and `package.json`, not `src/`.
 
 ## 10. Browser and runtime support
 
-Nova targets current evergreen browsers (the latest versions of Chrome, Edge, Firefox and Safari, and the mobile browsers of the same period). Older browsers may work, but are not tested.
+Kvui targets current evergreen browsers (the latest versions of Chrome, Edge, Firefox and Safari, and the mobile browsers of the same period). Older browsers may work, but are not tested.
 
 Some features depend on newer browser support, and degrade where it is missing:
 
 | Feature | Needs | Without it |
 | --- | --- | --- |
-| Cascade layers (`@layer`) | Browsers from 2022 | Use `nova.compat.css`, which has no layers |
-| Container queries (`nova-cq-*`) | Browsers from 2023 | Design the narrow layout as the default |
+| Cascade layers (`@layer`) | Browsers from 2022 | Use `kvui.compat.css`, which has no layers |
+| Container queries (`kvui-cq-*`) | Browsers from 2023 | Design the narrow layout as the default |
 | View Transitions | Chrome, Edge, Safari 18+ | Updates happen without the transition |
-| Scroll-linked motion (`nova-scroll-reveal`) | Browsers that support scroll timelines (`animation-timeline`) | Content shows without the animation |
+| Scroll-linked motion (`kvui-scroll-reveal`) | Browsers that support scroll timelines (`animation-timeline`) | Content shows without the animation |
 | Popover (menus, tooltips) | Current browsers | Floating panels fall back to positioned elements |
 
 Reduced-motion and high-contrast preferences are respected.
 
 ## 11. Deprecations
 
-Before 1.0, a removal or rename can happen in a minor release, and the changelog says so under Major changes, with the replacement. Nova does not yet print deprecation warnings in the browser console, so check the changelog after each upgrade.
+Before 1.0, a removal or rename can happen in a minor release, and the changelog says so under Major changes, with the replacement. Kvui does not yet print deprecation warnings in the browser console, so check the changelog after each upgrade.
 
-Once Nova reaches 1.0, APIs will be deprecated in one release and removed no earlier than the next major release, with a warning in the console in between.
+Once Kvui reaches 1.0, APIs will be deprecated in one release and removed no earlier than the next major release, with a warning in the console in between.
 
 ## 12. Troubleshooting
 
-**`npm ERR! peer dep conflict`.** A peer dependency is outside the range in section 4. Install the framework version the message asks for, or upgrade the Nova packages together.
+**`npm ERR! peer dep conflict`.** A peer dependency is outside the range in section 4. Install the framework version the message asks for, or upgrade the Kvui packages together.
 
-**Components render as unstyled or not at all.** The stylesheet is missing. Import `@kvui/css/nova.css` once in your entry file (section 3).
+**Components render as unstyled or not at all.** The stylesheet is missing. Import `@kvui/css/kvui.css` once in your entry file (section 3).
 
-**`@kvui/core` versions don't match.** Two Nova packages are on different versions. Install all of them at the same version, then delete `node_modules` and the lockfile only if the install still fails.
+**`@kvui/core` versions don't match.** Two Kvui packages are on different versions. Install all of them at the same version, then delete `node_modules` and the lockfile only if the install still fails.
 
-**Icons show as empty squares.** You switched to the Material icon set without loading its font. Load the font, or use the Nova set. See [Icons](features/icons.md).
+**Icons show as empty squares.** You switched to the Material icon set without loading its font. Load the font, or use the Kvui set. See [Icons](features/icons.md).
 
 **After upgrading, a prop or event stopped working.** Check the changelog for that version under Major or Minor changes. The migration note tells you the new name.
 

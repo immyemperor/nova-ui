@@ -22,16 +22,16 @@ export function Explorer({ active, onNavigate, hrefFor = hashHref }: { active: s
 
   return (
     <nav aria-label="Component explorer" className="explorer">
-      <div className="nova-field nova-mb-3">
-        <label className="nova-sr-only" htmlFor="explorer-search">Find a component</label>
-        <input id="explorer-search" className="nova-input" type="search" placeholder="Find a component" autoComplete="off"
+      <div className="kvui-field kvui-mb-3">
+        <label className="kvui-sr-only" htmlFor="explorer-search">Find a component</label>
+        <input id="explorer-search" className="kvui-input" type="search" placeholder="Find a component" autoComplete="off"
           value={query} onChange={(e: ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)} />
       </div>
 
       <ul className="explorer__list" role="list">
         <li><a href={hrefFor({ kind: 'catalogue' })} className="explorer__link" aria-current={active === 'catalogue' ? 'page' : undefined} onClick={onNavigate}>All demos</a></li>
         <li><a href={hrefFor({ kind: 'icons', family: 'material' })} className="explorer__link" aria-current={active === 'icons-material' ? 'page' : undefined} onClick={onNavigate}>Icons: Material</a></li>
-        <li><a href={hrefFor({ kind: 'icons', family: 'nova' })} className="explorer__link" aria-current={active === 'icons-nova' ? 'page' : undefined} onClick={onNavigate}>Icons: Nova</a></li>
+        <li><a href={hrefFor({ kind: 'icons', family: 'kvui' })} className="explorer__link" aria-current={active === 'icons-kvui' ? 'page' : undefined} onClick={onNavigate}>Icons: Kvui</a></li>
       </ul>
 
       {!q && (
@@ -47,7 +47,7 @@ export function Explorer({ active, onNavigate, hrefFor = hashHref }: { active: s
 
       {visible.map((c) => (
         <details key={c.id} className="explorer__group" open={!!q || c.tags.includes(active)}>
-          <summary>{c.label} <span className="nova-caption">({c.tags.length})</span></summary>
+          <summary>{c.label} <span className="kvui-caption">({c.tags.length})</span></summary>
           <ul className="explorer__list" role="list">
             {c.tags.map((t) => (
               <li key={t}>
@@ -59,7 +59,7 @@ export function Explorer({ active, onNavigate, hrefFor = hashHref }: { active: s
           </ul>
         </details>
       ))}
-      {visible.length === 0 && <p className="nova-caption">No component matches “{query}”.</p>}
+      {visible.length === 0 && <p className="kvui-caption">No component matches “{query}”.</p>}
     </nav>
   );
 }

@@ -1,4 +1,4 @@
-// Generates Vue 3 wrappers for every Nova component from the docs manifest. Run: node scripts/generate.mjs
+// Generates Vue 3 wrappers for every Kvui component from the docs manifest. Run: node scripts/generate.mjs
 // Props map to Vue props; events map to emitted events (uiChange -> 'ui-change' listeners via onUiChange).
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';

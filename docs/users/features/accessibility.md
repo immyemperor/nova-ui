@@ -1,6 +1,6 @@
 # Accessibility
 
-Nova targets WCAG 2.2 AA. Components handle roles, states, focus and keyboard use. You supply the names and the content.
+Kvui targets WCAG 2.2 AA. Components handle roles, states, focus and keyboard use. You supply the names and the content.
 
 ## What the components do for you
 
@@ -15,10 +15,10 @@ Nova targets WCAG 2.2 AA. Components handle roles, states, focus and keyboard us
 ## What you must do
 
 1. **Name everything.** Each input needs a `label` (or `hide-label` for visually hidden text). Each icon-only button needs a `label`.
-2. **Use real structure.** One `<h1>` per page, headings in order, landmarks (`<main>`, `<nav>`) around content. Add `nova-skip-link` as the first focusable element.
+2. **Use real structure.** One `<h1>` per page, headings in order, landmarks (`<main>`, `<nav>`) around content. Add `kvui-skip-link` as the first focusable element.
 3. **Describe charts.** Give each chart a meaningful `label`; the component adds the summary and data table.
 4. **Don't rely on colour alone.** Pair status with text or an icon (`ui-badge` with `tone` and text).
-5. **Keep focus visible.** Don't remove outlines on Nova elements.
+5. **Keep focus visible.** Don't remove outlines on Kvui elements.
 6. **Test with the keyboard** from start to finish of every flow, and with a screen reader on at least one.
 
 ## Zoom and reflow

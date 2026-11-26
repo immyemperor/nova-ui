@@ -26,11 +26,11 @@ export function OverlayDemo() {
   const [palette, setPalette] = useState(false);
 
   return (
-    <section className="nova-stack" id="overlays">
-      <h2 className="nova-h3">Overlays</h2>
+    <section className="kvui-stack" id="overlays">
+      <h2 className="kvui-h3">Overlays</h2>
       <UiToaster />
 
-      <div className="nova-cluster">
+      <div className="kvui-cluster">
         <UiButton onClick={() => setModal(true)}>Open modal</UiButton>
         <UiButton variant="secondary" onClick={() => setDrawer(true)}>Open drawer</UiButton>
         <UiButton variant="secondary" onClick={() => setPalette(true)}>
@@ -44,9 +44,9 @@ export function OverlayDemo() {
 
         <UiPopover label="Share options">
           <UiButton slot="trigger" variant="secondary">Popover</UiButton>
-          <div className="nova-stack nova-stack-sm" style={{ minInlineSize: '14rem' }}>
+          <div className="kvui-stack kvui-stack-sm" style={{ minInlineSize: '14rem' }}>
             <strong>Share this page</strong>
-            <span className="nova-text-muted">Anyone with the link can view.</span>
+            <span className="kvui-text-muted">Anyone with the link can view.</span>
             <UiButton size="sm" onClick={() => toast.success('Link copied')}>Copy link</UiButton>
           </div>
         </UiPopover>
@@ -63,13 +63,13 @@ export function OverlayDemo() {
         </UiDropdown>
       </div>
 
-      <div className="nova-stack nova-max-w-md">
+      <div className="kvui-stack kvui-max-w-md">
         <UiSelect label="Assignee" placeholder="Search people" options={people} clearable />
         <UiSelect label="Reviewers" placeholder="Add reviewers" options={people} multiple />
       </div>
 
       <UiContextMenu onUiSelect={(e) => toast(`Context: ${e.detail.label}`)}>
-        <div className="nova-p-6 nova-border nova-border-strong nova-rounded-lg nova-text-center nova-text-muted">
+        <div className="kvui-p-6 kvui-border kvui-border-strong kvui-rounded-lg kvui-text-center kvui-text-muted">
           Right-click anywhere in this box
         </div>
         <UiMenuItem slot="menu" value="copy">Copy</UiMenuItem>
@@ -77,23 +77,23 @@ export function OverlayDemo() {
         <UiMenuItem slot="menu" value="remove" tone="danger" divider>Remove</UiMenuItem>
       </UiContextMenu>
 
-      <div className="nova-cluster">
+      <div className="kvui-cluster">
         <UiButton variant="ghost" onClick={() => toast.success({ title: 'Saved', description: 'Your changes are live.' })}>Success toast</UiButton>
         <UiButton variant="ghost" onClick={() => toast.error({ title: 'Upload failed', description: 'Check your connection.', actionLabel: 'Retry', onAction: () => toast('Retrying...') })}>Error toast</UiButton>
       </div>
 
       <UiModal open={modal} heading="Delete project?" size="sm" onUiClose={() => setModal(false)}>
         This permanently removes the project and its files. This can't be undone.
-        <div slot="footer" className="nova-d-contents">
+        <div slot="footer" className="kvui-d-contents">
           <UiButton variant="ghost" onClick={() => setModal(false)}>Cancel</UiButton>
           <UiButton variant="danger" onClick={() => { setModal(false); toast.error('Project deleted'); }}>Delete</UiButton>
         </div>
       </UiModal>
 
       <UiDrawer open={drawer} heading="Filters" onUiClose={() => setDrawer(false)}>
-        <p className="nova-mb-4">Drawer content goes here.</p>
+        <p className="kvui-mb-4">Drawer content goes here.</p>
         <UiSelect label="Status" options={[{ value: 'open', label: 'Open' }, { value: 'done', label: 'Done' }]} />
-        <div slot="footer" className="nova-d-contents">
+        <div slot="footer" className="kvui-d-contents">
           <UiButton onClick={() => setDrawer(false)}>Apply</UiButton>
         </div>
       </UiDrawer>

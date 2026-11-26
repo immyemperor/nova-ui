@@ -74,7 +74,7 @@ const builtIn: Record<string, string> = {
 };
 
 // Every copy of this module (core, and any bundle that compiled it in) shares one registry.
-const registry: Record<string, string> = ((globalThis as any).__novaUiIcons ??= {});
+const registry: Record<string, string> = ((globalThis as any).__kvuiUiIcons ??= {});
 Object.assign(registry, builtIn);
 
 export type BuiltInIconName = keyof typeof registry;
@@ -93,13 +93,13 @@ export function listIcons(): string[] {
 }
 
 /* ---------- Icon libraries ----------
-   'nova'     the built-in line icons above (SVG, no font needed)
+   'kvui'     the built-in line icons above (SVG, no font needed)
    'material' Google Material Symbols (font ligatures). Load the font once in your page:
               <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block">
-   Components keep their Nova names; in material mode each name is looked up here. */
-export type IconLibrary = 'nova' | 'material';
+   Components keep their Kvui names; in material mode each name is looked up here. */
+export type IconLibrary = 'kvui' | 'material';
 
-let library: IconLibrary = 'nova';
+let library: IconLibrary = 'kvui';
 /** Choose the icon set for every <ui-icon> on the page (an individual icon can override with `library`). */
 const libraryListeners = new Set<(lib: IconLibrary) => void>();
 export function setIconLibrary(next: IconLibrary): void {
@@ -115,7 +115,7 @@ export function getIconLibrary(): IconLibrary {
   return library;
 }
 
-/** Nova icon name to Material Symbols ligature. Names not listed here are used as Material names as they are. */
+/** Kvui icon name to Material Symbols ligature. Names not listed here are used as Material names as they are. */
 export const MATERIAL_NAMES: Record<string, string> = {
   check: 'check', x: 'close', plus: 'add', minus: 'remove',
   'chevron-down': 'expand_more', 'chevron-up': 'expand_less', 'chevron-left': 'chevron_left', 'chevron-right': 'chevron_right',
@@ -133,7 +133,7 @@ export const MATERIAL_NAMES: Record<string, string> = {
   'more-horizontal': 'more_horiz', 'more-vertical': 'more_vert', 'log-in': 'login', grip: 'drag_indicator', paperclip: 'attach_file',
 };
 
-/** The Material ligature for a Nova icon name. */
+/** The Material ligature for a Kvui icon name. */
 export function materialName(name: string): string {
   return MATERIAL_NAMES[name] ?? name;
 }

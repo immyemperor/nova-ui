@@ -1,6 +1,6 @@
 # Tailwind CSS preset
 
-The preset adds Nova colours, radii, shadows, fonts, durations and z-indexes to Tailwind. Each one is a CSS variable, so your Tailwind classes follow light, dark and brand themes automatically.
+The preset adds Kvui colours, radii, shadows, fonts, durations and z-indexes to Tailwind. Each one is a CSS variable, so your Tailwind classes follow light, dark and brand themes automatically.
 
 ## Install
 
@@ -18,10 +18,10 @@ module.exports = {
 };
 ```
 
-Import the Nova stylesheet too, so the variables exist:
+Import the Kvui stylesheet too, so the variables exist:
 
 ```css
-@import '@kvui/css/nova.css';
+@import '@kvui/css/kvui.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -31,21 +31,21 @@ Import the Nova stylesheet too, so the variables exist:
 
 | Utility | Resolves to |
 | --- | --- |
-| `bg-nova-surface`, `bg-nova-sunken`, `bg-nova-raised` | Surface tokens |
-| `text-nova-fg`, `text-nova-muted`, `text-nova-subtle` | Text tokens |
-| `bg-nova-accent`, `text-nova-on-accent`, `bg-nova-accent-soft` | Accent tokens |
-| `border-nova-border`, `border-nova-border-strong` | Border tokens |
-| `text-nova-danger`, `bg-nova-success` and so on | Status colours |
-| `rounded-nova-control`, `rounded-nova-surface`, `rounded-nova-pill` | Radius tokens |
-| `shadow-nova-sm`, `shadow-nova-md`, `shadow-nova-lg` | Shadows |
-| `font-nova-sans`, `font-nova-mono` | Font stacks |
-| `duration-nova-fast`, `duration-nova-base` | Motion timings |
-| `z-nova-dropdown`, `z-nova-modal`, `z-nova-toast` | Layers |
+| `bg-kvui-surface`, `bg-kvui-sunken`, `bg-kvui-raised` | Surface tokens |
+| `text-kvui-fg`, `text-kvui-muted`, `text-kvui-subtle` | Text tokens |
+| `bg-kvui-accent`, `text-kvui-on-accent`, `bg-kvui-accent-soft` | Accent tokens |
+| `border-kvui-border`, `border-kvui-border-strong` | Border tokens |
+| `text-kvui-danger`, `bg-kvui-success` and so on | Status colours |
+| `rounded-kvui-control`, `rounded-kvui-surface`, `rounded-kvui-pill` | Radius tokens |
+| `shadow-kvui-sm`, `shadow-kvui-md`, `shadow-kvui-lg` | Shadows |
+| `font-kvui-sans`, `font-kvui-mono` | Font stacks |
+| `duration-kvui-fast`, `duration-kvui-base` | Motion timings |
+| `z-kvui-dropdown`, `z-kvui-modal`, `z-kvui-toast` | Layers |
 
 ## Mixing with components
 
-Nova web components keep their own styling inside their shadow root, so Tailwind classes apply to the elements around them, not inside. Use Tailwind for page layout and Nova components for controls.
+Kvui web components keep their own styling inside their shadow root, so Tailwind classes apply to the elements around them, not inside. Use Tailwind for page layout and Kvui components for controls.
 
 ## Dark mode
 
-Set `darkMode` as you like, or leave Tailwind's default. Nova's tokens already switch with `data-theme`, so you don't need `dark:` variants for Nova colours.
+Set `darkMode` as you like, or leave Tailwind's default. Kvui's tokens already switch with `data-theme`, so you don't need `dark:` variants for Kvui colours.

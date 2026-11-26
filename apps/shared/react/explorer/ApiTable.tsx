@@ -14,9 +14,9 @@ export interface ManifestDeclaration {
 function Section({ title, empty, children }: { title: string; empty: string; children?: ReactNode }) {
   const has = Array.isArray(children) ? children.length > 0 : !!children;
   return (
-    <div className="nova-stack nova-stack-xs">
-      <h4 className="nova-h6">{title}</h4>
-      {has ? children : <p className="nova-caption">{empty}</p>}
+    <div className="kvui-stack kvui-stack-xs">
+      <h4 className="kvui-h6">{title}</h4>
+      {has ? children : <p className="kvui-caption">{empty}</p>}
     </div>
   );
 }
@@ -25,11 +25,11 @@ function Section({ title, empty, children }: { title: string; empty: string; chi
 export function ApiTable({ decl }: { decl: ManifestDeclaration }) {
   const props = decl.attributes;
   return (
-    <div className="nova-stack nova-stack-lg">
+    <div className="kvui-stack kvui-stack-lg">
       <Section title={`Properties (${props.length})`} empty="No properties.">
         {props.length > 0 && (
-          <div className="nova-table-wrap">
-            <table className="nova-table">
+          <div className="kvui-table-wrap">
+            <table className="kvui-table">
               <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
               <tbody>
                 {props.map((p) => (
@@ -47,23 +47,23 @@ export function ApiTable({ decl }: { decl: ManifestDeclaration }) {
       </Section>
       <Section title={`Events (${decl.events.length})`} empty="This component emits no events.">
         {decl.events.length > 0 && (
-          <ul className="nova-stack nova-stack-xs nova-small" role="list">
+          <ul className="kvui-stack kvui-stack-xs kvui-small" role="list">
             {decl.events.map((e) => (
-              <li key={e.name}><code>{e.name}</code> <span className="nova-text-muted">detail: <code>{e.type.text}</code></span>{e.description ? ` ${e.description}` : ''}</li>
+              <li key={e.name}><code>{e.name}</code> <span className="kvui-text-muted">detail: <code>{e.type.text}</code></span>{e.description ? ` ${e.description}` : ''}</li>
             ))}
           </ul>
         )}
       </Section>
       <Section title={`Methods (${decl.methods.length})`} empty="No methods.">
         {decl.methods.length > 0 && (
-          <ul className="nova-stack nova-stack-xs nova-small" role="list">
+          <ul className="kvui-stack kvui-stack-xs kvui-small" role="list">
             {decl.methods.map((m) => <li key={m.name}><code>{m.name}({m.parameters ?? ''})</code>{m.description ? ` ${m.description}` : ''}</li>)}
           </ul>
         )}
       </Section>
       <Section title={`Slots (${decl.slots.length})`} empty="No named slots. Content goes in the default slot.">
         {decl.slots.length > 0 && (
-          <ul className="nova-cluster nova-small" role="list">
+          <ul className="kvui-cluster kvui-small" role="list">
             {decl.slots.map((s) => <li key={s.name || 'default'}><code>{s.name || 'default'}</code></li>)}
           </ul>
         )}

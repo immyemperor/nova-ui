@@ -1,24 +1,24 @@
-:host { display: block; font-family: var(--nova-font-sans); color: var(--nova-color-fg); }
-:host(:not(:last-child)) { border-bottom: 1px solid var(--nova-color-border); }
+:host { display: block; font-family: var(--kvui-font-sans); color: var(--kvui-color-fg); }
+:host(:not(:last-child)) { border-bottom: 1px solid var(--kvui-color-border); }
 
 .heading { margin: 0; }
 .trigger {
-  all: unset; box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; gap: var(--nova-space-3);
-  width: 100%; padding: var(--nova-space-4) var(--nova-space-5); cursor: pointer;
-  font-size: var(--nova-text-md); font-weight: var(--nova-weight-medium);
-  transition: background var(--nova-duration-fast) var(--nova-ease-standard);
+  all: unset; box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; gap: var(--kvui-space-3);
+  width: 100%; padding: var(--kvui-space-4) var(--kvui-space-5); cursor: pointer;
+  font-size: var(--kvui-text-md); font-weight: var(--kvui-weight-medium);
+  transition: background var(--kvui-duration-fast) var(--kvui-ease-standard);
 }
-.trigger:hover:not(:disabled) { background: var(--nova-color-surface-sunken); }
-.trigger:focus-visible { box-shadow: inset var(--nova-focus-ring); }
+.trigger:hover:not(:disabled) { background: var(--kvui-color-surface-sunken); }
+.trigger:focus-visible { box-shadow: inset var(--kvui-focus-ring); }
 .trigger:disabled { opacity: 0.5; cursor: not-allowed; }
-.chevron { flex: none; color: var(--nova-color-fg-subtle); transition: transform var(--nova-duration-base) var(--nova-ease-standard); }
+.chevron { flex: none; color: var(--kvui-color-fg-subtle); transition: transform var(--kvui-duration-base) var(--kvui-ease-standard); }
 :host([open]) .chevron { transform: rotate(180deg); }
 
 /* Animate height with grid rows: no JS measuring, and collapsed content is unfocusable. */
 .panel {
   display: grid; grid-template-rows: 0fr; visibility: hidden;
-  transition: grid-template-rows var(--nova-duration-base) var(--nova-ease-standard), visibility 0s linear var(--nova-duration-base);
+  transition: grid-template-rows var(--kvui-duration-base) var(--kvui-ease-standard), visibility 0s linear var(--kvui-duration-base);
 }
 :host([open]) .panel { grid-template-rows: 1fr; visibility: visible; transition-delay: 0s; }
 .inner { overflow: hidden; min-height: 0; }
-.content { padding: 0 var(--nova-space-5) var(--nova-space-5); color: var(--nova-color-fg-muted); font-size: var(--nova-text-sm); line-height: var(--nova-leading-normal); }
+.content { padding: 0 var(--kvui-space-5) var(--kvui-space-5); color: var(--kvui-color-fg-muted); font-size: var(--kvui-text-sm); line-height: var(--kvui-leading-normal); }

@@ -1,7 +1,7 @@
 {
   "name": "@kvui/react",
-  "version": "0.1.0",
-  "description": "React and Next.js bindings for Nova UI.",
+  "version": "0.1.1",
+  "description": "React and Next.js bindings for Kvui UI.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -58,11 +58,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/immyemperor/nova-ui.git",
+    "url": "git+https://github.com/immyemperor/kvui.git",
     "directory": "packages/react"
   },
-  "homepage": "https://github.com/immyemperor/nova-ui#readme",
+  "homepage": "https://github.com/immyemperor/kvui#readme",
   "bugs": {
-    "url": "https://github.com/immyemperor/nova-ui/issues"
+    "url": "https://github.com/immyemperor/kvui/issues"
   }
 }

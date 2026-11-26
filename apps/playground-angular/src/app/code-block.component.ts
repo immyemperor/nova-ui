@@ -10,10 +10,10 @@ import { Component, input, signal, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
       <div class="pg-code__bar">
         <span class="pg-code__title">{{ title() }}</span>
         <span class="pg-code__actions">
-          <button type="button" class="nova-btn nova-btn-ghost nova-btn-sm" [attr.aria-pressed]="wrap()" (click)="wrap.set(!wrap())">
+          <button type="button" class="kvui-btn kvui-btn-ghost kvui-btn-sm" [attr.aria-pressed]="wrap()" (click)="wrap.set(!wrap())">
             {{ wrap() ? 'No wrap' : 'Wrap lines' }}
           </button>
-          <button type="button" class="nova-btn nova-btn-sm" (click)="copy()">{{ copied() ? 'Copied' : 'Copy code' }}</button>
+          <button type="button" class="kvui-btn kvui-btn-sm" (click)="copy()">{{ copied() ? 'Copied' : 'Copy code' }}</button>
         </span>
       </div>
       <pre class="pg-code__pre" [class.pg-code__pre--wrap]="wrap()" tabindex="0" [attr.aria-label]="'Source of ' + title()"><code>{{ code() }}</code></pre>

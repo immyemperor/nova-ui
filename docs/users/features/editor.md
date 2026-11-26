@@ -1,6 +1,6 @@
 # Rich text editor
 
-`<ui-editor>` is a rich text editor built on Tiptap, with a toolbar made from Nova buttons, menus and icons. It's a separate package so it only loads where you use it.
+`<ui-editor>` is a rich text editor built on Tiptap, with a toolbar made from Kvui buttons, menus and icons. It's a separate package so it only loads where you use it.
 
 ```bash
 pnpm add @kvui/editor
@@ -61,5 +61,5 @@ The editor's value is HTML. The editor blocks script-capable links and image sou
 
 ## Notes
 
-- The editor renders in light DOM so the browser's text selection, spellcheck and input methods work normally. Its CSS is prefixed `nova-ed`, so it can't leak into your page.
+- The editor renders in light DOM so the browser's text selection, spellcheck and input methods work normally. Its CSS is prefixed `kvui-ed`, so it can't leak into your page.
 - Pinned to Tiptap v2.

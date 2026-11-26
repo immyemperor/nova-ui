@@ -1,16 +1,16 @@
 :host {
-  display: flex; align-items: center; gap: var(--nova-space-2); box-sizing: border-box;
-  padding: var(--nova-space-2) var(--nova-space-3); border-radius: var(--nova-radius-control);
-  color: var(--nova-color-fg); font-family: var(--nova-font-sans); font-size: var(--nova-text-sm);
+  display: flex; align-items: center; gap: var(--kvui-space-2); box-sizing: border-box;
+  padding: var(--kvui-space-2) var(--kvui-space-3); border-radius: var(--kvui-radius-control);
+  color: var(--kvui-color-fg); font-family: var(--kvui-font-sans); font-size: var(--kvui-text-sm);
   cursor: pointer; outline: none; user-select: none;
 }
-:host([divider]) { margin-top: var(--nova-space-1); position: relative; }
-:host([divider])::before { content: ''; position: absolute; left: 0; right: 0; top: calc(var(--nova-space-1) / -2 - 0.5px); height: 1px; background: var(--nova-color-border); }
-:host(:hover:not([disabled])), :host(:focus-visible) { background: var(--nova-tint-accent); }
-:host([tone='danger']) { color: var(--nova-color-danger); }
-:host([tone='danger']:hover:not([disabled])), :host([tone='danger']:focus-visible) { background: var(--nova-color-danger-soft); }
+:host([divider]) { margin-top: var(--kvui-space-1); position: relative; }
+:host([divider])::before { content: ''; position: absolute; left: 0; right: 0; top: calc(var(--kvui-space-1) / -2 - 0.5px); height: 1px; background: var(--kvui-color-border); }
+:host(:hover:not([disabled])), :host(:focus-visible) { background: var(--kvui-tint-accent); }
+:host([tone='danger']) { color: var(--kvui-color-danger); }
+:host([tone='danger']:hover:not([disabled])), :host([tone='danger']:focus-visible) { background: var(--kvui-color-danger-soft); }
 :host([disabled]) { opacity: 0.5; cursor: not-allowed; }
-.icon { display: inline-flex; color: var(--nova-color-fg-subtle); }
+.icon { display: inline-flex; color: var(--kvui-color-fg-subtle); }
 .icon[hidden] { display: none; }
 .label { flex: 1; min-width: 0; }
-.shortcut { margin-left: var(--nova-space-4); font-family: var(--nova-font-mono); font-size: var(--nova-text-xs); color: var(--nova-color-fg-subtle); }
+.shortcut { margin-left: var(--kvui-space-4); font-family: var(--kvui-font-mono); font-size: var(--kvui-text-xs); color: var(--kvui-color-fg-subtle); }

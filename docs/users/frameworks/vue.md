@@ -13,7 +13,7 @@ pnpm add @kvui/core @kvui/css @kvui/vue
 ```ts
 // src/main.ts
 import { createApp } from 'vue';
-import '@kvui/css/nova.css';
+import '@kvui/css/kvui.css';
 import { defineCustomElements } from '@kvui/core/loader';
 import App from './App.vue';
 

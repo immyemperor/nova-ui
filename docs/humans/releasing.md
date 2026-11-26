@@ -1,11 +1,11 @@
-# Releasing Nova UI
+# Releasing Kvui UI
 
 This is the release document for maintainers. It contains the steps for a release, both by hand and through GitHub Actions, the checks that must pass, and what the release ships to users.
 
 Two companion documents go deeper:
 
 - [release-manual.md](release-manual.md): the long-form runbook, with troubleshooting for each step.
-- [docs/users/releases.md](../users/releases.md): the guide for developers who install and upgrade Nova, shared with users.
+- [docs/users/releases.md](../users/releases.md): the guide for developers who install and upgrade Kvui, shared with users.
 
 ## 1. What is released
 
@@ -23,7 +23,7 @@ Seven packages, always together, always at the same version. They are versioned 
 
 The playgrounds under `apps/` are private and never released.
 
-`scripts/verify-publishable.mjs` fails the build if a package would not ship: if it is private, outside the `@omni` scope, missing public access, a repository or a licence, outside the fixed group, or has a `workspace:` peer reference.
+`scripts/verify-publishable.mjs` fails the build if a package would not ship: if it is private, outside the `@kvui` scope, missing public access, a repository or a licence, outside the fixed group, or has a `workspace:` peer reference.
 
 ## 2. Version policy
 
@@ -31,14 +31,14 @@ The playgrounds under `apps/` are private and never released.
 - **Minor** (`0.2.0` to `0.3.0`): new components, props, events or tokens. Existing code keeps working.
 - **Major** (`0.x` to `1.0.0` and later): removed or renamed props, events, tokens or classes; changed defaults that alter output.
 
-Before 1.0, a minor release may still rename something, but the changelog must say so and give the replacement. After 1.0, an API is deprecated in one release and removed no earlier than the next major release, with a console warning in between. Nova does not yet print deprecation warnings, so the changelog is the only notice.
+Before 1.0, a minor release may still rename something, but the changelog must say so and give the replacement. After 1.0, an API is deprecated in one release and removed no earlier than the next major release, with a console warning in between. Kvui does not yet print deprecation warnings, so the changelog is the only notice.
 
 Every change that affects users needs a changeset (`pnpm changeset`). Breaking changes say what to do instead.
 
 ## 3. One-time setup
 
-1. **npm.** Log in at npmjs.com with two-factor authentication turned on. Make sure the `@omni` organisation exists and you are a member with publish rights.
-2. **Token for CI.** Create an npm automation token with publish rights for `@omni`, and add it to the GitHub repository as the secret `NPM_TOKEN`.
+1. **npm.** Log in at npmjs.com with two-factor authentication turned on. Make sure the `@kvui` organisation exists and you are a member with publish rights.
+2. **Token for CI.** Create an npm automation token with publish rights for `@kvui`, and add it to the GitHub repository as the secret `NPM_TOKEN`.
 3. **Optional approval.** Create a GitHub environment named `npm` with required reviewers, so each publish is approved.
 4. **Local tools.** Node 20 or newer, pnpm 9 (the version in `package.json`), and the GitHub CLI (`gh`) if you will create releases from the terminal.
 5. **Local login.** `npm login`, then `npm whoami` to confirm.
@@ -102,7 +102,7 @@ cat dist-tarballs/SHA256SUMS.txt
 `pack` starts from an empty folder, so no leftover tarball from an earlier build can be published. Check the Angular tarball has `dist/` content and no `src/`:
 
 ```bash
-tar -tzf dist-tarballs/nova-ui-angular-*.tgz | head -20
+tar -tzf dist-tarballs/kvui-angular-*.tgz | head -20
 ```
 
 ### Step 5: dry run
@@ -127,10 +127,10 @@ To publish a pre-release under a tag, see section 8.
 
 ```bash
 VERSION=$(node -p "require('./packages/core/package.json').version")
-git tag -a "v$VERSION" -m "Nova UI $VERSION"
+git tag -a "v$VERSION" -m "Kvui UI $VERSION"
 git push origin main
 git push origin "v$VERSION"
-gh release create "v$VERSION" dist-tarballs/* --title "Nova UI $VERSION" --generate-notes
+gh release create "v$VERSION" dist-tarballs/* --title "Kvui UI $VERSION" --generate-notes
 ```
 
 Without `gh`, create the release on GitHub: choose the tag, paste the changelog notes, and attach the files from `dist-tarballs/`.
@@ -148,7 +148,7 @@ done
 Install into a clean project and check it resolves:
 
 ```bash
-mkdir /tmp/nova-smoke && cd /tmp/nova-smoke && npm init -y >/dev/null
+mkdir /tmp/kvui-smoke && cd /tmp/kvui-smoke && npm init -y >/dev/null
 npm install @kvui/core@$VERSION @kvui/css@$VERSION @kvui/react@$VERSION
 node -e "console.log(require.resolve('@kvui/core/package.json'))"
 ```
@@ -158,7 +158,7 @@ node -e "console.log(require.resolve('@kvui/core/package.json'))"
 This is the normal route. It needs no local publishing.
 
 1. Apply the versions (step 1 above), commit, and push to `main`. CI runs.
-2. Push a tag: `git tag -a v0.2.0 -m "Nova UI 0.2.0" && git push origin v0.2.0`.
+2. Push a tag: `git tag -a v0.2.0 -m "Kvui UI 0.2.0" && git push origin v0.2.0`.
 3. `.github/workflows/dist.yml` runs. It builds, runs every check, packs, verifies, and uploads the tarballs with `SHA256SUMS.txt`. Then the `publish` job publishes each package not yet on npm, with npm provenance. Then the `release` job creates the GitHub release with the bundles attached.
 4. If the `npm` environment requires approval, approve it in the Actions tab.
 
@@ -230,7 +230,7 @@ npm install @kvui/core @kvui/css @kvui/vue       # Vue 3
 
 **Verification users can do:** each version on npm shows its repository and, for releases built by the workflow, "Built and signed on GitHub Actions" with a link to the run. The GitHub release attaches `SHA256SUMS.txt`, checked with `sha256sum -c SHA256SUMS.txt`.
 
-**Upgrading:** read the changelog for every version in between, upgrade all Nova packages together, and check the migration notes for breaking changes. Pre-release users install with `@next`.
+**Upgrading:** read the changelog for every version in between, upgrade all Kvui packages together, and check the migration notes for breaking changes. Pre-release users install with `@next`.
 
 ## 11. Distribution bundles
 

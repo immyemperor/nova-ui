@@ -1,11 +1,11 @@
 :host { display: inline-block; }
 .anchor { display: inline-flex; }
 .bubble {
-  position: fixed; left: 0; top: 0; inset: auto; margin: 0; z-index: var(--nova-z-toast);
-  box-sizing: border-box; max-width: 18rem; padding: var(--nova-space-1) var(--nova-space-2);
+  position: fixed; left: 0; top: 0; inset: auto; margin: 0; z-index: var(--kvui-z-toast);
+  box-sizing: border-box; max-width: 18rem; padding: var(--kvui-space-1) var(--kvui-space-2);
   border: 0; overflow: visible; pointer-events: none;
-  background: var(--nova-color-fg); color: var(--nova-color-bg);
-  border-radius: var(--nova-radius-control); box-shadow: var(--nova-shadow-md);
-  font-family: var(--nova-font-sans); font-size: var(--nova-text-xs); line-height: var(--nova-leading-normal);
+  background: var(--kvui-color-fg); color: var(--kvui-color-bg);
+  border-radius: var(--kvui-radius-control); box-shadow: var(--kvui-shadow-md);
+  font-family: var(--kvui-font-sans); font-size: var(--kvui-text-xs); line-height: var(--kvui-leading-normal);
 }
 .bubble[hidden] { display: none; }

@@ -1,6 +1,6 @@
 # Getting started
 
-Nova UI is a design system with one set of components that works in plain HTML, React, Next.js, Vite, Angular and Vue, plus a CSS library and a Tailwind preset. This page gets you to a working screen in about five minutes. Pick your framework afterwards in [Frameworks](frameworks/README.md).
+Kvui UI is a design system with one set of components that works in plain HTML, React, Next.js, Vite, Angular and Vue, plus a CSS library and a Tailwind preset. This page gets you to a working screen in about five minutes. Pick your framework afterwards in [Frameworks](frameworks/README.md).
 
 ## 1. Install
 
@@ -21,7 +21,7 @@ pnpm add -D @kvui/tailwind     # Tailwind preset (optional)
 Import one stylesheet once, near the top of your app. It contains the design tokens, the reset, layout classes and utilities.
 
 ```css
-@import '@kvui/css/nova.css';
+@import '@kvui/css/kvui.css';
 ```
 
 Also set the viewport so the layout respects phone notches and users can still zoom:
@@ -60,7 +60,7 @@ The `detail` carries the new value. Each component's reference lists its events 
 
 ## 5. Turn on theming
 
-Nova follows the operating-system light or dark setting by default. To let users choose, call `setThemeMode('light' | 'dark' | 'system')`, or drop in `<ui-theme-toggle>`. The choice is remembered. See [Theming](features/theming.md).
+Kvui follows the operating-system light or dark setting by default. To let users choose, call `setThemeMode('light' | 'dark' | 'system')`, or drop in `<ui-theme-toggle>`. The choice is remembered. See [Theming](features/theming.md).
 
 ## 6. Where to go next
 

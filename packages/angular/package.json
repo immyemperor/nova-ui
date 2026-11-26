@@ -1,7 +1,7 @@
 {
   "name": "@kvui/angular",
-  "version": "0.1.0",
-  "description": "Angular standalone component proxies and theme service for Nova UI.",
+  "version": "0.1.1",
+  "description": "Angular standalone component proxies and theme service for Kvui UI.",
   "license": "MIT",
   "sideEffects": false,
   "scripts": {
@@ -39,11 +39,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/immyemperor/nova-ui.git",
+    "url": "git+https://github.com/immyemperor/kvui.git",
     "directory": "packages/angular"
   },
-  "homepage": "https://github.com/immyemperor/nova-ui#readme",
+  "homepage": "https://github.com/immyemperor/kvui#readme",
   "bugs": {
-    "url": "https://github.com/immyemperor/nova-ui/issues"
+    "url": "https://github.com/immyemperor/kvui/issues"
   }
 }

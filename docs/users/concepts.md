@@ -24,7 +24,7 @@ Form controls (`ui-input`, `ui-select`, `ui-checkbox`, `ui-date-picker`, and so 
 
 ## Theme tokens are the source of truth
 
-Colours, spacing, radius, shadows and motion timings are CSS custom properties named `--nova-*`. Components read them, so changing one token changes the whole product, including dark mode. Override tokens; don't fork components. See [Theming](features/theming.md).
+Colours, spacing, radius, shadows and motion timings are CSS custom properties named `--kvui-*`. Components read them, so changing one token changes the whole product, including dark mode. Override tokens; don't fork components. See [Theming](features/theming.md).
 
 ## Accessibility is built in, but you still choose labels
 
@@ -32,7 +32,7 @@ Components set roles, states and keyboard handling for you. You provide the text
 
 ## Layout is CSS, not components
 
-Use layout classes from `@kvui/css` (`nova-container`, `nova-stack`, `nova-grid-auto`) to arrange components. Components are never responsible for page layout. See [Layout and CSS](features/layout-and-css.md).
+Use layout classes from `@kvui/css` (`kvui-container`, `kvui-stack`, `kvui-grid-auto`) to arrange components. Components are never responsible for page layout. See [Layout and CSS](features/layout-and-css.md).
 
 ## Optional packages stay optional
 

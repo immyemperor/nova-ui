@@ -6,12 +6,12 @@ import { useSyncExternalStore } from 'react';
 export type Route =
   | { kind: 'catalogue' }
   | { kind: 'component'; tag: string }
-  | { kind: 'icons'; family: 'material' | 'nova' };
+  | { kind: 'icons'; family: 'material' | 'kvui' };
 
 export function parseRoute(hash: string): Route {
   const component = /^#\/component\/([\w-]+)/.exec(hash);
   if (component) return { kind: 'component', tag: component[1] };
-  if (hash.startsWith('#/icons/nova')) return { kind: 'icons', family: 'nova' };
+  if (hash.startsWith('#/icons/kvui')) return { kind: 'icons', family: 'kvui' };
   if (hash.startsWith('#/icons')) return { kind: 'icons', family: 'material' };
   return { kind: 'catalogue' };
 }

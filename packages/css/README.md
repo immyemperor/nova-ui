@@ -1,20 +1,20 @@
 # @kvui/css
 
-Responsive CSS library for Nova UI: design tokens, a modern reset, layout primitives (container, 12-column grid,
+Responsive CSS library for Kvui UI: design tokens, a modern reset, layout primitives (container, 12-column grid,
 auto grid, stack, cluster, sidebar, switcher, cover, reel, app shell), about 1,300 responsive utilities, CSS-only
 components and print styles. Mobile first, cascade-layered, logical properties, dark mode, container queries.
 
 ```html
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<link rel="stylesheet" href="/node_modules/@kvui/css/dist/nova.min.css">
-<body class="nova-base">
+<link rel="stylesheet" href="/node_modules/@kvui/css/dist/kvui.min.css">
+<body class="kvui-base">
 ```
 
 ```html
 <!-- 1 column on phones, 2 from 640px, 4 from 1024px -->
-<div class="nova-container nova-section">
-  <div class="nova-d-grid nova-cols-1 nova-sm-cols-2 nova-lg-cols-4 nova-gap-4">...</div>
-  <ul class="nova-grid-auto nova-grid-auto-md" role="list">...</ul>   <!-- no breakpoints needed -->
+<div class="kvui-container kvui-section">
+  <div class="kvui-d-grid kvui-cols-1 kvui-sm-cols-2 kvui-lg-cols-4 kvui-gap-4">...</div>
+  <ul class="kvui-grid-auto kvui-grid-auto-md" role="list">...</ul>   <!-- no breakpoints needed -->
 </div>
 ```
 
@@ -25,11 +25,11 @@ components and print styles. Mobile first, cascade-layered, logical properties, 
 
 | Import | Size (gzip) |
 | --- | --- |
-| `nova.css` / `nova.min.css` | 17.0 KB / 12.9 KB |
-| `nova.compat.css` (no cascade layers, for browsers older than 2022) | 12.8 KB |
+| `kvui.css` / `kvui.min.css` | 17.0 KB / 12.9 KB |
+| `kvui.compat.css` (no cascade layers, for browsers older than 2022) | 12.8 KB |
 | `tokens` + `reset` + `typography` + `layout` + `components` | about 9 KB together |
 
-Works alongside the web components: `nova.css` includes the same tokens, so you don't also need
+Works alongside the web components: `kvui.css` includes the same tokens, so you don't also need
 `@kvui/core/styles.css`.
 
 ```bash

@@ -9,7 +9,7 @@ import type { Type } from '@angular/core';
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: `
-    <div class="nova-cluster">
+    <div class="kvui-cluster">
       <ui-button>Save</ui-button>
       <ui-button variant="secondary">Cancel</ui-button>
       <ui-button variant="ghost">Ghost</ui-button>
@@ -27,7 +27,7 @@ export class ButtonExample {}
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: `
-    <div class="nova-cluster">
+    <div class="kvui-cluster">
       <ui-icon name="check" label="Done"></ui-icon>
       <ui-icon name="star" [filled]="true" label="Starred"></ui-icon>
       <ui-icon name="alert-triangle" size="2rem" label="Warning"></ui-icon>
@@ -102,7 +102,7 @@ export class SelectExample {
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: `
-    <div class="nova-cluster">
+    <div class="kvui-cluster">
       <ui-badge tone="success" [dot]="true">Active</ui-badge>
       <ui-badge tone="warning" variant="outline">Pending</ui-badge>
       <ui-badge tone="danger" variant="solid">Failed</ui-badge>
@@ -118,7 +118,7 @@ export class BadgeExample {}
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: `
-    <div class="nova-stack nova-stack-sm">
+    <div class="kvui-stack kvui-stack-sm">
       <ui-alert tone="success" heading="Saved">Your changes are live.</ui-alert>
       <ui-alert tone="danger" heading="Could not save" [dismissible]="true">Check your connection and try again.</ui-alert>
     </div>
@@ -136,7 +136,7 @@ export class AlertExample {}
     <ui-card variant="raised">
       <span slot="header">Profile</span>
       <p>Card body content.</p>
-      <div slot="footer" class="nova-cluster nova-cluster-end"><ui-button size="sm">Save</ui-button></div>
+      <div slot="footer" class="kvui-cluster kvui-cluster-end"><ui-button size="sm">Save</ui-button></div>
     </ui-card>
   `,
 })
@@ -211,7 +211,7 @@ export class TabsExample {
     <ui-button (click)="open.set(true)">Open dialog</ui-button>
     <ui-modal [open]="open()" heading="Delete project?" size="sm" (uiClose)="open.set(false)">
       This removes every file in it.
-      <div slot="footer" class="nova-cluster nova-cluster-end">
+      <div slot="footer" class="kvui-cluster kvui-cluster-end">
         <ui-button variant="ghost" (click)="open.set(false)">Cancel</ui-button>
         <ui-button variant="danger" (click)="open.set(false)">Delete</ui-button>
       </div>

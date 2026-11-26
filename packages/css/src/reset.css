@@ -1,7 +1,7 @@
-@layer nova.reset, nova.tokens, nova.base, nova.layout, nova.components, nova.utilities;
+@layer kvui.reset, kvui.tokens, kvui.base, kvui.layout, kvui.components, kvui.utilities;
 
 /* A small, modern reset. It lives in the lowest layer, so any rule you write wins without a specificity fight. */
-@layer nova.reset {
+@layer kvui.reset {
   *, *::before, *::after { box-sizing: border-box; }
 
   html {
@@ -15,7 +15,7 @@
 
   body { margin: 0; }
 
-  /* Spacing between blocks is opt-in (see .nova-flow and .nova-stack), so default margins go. */
+  /* Spacing between blocks is opt-in (see .kvui-flow and .kvui-stack), so default margins go. */
   :where(h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd, pre) { margin: 0; }
   :where(ul, ol) { margin: 0; }
   /* Lists used as navigation or card rows opt out of bullets and indent with role="list" */
@@ -38,10 +38,10 @@
   :where(:target) { scroll-margin-block: 5rem; }
 
   /* One consistent, visible keyboard focus style.
-     Nova web components (Stencil adds .hydrated) draw their own focus indicator. Without this exclusion a focusable
+     Kvui web components (Stencil adds .hydrated) draw their own focus indicator. Without this exclusion a focusable
      host (menu item, tab, radio) would show this outline on top of its own, because a document rule beats a
      component's :host rule in the shadow-DOM cascade. */
-  :where(:focus-visible:not(.hydrated)) { outline: 2px solid var(--nova-color-accent, currentColor); outline-offset: 2px; }
+  :where(:focus-visible:not(.hydrated)) { outline: 2px solid var(--kvui-color-accent, currentColor); outline-offset: 2px; }
 
   /* !important so the hidden attribute still wins over a display utility or component rule */
   [hidden]:not([hidden='until-found']) { display: none !important; }

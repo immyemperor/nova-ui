@@ -1,14 +1,14 @@
 :host {
   display: block; box-sizing: border-box; overflow: hidden;
-  background: var(--nova-color-surface); color: var(--nova-color-fg);
-  border: 1px solid var(--nova-color-border); border-radius: var(--nova-radius-surface);
-  font-family: var(--nova-font-sans);
+  background: var(--kvui-color-surface); color: var(--kvui-color-fg);
+  border: 1px solid var(--kvui-color-border); border-radius: var(--kvui-radius-surface);
+  font-family: var(--kvui-font-sans);
 }
-:host([variant='raised']) { border-color: transparent; box-shadow: var(--nova-shadow-md); background: var(--nova-color-surface-raised); }
-:host([variant='flat']) { border-color: transparent; background: var(--nova-color-surface-sunken); }
-:host([interactive]) { cursor: pointer; transition: border-color var(--nova-duration-base) var(--nova-ease-standard), box-shadow var(--nova-duration-base) var(--nova-ease-standard); }
-:host([interactive]:hover) { border-color: var(--nova-color-border-strong); box-shadow: var(--nova-shadow-md); }
-:host([interactive]:focus-within) { box-shadow: var(--nova-focus-ring); }
-.header { padding: var(--nova-space-4) var(--nova-space-5); border-bottom: 1px solid var(--nova-color-border); font-weight: var(--nova-weight-semibold); }
-.body { padding: var(--nova-space-5); }
-.footer { padding: var(--nova-space-3) var(--nova-space-5); border-top: 1px solid var(--nova-color-border); background: var(--nova-color-surface-sunken); }
+:host([variant='raised']) { border-color: transparent; box-shadow: var(--kvui-shadow-md); background: var(--kvui-color-surface-raised); }
+:host([variant='flat']) { border-color: transparent; background: var(--kvui-color-surface-sunken); }
+:host([interactive]) { cursor: pointer; transition: border-color var(--kvui-duration-base) var(--kvui-ease-standard), box-shadow var(--kvui-duration-base) var(--kvui-ease-standard); }
+:host([interactive]:hover) { border-color: var(--kvui-color-border-strong); box-shadow: var(--kvui-shadow-md); }
+:host([interactive]:focus-within) { box-shadow: var(--kvui-focus-ring); }
+.header { padding: var(--kvui-space-4) var(--kvui-space-5); border-bottom: 1px solid var(--kvui-color-border); font-weight: var(--kvui-weight-semibold); }
+.body { padding: var(--kvui-space-5); }
+.footer { padding: var(--kvui-space-3) var(--kvui-space-5); border-top: 1px solid var(--kvui-color-border); background: var(--kvui-color-surface-sunken); }

@@ -29,7 +29,7 @@ function load(relPath) {
   const code = ts.transpileModule(readFileSync(join(src, relPath), 'utf8'), {
     compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020, esModuleInterop: true },
   }).outputText;
-  const dir = mkdtempSync(join(tmpdir(), 'nova-test-'));
+  const dir = mkdtempSync(join(tmpdir(), 'kvui-test-'));
   // Rewrite relative imports to the temp dir layout by stubbing the few we need.
   const stubbed = code
     .replace(/require\("\.\/(\w+)"\)/g, (_m, n) => `require("${join(dirname(join(src, relPath)), n)}.js")`);

@@ -1,5 +1,5 @@
 /*
-  Nova UI design tokens. Text pairs meet WCAG AA (4.5:1) and control borders meet 3:1 in both themes;
+  Kvui UI design tokens. Text pairs meet WCAG AA (4.5:1) and control borders meet 3:1 in both themes;
   packages/css runs a contrast check on every build, so keep it green when you retune colours.
   Identity: "verdigris and ink" - cool paper neutrals, a single oxidised-copper accent,
   tight radii on controls and softer radii on surfaces. Everything is overridable.
@@ -7,192 +7,192 @@
 :root,
 [data-theme='light'] {
   /* Surfaces */
-  --nova-color-bg: #f6f8f7;
-  --nova-color-surface: #ffffff;
-  --nova-color-surface-raised: #ffffff;
-  --nova-color-surface-sunken: #edf1ef;
-  --nova-color-border: #d5ddd9;
-  --nova-color-border-strong: #88908c; /* 3:1 against surfaces: form-control boundaries (WCAG 1.4.11) */
+  --kvui-color-bg: #f6f8f7;
+  --kvui-color-surface: #ffffff;
+  --kvui-color-surface-raised: #ffffff;
+  --kvui-color-surface-sunken: #edf1ef;
+  --kvui-color-border: #d5ddd9;
+  --kvui-color-border-strong: #88908c; /* 3:1 against surfaces: form-control boundaries (WCAG 1.4.11) */
 
   /* Text */
-  --nova-color-fg: #14201c;
-  --nova-color-fg-muted: #4d5c56;
-  --nova-color-fg-subtle: #626f69;
-  --nova-color-fg-on-accent: #ffffff;
+  --kvui-color-fg: #14201c;
+  --kvui-color-fg-muted: #4d5c56;
+  --kvui-color-fg-subtle: #626f69;
+  --kvui-color-fg-on-accent: #ffffff;
 
   /* Accent (verdigris) */
-  --nova-color-accent: #0b7a6c;
-  --nova-color-accent-hover: #09655a;
-  --nova-color-accent-active: #07524a;
-  --nova-color-accent-soft: #e1f3ef;
+  --kvui-color-accent: #0b7a6c;
+  --kvui-color-accent-hover: #09655a;
+  --kvui-color-accent-active: #07524a;
+  --kvui-color-accent-soft: #e1f3ef;
 
   /* Status */
-  --nova-color-success: #1a7f4b;
-  --nova-color-warning: #a35f00;
-  --nova-color-danger: #c0362c;
-  --nova-color-info: #2563b8;
-  --nova-color-success-soft: #eaf7ef;
-  --nova-color-warning-soft: #fdf3e2;
-  --nova-color-danger-soft: #fbe5e2;
-  --nova-color-info-soft: #dce9fa;
+  --kvui-color-success: #1a7f4b;
+  --kvui-color-warning: #a35f00;
+  --kvui-color-danger: #c0362c;
+  --kvui-color-info: #2563b8;
+  --kvui-color-success-soft: #eaf7ef;
+  --kvui-color-warning-soft: #fdf3e2;
+  --kvui-color-danger-soft: #fbe5e2;
+  --kvui-color-info-soft: #dce9fa;
 
-  --nova-shadow-sm: 0 1px 2px rgb(20 32 28 / 0.08);
-  --nova-shadow-md: 0 4px 14px rgb(20 32 28 / 0.1);
-  --nova-shadow-lg: 0 16px 40px rgb(20 32 28 / 0.16);
-  --nova-focus-ring: 0 0 0 3px rgb(11 122 108 / 0.35);
+  --kvui-shadow-sm: 0 1px 2px rgb(20 32 28 / 0.08);
+  --kvui-shadow-md: 0 4px 14px rgb(20 32 28 / 0.1);
+  --kvui-shadow-lg: 0 16px 40px rgb(20 32 28 / 0.16);
+  --kvui-focus-ring: 0 0 0 3px rgb(11 122 108 / 0.35);
 
   /* Translucent tints: decorative backgrounds (hover, selection, drop targets, scrims).
      Text is never placed directly on a tint; the contrast check blends each tint onto its surface and tests it. */
-  --nova-tint-hover: rgb(20 32 28 / 0.06);
-  --nova-tint-accent: rgb(11 122 108 / 0.12);
-  --nova-tint-accent-strong: rgb(11 122 108 / 0.22);
-  --nova-tint-danger: rgb(192 54 44 / 0.12);
-  --nova-tint-success: rgb(26 127 75 / 0.12);
-  --nova-tint-warning: rgb(163 95 0 / 0.14);
-  --nova-tint-info: rgb(37 99 184 / 0.12);
-  --nova-scrim: rgb(8 14 12 / 0.55);
+  --kvui-tint-hover: rgb(20 32 28 / 0.06);
+  --kvui-tint-accent: rgb(11 122 108 / 0.12);
+  --kvui-tint-accent-strong: rgb(11 122 108 / 0.22);
+  --kvui-tint-danger: rgb(192 54 44 / 0.12);
+  --kvui-tint-success: rgb(26 127 75 / 0.12);
+  --kvui-tint-warning: rgb(163 95 0 / 0.14);
+  --kvui-tint-info: rgb(37 99 184 / 0.12);
+  --kvui-scrim: rgb(8 14 12 / 0.55);
 }
 
 [data-theme='dark'] {
-  --nova-color-bg: #0d1412;
-  --nova-color-surface: #141d1a;
-  --nova-color-surface-raised: #1a2521;
-  --nova-color-surface-sunken: #0a100e;
-  --nova-color-border: #263430;
-  --nova-color-border-strong: #63726d;
+  --kvui-color-bg: #0d1412;
+  --kvui-color-surface: #141d1a;
+  --kvui-color-surface-raised: #1a2521;
+  --kvui-color-surface-sunken: #0a100e;
+  --kvui-color-border: #263430;
+  --kvui-color-border-strong: #63726d;
 
-  --nova-color-fg: #e8efec;
-  --nova-color-fg-muted: #a6b5af;
-  --nova-color-fg-subtle: #7f908a;
-  --nova-color-fg-on-accent: #06201b;
+  --kvui-color-fg: #e8efec;
+  --kvui-color-fg-muted: #a6b5af;
+  --kvui-color-fg-subtle: #7f908a;
+  --kvui-color-fg-on-accent: #06201b;
 
-  --nova-color-accent: #3fd1bb;
-  --nova-color-accent-hover: #67e0cd;
-  --nova-color-accent-active: #8aebdc;
-  --nova-color-accent-soft: #12302b;
+  --kvui-color-accent: #3fd1bb;
+  --kvui-color-accent-hover: #67e0cd;
+  --kvui-color-accent-active: #8aebdc;
+  --kvui-color-accent-soft: #12302b;
 
-  --nova-color-success: #4cc98a;
-  --nova-color-warning: #e8a73c;
-  --nova-color-danger: #f0766b;
-  --nova-color-info: #6aa4f0;
-  --nova-color-success-soft: #123022;
-  --nova-color-warning-soft: #33260c;
-  --nova-color-danger-soft: #3a1815;
-  --nova-color-info-soft: #112844;
+  --kvui-color-success: #4cc98a;
+  --kvui-color-warning: #e8a73c;
+  --kvui-color-danger: #f0766b;
+  --kvui-color-info: #6aa4f0;
+  --kvui-color-success-soft: #123022;
+  --kvui-color-warning-soft: #33260c;
+  --kvui-color-danger-soft: #3a1815;
+  --kvui-color-info-soft: #112844;
 
-  --nova-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.5);
-  --nova-shadow-md: 0 4px 14px rgb(0 0 0 / 0.5);
-  --nova-shadow-lg: 0 16px 40px rgb(0 0 0 / 0.6);
-  --nova-focus-ring: 0 0 0 3px rgb(63 209 187 / 0.4);
+  --kvui-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.5);
+  --kvui-shadow-md: 0 4px 14px rgb(0 0 0 / 0.5);
+  --kvui-shadow-lg: 0 16px 40px rgb(0 0 0 / 0.6);
+  --kvui-focus-ring: 0 0 0 3px rgb(63 209 187 / 0.4);
 
-  --nova-tint-hover: rgb(232 239 236 / 0.07);
-  --nova-tint-accent: rgb(63 209 187 / 0.14);
-  --nova-tint-accent-strong: rgb(63 209 187 / 0.24);
-  --nova-tint-danger: rgb(240 118 107 / 0.14);
-  --nova-tint-success: rgb(76 201 138 / 0.14);
-  --nova-tint-warning: rgb(232 167 60 / 0.16);
-  --nova-tint-info: rgb(106 164 240 / 0.14);
-  --nova-scrim: rgb(0 0 0 / 0.6);
+  --kvui-tint-hover: rgb(232 239 236 / 0.07);
+  --kvui-tint-accent: rgb(63 209 187 / 0.14);
+  --kvui-tint-accent-strong: rgb(63 209 187 / 0.24);
+  --kvui-tint-danger: rgb(240 118 107 / 0.14);
+  --kvui-tint-success: rgb(76 201 138 / 0.14);
+  --kvui-tint-warning: rgb(232 167 60 / 0.16);
+  --kvui-tint-info: rgb(106 164 240 / 0.14);
+  --kvui-scrim: rgb(0 0 0 / 0.6);
 }
 
 /* No-JS fallback: follow the OS until the theme manager sets data-theme. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --nova-color-bg: #0d1412;
-    --nova-color-surface: #141d1a;
-    --nova-color-surface-raised: #1a2521;
-    --nova-color-surface-sunken: #0a100e;
-    --nova-color-border: #263430;
-    --nova-color-border-strong: #63726d;
-    --nova-color-fg: #e8efec;
-    --nova-color-fg-muted: #a6b5af;
-    --nova-color-fg-subtle: #7f908a;
-    --nova-color-fg-on-accent: #06201b;
-    --nova-color-accent: #3fd1bb;
-    --nova-color-accent-hover: #67e0cd;
-    --nova-color-accent-active: #8aebdc;
-    --nova-color-accent-soft: #12302b;
-    --nova-focus-ring: 0 0 0 3px rgb(63 209 187 / 0.4);
-    --nova-tint-hover: rgb(232 239 236 / 0.07);
-    --nova-tint-accent: rgb(63 209 187 / 0.14);
-    --nova-tint-accent-strong: rgb(63 209 187 / 0.24);
-    --nova-tint-danger: rgb(240 118 107 / 0.14);
-    --nova-tint-success: rgb(76 201 138 / 0.14);
-    --nova-tint-warning: rgb(232 167 60 / 0.16);
-    --nova-tint-info: rgb(106 164 240 / 0.14);
-    --nova-scrim: rgb(0 0 0 / 0.6);
+    --kvui-color-bg: #0d1412;
+    --kvui-color-surface: #141d1a;
+    --kvui-color-surface-raised: #1a2521;
+    --kvui-color-surface-sunken: #0a100e;
+    --kvui-color-border: #263430;
+    --kvui-color-border-strong: #63726d;
+    --kvui-color-fg: #e8efec;
+    --kvui-color-fg-muted: #a6b5af;
+    --kvui-color-fg-subtle: #7f908a;
+    --kvui-color-fg-on-accent: #06201b;
+    --kvui-color-accent: #3fd1bb;
+    --kvui-color-accent-hover: #67e0cd;
+    --kvui-color-accent-active: #8aebdc;
+    --kvui-color-accent-soft: #12302b;
+    --kvui-focus-ring: 0 0 0 3px rgb(63 209 187 / 0.4);
+    --kvui-tint-hover: rgb(232 239 236 / 0.07);
+    --kvui-tint-accent: rgb(63 209 187 / 0.14);
+    --kvui-tint-accent-strong: rgb(63 209 187 / 0.24);
+    --kvui-tint-danger: rgb(240 118 107 / 0.14);
+    --kvui-tint-success: rgb(76 201 138 / 0.14);
+    --kvui-tint-warning: rgb(232 167 60 / 0.16);
+    --kvui-tint-info: rgb(106 164 240 / 0.14);
+    --kvui-scrim: rgb(0 0 0 / 0.6);
   }
 }
 
 :root {
   /* Type */
-  --nova-font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --nova-font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
-  --nova-text-xs: 0.75rem;
-  --nova-text-sm: 0.875rem;
-  --nova-text-md: 1rem;
-  --nova-text-lg: 1.125rem;
-  --nova-text-xl: 1.375rem;
-  --nova-leading-tight: 1.25;
-  --nova-leading-normal: 1.5;
-  --nova-weight-regular: 400;
-  --nova-weight-medium: 500;
-  --nova-weight-semibold: 600;
+  --kvui-font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --kvui-font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --kvui-text-xs: 0.75rem;
+  --kvui-text-sm: 0.875rem;
+  --kvui-text-md: 1rem;
+  --kvui-text-lg: 1.125rem;
+  --kvui-text-xl: 1.375rem;
+  --kvui-leading-tight: 1.25;
+  --kvui-leading-normal: 1.5;
+  --kvui-weight-regular: 400;
+  --kvui-weight-medium: 500;
+  --kvui-weight-semibold: 600;
 
   /* Space (4px base) */
-  --nova-space-1: 0.25rem;
-  --nova-space-2: 0.5rem;
-  --nova-space-3: 0.75rem;
-  --nova-space-4: 1rem;
-  --nova-space-5: 1.5rem;
-  --nova-space-6: 2rem;
-  --nova-space-8: 3rem;
+  --kvui-space-1: 0.25rem;
+  --kvui-space-2: 0.5rem;
+  --kvui-space-3: 0.75rem;
+  --kvui-space-4: 1rem;
+  --kvui-space-5: 1.5rem;
+  --kvui-space-6: 2rem;
+  --kvui-space-8: 3rem;
 
   /* Radius: controls are tighter than surfaces */
-  --nova-radius-control: 6px;
-  --nova-radius-surface: 12px;
-  --nova-radius-pill: 999px;
+  --kvui-radius-control: 6px;
+  --kvui-radius-surface: 12px;
+  --kvui-radius-pill: 999px;
 
   /* Control sizing */
-  --nova-control-sm: 1.75rem;
-  --nova-control-md: 2.25rem;
-  --nova-control-lg: 2.75rem;
+  --kvui-control-sm: 1.75rem;
+  --kvui-control-md: 2.25rem;
+  --kvui-control-lg: 2.75rem;
 
   /* Motion */
-  --nova-duration-fast: 120ms;
-  --nova-duration-base: 200ms;
-  --nova-duration-slow: 400ms;
-  --nova-ease-standard: cubic-bezier(0.2, 0, 0, 1);
-  --nova-ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
+  --kvui-duration-fast: 120ms;
+  --kvui-duration-base: 200ms;
+  --kvui-duration-slow: 400ms;
+  --kvui-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --kvui-ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
 
   /* Layering */
-  --nova-z-dropdown: 1000;
-  --nova-z-overlay: 1100;
-  --nova-z-modal: 1200;
-  --nova-z-toast: 1300;
+  --kvui-z-dropdown: 1000;
+  --kvui-z-overlay: 1100;
+  --kvui-z-modal: 1200;
+  --kvui-z-toast: 1300;
 }
 
 @media (prefers-reduced-motion: reduce) {
   :root {
-    --nova-duration-fast: 0.01ms;
-    --nova-duration-base: 0.01ms;
-    --nova-duration-slow: 0.01ms;
+    --kvui-duration-fast: 0.01ms;
+    --kvui-duration-base: 0.01ms;
+    --kvui-duration-slow: 0.01ms;
   }
 }
 
 /*
   FORCED COLORS (Windows High Contrast, forced-colors: active).
   The browser replaces every colour with the user's system palette and drops box-shadow.
-  Nova's focus rings are box-shadows, so they would vanish. Restore them as real outlines.
-  Keep this in step with --nova-focus-ring: the value is never used here, only the shape.
+  Kvui's focus rings are box-shadows, so they would vanish. Restore them as real outlines.
+  Keep this in step with --kvui-focus-ring: the value is never used here, only the shape.
 */
 @media (forced-colors: active) {
-  :root { --nova-focus-ring: 0 0 0 2px CanvasText; }
+  :root { --kvui-focus-ring: 0 0 0 2px CanvasText; }
   *:focus-visible { outline: 3px solid Highlight !important; outline-offset: 2px; }
   button, [role='button'], [role='tab'], [role='menuitem'], [role='option'], [role='radio'], [role='treeitem'] {
     border: 1px solid ButtonText;
   }
-  .nova-btn, .nova-badge, .nova-card, .nova-alert, .nova-input, .nova-select, .nova-textarea { border: 1px solid ButtonText; }
+  .kvui-btn, .kvui-badge, .kvui-card, .kvui-alert, .kvui-input, .kvui-select, .kvui-textarea { border: 1px solid ButtonText; }
   /* Selected and current states must not rely on background colour alone */
   [aria-selected='true'], [aria-current], [aria-pressed='true'], [aria-checked='true'], [selected], [pressed] {
     outline: 2px solid Highlight;

@@ -26,7 +26,7 @@ const coreComponentTags: string[] = fs
   .map((f) => f.replace(/\.d\.ts$/, ''));
 
 export const config: Config = {
-  namespace: 'nova-ui-editor',
+  namespace: 'kvui-editor',
   outputTargets: [
     { type: 'dist', esmLoaderPath: '../loader' },
     { type: 'dist-custom-elements', customElementsExportBehavior: 'auto-define-custom-elements' , externalRuntime: false },

@@ -1,4 +1,4 @@
-# Nova UI
+# Kvui UI
 
 One component library for **React, Next.js, Vite and Angular**. Components are built once as web
 components with [Stencil](https://stenciljs.com); typed React and Angular wrappers are generated from them.
@@ -17,7 +17,7 @@ apps/
 
 ## Documentation
 
-- **Using Nova** (developers): [docs/users/getting-started.md](docs/users/getting-started.md), then your framework under [docs/users/frameworks](docs/users/frameworks/README.md) and the [feature guides](docs/users/features/README.md).
+- **Using Kvui** (developers): [docs/users/getting-started.md](docs/users/getting-started.md), then your framework under [docs/users/frameworks](docs/users/frameworks/README.md) and the [feature guides](docs/users/features/README.md).
 - **Contributing** (maintainers): [docs/humans](docs/humans/architecture.md), including architecture, testing and [project status](docs/humans/status.md).
 - **AI agents**: [AGENTS.md](AGENTS.md), [llms.txt](llms.txt), and [docs/llms-full.txt](docs/llms-full.txt).
 - **Reference**: [API.md](packages/core/dist-docs/API.md) lists every component, prop, event, method and slot.
@@ -128,7 +128,7 @@ Methods: `getContentHTML()`, `getContentJSON()`, `getContentText()`, `setContent
 and `getEditor()`, which returns the underlying Tiptap editor for anything not exposed here.
 Events: `uiChange` (HTML), `uiFocus`, `uiBlur`, `uiReady`, `uiUploadStart`, `uiUploadComplete`, `uiUploadError`.
 
-The toolbar is built from Nova buttons, tooltips, menus, popovers and icons, so it follows your theme
+The toolbar is built from Kvui buttons, tooltips, menus, popovers and icons, so it follows your theme
 and dark mode. Toolbar keyboard use: one tab stop, arrow keys move between buttons. Tables get a contextual
 "Table" menu (insert/delete rows and columns, header row).
 
@@ -137,19 +137,19 @@ and dark mode. Toolbar keyboard use: one tab stop, arrow keys move between butto
 image sources on the way in, but you should never trust HTML that came from a browser.
 
 Design notes: the editor renders in light DOM (not a shadow root) because ProseMirror's selection, IME and
-spellcheck behave best there; all its CSS is prefixed `nova-ed` so it can't leak into your page. Tiptap is
+spellcheck behave best there; all its CSS is prefixed `kvui-ed` so it can't leak into your page. Tiptap is
 pinned to v2.
 
 ## CSS library: `@kvui/css`
 
-Use Nova as a plain CSS library, with or without the web components. Layout primitives
-(`nova-container`, `nova-grid`, `nova-grid-auto`, `nova-stack`, `nova-sidebar`, `nova-switcher`, `nova-shell`...),
-responsive utilities (`nova-md-cols-3`, `nova-hide-below-md`), container queries (`nova-cq-md-cols-2`), CSS-only
+Use Kvui as a plain CSS library, with or without the web components. Layout primitives
+(`kvui-container`, `kvui-grid`, `kvui-grid-auto`, `kvui-stack`, `kvui-sidebar`, `kvui-switcher`, `kvui-shell`...),
+responsive utilities (`kvui-md-cols-3`, `kvui-hide-below-md`), container queries (`kvui-cq-md-cols-2`), CSS-only
 components and print styles, all mobile first and cascade-layered so your CSS always wins.
 
 ```html
-<link rel="stylesheet" href="/node_modules/@kvui/css/dist/nova.min.css">
-<div class="nova-container"><ul class="nova-grid-auto nova-grid-auto-md" role="list">...</ul></div>
+<link rel="stylesheet" href="/node_modules/@kvui/css/dist/kvui.min.css">
+<div class="kvui-container"><ul class="kvui-grid-auto kvui-grid-auto-md" role="list">...</ul></div>
 ```
 Start with `packages/css/GUIDELINES.md` (breakpoints, which layout tool to use, recipes, accessibility), or open
 `packages/css/docs/index.html` for a live, resizable version. Light-theme colours are verified to WCAG AA by the build.
@@ -195,7 +195,7 @@ import { themeInitScript } from '@kvui/react/server';
 
 <html lang="en" suppressHydrationWarning>
   <head><script dangerouslySetInnerHTML={{ __html: themeInitScript }} /></head>
-  <body className="nova-base">{children}</body>
+  <body className="kvui-base">{children}</body>
 </html>
 ```
 `@kvui/react` ships with `"use client"`, so its components can be used from any file.
@@ -212,11 +212,11 @@ import { UiButton, UiIcon, ThemeService } from '@kvui/angular';
 })
 export class Demo { theme = inject(ThemeService); }
 ```
-Add `"styles": ["node_modules/@kvui/core/dist/nova-ui/nova-ui.css"]` to `angular.json`.
+Add `"styles": ["node_modules/@kvui/core/dist/kvui/kvui.css"]` to `angular.json`.
 
 ## Theming
 
-Everything is a CSS variable (`--nova-color-accent`, `--nova-radius-control`, ...). Override on `:root`
+Everything is a CSS variable (`--kvui-color-accent`, `--kvui-radius-control`, ...). Override on `:root`
 or any subtree. Modes: `light`, `dark`, `system`, set with `setThemeMode()`, `useTheme()` or `ThemeService`.
 
 ## Publishing
@@ -251,7 +251,7 @@ Run `pnpm --filter @kvui/core test` for the logic suite. Components are verified
 | Package or tool | What it is | Verified here |
 | --- | --- | --- |
 | `packages/core/dist-docs/` | API reference (`API.md`), machine manifest (`custom-elements.json`), editor autocomplete (`vscode-html-data.json`) | generated and tested (5 tests) |
-| `packages/tailwind` | Tailwind preset: `bg-nova-accent`, `rounded-nova-control`, etc., resolving to the live theme tokens | every token reference checked against `nova.css` (3 tests) |
+| `packages/tailwind` | Tailwind preset: `bg-kvui-accent`, `rounded-kvui-control`, etc., resolving to the live theme tokens | every token reference checked against `kvui.css` (3 tests) |
 | `packages/vue` | Vue 3 wrappers for all 71 components, generated from the manifest | output parses as TypeScript (3 tests); not run against Vue |
 | `apps/playground-angular` | Standalone Angular 19 app using the Angular wrappers | not built here (no Angular installed) |
 | `.github/workflows/ci.yml` | Install, build, test, browser tests, docs freshness check | not run here |

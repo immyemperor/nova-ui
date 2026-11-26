@@ -1,6 +1,6 @@
 # @kvui/editor
 
-Rich text editor for Nova UI: configurable toolbar, "/" commands, @mentions, tables, links, image and file
+Rich text editor for Kvui UI: configurable toolbar, "/" commands, @mentions, tables, links, image and file
 uploads. Built on [Tiptap](https://tiptap.dev) (v2). Requires `@kvui/core`.
 
 ```ts

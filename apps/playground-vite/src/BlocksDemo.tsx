@@ -9,11 +9,11 @@ export function BlocksDemo() {
   const [step, setStep] = useState(0);
 
   return (
-    <section className="nova-stack nova-stack-lg" id="blocks">
-      <h2 className="nova-h3">Page blocks</h2>
+    <section className="kvui-stack kvui-stack-lg" id="blocks">
+      <h2 className="kvui-h3">Page blocks</h2>
 
-      <div className="nova-grid-auto nova-grid-auto-md nova-gap-6">
-        <LoginBlock onSubmit={(email) => console.info('sign in', email)} footer={<p className="nova-small nova-text-muted">No account? <a href="#signup">Sign up</a></p>} />
+      <div className="kvui-grid-auto kvui-grid-auto-md kvui-gap-6">
+        <LoginBlock onSubmit={(email) => console.info('sign in', email)} footer={<p className="kvui-small kvui-text-muted">No account? <a href="#signup">Sign up</a></p>} />
         <PricingBlock tiers={[
           { name: 'Free', price: '$0', period: '/month', features: ['1 project', 'Community support'] },
           { name: 'Team', price: '$24', period: '/month', features: ['Unlimited projects', 'Email support', 'SSO'], featured: true },
@@ -21,22 +21,22 @@ export function BlocksDemo() {
         ]} />
       </div>
 
-      <div className="nova-stack">
-        <h3 className="nova-h5">Exit animation (usePresence)</h3>
-        <div className="nova-cluster">
+      <div className="kvui-stack">
+        <h3 className="kvui-h5">Exit animation (usePresence)</h3>
+        <div className="kvui-cluster">
           <UiButton variant="secondary" onClick={() => setOpen((o) => !o)}>{open ? 'Hide' : 'Show'} card</UiButton>
-          <span className="nova-caption">phase: {phase}</span>
+          <span className="kvui-caption">phase: {phase}</span>
         </div>
         {mounted && (
-          <UiCard className={phase === 'exiting' ? 'nova-fade-out' : 'nova-fade-in'}>
+          <UiCard className={phase === 'exiting' ? 'kvui-fade-out' : 'kvui-fade-in'}>
             This card fades out before it is removed from the page.
           </UiCard>
         )}
       </div>
 
       <OnboardingBlock step={step} steps={[{ heading: 'Account' }, { heading: 'Workspace' }, { heading: 'Invite' }]}>
-        <h3 className="nova-h4">Step {step + 1} of 3</h3>
-        <div className="nova-cluster">
+        <h3 className="kvui-h4">Step {step + 1} of 3</h3>
+        <div className="kvui-cluster">
           <UiButton variant="ghost" disabled={step === 0} onClick={() => setStep((s) => Math.max(0, s - 1))}>Back</UiButton>
           <UiButton onClick={() => setStep((s) => Math.min(2, s + 1))}>Next</UiButton>
         </div>
@@ -47,7 +47,7 @@ export function BlocksDemo() {
         { id: 'notifications', label: 'Notifications', icon: 'bell' },
         { id: 'billing', label: 'Billing', icon: 'credit-card' },
       ]}>
-        <h2 className="nova-h3">Notifications</h2>
+        <h2 className="kvui-h3">Notifications</h2>
         <UiSwitch checked>Email me about new comments</UiSwitch>
         <UiSwitch>Weekly summary</UiSwitch>
       </SettingsBlock>

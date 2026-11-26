@@ -19,20 +19,20 @@ import { SOURCES } from '../source';
   ],
   template: `
     <ui-scroll-progress label="Reading progress"></ui-scroll-progress>
-    <div class="nova-container nova-section nova-stack nova-stack-lg">
-      <header class="nova-cluster nova-cluster-between">
-        <h1 class="nova-h3">Nova UI on Angular</h1>
-        <div class="nova-cluster">
-          <button type="button" class="nova-btn nova-btn-ghost nova-btn-sm" (click)="toggleIcons()">Icons: {{ iconSet() === 'nova' ? 'Nova' : 'Material' }}</button>
+    <div class="kvui-container kvui-section kvui-stack kvui-stack-lg">
+      <header class="kvui-cluster kvui-cluster-between">
+        <h1 class="kvui-h3">Kvui UI on Angular</h1>
+        <div class="kvui-cluster">
+          <button type="button" class="kvui-btn kvui-btn-ghost kvui-btn-sm" (click)="toggleIcons()">Icons: {{ iconSet() === 'kvui' ? 'Kvui' : 'Material' }}</button>
           <ui-button variant="secondary" (click)="theme.set(theme.resolved() === 'dark' ? 'light' : 'dark')">
             Theme: {{ theme.resolved() }}
           </ui-button>
         </div>
       </header>
 
-      <section class="nova-stack nova-stack-sm">
-        <h2 class="nova-h4">Sidebar and split panes</h2>
-        <div class="nova-cluster nova-gap-4">
+      <section class="kvui-stack kvui-stack-sm">
+        <h2 class="kvui-h4">Sidebar and split panes</h2>
+        <div class="kvui-cluster kvui-gap-4">
           <ui-sidebar label="Demo navigation" storageKey="ng-sidebar">
             <ui-sidebar-item label="Overview" icon="home" [current]="true" href="#"></ui-sidebar-item>
             <ui-sidebar-item label="Reports" icon="bar-chart" [group]="true" [open]="true">
@@ -40,45 +40,45 @@ import { SOURCES } from '../source';
             </ui-sidebar-item>
           </ui-sidebar>
           <ui-split [ratio]="0.35" [minA]="140" [minB]="220" storageKey="ng-split" style="flex:1;height:180px">
-            <div slot="a" class="nova-p-3 nova-small">List pane</div>
-            <div slot="b" class="nova-p-3 nova-small">Detail pane</div>
+            <div slot="a" class="kvui-p-3 kvui-small">List pane</div>
+            <div slot="b" class="kvui-p-3 kvui-small">Detail pane</div>
           </ui-split>
         </div>
       </section>
 
-      <section class="nova-stack nova-stack-sm">
-        <h2 class="nova-h4">Dates and times</h2>
-        <div class="nova-grid-auto nova-grid-auto-md nova-gap-4">
+      <section class="kvui-stack kvui-stack-sm">
+        <h2 class="kvui-h4">Dates and times</h2>
+        <div class="kvui-grid-auto kvui-grid-auto-md kvui-gap-4">
           <ui-date-range-picker label="Report period" [presets]="true" [value]="range()" (uiChange)="range.set($event.detail)"></ui-date-range-picker>
           <ui-time-picker label="Meeting time" [value]="time()" min="08:00" max="18:00" [step]="15" (uiChange)="time.set($event.detail)"></ui-time-picker>
         </div>
       </section>
 
-      <section class="nova-stack nova-stack-sm">
-        <h2 class="nova-h4">Charts and sparklines</h2>
+      <section class="kvui-stack kvui-stack-sm">
+        <h2 class="kvui-h4">Charts and sparklines</h2>
         <ui-chart type="area" label="Revenue in thousands" [labels]="months" [series]="revenue"></ui-chart>
-        <div class="nova-cluster">
+        <div class="kvui-cluster">
           <ui-sparkline label="Revenue trend" [values]="trend" [area]="true"></ui-sparkline>
-          <span class="nova-small nova-text-muted">Last eight weeks</span>
+          <span class="kvui-small kvui-text-muted">Last eight weeks</span>
         </div>
       </section>
 
-      <section class="nova-stack nova-stack-sm">
-        <h2 class="nova-h4">Tables</h2>
+      <section class="kvui-stack kvui-stack-sm">
+        <h2 class="kvui-h4">Tables</h2>
         <ui-table caption="Team" [columns]="columns" [rows]="rows" [exportable]="true" [paginate]="false"></ui-table>
         <ui-table caption="Accounts" [virtual]="true" maxHeight="320px" [rowHeight]="44" [paginate]="false" [columns]="columns" [rows]="manyRows"></ui-table>
       </section>
 
-      <section class="nova-stack nova-stack-sm">
-        <h2 class="nova-h4">Lists, boards and schedule</h2>
+      <section class="kvui-stack kvui-stack-sm">
+        <h2 class="kvui-h4">Lists, boards and schedule</h2>
         <ui-sortable label="Launch steps" [items]="steps" (uiReorder)="steps = $event.detail"></ui-sortable>
         <ui-kanban label="Board" [columns]="columnsKanban" [cards]="cards" [layout]="layout()" (uiMove)="layout.set($event.detail.layout)"></ui-kanban>
         <ui-scheduler label="Week" view="week" date="2026-11-16" [dayStart]="8" [dayEnd]="18" [events]="events"></ui-scheduler>
         <ui-virtual-list [count]="10000" [rowHeight]="36" [height]="200" label="Ten thousand items"></ui-virtual-list>
       </section>
 
-      <section class="nova-stack nova-stack-sm">
-        <h2 class="nova-h4">Upload and disclosure</h2>
+      <section class="kvui-stack kvui-stack-sm">
+        <h2 class="kvui-h4">Upload and disclosure</h2>
         <ui-file-upload label="Attachments" accept=".pdf,.png" [maxFiles]="3"></ui-file-upload>
         <ui-collapse peek="Shipping details">
           <span slot="label">Delivery</span>
@@ -86,16 +86,16 @@ import { SOURCES } from '../source';
         </ui-collapse>
       </section>
 
-      <section class="nova-stack nova-stack-sm" id="source">
-        <h2 class="nova-h4">Source code</h2>
-        <p class="nova-caption">Copy any file. The app's own source is bundled at build time (scripts/snapshot.mjs).</p>
+      <section class="kvui-stack kvui-stack-sm" id="source">
+        <h2 class="kvui-h4">Source code</h2>
+        <p class="kvui-caption">Copy any file. The app's own source is bundled at build time (scripts/snapshot.mjs).</p>
         <app-code-block title="src/app/catalogue/catalogue.component.ts" [code]="appSource"></app-code-block>
         <app-code-block title="src/app/code-block.component.ts" [code]="codeBlockSource"></app-code-block>
       </section>
 
-      <section class="nova-stack nova-stack-sm">
-        <h2 class="nova-h4">Dialogs and notifications</h2>
-        <div class="nova-cluster">
+      <section class="kvui-stack kvui-stack-sm">
+        <h2 class="kvui-h4">Dialogs and notifications</h2>
+        <div class="kvui-cluster">
           <ui-button variant="danger" (click)="remove()">Delete account</ui-button>
           <ui-button variant="secondary" (click)="rename()">Rename</ui-button>
           <ui-button (click)="save()">Save</ui-button>
@@ -115,7 +115,7 @@ export class CatalogueComponent {
   readonly codeBlockSource = SOURCES['src/app/code-block.component.ts'];
 
   toggleIcons(): void {
-    const next: IconLibrary = this.iconSet() === 'nova' ? 'material' : 'nova';
+    const next: IconLibrary = this.iconSet() === 'kvui' ? 'material' : 'kvui';
     setIconLibrary(next);
     this.iconSet.set(next);
   }

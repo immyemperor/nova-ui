@@ -1,11 +1,11 @@
 /*
-  Nova CSS: everything in one import. Order matters little (cascade layers decide precedence):
+  Kvui CSS: everything in one import. Order matters little (cascade layers decide precedence):
   reset < tokens < base < layout < components < utilities. Your own unlayered CSS beats all of it.
 */
-@layer nova.reset, nova.tokens, nova.base, nova.layout, nova.components, nova.utilities;
+@layer kvui.reset, kvui.tokens, kvui.base, kvui.layout, kvui.components, kvui.utilities;
 
 /* Colour, type, radius, shadow and motion tokens come from @kvui/core, the single source of truth. */
-@import url('../../core/src/global/tokens.css') layer(nova.tokens);
+@import url('../../core/src/global/tokens.css') layer(kvui.tokens);
 @import url('./tokens.css');
 @import url('./reset.css');
 @import url('./typography.css');

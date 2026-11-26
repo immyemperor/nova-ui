@@ -1,11 +1,11 @@
 @import './tokens.css';
 
-/* Opt-in page defaults: add class="nova-base" to <body> (or any root). */
-.nova-base {
-  background: var(--nova-color-bg);
-  color: var(--nova-color-fg);
-  font-family: var(--nova-font-sans);
-  font-size: var(--nova-text-md);
-  line-height: var(--nova-leading-normal);
+/* Opt-in page defaults: add class="kvui-base" to <body> (or any root). */
+.kvui-base {
+  background: var(--kvui-color-bg);
+  color: var(--kvui-color-fg);
+  font-family: var(--kvui-font-sans);
+  font-size: var(--kvui-text-md);
+  line-height: var(--kvui-leading-normal);
   -webkit-font-smoothing: antialiased;
 }

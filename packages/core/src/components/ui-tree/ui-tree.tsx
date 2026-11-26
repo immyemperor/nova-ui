@@ -128,7 +128,7 @@ export class UiTree {
         >
           <div
             class={{ row: true, selected: this.selected === node.id, disabled: !!node.disabled }}
-            style={{ paddingInlineStart: `calc(${level - 1} * var(--nova-space-5) + var(--nova-space-2))` }}
+            style={{ paddingInlineStart: `calc(${level - 1} * var(--kvui-space-5) + var(--kvui-space-2))` }}
             onClick={() => this.select(node)}
           >
             <span

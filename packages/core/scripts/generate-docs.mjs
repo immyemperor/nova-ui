@@ -110,7 +110,7 @@ const vscode = {
   version: 1.1,
   tags: components.map((c) => ({
     name: c.tag,
-    description: c.description || `Nova ${c.className}`,
+    description: c.description || `Kvui ${c.className}`,
     attributes: [
       ...c.props.map((p) => ({
         name: p.attribute,
@@ -127,7 +127,7 @@ writeFileSync(join(outDir, 'vscode-html-data.json'), JSON.stringify(vscode, null
 
 // 3. Human-readable reference
 const md = [
-  '# Nova UI component reference',
+  '# Kvui UI component reference',
   '',
   `Generated from ${components.length} component sources. Regenerate with \`node scripts/generate-docs.mjs\`.`,
   '',

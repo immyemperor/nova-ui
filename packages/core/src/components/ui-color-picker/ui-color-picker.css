@@ -1,45 +1,45 @@
-:host { display: block; font-family: var(--nova-font-sans); font-size: var(--nova-text-sm); color: var(--nova-color-fg); }
+:host { display: block; font-family: var(--kvui-font-sans); font-size: var(--kvui-text-sm); color: var(--kvui-color-fg); }
 :host([inline]) { width: 16rem; }
-ui-popover { --ui-popover-padding: var(--nova-space-3); }
-.label { display: block; margin-bottom: var(--nova-space-1); font-weight: var(--nova-weight-medium); }
+ui-popover { --ui-popover-padding: var(--kvui-space-3); }
+.label { display: block; margin-bottom: var(--kvui-space-1); font-weight: var(--kvui-weight-medium); }
 
 .trigger {
-  all: unset; box-sizing: border-box; display: inline-flex; align-items: center; gap: var(--nova-space-2); height: var(--nova-control-md); padding: 0 var(--nova-space-3);
-  border: 1px solid var(--nova-color-border-strong); border-radius: var(--nova-radius-control); background: var(--nova-color-surface); cursor: pointer;
+  all: unset; box-sizing: border-box; display: inline-flex; align-items: center; gap: var(--kvui-space-2); height: var(--kvui-control-md); padding: 0 var(--kvui-space-3);
+  border: 1px solid var(--kvui-color-border-strong); border-radius: var(--kvui-radius-control); background: var(--kvui-color-surface); cursor: pointer;
 }
-.trigger:hover:not(:disabled) { border-color: var(--nova-color-fg-subtle); }
-.trigger:focus-visible { border-color: var(--nova-color-accent); box-shadow: var(--nova-focus-ring); }
+.trigger:hover:not(:disabled) { border-color: var(--kvui-color-fg-subtle); }
+.trigger:focus-visible { border-color: var(--kvui-color-accent); box-shadow: var(--kvui-focus-ring); }
 .trigger:disabled { opacity: 0.55; cursor: not-allowed; }
 .chip { width: 1.25rem; height: 1.25rem; border-radius: 4px; box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.2); }
-.hex-text { font-family: var(--nova-font-mono); font-size: var(--nova-text-xs); text-transform: uppercase; }
+.hex-text { font-family: var(--kvui-font-mono); font-size: var(--kvui-text-xs); text-transform: uppercase; }
 
-.panel { display: grid; gap: var(--nova-space-3); width: 15rem; }
+.panel { display: grid; gap: var(--kvui-space-3); width: 15rem; }
 :host([inline]) .panel { width: 100%; }
 
 .area {
-  position: relative; height: 9.5rem; border-radius: var(--nova-radius-control); cursor: crosshair; touch-action: none; outline: none;
+  position: relative; height: 9.5rem; border-radius: var(--kvui-radius-control); cursor: crosshair; touch-action: none; outline: none;
   background-color: var(--_hue, red);
   background-image: linear-gradient(to top, #000, transparent), linear-gradient(to right, #fff, transparent);
 }
-.area:focus-visible { box-shadow: var(--nova-focus-ring); }
+.area:focus-visible { box-shadow: var(--kvui-focus-ring); }
 .thumb {
   position: absolute; width: 1rem; height: 1rem; border-radius: 50%; transform: translate(-50%, -50%);
-  border: 2px solid #fff; box-shadow: 0 0 0 1px rgb(0 0 0 / 0.4), var(--nova-shadow-sm); pointer-events: none;
+  border: 2px solid #fff; box-shadow: 0 0 0 1px rgb(0 0 0 / 0.4), var(--kvui-shadow-sm); pointer-events: none;
 }
 
-.hue { -webkit-appearance: none; appearance: none; width: 100%; height: 0.75rem; margin: 0; border-radius: var(--nova-radius-pill); cursor: pointer; background: linear-gradient(to right, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00); }
+.hue { -webkit-appearance: none; appearance: none; width: 100%; height: 0.75rem; margin: 0; border-radius: var(--kvui-radius-pill); cursor: pointer; background: linear-gradient(to right, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00); }
 .hue::-webkit-slider-runnable-track { background: transparent; height: 0.75rem; }
-.hue::-webkit-slider-thumb { -webkit-appearance: none; width: 1rem; height: 1rem; margin-top: -0.125rem; border-radius: 50%; background: #fff; border: 2px solid var(--nova-color-fg); box-sizing: border-box; box-shadow: var(--nova-shadow-sm); }
-.hue::-moz-range-thumb { width: 1rem; height: 1rem; border-radius: 50%; background: #fff; border: 2px solid var(--nova-color-fg); box-sizing: border-box; }
-.hue:focus-visible { outline: none; box-shadow: var(--nova-focus-ring); }
+.hue::-webkit-slider-thumb { -webkit-appearance: none; width: 1rem; height: 1rem; margin-top: -0.125rem; border-radius: 50%; background: #fff; border: 2px solid var(--kvui-color-fg); box-sizing: border-box; box-shadow: var(--kvui-shadow-sm); }
+.hue::-moz-range-thumb { width: 1rem; height: 1rem; border-radius: 50%; background: #fff; border: 2px solid var(--kvui-color-fg); box-sizing: border-box; }
+.hue:focus-visible { outline: none; box-shadow: var(--kvui-focus-ring); }
 
-.row { display: flex; align-items: center; gap: var(--nova-space-2); }
-.preview { flex: none; width: 1.75rem; height: 1.75rem; border-radius: var(--nova-radius-control); box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.2); }
+.row { display: flex; align-items: center; gap: var(--kvui-space-2); }
+.preview { flex: none; width: 1.75rem; height: 1.75rem; border-radius: var(--kvui-radius-control); box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.2); }
 .hex { flex: 1; min-width: 0; }
 
-.swatches { display: grid; grid-template-columns: repeat(8, 1fr); gap: var(--nova-space-1); }
-.swatch { all: unset; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; aspect-ratio: 1; border-radius: var(--nova-radius-control); cursor: pointer; box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.2); }
+.swatches { display: grid; grid-template-columns: repeat(8, 1fr); gap: var(--kvui-space-1); }
+.swatch { all: unset; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; aspect-ratio: 1; border-radius: var(--kvui-radius-control); cursor: pointer; box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.2); }
 .swatch:hover:not(:disabled) { transform: scale(1.08); }
-.swatch:focus-visible { box-shadow: var(--nova-focus-ring); }
-.swatch.on { box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.2), 0 0 0 2px var(--nova-color-surface), 0 0 0 4px var(--nova-color-fg); }
+.swatch:focus-visible { box-shadow: var(--kvui-focus-ring); }
+.swatch.on { box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.2), 0 0 0 2px var(--kvui-color-surface), 0 0 0 4px var(--kvui-color-fg); }
 .swatch:disabled { cursor: not-allowed; opacity: 0.55; }

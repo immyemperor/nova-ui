@@ -4,56 +4,56 @@
   <meta charset="utf-8" />
   <!-- viewport-fit=cover lets the safe-area padding keep content clear of notches. Never block zoom. -->
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Nova CSS: layout, grid and responsive guidelines</title>
+  <title>Kvui CSS: layout, grid and responsive guidelines</title>
   <script>
     // Set the theme before first paint to avoid a flash.
     document.documentElement.dataset.theme =
-      localStorage.getItem('nova-doc-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      localStorage.getItem('kvui-doc-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   </script>
-  <link rel="stylesheet" href="../dist/nova.min.css" />
+  <link rel="stylesheet" href="../dist/kvui.min.css" />
   <style>
-    /* Page chrome for this guide only. Unlayered, so it beats Nova's layers without specificity tricks. */
+    /* Page chrome for this guide only. Unlayered, so it beats Kvui's layers without specificity tricks. */
     .doc-section { scroll-margin-block-start: 5rem; }
-    .doc-demo { padding: var(--nova-space-4); border: 1px dashed var(--nova-color-border-strong); border-radius: var(--nova-radius-surface); background: var(--nova-color-surface); }
-    .doc-resizable { resize: horizontal; overflow: auto; min-inline-size: 15rem; max-inline-size: 100%; padding: var(--nova-space-4); border: 1px dashed var(--nova-color-border-strong); border-radius: var(--nova-radius-surface); background: var(--nova-color-surface); }
-    .doc-box { padding: var(--nova-space-2) var(--nova-space-3); border: 1px solid color-mix(in srgb, var(--nova-color-accent) 35%, transparent); border-radius: var(--nova-radius-control); background: var(--nova-color-accent-soft); color: var(--nova-color-accent); font-size: var(--nova-text-sm); text-align: center; }
+    .doc-demo { padding: var(--kvui-space-4); border: 1px dashed var(--kvui-color-border-strong); border-radius: var(--kvui-radius-surface); background: var(--kvui-color-surface); }
+    .doc-resizable { resize: horizontal; overflow: auto; min-inline-size: 15rem; max-inline-size: 100%; padding: var(--kvui-space-4); border: 1px dashed var(--kvui-color-border-strong); border-radius: var(--kvui-radius-surface); background: var(--kvui-color-surface); }
+    .doc-box { padding: var(--kvui-space-2) var(--kvui-space-3); border: 1px solid color-mix(in srgb, var(--kvui-color-accent) 35%, transparent); border-radius: var(--kvui-radius-control); background: var(--kvui-color-accent-soft); color: var(--kvui-color-accent); font-size: var(--kvui-text-sm); text-align: center; }
     .doc-box-tall { min-block-size: 5rem; display: grid; place-items: center; }
-    .doc-code { margin: 0; padding: var(--nova-space-3) var(--nova-space-4); overflow-x: auto; border-radius: var(--nova-radius-control); background: var(--nova-color-surface-sunken); border: 1px solid var(--nova-color-border); font-family: var(--nova-font-mono); font-size: 0.8125rem; line-height: 1.55; white-space: pre; }
-    .doc-bar { block-size: 1rem; border-radius: 2px; background: var(--nova-color-accent); }
-    .doc-tip { margin: 0; font-size: var(--nova-text-sm); color: var(--nova-color-fg-muted); }
-    .doc-nav a { display: block; padding: var(--nova-space-1) var(--nova-space-3); border-radius: var(--nova-radius-control); color: var(--nova-color-fg-muted); text-decoration: none; font-size: var(--nova-text-sm); }
-    .doc-nav a:hover { background: var(--nova-color-surface-sunken); color: var(--nova-color-fg); }
+    .doc-code { margin: 0; padding: var(--kvui-space-3) var(--kvui-space-4); overflow-x: auto; border-radius: var(--kvui-radius-control); background: var(--kvui-color-surface-sunken); border: 1px solid var(--kvui-color-border); font-family: var(--kvui-font-mono); font-size: 0.8125rem; line-height: 1.55; white-space: pre; }
+    .doc-bar { block-size: 1rem; border-radius: 2px; background: var(--kvui-color-accent); }
+    .doc-tip { margin: 0; font-size: var(--kvui-text-sm); color: var(--kvui-color-fg-muted); }
+    .doc-nav a { display: block; padding: var(--kvui-space-1) var(--kvui-space-3); border-radius: var(--kvui-radius-control); color: var(--kvui-color-fg-muted); text-decoration: none; font-size: var(--kvui-text-sm); }
+    .doc-nav a:hover { background: var(--kvui-color-surface-sunken); color: var(--kvui-color-fg); }
     .doc-live { font-variant-numeric: tabular-nums; }
-    .doc-swatch { display: inline-grid; place-items: center; inline-size: 2.5rem; block-size: 1.75rem; border-radius: 4px; border: 1px solid var(--nova-color-border); font-weight: 600; }
-    .doc-cover { --nova-cover-min: 14rem; border-radius: var(--nova-radius-surface); background: var(--nova-color-accent-soft); }
+    .doc-swatch { display: inline-grid; place-items: center; inline-size: 2.5rem; block-size: 1.75rem; border-radius: 4px; border: 1px solid var(--kvui-color-border); font-weight: 600; }
+    .doc-cover { --kvui-cover-min: 14rem; border-radius: var(--kvui-radius-surface); background: var(--kvui-color-accent-soft); }
     .doc-tile { display: grid; place-items: center; min-block-size: 3.25rem; }
   </style>
 </head>
-<body class="nova-base">
-  <a class="nova-skip-link" href="#main">Skip to content</a>
+<body class="kvui-base">
+  <a class="kvui-skip-link" href="#main">Skip to content</a>
 
-  <div class="nova-shell nova-shell-sidebar nova-shell-sticky-side">
-    <header class="nova-shell__header nova-sticky-top nova-z-20 nova-bg-surface nova-border-b">
-      <div class="nova-cluster nova-cluster-between nova-px-4 nova-py-3">
-        <div class="nova-cluster">
-          <strong>Nova CSS</strong>
-          <span class="nova-small nova-text-muted nova-hide-below-sm">layout, grid and responsive guidelines</span>
+  <div class="kvui-shell kvui-shell-sidebar kvui-shell-sticky-side">
+    <header class="kvui-shell__header kvui-sticky-top kvui-z-20 kvui-bg-surface kvui-border-b">
+      <div class="kvui-cluster kvui-cluster-between kvui-px-4 kvui-py-3">
+        <div class="kvui-cluster">
+          <strong>Kvui CSS</strong>
+          <span class="kvui-small kvui-text-muted kvui-hide-below-sm">layout, grid and responsive guidelines</span>
         </div>
-        <div class="nova-cluster">
-          <span class="nova-small nova-text-muted doc-live" aria-live="off"><span id="live-width">0</span>px</span>
-          <span class="nova-badge nova-badge-accent nova-hide-sm-up">base</span>
-          <span class="nova-badge nova-badge-accent nova-hide-below-sm nova-hide-md-up">sm</span>
-          <span class="nova-badge nova-badge-accent nova-hide-below-md nova-hide-lg-up">md</span>
-          <span class="nova-badge nova-badge-accent nova-hide-below-lg nova-hide-xl-up">lg</span>
-          <span class="nova-badge nova-badge-accent nova-hide-below-xl nova-hide-2xl-up">xl</span>
-          <span class="nova-badge nova-badge-accent nova-hide-below-2xl">2xl</span>
-          <button class="nova-btn nova-btn-ghost nova-btn-sm" id="theme-toggle" type="button">Toggle theme</button>
+        <div class="kvui-cluster">
+          <span class="kvui-small kvui-text-muted doc-live" aria-live="off"><span id="live-width">0</span>px</span>
+          <span class="kvui-badge kvui-badge-accent kvui-hide-sm-up">base</span>
+          <span class="kvui-badge kvui-badge-accent kvui-hide-below-sm kvui-hide-md-up">sm</span>
+          <span class="kvui-badge kvui-badge-accent kvui-hide-below-md kvui-hide-lg-up">md</span>
+          <span class="kvui-badge kvui-badge-accent kvui-hide-below-lg kvui-hide-xl-up">lg</span>
+          <span class="kvui-badge kvui-badge-accent kvui-hide-below-xl kvui-hide-2xl-up">xl</span>
+          <span class="kvui-badge kvui-badge-accent kvui-hide-below-2xl">2xl</span>
+          <button class="kvui-btn kvui-btn-ghost kvui-btn-sm" id="theme-toggle" type="button">Toggle theme</button>
         </div>
       </div>
     </header>
 
-    <nav class="nova-shell__sidebar nova-hide-below-md nova-p-4 nova-border-e doc-nav" aria-label="Sections">
-      <div class="nova-stack nova-stack-xs">
+    <nav class="kvui-shell__sidebar kvui-hide-below-md kvui-p-4 kvui-border-e doc-nav" aria-label="Sections">
+      <div class="kvui-stack kvui-stack-xs">
         <a href="#start">Getting started</a>
         <a href="#breakpoints">Breakpoints</a>
         <a href="#containers">Containers</a>
@@ -70,10 +70,10 @@
       </div>
     </nav>
 
-    <main class="nova-shell__main nova-p-4 nova-md-p-6" id="main">
-      <details class="nova-hide-md-up nova-mb-6">
+    <main class="kvui-shell__main kvui-p-4 kvui-md-p-6" id="main">
+      <details class="kvui-hide-md-up kvui-mb-6">
         <summary>Sections</summary>
-        <div class="nova-stack nova-stack-xs nova-pt-2 doc-nav">
+        <div class="kvui-stack kvui-stack-xs kvui-pt-2 doc-nav">
           <a href="#start">Getting started</a><a href="#breakpoints">Breakpoints</a><a href="#containers">Containers</a>
           <a href="#grids">Grids</a><a href="#primitives">Layout primitives</a><a href="#shell">App shell</a>
           <a href="#container-queries">Container queries</a><a href="#spacing">Spacing</a><a href="#type">Typography</a>
@@ -81,33 +81,33 @@
         </div>
       </details>
 
-      <div class="nova-container-lg nova-stack nova-stack-xl nova-ps-0 nova-pe-0">
+      <div class="kvui-container-lg kvui-stack kvui-stack-xl kvui-ps-0 kvui-pe-0">
 
         <!-- ============================================================ START -->
-        <section class="doc-section nova-stack" id="start" aria-labelledby="start-h">
-          <p class="nova-eyebrow">@kvui/css</p>
-          <h1 class="nova-display" id="start-h">Layouts that fit every screen</h1>
-          <p class="nova-lead">Mobile-first, cascade-layered CSS with layout primitives, a 12-column grid, container queries, a responsive utility set and CSS-only components. This page is built with it: resize the window, or drag the corner of any dashed box.</p>
+        <section class="doc-section kvui-stack" id="start" aria-labelledby="start-h">
+          <p class="kvui-eyebrow">@kvui/css</p>
+          <h1 class="kvui-display" id="start-h">Layouts that fit every screen</h1>
+          <p class="kvui-lead">Mobile-first, cascade-layered CSS with layout primitives, a 12-column grid, container queries, a responsive utility set and CSS-only components. This page is built with it: resize the window, or drag the corner of any dashed box.</p>
           <pre class="doc-code">pnpm add @kvui/css
 
 &lt;meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"&gt;
-&lt;link rel="stylesheet" href="/node_modules/@kvui/css/dist/nova.min.css"&gt;
-&lt;body class="nova-base"&gt;</pre>
-          <div class="nova-cluster">
-            <span class="nova-badge nova-badge-success">Mobile first</span>
-            <span class="nova-badge nova-badge-success">Logical properties (RTL ready)</span>
-            <span class="nova-badge nova-badge-success">Dark mode</span>
-            <span class="nova-badge nova-badge-success">Reduced motion</span>
-            <span class="nova-badge nova-badge-success">Print styles</span>
+&lt;link rel="stylesheet" href="/node_modules/@kvui/css/dist/kvui.min.css"&gt;
+&lt;body class="kvui-base"&gt;</pre>
+          <div class="kvui-cluster">
+            <span class="kvui-badge kvui-badge-success">Mobile first</span>
+            <span class="kvui-badge kvui-badge-success">Logical properties (RTL ready)</span>
+            <span class="kvui-badge kvui-badge-success">Dark mode</span>
+            <span class="kvui-badge kvui-badge-success">Reduced motion</span>
+            <span class="kvui-badge kvui-badge-success">Print styles</span>
           </div>
         </section>
 
         <!-- ============================================================ BREAKPOINTS -->
-        <section class="doc-section nova-stack" id="breakpoints" aria-labelledby="bp-h">
-          <h2 class="nova-h2" id="bp-h">Breakpoints</h2>
-          <p>Every breakpoint is <code>min-width</code>, in <code>em</code> so it follows the user's font size. <code>nova-md-col-6</code> means "from 768px up". The badge in the header shows which range you are in.</p>
-          <div class="nova-table-wrap">
-            <table class="nova-table">
+        <section class="doc-section kvui-stack" id="breakpoints" aria-labelledby="bp-h">
+          <h2 class="kvui-h2" id="bp-h">Breakpoints</h2>
+          <p>Every breakpoint is <code>min-width</code>, in <code>em</code> so it follows the user's font size. <code>kvui-md-col-6</code> means "from 768px up". The badge in the header shows which range you are in.</p>
+          <div class="kvui-table-wrap">
+            <table class="kvui-table">
               <thead><tr><th>Name</th><th>From</th><th>Typical devices</th><th>Typical change</th></tr></thead>
               <tbody>
                 <tr><td>base</td><td>0</td><td>Phones, portrait</td><td>One column, stacked</td></tr>
@@ -119,287 +119,287 @@
               </tbody>
             </table>
           </div>
-          <div class="doc-demo nova-stack nova-stack-sm">
-            <strong class="nova-small">Visibility utilities: only the matching tag shows</strong>
-            <div class="nova-cluster">
-              <span class="nova-badge nova-badge-info nova-hide-sm-up">base only (nova-hide-sm-up)</span>
-              <span class="nova-badge nova-badge-info nova-hide-below-md">md and up (nova-hide-below-md)</span>
-              <span class="nova-badge nova-badge-info nova-hide-md-up">below md (nova-hide-md-up)</span>
+          <div class="doc-demo kvui-stack kvui-stack-sm">
+            <strong class="kvui-small">Visibility utilities: only the matching tag shows</strong>
+            <div class="kvui-cluster">
+              <span class="kvui-badge kvui-badge-info kvui-hide-sm-up">base only (kvui-hide-sm-up)</span>
+              <span class="kvui-badge kvui-badge-info kvui-hide-below-md">md and up (kvui-hide-below-md)</span>
+              <span class="kvui-badge kvui-badge-info kvui-hide-md-up">below md (kvui-hide-md-up)</span>
             </div>
           </div>
         </section>
 
         <!-- ============================================================ CONTAINERS -->
-        <section class="doc-section nova-stack" id="containers" aria-labelledby="c-h">
-          <h2 class="nova-h2" id="c-h">Containers and gutters</h2>
-          <p><code>nova-container</code> centres content, caps its width and adds a gutter that grows from 16px to 32px and never goes under a notch.</p>
-          <div class="doc-demo nova-stack nova-stack-sm">
-            <div class="nova-container-sm doc-box">nova-container-sm (36rem)</div>
-            <div class="nova-container-md doc-box">nova-container-md (46rem)</div>
-            <div class="nova-container-lg doc-box">nova-container-lg (62rem)</div>
-            <div class="nova-container-prose doc-box">nova-container-prose (65ch)</div>
+        <section class="doc-section kvui-stack" id="containers" aria-labelledby="c-h">
+          <h2 class="kvui-h2" id="c-h">Containers and gutters</h2>
+          <p><code>kvui-container</code> centres content, caps its width and adds a gutter that grows from 16px to 32px and never goes under a notch.</p>
+          <div class="doc-demo kvui-stack kvui-stack-sm">
+            <div class="kvui-container-sm doc-box">kvui-container-sm (36rem)</div>
+            <div class="kvui-container-md doc-box">kvui-container-md (46rem)</div>
+            <div class="kvui-container-lg doc-box">kvui-container-lg (62rem)</div>
+            <div class="kvui-container-prose doc-box">kvui-container-prose (65ch)</div>
           </div>
-          <p class="doc-tip">Full-bleed bands: use <code>nova-page</code> on the wrapper and <code>nova-bleed</code> on the child that should touch the edges. Put a <code>nova-container</code> inside the band to line its content back up.</p>
-          <pre class="doc-code">&lt;div class="nova-page"&gt;
-  &lt;section class="nova-bleed nova-bg-accent-soft nova-section"&gt;
-    &lt;div class="nova-container"&gt;…&lt;/div&gt;
+          <p class="doc-tip">Full-bleed bands: use <code>kvui-page</code> on the wrapper and <code>kvui-bleed</code> on the child that should touch the edges. Put a <code>kvui-container</code> inside the band to line its content back up.</p>
+          <pre class="doc-code">&lt;div class="kvui-page"&gt;
+  &lt;section class="kvui-bleed kvui-bg-accent-soft kvui-section"&gt;
+    &lt;div class="kvui-container"&gt;…&lt;/div&gt;
   &lt;/section&gt;
 &lt;/div&gt;</pre>
         </section>
 
         <!-- ============================================================ GRIDS -->
-        <section class="doc-section nova-stack" id="grids" aria-labelledby="g-h">
-          <h2 class="nova-h2" id="g-h">Grids</h2>
+        <section class="doc-section kvui-stack" id="grids" aria-labelledby="g-h">
+          <h2 class="kvui-h2" id="g-h">Grids</h2>
 
-          <h3 class="nova-h4">12 columns, mobile first</h3>
+          <h3 class="kvui-h4">12 columns, mobile first</h3>
           <div class="doc-demo">
-            <div class="nova-grid nova-gap-3">
-              <div class="doc-box nova-col-12 nova-md-col-8">col-12, md: 8</div>
-              <div class="doc-box nova-col-12 nova-md-col-4">col-12, md: 4</div>
-              <div class="doc-box nova-col-6 nova-md-col-3">6, md: 3</div>
-              <div class="doc-box nova-col-6 nova-md-col-3">6, md: 3</div>
-              <div class="doc-box nova-col-6 nova-md-col-3">6, md: 3</div>
-              <div class="doc-box nova-col-6 nova-md-col-3">6, md: 3</div>
+            <div class="kvui-grid kvui-gap-3">
+              <div class="doc-box kvui-col-12 kvui-md-col-8">col-12, md: 8</div>
+              <div class="doc-box kvui-col-12 kvui-md-col-4">col-12, md: 4</div>
+              <div class="doc-box kvui-col-6 kvui-md-col-3">6, md: 3</div>
+              <div class="doc-box kvui-col-6 kvui-md-col-3">6, md: 3</div>
+              <div class="doc-box kvui-col-6 kvui-md-col-3">6, md: 3</div>
+              <div class="doc-box kvui-col-6 kvui-md-col-3">6, md: 3</div>
             </div>
           </div>
-          <pre class="doc-code">&lt;div class="nova-grid"&gt;
-  &lt;main class="nova-col-12 nova-md-col-8"&gt;…&lt;/main&gt;
-  &lt;aside class="nova-col-12 nova-md-col-4"&gt;…&lt;/aside&gt;
+          <pre class="doc-code">&lt;div class="kvui-grid"&gt;
+  &lt;main class="kvui-col-12 kvui-md-col-8"&gt;…&lt;/main&gt;
+  &lt;aside class="kvui-col-12 kvui-md-col-4"&gt;…&lt;/aside&gt;
 &lt;/div&gt;</pre>
 
-          <h3 class="nova-h4">Equal columns, count changes by size</h3>
+          <h3 class="kvui-h4">Equal columns, count changes by size</h3>
           <div class="doc-demo">
-            <div class="nova-d-grid nova-cols-1 nova-sm-cols-2 nova-lg-cols-4 nova-gap-3">
+            <div class="kvui-d-grid kvui-cols-1 kvui-sm-cols-2 kvui-lg-cols-4 kvui-gap-3">
               <div class="doc-box">1</div><div class="doc-box">2</div><div class="doc-box">3</div><div class="doc-box">4</div>
             </div>
           </div>
-          <pre class="doc-code">&lt;div class="nova-d-grid nova-cols-1 nova-sm-cols-2 nova-lg-cols-4 nova-gap-3"&gt;…&lt;/div&gt;</pre>
+          <pre class="doc-code">&lt;div class="kvui-d-grid kvui-cols-1 kvui-sm-cols-2 kvui-lg-cols-4 kvui-gap-3"&gt;…&lt;/div&gt;</pre>
 
-          <h3 class="nova-h4">Auto grid: no breakpoints at all</h3>
+          <h3 class="kvui-h4">Auto grid: no breakpoints at all</h3>
           <p class="doc-tip">Drag the corner to resize. Columns appear and disappear as space allows.</p>
           <div class="doc-resizable">
-            <div class="nova-grid-auto nova-grid-auto-sm nova-gap-3">
+            <div class="kvui-grid-auto kvui-grid-auto-sm kvui-gap-3">
               <div class="doc-box doc-box-tall">A</div><div class="doc-box doc-box-tall">B</div><div class="doc-box doc-box-tall">C</div>
               <div class="doc-box doc-box-tall">D</div><div class="doc-box doc-box-tall">E</div><div class="doc-box doc-box-tall">F</div>
             </div>
           </div>
-          <pre class="doc-code">&lt;ul class="nova-grid-auto nova-grid-auto-sm" role="list"&gt;…&lt;/ul&gt;
-&lt;!-- -xs 9rem · -sm 12rem · -md 16rem · -lg 22rem · -xl 30rem · or set --nova-grid-min --&gt;</pre>
+          <pre class="doc-code">&lt;ul class="kvui-grid-auto kvui-grid-auto-sm" role="list"&gt;…&lt;/ul&gt;
+&lt;!-- -xs 9rem · -sm 12rem · -md 16rem · -lg 22rem · -xl 30rem · or set --kvui-grid-min --&gt;</pre>
         </section>
 
         <!-- ============================================================ PRIMITIVES -->
-        <section class="doc-section nova-stack nova-stack-lg" id="primitives" aria-labelledby="p-h">
-          <h2 class="nova-h2" id="p-h">Layout primitives</h2>
+        <section class="doc-section kvui-stack kvui-stack-lg" id="primitives" aria-labelledby="p-h">
+          <h2 class="kvui-h2" id="p-h">Layout primitives</h2>
           <p>Small boxes that adapt to the space they're given. Most layouts need no breakpoints at all.</p>
 
-          <div class="nova-stack">
-            <h3 class="nova-h4">Stack: vertical rhythm</h3>
+          <div class="kvui-stack">
+            <h3 class="kvui-h4">Stack: vertical rhythm</h3>
             <div class="doc-demo">
-              <div class="nova-stack nova-stack-sm"><div class="doc-box">one</div><div class="doc-box">two</div><div class="doc-box">three</div></div>
+              <div class="kvui-stack kvui-stack-sm"><div class="doc-box">one</div><div class="doc-box">two</div><div class="doc-box">three</div></div>
             </div>
-            <pre class="doc-code">&lt;div class="nova-stack nova-stack-sm"&gt;…&lt;/div&gt;   &lt;!-- xs, sm, (default 16px), lg, xl --&gt;</pre>
+            <pre class="doc-code">&lt;div class="kvui-stack kvui-stack-sm"&gt;…&lt;/div&gt;   &lt;!-- xs, sm, (default 16px), lg, xl --&gt;</pre>
           </div>
 
-          <div class="nova-stack">
-            <h3 class="nova-h4">Cluster: wrapping row</h3>
+          <div class="kvui-stack">
+            <h3 class="kvui-h4">Cluster: wrapping row</h3>
             <div class="doc-resizable">
-              <div class="nova-cluster nova-cluster-between">
-                <div class="nova-cluster"><span class="nova-badge">alpha</span><span class="nova-badge nova-badge-accent">beta</span><span class="nova-badge nova-badge-success">gamma</span><span class="nova-badge nova-badge-warning">delta</span></div>
-                <button class="nova-btn nova-btn-sm" type="button">Action</button>
+              <div class="kvui-cluster kvui-cluster-between">
+                <div class="kvui-cluster"><span class="kvui-badge">alpha</span><span class="kvui-badge kvui-badge-accent">beta</span><span class="kvui-badge kvui-badge-success">gamma</span><span class="kvui-badge kvui-badge-warning">delta</span></div>
+                <button class="kvui-btn kvui-btn-sm" type="button">Action</button>
               </div>
             </div>
           </div>
 
-          <div class="nova-stack">
-            <h3 class="nova-h4">Sidebar: stacks when the content would get cramped</h3>
+          <div class="kvui-stack">
+            <h3 class="kvui-h4">Sidebar: stacks when the content would get cramped</h3>
             <div class="doc-resizable">
-              <div class="nova-sidebar nova-gap-3" style="--nova-sidebar-width: 11rem">
+              <div class="kvui-sidebar kvui-gap-3" style="--kvui-sidebar-width: 11rem">
                 <div class="doc-box doc-box-tall">Side (11rem)</div>
                 <div class="doc-box doc-box-tall">Content takes the rest</div>
               </div>
             </div>
-            <pre class="doc-code">&lt;div class="nova-sidebar" style="--nova-sidebar-width: 18rem"&gt;&lt;nav&gt;…&lt;/nav&gt;&lt;article&gt;…&lt;/article&gt;&lt;/div&gt;</pre>
+            <pre class="doc-code">&lt;div class="kvui-sidebar" style="--kvui-sidebar-width: 18rem"&gt;&lt;nav&gt;…&lt;/nav&gt;&lt;article&gt;…&lt;/article&gt;&lt;/div&gt;</pre>
           </div>
 
-          <div class="nova-stack">
-            <h3 class="nova-h4">Switcher: row, then column below a threshold</h3>
+          <div class="kvui-stack">
+            <h3 class="kvui-h4">Switcher: row, then column below a threshold</h3>
             <div class="doc-resizable">
-              <div class="nova-switcher nova-gap-3" style="--nova-threshold: 32rem">
+              <div class="kvui-switcher kvui-gap-3" style="--kvui-threshold: 32rem">
                 <div class="doc-box doc-box-tall">Free</div><div class="doc-box doc-box-tall">Team</div><div class="doc-box doc-box-tall">Enterprise</div>
               </div>
             </div>
           </div>
 
-          <div class="nova-stack">
-            <h3 class="nova-h4">Reel: swipeable rail</h3>
-            <ul class="nova-reel" role="list" style="--nova-reel-item: min(70%, 12rem)">
+          <div class="kvui-stack">
+            <h3 class="kvui-h4">Reel: swipeable rail</h3>
+            <ul class="kvui-reel" role="list" style="--kvui-reel-item: min(70%, 12rem)">
               <li class="doc-box doc-tile">1</li><li class="doc-box doc-tile">2</li><li class="doc-box doc-tile">3</li><li class="doc-box doc-tile">4</li><li class="doc-box doc-tile">5</li><li class="doc-box doc-tile">6</li>
             </ul>
           </div>
 
-          <div class="nova-stack">
-            <h3 class="nova-h4">Frame, columns and cover</h3>
-            <div class="nova-grid-auto nova-grid-auto-md nova-gap-3">
-              <div class="nova-frame nova-rounded doc-box" style="--nova-ratio: 16 / 9">16 / 9 frame</div>
-              <div class="nova-frame nova-rounded doc-box" style="--nova-ratio: 1 / 1">1 / 1 frame</div>
-              <div class="nova-cover doc-cover"><p class="nova-cover__center nova-text-center">nova-cover: fills the screen height (here capped for the demo) with a centred focal point</p></div>
+          <div class="kvui-stack">
+            <h3 class="kvui-h4">Frame, columns and cover</h3>
+            <div class="kvui-grid-auto kvui-grid-auto-md kvui-gap-3">
+              <div class="kvui-frame kvui-rounded doc-box" style="--kvui-ratio: 16 / 9">16 / 9 frame</div>
+              <div class="kvui-frame kvui-rounded doc-box" style="--kvui-ratio: 1 / 1">1 / 1 frame</div>
+              <div class="kvui-cover doc-cover"><p class="kvui-cover__center kvui-text-center">kvui-cover: fills the screen height (here capped for the demo) with a centred focal point</p></div>
             </div>
             <div class="doc-demo">
-              <div class="nova-columns" style="--nova-column-width: 9rem">
-                <div class="doc-box nova-mb-3">short</div><div class="doc-box nova-mb-3 doc-box-tall">tall</div><div class="doc-box nova-mb-3">short</div>
-                <div class="doc-box nova-mb-3 doc-box-tall">tall</div><div class="doc-box nova-mb-3">short</div><div class="doc-box nova-mb-3">short</div>
+              <div class="kvui-columns" style="--kvui-column-width: 9rem">
+                <div class="doc-box kvui-mb-3">short</div><div class="doc-box kvui-mb-3 doc-box-tall">tall</div><div class="doc-box kvui-mb-3">short</div>
+                <div class="doc-box kvui-mb-3 doc-box-tall">tall</div><div class="doc-box kvui-mb-3">short</div><div class="doc-box kvui-mb-3">short</div>
               </div>
             </div>
           </div>
         </section>
 
         <!-- ============================================================ SHELL -->
-        <section class="doc-section nova-stack" id="shell" aria-labelledby="s-h">
-          <h2 class="nova-h2" id="s-h">App shell</h2>
-          <p>This page is a <code>nova-shell</code>. On phones the regions stack in reading order. From <code>md</code> the sidebar becomes a column; from <code>xl</code> an aside can join it. Resize to watch it happen.</p>
-          <pre class="doc-code">&lt;div class="nova-shell nova-shell-sidebar nova-shell-aside nova-shell-sticky-side"&gt;
-  &lt;header class="nova-shell__header"&gt;…&lt;/header&gt;
-  &lt;nav    class="nova-shell__sidebar"&gt;…&lt;/nav&gt;
-  &lt;main   class="nova-shell__main"&gt;…&lt;/main&gt;
-  &lt;aside  class="nova-shell__aside"&gt;…&lt;/aside&gt;
-  &lt;footer class="nova-shell__footer"&gt;…&lt;/footer&gt;
+        <section class="doc-section kvui-stack" id="shell" aria-labelledby="s-h">
+          <h2 class="kvui-h2" id="s-h">App shell</h2>
+          <p>This page is a <code>kvui-shell</code>. On phones the regions stack in reading order. From <code>md</code> the sidebar becomes a column; from <code>xl</code> an aside can join it. Resize to watch it happen.</p>
+          <pre class="doc-code">&lt;div class="kvui-shell kvui-shell-sidebar kvui-shell-aside kvui-shell-sticky-side"&gt;
+  &lt;header class="kvui-shell__header"&gt;…&lt;/header&gt;
+  &lt;nav    class="kvui-shell__sidebar"&gt;…&lt;/nav&gt;
+  &lt;main   class="kvui-shell__main"&gt;…&lt;/main&gt;
+  &lt;aside  class="kvui-shell__aside"&gt;…&lt;/aside&gt;
+  &lt;footer class="kvui-shell__footer"&gt;…&lt;/footer&gt;
 &lt;/div&gt;</pre>
-          <p class="doc-tip">Only add <code>nova-shell-sidebar</code> / <code>nova-shell-aside</code> for the regions you use. Set <code>--nova-shell-sidebar</code> and <code>--nova-shell-aside</code> to change their widths.</p>
+          <p class="doc-tip">Only add <code>kvui-shell-sidebar</code> / <code>kvui-shell-aside</code> for the regions you use. Set <code>--kvui-shell-sidebar</code> and <code>--kvui-shell-aside</code> to change their widths.</p>
         </section>
 
         <!-- ============================================================ CONTAINER QUERIES -->
-        <section class="doc-section nova-stack" id="container-queries" aria-labelledby="cq-h">
-          <h2 class="nova-h2" id="cq-h">Container queries</h2>
+        <section class="doc-section kvui-stack" id="container-queries" aria-labelledby="cq-h">
+          <h2 class="kvui-h2" id="cq-h">Container queries</h2>
           <p>The same component, in a wide and a narrow box. It responds to <em>its container</em>, not the screen. Drag the corner.</p>
           <div class="doc-resizable">
-            <div class="nova-cq">
-              <div class="nova-d-grid nova-cols-1 nova-cq-sm-cols-2 nova-cq-lg-cols-3 nova-gap-3">
+            <div class="kvui-cq">
+              <div class="kvui-d-grid kvui-cols-1 kvui-cq-sm-cols-2 kvui-cq-lg-cols-3 kvui-gap-3">
                 <div class="doc-box doc-box-tall">1</div><div class="doc-box doc-box-tall">2</div><div class="doc-box doc-box-tall">3</div>
               </div>
             </div>
           </div>
-          <pre class="doc-code">&lt;div class="nova-cq"&gt;
-  &lt;div class="nova-d-grid nova-cols-1 nova-cq-sm-cols-2 nova-cq-lg-cols-3"&gt;…&lt;/div&gt;
+          <pre class="doc-code">&lt;div class="kvui-cq"&gt;
+  &lt;div class="kvui-d-grid kvui-cols-1 kvui-cq-sm-cols-2 kvui-cq-lg-cols-3"&gt;…&lt;/div&gt;
 &lt;/div&gt;
 /* 24rem · 32rem · 48rem · 64rem  =  sm · md · lg · xl (container width) */</pre>
         </section>
 
         <!-- ============================================================ SPACING -->
-        <section class="doc-section nova-stack" id="spacing" aria-labelledby="sp-h">
-          <h2 class="nova-h2" id="sp-h">Spacing</h2>
-          <p>A 4px scale. Use <code>var(--nova-space-4)</code> in CSS and <code>nova-p-4</code>, <code>nova-gap-4</code> in markup. Prefer <code>gap</code> over margins.</p>
-          <div class="doc-demo nova-stack nova-stack-xs" style="font-size: var(--nova-text-xs)">
-            <div class="nova-cluster"><code style="inline-size:5ch">1</code><span class="doc-bar" style="inline-size: var(--nova-space-1)"></span><span class="nova-text-muted">4px</span></div>
-            <div class="nova-cluster"><code style="inline-size:5ch">2</code><span class="doc-bar" style="inline-size: var(--nova-space-2)"></span><span class="nova-text-muted">8px</span></div>
-            <div class="nova-cluster"><code style="inline-size:5ch">3</code><span class="doc-bar" style="inline-size: var(--nova-space-3)"></span><span class="nova-text-muted">12px</span></div>
-            <div class="nova-cluster"><code style="inline-size:5ch">4</code><span class="doc-bar" style="inline-size: var(--nova-space-4)"></span><span class="nova-text-muted">16px</span></div>
-            <div class="nova-cluster"><code style="inline-size:5ch">5</code><span class="doc-bar" style="inline-size: var(--nova-space-5)"></span><span class="nova-text-muted">24px</span></div>
-            <div class="nova-cluster"><code style="inline-size:5ch">6</code><span class="doc-bar" style="inline-size: var(--nova-space-6)"></span><span class="nova-text-muted">32px</span></div>
-            <div class="nova-cluster"><code style="inline-size:5ch">8</code><span class="doc-bar" style="inline-size: var(--nova-space-8)"></span><span class="nova-text-muted">48px</span></div>
-            <div class="nova-cluster"><code style="inline-size:5ch">10</code><span class="doc-bar" style="inline-size: var(--nova-space-10)"></span><span class="nova-text-muted">64px</span></div>
-            <div class="nova-cluster"><code style="inline-size:5ch">12</code><span class="doc-bar" style="inline-size: var(--nova-space-12)"></span><span class="nova-text-muted">96px</span></div>
-            <div class="nova-cluster"><code style="inline-size:5ch">16</code><span class="doc-bar" style="inline-size: var(--nova-space-16)"></span><span class="nova-text-muted">128px</span></div>
+        <section class="doc-section kvui-stack" id="spacing" aria-labelledby="sp-h">
+          <h2 class="kvui-h2" id="sp-h">Spacing</h2>
+          <p>A 4px scale. Use <code>var(--kvui-space-4)</code> in CSS and <code>kvui-p-4</code>, <code>kvui-gap-4</code> in markup. Prefer <code>gap</code> over margins.</p>
+          <div class="doc-demo kvui-stack kvui-stack-xs" style="font-size: var(--kvui-text-xs)">
+            <div class="kvui-cluster"><code style="inline-size:5ch">1</code><span class="doc-bar" style="inline-size: var(--kvui-space-1)"></span><span class="kvui-text-muted">4px</span></div>
+            <div class="kvui-cluster"><code style="inline-size:5ch">2</code><span class="doc-bar" style="inline-size: var(--kvui-space-2)"></span><span class="kvui-text-muted">8px</span></div>
+            <div class="kvui-cluster"><code style="inline-size:5ch">3</code><span class="doc-bar" style="inline-size: var(--kvui-space-3)"></span><span class="kvui-text-muted">12px</span></div>
+            <div class="kvui-cluster"><code style="inline-size:5ch">4</code><span class="doc-bar" style="inline-size: var(--kvui-space-4)"></span><span class="kvui-text-muted">16px</span></div>
+            <div class="kvui-cluster"><code style="inline-size:5ch">5</code><span class="doc-bar" style="inline-size: var(--kvui-space-5)"></span><span class="kvui-text-muted">24px</span></div>
+            <div class="kvui-cluster"><code style="inline-size:5ch">6</code><span class="doc-bar" style="inline-size: var(--kvui-space-6)"></span><span class="kvui-text-muted">32px</span></div>
+            <div class="kvui-cluster"><code style="inline-size:5ch">8</code><span class="doc-bar" style="inline-size: var(--kvui-space-8)"></span><span class="kvui-text-muted">48px</span></div>
+            <div class="kvui-cluster"><code style="inline-size:5ch">10</code><span class="doc-bar" style="inline-size: var(--kvui-space-10)"></span><span class="kvui-text-muted">64px</span></div>
+            <div class="kvui-cluster"><code style="inline-size:5ch">12</code><span class="doc-bar" style="inline-size: var(--kvui-space-12)"></span><span class="kvui-text-muted">96px</span></div>
+            <div class="kvui-cluster"><code style="inline-size:5ch">16</code><span class="doc-bar" style="inline-size: var(--kvui-space-16)"></span><span class="kvui-text-muted">128px</span></div>
           </div>
-          <p class="doc-tip">Fluid steps <code>--nova-space-fluid-s | m | l | xl</code> grow with the screen. <code>nova-section</code> uses one for page bands. Responsive variants exist for <code>p</code>, <code>px</code>, <code>py</code>, <code>m</code>, <code>mx</code>, <code>my</code> and <code>gap</code>: <code>nova-px-4 nova-md-px-8</code>.</p>
+          <p class="doc-tip">Fluid steps <code>--kvui-space-fluid-s | m | l | xl</code> grow with the screen. <code>kvui-section</code> uses one for page bands. Responsive variants exist for <code>p</code>, <code>px</code>, <code>py</code>, <code>m</code>, <code>mx</code>, <code>my</code> and <code>gap</code>: <code>kvui-px-4 kvui-md-px-8</code>.</p>
         </section>
 
         <!-- ============================================================ TYPE -->
-        <section class="doc-section nova-stack" id="type" aria-labelledby="t-h">
-          <h2 class="nova-h2" id="t-h">Typography</h2>
+        <section class="doc-section kvui-stack" id="type" aria-labelledby="t-h">
+          <h2 class="kvui-h2" id="t-h">Typography</h2>
           <p>Sizes above <code>xl</code> are fluid: they scale with the screen so headings never need a breakpoint. Resize and watch.</p>
-          <div class="doc-demo nova-stack nova-stack-sm">
-            <p class="nova-eyebrow">Eyebrow</p>
-            <p class="nova-display">Display</p>
-            <p class="nova-h1">Heading 1</p>
-            <p class="nova-h2">Heading 2</p>
-            <p class="nova-h3">Heading 3</p>
-            <p class="nova-h4">Heading 4</p>
-            <p class="nova-lead">Lead paragraph: larger, calmer, capped at a comfortable line length.</p>
+          <div class="doc-demo kvui-stack kvui-stack-sm">
+            <p class="kvui-eyebrow">Eyebrow</p>
+            <p class="kvui-display">Display</p>
+            <p class="kvui-h1">Heading 1</p>
+            <p class="kvui-h2">Heading 2</p>
+            <p class="kvui-h3">Heading 3</p>
+            <p class="kvui-h4">Heading 4</p>
+            <p class="kvui-lead">Lead paragraph: larger, calmer, capped at a comfortable line length.</p>
             <p>Body text at 16px with a 1.5 line height. Never go smaller than 16px on form fields, or iOS will zoom the page when they are focused.</p>
-            <p class="nova-small">Small text for secondary information.</p>
-            <p class="nova-caption">Caption text.</p>
+            <p class="kvui-small">Small text for secondary information.</p>
+            <p class="kvui-caption">Caption text.</p>
           </div>
-          <p class="doc-tip">Heading level is structure, size is style: <code>&lt;h2 class="nova-h4"&gt;</code> is a level-2 heading that looks like a level-4.</p>
-          <div class="doc-demo nova-prose">
-            <h3>nova-prose for long-form content</h3>
-            <p>Wrap CMS or markdown output in <code>nova-prose</code>. It caps the line length at 65 characters and adds a calm vertical rhythm, so you never style each element.</p>
+          <p class="doc-tip">Heading level is structure, size is style: <code>&lt;h2 class="kvui-h4"&gt;</code> is a level-2 heading that looks like a level-4.</p>
+          <div class="doc-demo kvui-prose">
+            <h3>kvui-prose for long-form content</h3>
+            <p>Wrap CMS or markdown output in <code>kvui-prose</code>. It caps the line length at 65 characters and adds a calm vertical rhythm, so you never style each element.</p>
             <ul><li>Lists keep their indent</li><li>Links use the accent colour</li></ul>
             <blockquote>Quotes get an accent rule on the start edge, which flips in right-to-left languages.</blockquote>
           </div>
         </section>
 
         <!-- ============================================================ UTILITIES -->
-        <section class="doc-section nova-stack" id="utilities" aria-labelledby="u-h">
-          <h2 class="nova-h2" id="u-h">Utilities</h2>
-          <p>About 1,300 single-purpose classes. Pattern: <code>nova-{utility}</code> at all sizes, <code>nova-{bp}-{utility}</code> from that size up.</p>
-          <div class="doc-demo nova-stack">
-            <div class="nova-d-flex nova-flex-col nova-md-flex-row nova-gap-3 nova-items-stretch">
-              <div class="doc-box nova-grow">flex-col, then flex-row from md</div>
-              <div class="doc-box nova-grow">nova-grow</div>
-              <div class="doc-box nova-md-order-first nova-grow">order-first from md</div>
+        <section class="doc-section kvui-stack" id="utilities" aria-labelledby="u-h">
+          <h2 class="kvui-h2" id="u-h">Utilities</h2>
+          <p>About 1,300 single-purpose classes. Pattern: <code>kvui-{utility}</code> at all sizes, <code>kvui-{bp}-{utility}</code> from that size up.</p>
+          <div class="doc-demo kvui-stack">
+            <div class="kvui-d-flex kvui-flex-col kvui-md-flex-row kvui-gap-3 kvui-items-stretch">
+              <div class="doc-box kvui-grow">flex-col, then flex-row from md</div>
+              <div class="doc-box kvui-grow">kvui-grow</div>
+              <div class="doc-box kvui-md-order-first kvui-grow">order-first from md</div>
             </div>
           </div>
-          <div class="nova-table-wrap">
-            <table class="nova-table">
+          <div class="kvui-table-wrap">
+            <table class="kvui-table">
               <thead><tr><th>Family</th><th>Examples</th><th>Responsive</th></tr></thead>
               <tbody>
-                <tr><td>Display, flex, grid</td><td><code>nova-d-grid</code> <code>nova-flex-col</code> <code>nova-cols-3</code> <code>nova-col-6</code></td><td>Yes</td></tr>
-                <tr><td>Gap, padding, margin</td><td><code>nova-gap-4</code> <code>nova-px-6</code> <code>nova-mt-8</code></td><td>Mostly</td></tr>
-                <tr><td>Show / hide</td><td><code>nova-hide-md-up</code> <code>nova-hide-below-md</code></td><td>Per size</td></tr>
-                <tr><td>Size, position</td><td><code>nova-w-full</code> <code>nova-max-w-prose</code> <code>nova-sticky-top</code></td><td>No</td></tr>
-                <tr><td>Type, colour</td><td><code>nova-text-lg</code> <code>nova-font-semibold</code> <code>nova-text-muted</code> <code>nova-bg-surface</code></td><td>No (theme aware)</td></tr>
-                <tr><td>Border, radius, shadow</td><td><code>nova-border</code> <code>nova-rounded-lg</code> <code>nova-shadow-md</code></td><td>No</td></tr>
+                <tr><td>Display, flex, grid</td><td><code>kvui-d-grid</code> <code>kvui-flex-col</code> <code>kvui-cols-3</code> <code>kvui-col-6</code></td><td>Yes</td></tr>
+                <tr><td>Gap, padding, margin</td><td><code>kvui-gap-4</code> <code>kvui-px-6</code> <code>kvui-mt-8</code></td><td>Mostly</td></tr>
+                <tr><td>Show / hide</td><td><code>kvui-hide-md-up</code> <code>kvui-hide-below-md</code></td><td>Per size</td></tr>
+                <tr><td>Size, position</td><td><code>kvui-w-full</code> <code>kvui-max-w-prose</code> <code>kvui-sticky-top</code></td><td>No</td></tr>
+                <tr><td>Type, colour</td><td><code>kvui-text-lg</code> <code>kvui-font-semibold</code> <code>kvui-text-muted</code> <code>kvui-bg-surface</code></td><td>No (theme aware)</td></tr>
+                <tr><td>Border, radius, shadow</td><td><code>kvui-border</code> <code>kvui-rounded-lg</code> <code>kvui-shadow-md</code></td><td>No</td></tr>
               </tbody>
             </table>
           </div>
         </section>
 
         <!-- ============================================================ COMPONENTS -->
-        <section class="doc-section nova-stack nova-stack-lg" id="components" aria-labelledby="co-h">
-          <h2 class="nova-h2" id="co-h">CSS-only components</h2>
+        <section class="doc-section kvui-stack kvui-stack-lg" id="components" aria-labelledby="co-h">
+          <h2 class="kvui-h2" id="co-h">CSS-only components</h2>
           <p>For static pages and server-rendered templates. Same look as the web components; use those when you need behaviour.</p>
 
-          <div class="doc-demo nova-stack">
-            <div class="nova-cluster">
-              <button class="nova-btn" type="button">Primary</button>
-              <button class="nova-btn nova-btn-secondary" type="button">Secondary</button>
-              <button class="nova-btn nova-btn-ghost" type="button">Ghost</button>
-              <button class="nova-btn nova-btn-danger" type="button">Danger</button>
-              <button class="nova-btn nova-btn-sm" type="button">Small</button>
-              <button class="nova-btn nova-btn-lg" type="button">Large</button>
-              <button class="nova-btn" type="button" disabled>Disabled</button>
+          <div class="doc-demo kvui-stack">
+            <div class="kvui-cluster">
+              <button class="kvui-btn" type="button">Primary</button>
+              <button class="kvui-btn kvui-btn-secondary" type="button">Secondary</button>
+              <button class="kvui-btn kvui-btn-ghost" type="button">Ghost</button>
+              <button class="kvui-btn kvui-btn-danger" type="button">Danger</button>
+              <button class="kvui-btn kvui-btn-sm" type="button">Small</button>
+              <button class="kvui-btn kvui-btn-lg" type="button">Large</button>
+              <button class="kvui-btn" type="button" disabled>Disabled</button>
             </div>
-            <div class="nova-cluster">
-              <span class="nova-badge">Neutral</span><span class="nova-badge nova-badge-accent">Accent</span><span class="nova-badge nova-badge-success">Success</span>
-              <span class="nova-badge nova-badge-warning">Warning</span><span class="nova-badge nova-badge-danger">Danger</span><span class="nova-badge nova-badge-info">Info</span>
+            <div class="kvui-cluster">
+              <span class="kvui-badge">Neutral</span><span class="kvui-badge kvui-badge-accent">Accent</span><span class="kvui-badge kvui-badge-success">Success</span>
+              <span class="kvui-badge kvui-badge-warning">Warning</span><span class="kvui-badge kvui-badge-danger">Danger</span><span class="kvui-badge kvui-badge-info">Info</span>
             </div>
           </div>
 
-          <div class="nova-grid-auto nova-grid-auto-md nova-gap-4">
-            <article class="nova-card nova-card-raised">
-              <div class="nova-card__header">Card title</div>
-              <div class="nova-card__body nova-stack nova-stack-sm"><p>Cards fill grid cells and keep their padding.</p><p class="nova-caption">Caption</p></div>
-              <div class="nova-card__footer nova-cluster nova-cluster-end"><button class="nova-btn nova-btn-sm" type="button">Open</button></div>
+          <div class="kvui-grid-auto kvui-grid-auto-md kvui-gap-4">
+            <article class="kvui-card kvui-card-raised">
+              <div class="kvui-card__header">Card title</div>
+              <div class="kvui-card__body kvui-stack kvui-stack-sm"><p>Cards fill grid cells and keep their padding.</p><p class="kvui-caption">Caption</p></div>
+              <div class="kvui-card__footer kvui-cluster kvui-cluster-end"><button class="kvui-btn kvui-btn-sm" type="button">Open</button></div>
             </article>
-            <div class="nova-stack nova-stack-sm">
-              <div class="nova-alert nova-alert-success" role="status"><p class="nova-alert__title">Saved</p>Your changes are live.</div>
-              <div class="nova-alert nova-alert-danger" role="alert"><p class="nova-alert__title">Could not save</p>Check your connection and try again.</div>
+            <div class="kvui-stack kvui-stack-sm">
+              <div class="kvui-alert kvui-alert-success" role="status"><p class="kvui-alert__title">Saved</p>Your changes are live.</div>
+              <div class="kvui-alert kvui-alert-danger" role="alert"><p class="kvui-alert__title">Could not save</p>Check your connection and try again.</div>
             </div>
           </div>
 
-          <form class="nova-stack doc-demo" onsubmit="return false">
-            <div class="nova-form-row">
-              <div class="nova-field"><label class="nova-label" for="f-first">First name</label><input class="nova-input" id="f-first" autocomplete="given-name" /><span class="nova-hint">As on your ID</span></div>
-              <div class="nova-field"><label class="nova-label" for="f-email">Email</label><input class="nova-input" id="f-email" type="email" autocomplete="email" aria-invalid="true" aria-describedby="f-email-err" /><span class="nova-error" id="f-email-err">Enter a valid email address.</span></div>
+          <form class="kvui-stack doc-demo" onsubmit="return false">
+            <div class="kvui-form-row">
+              <div class="kvui-field"><label class="kvui-label" for="f-first">First name</label><input class="kvui-input" id="f-first" autocomplete="given-name" /><span class="kvui-hint">As on your ID</span></div>
+              <div class="kvui-field"><label class="kvui-label" for="f-email">Email</label><input class="kvui-input" id="f-email" type="email" autocomplete="email" aria-invalid="true" aria-describedby="f-email-err" /><span class="kvui-error" id="f-email-err">Enter a valid email address.</span></div>
             </div>
-            <label class="nova-check"><input type="checkbox" /> Subscribe to updates</label>
-            <button class="nova-btn nova-btn-block" type="submit">Save</button>
+            <label class="kvui-check"><input type="checkbox" /> Subscribe to updates</label>
+            <button class="kvui-btn kvui-btn-block" type="submit">Save</button>
           </form>
 
-          <h3 class="nova-h4">Tables: scroll, or stack on phones</h3>
+          <h3 class="kvui-h4">Tables: scroll, or stack on phones</h3>
           <p class="doc-tip">Below 640px the second table turns each row into a labelled card. Add <code>data-label</code> to every cell and keep the <code>role</code> attributes so assistive tech still announces a table.</p>
-          <div class="nova-table-wrap">
-            <table class="nova-table nova-table-stack nova-table-hover" role="table">
+          <div class="kvui-table-wrap">
+            <table class="kvui-table kvui-table-stack kvui-table-hover" role="table">
               <thead role="rowgroup"><tr role="row"><th role="columnheader">Plan</th><th role="columnheader">Seats</th><th role="columnheader">Price</th><th role="columnheader">Support</th></tr></thead>
               <tbody role="rowgroup">
                 <tr role="row"><td role="cell" data-label="Plan">Free</td><td role="cell" data-label="Seats">1</td><td role="cell" data-label="Price">$0</td><td role="cell" data-label="Support">Community</td></tr>
@@ -411,11 +411,11 @@
         </section>
 
         <!-- ============================================================ A11Y -->
-        <section class="doc-section nova-stack" id="a11y" aria-labelledby="a-h">
-          <h2 class="nova-h2" id="a-h">Accessibility</h2>
+        <section class="doc-section kvui-stack" id="a11y" aria-labelledby="a-h">
+          <h2 class="kvui-h2" id="a-h">Accessibility</h2>
           <p>Contrast is computed live from the active theme's tokens, so toggle the theme above and watch it recompute. Text pairs need 4.5:1; control borders need 3:1.</p>
-          <div class="nova-table-wrap">
-            <table class="nova-table" id="contrast">
+          <div class="kvui-table-wrap">
+            <table class="kvui-table" id="contrast">
               <thead><tr><th>Sample</th><th>Pair</th><th>Ratio</th><th>Needs</th><th>Result</th></tr></thead>
               <tbody></tbody>
             </table>
@@ -423,17 +423,17 @@
         </section>
 
         <!-- ============================================================ CHECKLIST -->
-        <section class="doc-section nova-stack" id="checklist" aria-labelledby="ck-h">
-          <h2 class="nova-h2" id="ck-h">Before you ship</h2>
-          <ul class="nova-stack nova-stack-sm" role="list">
-            <li class="nova-alert">Works at <strong>320px</strong> wide and at 400% zoom with no sideways scrolling (except tables and code).</li>
-            <li class="nova-alert">Tested at 320, 390, 768, 1024, 1280 and 1536px, and phones in landscape.</li>
-            <li class="nova-alert">Viewport tag allows zoom. No <code>user-scalable=no</code>.</li>
-            <li class="nova-alert">Touch targets are at least 44px on touch screens, with room between them.</li>
-            <li class="nova-alert">Keyboard: every control reachable, focus always visible, DOM order matches reading order.</li>
-            <li class="nova-alert">Light and dark themes checked; any brand colour re-verified for contrast.</li>
-            <li class="nova-alert">Reduced motion respected; nothing depends on animation.</li>
-            <li class="nova-alert">Prints sensibly (<code>nova-print-hidden</code> on chrome you don't want on paper).</li>
+        <section class="doc-section kvui-stack" id="checklist" aria-labelledby="ck-h">
+          <h2 class="kvui-h2" id="ck-h">Before you ship</h2>
+          <ul class="kvui-stack kvui-stack-sm" role="list">
+            <li class="kvui-alert">Works at <strong>320px</strong> wide and at 400% zoom with no sideways scrolling (except tables and code).</li>
+            <li class="kvui-alert">Tested at 320, 390, 768, 1024, 1280 and 1536px, and phones in landscape.</li>
+            <li class="kvui-alert">Viewport tag allows zoom. No <code>user-scalable=no</code>.</li>
+            <li class="kvui-alert">Touch targets are at least 44px on touch screens, with room between them.</li>
+            <li class="kvui-alert">Keyboard: every control reachable, focus always visible, DOM order matches reading order.</li>
+            <li class="kvui-alert">Light and dark themes checked; any brand colour re-verified for contrast.</li>
+            <li class="kvui-alert">Reduced motion respected; nothing depends on animation.</li>
+            <li class="kvui-alert">Prints sensibly (<code>kvui-print-hidden</code> on chrome you don't want on paper).</li>
           </ul>
           <p class="doc-tip">The full written guide, with recipes for navigation, cards, forms, tables and dashboards, is in <code>GUIDELINES.md</code>.</p>
         </section>
@@ -441,7 +441,7 @@
       </div>
     </main>
 
-    <footer class="nova-shell__footer nova-border-t nova-p-4 nova-small nova-text-muted">
+    <footer class="kvui-shell__footer kvui-border-t kvui-p-4 kvui-small kvui-text-muted">
       @kvui/css · MIT · Colour and type tokens come from @kvui/core.
     </footer>
   </div>
@@ -458,7 +458,7 @@
     document.getElementById('theme-toggle').addEventListener('click', () => {
       const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
       root.dataset.theme = next;
-      localStorage.setItem('nova-doc-theme', next);
+      localStorage.setItem('kvui-doc-theme', next);
       renderContrast();
     });
 
@@ -474,7 +474,7 @@
     ];
     function renderContrast() {
       const cs = getComputedStyle(root);
-      const get = (n) => cs.getPropertyValue('--nova-color-' + n).trim();
+      const get = (n) => cs.getPropertyValue('--kvui-color-' + n).trim();
       const body = document.querySelector('#contrast tbody');
       body.textContent = '';
       for (const [f, b, min] of PAIRS) {
@@ -485,7 +485,7 @@
         tr.innerHTML =
           '<td><span class="doc-swatch" style="color:' + fv + ';background:' + bv + '">Aa</span></td>' +
           '<td>' + f + ' on ' + b + '</td><td>' + r.toFixed(2) + ':1</td><td>' + min + ':1</td>' +
-          '<td><span class="nova-badge ' + (r >= min ? 'nova-badge-success' : 'nova-badge-danger') + '">' + (r >= min ? 'Pass' : 'Fail') + '</span></td>';
+          '<td><span class="kvui-badge ' + (r >= min ? 'kvui-badge-success' : 'kvui-badge-danger') + '">' + (r >= min ? 'Pass' : 'Fail') + '</span></td>';
         body.appendChild(tr);
       }
     }

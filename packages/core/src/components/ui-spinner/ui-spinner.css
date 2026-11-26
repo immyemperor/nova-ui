@@ -1,4 +1,4 @@
-:host { --_s: 1.5rem; display: inline-flex; color: var(--nova-color-accent); }
+:host { --_s: 1.5rem; display: inline-flex; color: var(--kvui-color-accent); }
 :host([size='sm']) { --_s: 1rem; }
 :host([size='lg']) { --_s: 2.5rem; }
 .ring {

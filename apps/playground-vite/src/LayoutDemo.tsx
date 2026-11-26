@@ -35,24 +35,24 @@ const plans = [
 
 export function LayoutDemo() {
   return (
-    <section className="nova-stack nova-stack-lg" id="layout">
-      <div className="nova-stack nova-stack-sm">
-        <h2 className="nova-h3">Layout classes with web components</h2>
-        <p className="nova-text-muted nova-max-w-prose">
+    <section className="kvui-stack kvui-stack-lg" id="layout">
+      <div className="kvui-stack kvui-stack-sm">
+        <h2 className="kvui-h3">Layout classes with web components</h2>
+        <p className="kvui-text-muted kvui-max-w-prose">
           Resize the window, or drag the corner of the dashed box. The cards, sidebar, pricing row and container-query demo
           below all reflow without a single media query.
         </p>
       </div>
 
       {/* 1. Auto grid: as many columns as fit, no breakpoints */}
-      <div className="nova-stack nova-stack-sm">
-        <p className="nova-caption"><code>nova-grid-auto nova-grid-auto-sm</code></p>
-        <div className="nova-grid-auto nova-grid-auto-sm">
+      <div className="kvui-stack kvui-stack-sm">
+        <p className="kvui-caption"><code>kvui-grid-auto kvui-grid-auto-sm</code></p>
+        <div className="kvui-grid-auto kvui-grid-auto-sm">
           {stats.map((s) => (
             <UiCard key={s.label} variant="raised">
-              <div className="nova-stack nova-stack-sm">
-                <span className="nova-caption">{s.label}</span>
-                <span className="nova-text-3xl nova-font-bold nova-tabular-nums">
+              <div className="kvui-stack kvui-stack-sm">
+                <span className="kvui-caption">{s.label}</span>
+                <span className="kvui-text-3xl kvui-font-bold kvui-tabular-nums">
                   <UiCounter value={s.value} prefixText={s.prefix} suffixText={s.suffix} decimals={s.decimals} locale="en-US" />
                 </span>
                 <div>
@@ -65,11 +65,11 @@ export function LayoutDemo() {
       </div>
 
       {/* 2. Sidebar: fixed-width side + fluid content; stacks when the content would get cramped */}
-      <div className="nova-stack nova-stack-sm">
-        <p className="nova-caption"><code>nova-sidebar</code> with <code>--nova-sidebar-width: 14rem</code></p>
-        <div className="nova-sidebar" style={{ '--nova-sidebar-width': '14rem' } as CSSProperties}>
-          <aside className="nova-stack nova-stack-sm" aria-label="Summary">
-            <h3 className="nova-h5">Portfolio</h3>
+      <div className="kvui-stack kvui-stack-sm">
+        <p className="kvui-caption"><code>kvui-sidebar</code> with <code>--kvui-sidebar-width: 14rem</code></p>
+        <div className="kvui-sidebar" style={{ '--kvui-sidebar-width': '14rem' } as CSSProperties}>
+          <aside className="kvui-stack kvui-stack-sm" aria-label="Summary">
+            <h3 className="kvui-h5">Portfolio</h3>
             <UiProgress label="Budget used" value={72} showValue />
             <UiProgress label="Tasks done" value={45} showValue tone="success" />
             <UiProgress label="Risk" value={18} showValue tone="warning" />
@@ -79,21 +79,21 @@ export function LayoutDemo() {
       </div>
 
       {/* 3. Switcher: a row of 2-4 items that becomes a column below a threshold */}
-      <div className="nova-stack nova-stack-sm">
-        <p className="nova-caption"><code>nova-switcher</code> with <code>--nova-threshold: 44rem</code></p>
-        <div className="nova-switcher" style={{ '--nova-threshold': '44rem' } as CSSProperties}>
+      <div className="kvui-stack kvui-stack-sm">
+        <p className="kvui-caption"><code>kvui-switcher</code> with <code>--kvui-threshold: 44rem</code></p>
+        <div className="kvui-switcher" style={{ '--kvui-threshold': '44rem' } as CSSProperties}>
           {plans.map((p) => (
             <UiCard key={p.name} variant={p.featured ? 'raised' : 'outlined'}>
-              <div className="nova-stack">
-                <div className="nova-cluster nova-cluster-between">
-                  <h3 className="nova-h5">{p.name}</h3>
+              <div className="kvui-stack">
+                <div className="kvui-cluster kvui-cluster-between">
+                  <h3 className="kvui-h5">{p.name}</h3>
                   {p.featured && <UiBadge tone="accent">Popular</UiBadge>}
                 </div>
                 <p>
-                  <span className="nova-text-3xl nova-font-bold">{p.price}</span>
-                  {p.price !== 'Custom' && <span className="nova-text-muted"> /month</span>}
+                  <span className="kvui-text-3xl kvui-font-bold">{p.price}</span>
+                  {p.price !== 'Custom' && <span className="kvui-text-muted"> /month</span>}
                 </p>
-                <ul className="nova-stack nova-stack-xs nova-small" role="list">
+                <ul className="kvui-stack kvui-stack-xs kvui-small" role="list">
                   {p.perks.map((perk) => <li key={perk}>{perk}</li>)}
                 </ul>
                 <div>
@@ -106,13 +106,13 @@ export function LayoutDemo() {
       </div>
 
       {/* 4. Container queries: the cards respond to the box they are in, not the screen */}
-      <div className="nova-stack nova-stack-sm">
-        <p className="nova-caption"><code>nova-cq</code> + <code>nova-cq-md-cols-2</code>: drag the corner</p>
+      <div className="kvui-stack kvui-stack-sm">
+        <p className="kvui-caption"><code>kvui-cq</code> + <code>kvui-cq-md-cols-2</code>: drag the corner</p>
         <div className="pg-resizable">
-          <div className="nova-cq">
-            <div className="nova-d-grid nova-cols-1 nova-cq-md-cols-2 nova-gap-4">
-              <UiCard><div className="nova-stack nova-stack-sm"><strong>One column when narrow</strong><span className="nova-small nova-text-muted">Two columns once the box is 32rem wide.</span></div></UiCard>
-              <UiCard><div className="nova-stack nova-stack-sm"><strong>Same component, anywhere</strong><span className="nova-small nova-text-muted">It works in a modal, a sidebar or a full page.</span></div></UiCard>
+          <div className="kvui-cq">
+            <div className="kvui-d-grid kvui-cols-1 kvui-cq-md-cols-2 kvui-gap-4">
+              <UiCard><div className="kvui-stack kvui-stack-sm"><strong>One column when narrow</strong><span className="kvui-small kvui-text-muted">Two columns once the box is 32rem wide.</span></div></UiCard>
+              <UiCard><div className="kvui-stack kvui-stack-sm"><strong>Same component, anywhere</strong><span className="kvui-small kvui-text-muted">It works in a modal, a sidebar or a full page.</span></div></UiCard>
             </div>
           </div>
         </div>

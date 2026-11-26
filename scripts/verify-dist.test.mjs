@@ -10,10 +10,10 @@ test('collects every relative path from main, types, exports and nested conditio
   const paths = entryPaths({
     main: './dist/index.cjs',
     types: './dist/types/index.d.ts',
-    exports: { '.': { types: './dist/index.d.ts', import: './dist/index.js' }, './styles.css': './dist/nova.css', './x': null },
+    exports: { '.': { types: './dist/index.d.ts', import: './dist/index.js' }, './styles.css': './dist/kvui.css', './x': null },
     name: 'ignored',
   });
-  assert.deepEqual(paths.sort(), ['./dist/index.cjs', './dist/index.d.ts', './dist/index.js', './dist/nova.css', './dist/types/index.d.ts'].sort());
+  assert.deepEqual(paths.sort(), ['./dist/index.cjs', './dist/index.d.ts', './dist/index.js', './dist/kvui.css', './dist/types/index.d.ts'].sort());
 });
 
 test('bare file names (main: "index.js") and glob patterns are handled', () => {
@@ -35,10 +35,10 @@ test('verify reports a missing required entry and treats optional icon files as 
   mkdirSync(join(pkgDir, 'dist'), { recursive: true });
   writeFileSync(join(pkgDir, 'package.json'), JSON.stringify({
     name: '@x/css',
-    exports: { '.': './dist/nova.css', './icons.css': './dist/icons.css' },
+    exports: { '.': './dist/kvui.css', './icons.css': './dist/icons.css' },
   }));
-  writeFileSync(join(pkgDir, 'dist', 'nova.css'), '');
-  // nova.css exists; icons.css is optional, so it is a warning
+  writeFileSync(join(pkgDir, 'dist', 'kvui.css'), '');
+  // kvui.css exists; icons.css is optional, so it is a warning
   const { problems, warnings } = verify([pkgDir]);
   assert.deepEqual(problems, []);
   assert.equal(warnings.length, 1);

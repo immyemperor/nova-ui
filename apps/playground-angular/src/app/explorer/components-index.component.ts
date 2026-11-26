@@ -6,9 +6,9 @@ import { CATEGORIES } from './catalog';
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: `
-    <section class="nova-stack nova-stack-sm" aria-labelledby="welcome">
-      <h2 id="welcome" class="nova-h2">Component explorer</h2>
-      <p class="nova-lead">
+    <section class="kvui-stack kvui-stack-sm" aria-labelledby="welcome">
+      <h2 id="welcome" class="kvui-h2">Component explorer</h2>
+      <p class="kvui-lead">
         Choose a component from the sidebar to see a live example, copyable source and its full API.
         {{ total }} components in {{ categories }} categories.
       </p>

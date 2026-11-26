@@ -1,71 +1,71 @@
-@layer nova.reset, nova.tokens, nova.base, nova.layout, nova.components, nova.utilities;
+@layer kvui.reset, kvui.tokens, kvui.base, kvui.layout, kvui.components, kvui.utilities;
 
-@layer nova.base {
+@layer kvui.base {
   /* Opt in on <body> (or any wrapper): colours, font and a readable line-height */
-  .nova-base {
-    background: var(--nova-color-bg);
-    color: var(--nova-color-fg);
-    font-family: var(--nova-font-sans);
-    font-size: var(--nova-text-md);
-    line-height: var(--nova-leading-normal);
+  .kvui-base {
+    background: var(--kvui-color-bg);
+    color: var(--kvui-color-fg);
+    font-family: var(--kvui-font-sans);
+    font-size: var(--kvui-text-md);
+    line-height: var(--kvui-leading-normal);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
 
-  :where(.nova-base, .nova-prose) :is(h1, h2, h3, h4, h5, h6) {
-    font-weight: var(--nova-weight-semibold);
-    line-height: var(--nova-leading-tight);
-    letter-spacing: var(--nova-tracking-tight);
+  :where(.kvui-base, .kvui-prose) :is(h1, h2, h3, h4, h5, h6) {
+    font-weight: var(--kvui-weight-semibold);
+    line-height: var(--kvui-leading-tight);
+    letter-spacing: var(--kvui-tracking-tight);
   }
-  :where(.nova-base, .nova-prose) h1 { font-size: var(--nova-text-4xl); }
-  :where(.nova-base, .nova-prose) h2 { font-size: var(--nova-text-3xl); }
-  :where(.nova-base, .nova-prose) h3 { font-size: var(--nova-text-2xl); }
-  :where(.nova-base, .nova-prose) h4 { font-size: var(--nova-text-xl); }
-  :where(.nova-base, .nova-prose) h5 { font-size: var(--nova-text-lg); }
-  :where(.nova-base, .nova-prose) h6 { font-size: var(--nova-text-md); }
+  :where(.kvui-base, .kvui-prose) h1 { font-size: var(--kvui-text-4xl); }
+  :where(.kvui-base, .kvui-prose) h2 { font-size: var(--kvui-text-3xl); }
+  :where(.kvui-base, .kvui-prose) h3 { font-size: var(--kvui-text-2xl); }
+  :where(.kvui-base, .kvui-prose) h4 { font-size: var(--kvui-text-xl); }
+  :where(.kvui-base, .kvui-prose) h5 { font-size: var(--kvui-text-lg); }
+  :where(.kvui-base, .kvui-prose) h6 { font-size: var(--kvui-text-md); }
 
-  :where(.nova-base) a:not([class]) {
-    color: var(--nova-color-accent);
+  :where(.kvui-base) a:not([class]) {
+    color: var(--kvui-color-accent);
     text-decoration-thickness: 0.08em;
     text-underline-offset: 0.18em;
   }
-  :where(.nova-base) a:not([class]):hover { color: var(--nova-color-accent-hover); }
+  :where(.kvui-base) a:not([class]):hover { color: var(--kvui-color-accent-hover); }
 
-  :where(.nova-base) :is(code, kbd, samp, pre) { font-family: var(--nova-font-mono); font-size: 0.9em; }
-  :where(.nova-base) hr { border: 0; border-block-start: 1px solid var(--nova-color-border); margin-block: var(--nova-space-6); }
-  :where(.nova-base) ::selection { background: var(--nova-color-accent-soft); }
+  :where(.kvui-base) :is(code, kbd, samp, pre) { font-family: var(--kvui-font-mono); font-size: 0.9em; }
+  :where(.kvui-base) hr { border: 0; border-block-start: 1px solid var(--kvui-color-border); margin-block: var(--kvui-space-6); }
+  :where(.kvui-base) ::selection { background: var(--kvui-color-accent-soft); }
 }
 
-@layer nova.components {
+@layer kvui.components {
   /* Type classes: use them when the visual size should differ from the semantic heading level */
-  .nova-display { font-size: var(--nova-text-5xl); font-weight: var(--nova-weight-bold); line-height: 1.05; letter-spacing: var(--nova-tracking-tight); text-wrap: balance; }
-  .nova-h1 { font-size: var(--nova-text-4xl); font-weight: var(--nova-weight-semibold); line-height: var(--nova-leading-tight); letter-spacing: var(--nova-tracking-tight); }
-  .nova-h2 { font-size: var(--nova-text-3xl); font-weight: var(--nova-weight-semibold); line-height: var(--nova-leading-tight); letter-spacing: var(--nova-tracking-tight); }
-  .nova-h3 { font-size: var(--nova-text-2xl); font-weight: var(--nova-weight-semibold); line-height: var(--nova-leading-tight); }
-  .nova-h4 { font-size: var(--nova-text-xl); font-weight: var(--nova-weight-semibold); line-height: var(--nova-leading-snug); }
-  .nova-h5 { font-size: var(--nova-text-lg); font-weight: var(--nova-weight-semibold); line-height: var(--nova-leading-snug); }
-  .nova-h6 { font-size: var(--nova-text-md); font-weight: var(--nova-weight-semibold); }
-  .nova-lead { font-size: var(--nova-text-lg); line-height: var(--nova-leading-relaxed); color: var(--nova-color-fg-muted); max-inline-size: var(--nova-measure); }
-  .nova-small { font-size: var(--nova-text-sm); }
-  .nova-caption { font-size: var(--nova-text-xs); color: var(--nova-color-fg-muted); }
-  .nova-eyebrow { font-size: var(--nova-text-xs); font-weight: var(--nova-weight-semibold); letter-spacing: var(--nova-tracking-wide); text-transform: uppercase; color: var(--nova-color-accent); }
+  .kvui-display { font-size: var(--kvui-text-5xl); font-weight: var(--kvui-weight-bold); line-height: 1.05; letter-spacing: var(--kvui-tracking-tight); text-wrap: balance; }
+  .kvui-h1 { font-size: var(--kvui-text-4xl); font-weight: var(--kvui-weight-semibold); line-height: var(--kvui-leading-tight); letter-spacing: var(--kvui-tracking-tight); }
+  .kvui-h2 { font-size: var(--kvui-text-3xl); font-weight: var(--kvui-weight-semibold); line-height: var(--kvui-leading-tight); letter-spacing: var(--kvui-tracking-tight); }
+  .kvui-h3 { font-size: var(--kvui-text-2xl); font-weight: var(--kvui-weight-semibold); line-height: var(--kvui-leading-tight); }
+  .kvui-h4 { font-size: var(--kvui-text-xl); font-weight: var(--kvui-weight-semibold); line-height: var(--kvui-leading-snug); }
+  .kvui-h5 { font-size: var(--kvui-text-lg); font-weight: var(--kvui-weight-semibold); line-height: var(--kvui-leading-snug); }
+  .kvui-h6 { font-size: var(--kvui-text-md); font-weight: var(--kvui-weight-semibold); }
+  .kvui-lead { font-size: var(--kvui-text-lg); line-height: var(--kvui-leading-relaxed); color: var(--kvui-color-fg-muted); max-inline-size: var(--kvui-measure); }
+  .kvui-small { font-size: var(--kvui-text-sm); }
+  .kvui-caption { font-size: var(--kvui-text-xs); color: var(--kvui-color-fg-muted); }
+  .kvui-eyebrow { font-size: var(--kvui-text-xs); font-weight: var(--kvui-weight-semibold); letter-spacing: var(--kvui-tracking-wide); text-transform: uppercase; color: var(--kvui-color-accent); }
 
-  /* Long-form content. Wrap CMS or markdown output in .nova-prose */
-  .nova-prose { max-inline-size: var(--nova-measure); line-height: var(--nova-leading-relaxed); color: var(--nova-color-fg); }
-  .nova-prose > * + * { margin-block-start: 1.1em; }
-  .nova-prose :is(h2, h3, h4) { margin-block-start: 1.8em; }
-  .nova-prose :is(h2, h3, h4) + * { margin-block-start: 0.6em; }
-  .nova-prose :is(ul, ol) { padding-inline-start: 1.5em; }
-  .nova-prose li + li { margin-block-start: 0.35em; }
-  .nova-prose a { color: var(--nova-color-accent); text-decoration-thickness: 0.08em; text-underline-offset: 0.18em; }
-  .nova-prose a:hover { color: var(--nova-color-accent-hover); }
-  .nova-prose blockquote { padding-inline-start: var(--nova-space-4); border-inline-start: 3px solid var(--nova-color-accent); color: var(--nova-color-fg-muted); }
-  .nova-prose code { padding: 0.1em 0.35em; border: 1px solid var(--nova-color-border); border-radius: 4px; background: var(--nova-color-surface-sunken); font-family: var(--nova-font-mono); font-size: 0.9em; }
-  .nova-prose pre { padding: var(--nova-space-3) var(--nova-space-4); overflow-x: auto; border-radius: var(--nova-radius-control); background: var(--nova-color-surface-sunken); border: 1px solid var(--nova-color-border); }
-  .nova-prose pre code { padding: 0; border: 0; background: none; }
-  .nova-prose img { border-radius: var(--nova-radius-control); }
-  .nova-prose hr { border: 0; border-block-start: 1px solid var(--nova-color-border); margin-block: 2em; }
-  .nova-prose table { inline-size: 100%; border-collapse: collapse; font-size: var(--nova-text-sm); display: block; overflow-x: auto; }
-  .nova-prose :is(th, td) { padding: var(--nova-space-2) var(--nova-space-3); border: 1px solid var(--nova-color-border); text-align: start; }
-  .nova-prose th { background: var(--nova-color-surface-sunken); font-weight: var(--nova-weight-semibold); }
+  /* Long-form content. Wrap CMS or markdown output in .kvui-prose */
+  .kvui-prose { max-inline-size: var(--kvui-measure); line-height: var(--kvui-leading-relaxed); color: var(--kvui-color-fg); }
+  .kvui-prose > * + * { margin-block-start: 1.1em; }
+  .kvui-prose :is(h2, h3, h4) { margin-block-start: 1.8em; }
+  .kvui-prose :is(h2, h3, h4) + * { margin-block-start: 0.6em; }
+  .kvui-prose :is(ul, ol) { padding-inline-start: 1.5em; }
+  .kvui-prose li + li { margin-block-start: 0.35em; }
+  .kvui-prose a { color: var(--kvui-color-accent); text-decoration-thickness: 0.08em; text-underline-offset: 0.18em; }
+  .kvui-prose a:hover { color: var(--kvui-color-accent-hover); }
+  .kvui-prose blockquote { padding-inline-start: var(--kvui-space-4); border-inline-start: 3px solid var(--kvui-color-accent); color: var(--kvui-color-fg-muted); }
+  .kvui-prose code { padding: 0.1em 0.35em; border: 1px solid var(--kvui-color-border); border-radius: 4px; background: var(--kvui-color-surface-sunken); font-family: var(--kvui-font-mono); font-size: 0.9em; }
+  .kvui-prose pre { padding: var(--kvui-space-3) var(--kvui-space-4); overflow-x: auto; border-radius: var(--kvui-radius-control); background: var(--kvui-color-surface-sunken); border: 1px solid var(--kvui-color-border); }
+  .kvui-prose pre code { padding: 0; border: 0; background: none; }
+  .kvui-prose img { border-radius: var(--kvui-radius-control); }
+  .kvui-prose hr { border: 0; border-block-start: 1px solid var(--kvui-color-border); margin-block: 2em; }
+  .kvui-prose table { inline-size: 100%; border-collapse: collapse; font-size: var(--kvui-text-sm); display: block; overflow-x: auto; }
+  .kvui-prose :is(th, td) { padding: var(--kvui-space-2) var(--kvui-space-3); border: 1px solid var(--kvui-color-border); text-align: start; }
+  .kvui-prose th { background: var(--kvui-color-surface-sunken); font-weight: var(--kvui-weight-semibold); }
 }

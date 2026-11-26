@@ -1,7 +1,7 @@
 {
   "name": "@kvui/tailwind",
-  "version": "0.1.0",
-  "description": "Tailwind CSS preset exposing Nova UI tokens (colours, radius, shadows, fonts) as utilities.",
+  "version": "0.1.1",
+  "description": "Tailwind CSS preset exposing Kvui UI tokens (colours, radius, shadows, fonts) as utilities.",
   "license": "MIT",
   "main": "index.js",
   "files": [
@@ -18,11 +18,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/immyemperor/nova-ui.git",
+    "url": "git+https://github.com/immyemperor/kvui.git",
     "directory": "packages/tailwind"
   },
-  "homepage": "https://github.com/immyemperor/nova-ui#readme",
+  "homepage": "https://github.com/immyemperor/kvui#readme",
   "bugs": {
-    "url": "https://github.com/immyemperor/nova-ui/issues"
+    "url": "https://github.com/immyemperor/kvui/issues"
   }
 }

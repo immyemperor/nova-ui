@@ -1,4 +1,4 @@
-# Nova UI component reference
+# Kvui UI component reference
 
 Generated from 72 component sources. Regenerate with `node scripts/generate-docs.mjs`.
 

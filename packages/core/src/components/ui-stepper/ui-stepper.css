@@ -1,2 +1,2 @@
-:host { display: flex; font-family: var(--nova-font-sans); }
+:host { display: flex; font-family: var(--kvui-font-sans); }
 :host([orientation='vertical']) { flex-direction: column; }

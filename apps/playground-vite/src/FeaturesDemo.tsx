@@ -26,15 +26,15 @@ export function FeaturesDemo() {
   };
 
   return (
-    <section className="nova-stack nova-stack-lg" id="features">
-      <h2 className="nova-h3">New features</h2>
+    <section className="kvui-stack kvui-stack-lg" id="features">
+      <h2 className="kvui-h3">New features</h2>
 
-      <div className="nova-cluster">
+      <div className="kvui-cluster">
         <UiButton variant="danger" onClick={askDelete}>Delete project…</UiButton>
         <UiButton variant="secondary" onClick={askName}>Rename “{name}”</UiButton>
       </div>
 
-      <div className="nova-grid-auto nova-grid-auto-md nova-gap-6">
+      <div className="kvui-grid-auto kvui-grid-auto-md kvui-gap-6">
         <UiDateRangePicker label="Report period" presets value={range} onUiChange={(e) => setRange(e.detail)} />
         <UiTimePicker label="Meeting time" value={time} min="08:00" max="18:00" step={15} onUiChange={(e) => setTime(e.detail)} />
         <UiField label="Region" hint="Used for billing and tax.">
@@ -54,8 +54,8 @@ export function FeaturesDemo() {
         onUiRejected={(e) => console.warn('rejected', e.detail)}
       />
 
-      <div className="nova-cluster nova-gap-6">
-        <UiSidebar label="Demo navigation" storageKey="nova-demo-sidebar">
+      <div className="kvui-cluster kvui-gap-6">
+        <UiSidebar label="Demo navigation" storageKey="kvui-demo-sidebar">
           <UiSidebarItem label="Overview" icon="menu" current href="#features" />
           <UiSidebarItem label="Projects" icon="check" badge="3" href="#features" />
           <UiSidebarItem label="Reports" icon="chevron-right" group open>
@@ -63,14 +63,14 @@ export function FeaturesDemo() {
             <UiSidebarItem label="Monthly" href="#features" />
           </UiSidebarItem>
         </UiSidebar>
-        <div className="nova-stack nova-grow">
-          <p className="nova-caption">Sidebar state is remembered between visits. Try the collapse button.</p>
+        <div className="kvui-stack kvui-grow">
+          <p className="kvui-caption">Sidebar state is remembered between visits. Try the collapse button.</p>
         </div>
       </div>
 
-      <div className="nova-stack nova-stack-sm">
-        <h3 className="nova-h5">Sanitised content</h3>
-        <p className="nova-caption">Scripts, event handlers and javascript: links are removed before display.</p>
+      <div className="kvui-stack kvui-stack-sm">
+        <h3 className="kvui-h5">Sanitised content</h3>
+        <p className="kvui-caption">Scripts, event handlers and javascript: links are removed before display.</p>
         <UiHtml html={untrusted} prose />
       </div>
     </section>

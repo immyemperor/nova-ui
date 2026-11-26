@@ -1,6 +1,6 @@
 # Next.js (App Router)
 
-Nova works with the App Router and the Pages Router. Components are client components, so they run in the browser; the layout and the theme script run on the server.
+Kvui works with the App Router and the Pages Router. Components are client components, so they run in the browser; the layout and the theme script run on the server.
 
 ## Install
 
@@ -13,7 +13,7 @@ pnpm add @kvui/core @kvui/css @kvui/react
 ```tsx
 // app/layout.tsx
 import type { ReactNode } from 'react';
-import '@kvui/css/nova.css';
+import '@kvui/css/kvui.css';
 import { themeInitScript } from '@kvui/react/server';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
-      <body className="nova-base">{children}</body>
+      <body className="kvui-base">{children}</body>
     </html>
   );
 }
@@ -37,7 +37,7 @@ export const viewport = { width: 'device-width', initialScale: 1, viewportFit: '
 
 ## Using components
 
-Mark any file that uses Nova components as a client component:
+Mark any file that uses Kvui components as a client component:
 
 ```tsx
 'use client';

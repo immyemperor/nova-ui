@@ -20,7 +20,7 @@
 
 ```html
 <ui-accordion>
-  <ui-accordion-item heading="What is Nova?" open>…</ui-accordion-item>
+  <ui-accordion-item heading="What is Kvui?" open>…</ui-accordion-item>
   <ui-accordion-item heading="Does it work with Angular?">…</ui-accordion-item>
 </ui-accordion>
 ```
@@ -33,7 +33,7 @@ Only one item is open at a time unless you set `multiple`.
 <ui-breadcrumb max-items="3">
   <ui-breadcrumb-item href="/">Home</ui-breadcrumb-item>
   <ui-breadcrumb-item href="/projects">Projects</ui-breadcrumb-item>
-  <ui-breadcrumb-item>Nova</ui-breadcrumb-item>
+  <ui-breadcrumb-item>Kvui</ui-breadcrumb-item>
 </ui-breadcrumb>
 ```
 
@@ -92,7 +92,7 @@ Nav items with children open on click, one at a time. In a menubar, once a menu 
 
 - `collapsed` shows icons only; labels become tooltips.
 - `storage-key` remembers the collapsed state between visits.
-- Pair it with `nova-shell-sidebar` from [layout](layout-and-css.md) to build an app frame.
+- Pair it with `kvui-shell-sidebar` from [layout](layout-and-css.md) to build an app frame.
 
 ## Split panes
 

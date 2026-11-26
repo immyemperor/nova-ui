@@ -4,25 +4,25 @@
 
 dialog {
   --_anim: modal-in;
-  padding: 0; border: 0; background: transparent; color: var(--nova-color-fg);
-  max-width: none; max-height: none; overflow: visible; font-family: var(--nova-font-sans);
+  padding: 0; border: 0; background: transparent; color: var(--kvui-color-fg);
+  max-width: none; max-height: none; overflow: visible; font-family: var(--kvui-font-sans);
 }
-dialog::backdrop { background: var(--nova-scrim); backdrop-filter: blur(2px); }
-dialog[open] { animation: var(--_anim) var(--nova-duration-base) var(--nova-ease-emphasized); }
-dialog[open]::backdrop { animation: fade-in var(--nova-duration-base) var(--nova-ease-standard); }
-dialog.closing { animation: var(--_anim) var(--nova-duration-base) var(--nova-ease-standard) reverse forwards; }
-dialog.closing::backdrop { animation: fade-in var(--nova-duration-base) var(--nova-ease-standard) reverse forwards; }
+dialog::backdrop { background: var(--kvui-scrim); backdrop-filter: blur(2px); }
+dialog[open] { animation: var(--_anim) var(--kvui-duration-base) var(--kvui-ease-emphasized); }
+dialog[open]::backdrop { animation: fade-in var(--kvui-duration-base) var(--kvui-ease-standard); }
+dialog.closing { animation: var(--_anim) var(--kvui-duration-base) var(--kvui-ease-standard) reverse forwards; }
+dialog.closing::backdrop { animation: fade-in var(--kvui-duration-base) var(--kvui-ease-standard) reverse forwards; }
 
 .surface {
   display: flex; flex-direction: column; box-sizing: border-box;
   width: min(92vw, var(--_w)); max-height: min(85dvh, 44rem);
-  background: var(--nova-color-surface-raised); border: 1px solid var(--nova-color-border);
-  border-radius: var(--nova-radius-surface); box-shadow: var(--nova-shadow-lg); overflow: hidden;
+  background: var(--kvui-color-surface-raised); border: 1px solid var(--kvui-color-border);
+  border-radius: var(--kvui-radius-surface); box-shadow: var(--kvui-shadow-lg); overflow: hidden;
 }
-.header { display: flex; align-items: center; gap: var(--nova-space-3); padding: var(--nova-space-4) var(--nova-space-5); border-bottom: 1px solid var(--nova-color-border); }
-.title { flex: 1; margin: 0; font-size: var(--nova-text-lg); font-weight: var(--nova-weight-semibold); line-height: var(--nova-leading-tight); }
-.body { flex: 1; overflow: auto; padding: var(--nova-space-5); }
-.footer { display: flex; justify-content: flex-end; gap: var(--nova-space-2); padding: var(--nova-space-3) var(--nova-space-5); border-top: 1px solid var(--nova-color-border); background: var(--nova-color-surface-sunken); }
+.header { display: flex; align-items: center; gap: var(--kvui-space-3); padding: var(--kvui-space-4) var(--kvui-space-5); border-bottom: 1px solid var(--kvui-color-border); }
+.title { flex: 1; margin: 0; font-size: var(--kvui-text-lg); font-weight: var(--kvui-weight-semibold); line-height: var(--kvui-leading-tight); }
+.body { flex: 1; overflow: auto; padding: var(--kvui-space-5); }
+.footer { display: flex; justify-content: flex-end; gap: var(--kvui-space-2); padding: var(--kvui-space-3) var(--kvui-space-5); border-top: 1px solid var(--kvui-color-border); background: var(--kvui-color-surface-sunken); }
 .footer[hidden] { display: none; }
 
 :host([size='full']) .surface { width: 100vw; height: 100dvh; max-height: none; border-radius: 0; border: 0; }

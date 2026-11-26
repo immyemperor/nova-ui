@@ -24,37 +24,37 @@ export function ComponentPage({ tag }: { tag: string }) {
 
   if (!decl) {
     return (
-      <div className="nova-stack">
-        <h2 className="nova-h3">Unknown component</h2>
+      <div className="kvui-stack">
+        <h2 className="kvui-h3">Unknown component</h2>
         <p>No component is called <code>{tag}</code>. Choose one from the list.</p>
       </div>
     );
   }
 
   return (
-    <article className="nova-stack nova-stack-lg" aria-labelledby="component-title">
-      <header className="nova-stack nova-stack-xs">
-        <p className="nova-caption">{category?.label}</p>
-        <h2 id="component-title" className="nova-h2"><code>&lt;{decl.tagName}&gt;</code></h2>
-        {decl.description && <p className="nova-lead">{decl.description}</p>}
+    <article className="kvui-stack kvui-stack-lg" aria-labelledby="component-title">
+      <header className="kvui-stack kvui-stack-xs">
+        <p className="kvui-caption">{category?.label}</p>
+        <h2 id="component-title" className="kvui-h2"><code>&lt;{decl.tagName}&gt;</code></h2>
+        {decl.description && <p className="kvui-lead">{decl.description}</p>}
       </header>
 
-      <section className="nova-stack nova-stack-sm" aria-labelledby="example-heading">
-        <h3 id="example-heading" className="nova-h4">Example</h3>
+      <section className="kvui-stack kvui-stack-sm" aria-labelledby="example-heading">
+        <h3 id="example-heading" className="kvui-h4">Example</h3>
         {Example && code ? (
           <>
-            <div className="nova-card nova-card-raised nova-p-5">
+            <div className="kvui-card kvui-card-raised kvui-p-5">
               <Example />
             </div>
             <CodeBlock title={`${tag} example`} code={code} />
           </>
         ) : (
-          <p className="nova-caption">No live example for this component yet. Its properties, events and methods are below.</p>
+          <p className="kvui-caption">No live example for this component yet. Its properties, events and methods are below.</p>
         )}
       </section>
 
-      <section className="nova-stack nova-stack-sm" aria-labelledby="api-heading">
-        <h3 id="api-heading" className="nova-h4">API</h3>
+      <section className="kvui-stack kvui-stack-sm" aria-labelledby="api-heading">
+        <h3 id="api-heading" className="kvui-h4">API</h3>
         <ApiTable decl={decl} />
       </section>
     </article>

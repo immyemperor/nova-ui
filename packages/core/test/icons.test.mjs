@@ -8,25 +8,25 @@ import { loadModule } from './load.mjs';
 const I = loadModule('components/ui-icon/icons.ts');
 const here = dirname(fileURLToPath(import.meta.url));
 
-test('nova library is the default: no icon uses the Material font', () => {
-  I.setIconLibrary('nova');
+test('kvui library is the default: no icon uses the Material font', () => {
+  I.setIconLibrary('kvui');
   assert.equal(I.usesMaterial('check'), false);
 });
 
-test('material library maps Nova names to Material ligatures', () => {
+test('material library maps Kvui names to Material ligatures', () => {
   I.setIconLibrary('material');
   assert.equal(I.usesMaterial('check'), true);
   assert.equal(I.materialName('x'), 'close');
   assert.equal(I.materialName('chevron-down'), 'expand_more');
-  I.setIconLibrary('nova');
+  I.setIconLibrary('kvui');
 });
 
 test('a per-icon override beats the page setting', () => {
-  I.setIconLibrary('nova');
+  I.setIconLibrary('kvui');
   assert.equal(I.usesMaterial('check', 'material'), true);
   I.setIconLibrary('material');
-  assert.equal(I.usesMaterial('check', 'nova'), false);
-  I.setIconLibrary('nova');
+  assert.equal(I.usesMaterial('check', 'kvui'), false);
+  I.setIconLibrary('kvui');
 });
 
 test('a custom registered SVG keeps its drawing in material mode unless it is mapped', () => {
@@ -34,10 +34,10 @@ test('a custom registered SVG keeps its drawing in material mode unless it is ma
   I.registerIcons({ 'brand-mark': '<path d="M0 0h24v24H0z"/>' });
   assert.equal(I.usesMaterial('brand-mark'), false, 'registered SVG stays SVG');
   assert.equal(I.usesMaterial('some-unknown-name'), true, 'unknown names fall back to a Material ligature');
-  I.setIconLibrary('nova');
+  I.setIconLibrary('kvui');
 });
 
-test('every icon name used literally by the components has a Material mapping or a Nova drawing', () => {
+test('every icon name used literally by the components has a Material mapping or a Kvui drawing', () => {
   const dir = join(here, '..', 'src', 'components');
   const files = (d) => readdirSync(d).flatMap((f) => (statSync(join(d, f)).isDirectory() ? files(join(d, f)) : [join(d, f)]));
   const used = new Set();
@@ -45,7 +45,7 @@ test('every icon name used literally by the components has a Material mapping or
     for (const m of readFileSync(f, 'utf8').matchAll(/<ui-icon[^>]*\bname="([^"]+)"/g)) used.add(m[1]);
   }
   const unmapped = [...used].filter((n) => !(n in I.MATERIAL_NAMES));
-  // Names with a Nova drawing still render in nova mode; names without one must be mapped.
+  // Names with a Kvui drawing still render in kvui mode; names without one must be mapped.
   const { getIcon } = I;
   const broken = unmapped.filter((n) => !getIcon(n));
   assert.deepEqual(broken, [], `icons used by components but neither mapped nor drawn: ${broken}`);

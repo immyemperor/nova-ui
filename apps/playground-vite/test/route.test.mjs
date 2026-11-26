@@ -27,10 +27,10 @@ test('a component hash selects that component', () => {
   assert.deepEqual(parseRoute('#/component/ui-date-range-picker'), { kind: 'component', tag: 'ui-date-range-picker' });
 });
 
-test('icon hashes select the Material or Nova browser; Material is the default', () => {
+test('icon hashes select the Material or Kvui browser; Material is the default', () => {
   assert.deepEqual(parseRoute('#/icons'), { kind: 'icons', family: 'material' });
   assert.deepEqual(parseRoute('#/icons/material'), { kind: 'icons', family: 'material' });
-  assert.deepEqual(parseRoute('#/icons/nova'), { kind: 'icons', family: 'nova' });
+  assert.deepEqual(parseRoute('#/icons/kvui'), { kind: 'icons', family: 'kvui' });
 });
 
 test('a component hash with odd text is parsed, and the page then reports an unknown component', () => {

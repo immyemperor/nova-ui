@@ -7,7 +7,7 @@ export default defineConfig([
     format: ['esm', 'cjs'],
     dts: true,
     clean: true,
-    external: ['react', 'react-dom', /^@omni\/core/],
+    external: ['react', 'react-dom', /^@kvui\/core/],
     banner: { js: '"use client";' },
   },
   {
@@ -23,7 +23,7 @@ export default defineConfig([
     format: ['esm', 'cjs'],
     dts: true,
     clean: false,
-    external: ['react', 'react-dom', /^@omni\//],
+    external: ['react', 'react-dom', /^@kvui\//],
     banner: { js: '"use client";' },
   },
 ]);

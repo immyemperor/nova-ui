@@ -1,7 +1,7 @@
 // Static checks for the playgrounds, for frameworks we can't compile here (Angular, Next.js on the server).
-//  1. every element tag used in an Angular template is a real Nova component (or a standard HTML element)
-//  2. every bound input and output on a Nova tag is a real prop or event, in Angular's naming
-//  3. every nova-* / pg-* class used in any playground is defined in the stylesheets
+//  1. every element tag used in an Angular template is a real Kvui component (or a standard HTML element)
+//  2. every bound input and output on a Kvui tag is a real prop or event, in Angular's naming
+//  3. every kvui-* / pg-* class used in any playground is defined in the stylesheets
 // Run: node scripts/playground-check.mjs
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
@@ -38,7 +38,7 @@ for (const file of angularFiles) {
     tags++;
     const d = decls[tag];
     if (!d && tag.startsWith('app-')) continue; // local components in the playground itself
-    if (!d) { fail(`${file.replace(root + '/', '')}: <${tag}> is not a Nova component`); continue; }
+    if (!d) { fail(`${file.replace(root + '/', '')}: <${tag}> is not a Kvui component`); continue; }
     const props = new Set(d.attributes.map((a) => a.name));
     const events = new Set(d.events.map((e) => e.name));
     for (const a of m[2].matchAll(/\s+(\[?\(?)([\w-]+)(\]?\)?)(?:="[^"]*")?/g)) {
@@ -63,24 +63,24 @@ console.log(`ok   ${tags} Angular component tags and ${bindings} bindings checke
 
 // 3: classes used in playgrounds exist in a stylesheet
 const sheets = [
-  readFileSync(join(root, 'packages/css/dist/nova.css'), 'utf8'),
+  readFileSync(join(root, 'packages/css/dist/kvui.css'), 'utf8'),
   ...walk(join(root, 'apps'), '.css').map((f) => readFileSync(f, 'utf8')),
-  // the Material icon classes are generated from this template (nova-icon, nova-icon-<name>)
+  // the Material icon classes are generated from this template (kvui-icon, kvui-icon-<name>)
   readFileSync(join(root, 'packages/css/scripts/download-material-icons.mjs'), 'utf8'),
 ];
-const defined = new Set(sheets.flatMap((s) => [...s.matchAll(/\.((?:nova|pg)-[\w-]+)/g)].map((m) => m[1])));
+const defined = new Set(sheets.flatMap((s) => [...s.matchAll(/\.((?:kvui|pg)-[\w-]+)/g)].map((m) => m[1])));
 const sources = walk(join(root, 'apps'), '.tsx').concat(walk(join(root, 'apps'), '.ts'), walk(join(root, 'apps'), '.html')).filter((f) => !GENERATED(f));
 const missing = new Set();
 for (const f of sources) {
   for (const m of readFileSync(f, 'utf8').matchAll(/(?:className|class)=["']([^"']+)["']/g)) {
     for (const c of m[1].split(/\s+/)) {
       if (c.includes('$') || c.includes('{')) continue; // assembled at runtime; checked where it is generated
-      if (/^(nova|pg)-/.test(c) && !defined.has(c)) missing.add(`${c} (${f.replace(root + '/', '')})`);
+      if (/^(kvui|pg)-/.test(c) && !defined.has(c)) missing.add(`${c} (${f.replace(root + '/', '')})`);
     }
   }
 }
 if (missing.size) for (const c of missing) fail(`class not defined: ${c}`);
-else console.log('ok   every nova-* and pg-* class used in the playgrounds is defined');
+else console.log('ok   every kvui-* and pg-* class used in the playgrounds is defined');
 
 
 // 4: the explorer lists every component exactly once, and every live example matches a component

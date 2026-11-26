@@ -18,33 +18,33 @@ import { CodeBlockComponent } from '../code-block.component';
   imports: [ApiTableComponent, CodeBlockComponent, NgComponentOutlet, RouterLink],
   template: `
     @if (decl(); as d) {
-      <article class="nova-stack nova-stack-lg" aria-labelledby="component-title">
-        <header class="nova-stack nova-stack-xs">
-          <p class="nova-caption">{{ category() }}</p>
-          <h2 id="component-title" class="nova-h2"><code>&lt;{{ d.tagName }}&gt;</code></h2>
-          @if (d.description) { <p class="nova-lead">{{ d.description }}</p> }
+      <article class="kvui-stack kvui-stack-lg" aria-labelledby="component-title">
+        <header class="kvui-stack kvui-stack-xs">
+          <p class="kvui-caption">{{ category() }}</p>
+          <h2 id="component-title" class="kvui-h2"><code>&lt;{{ d.tagName }}&gt;</code></h2>
+          @if (d.description) { <p class="kvui-lead">{{ d.description }}</p> }
         </header>
 
-        <section class="nova-stack nova-stack-sm" aria-labelledby="example-heading">
-          <h3 id="example-heading" class="nova-h4">Example</h3>
+        <section class="kvui-stack kvui-stack-sm" aria-labelledby="example-heading">
+          <h3 id="example-heading" class="kvui-h4">Example</h3>
           @if (example(); as ex) {
-            <div class="nova-card nova-card-raised nova-p-5">
+            <div class="kvui-card kvui-card-raised kvui-p-5">
               <ng-container *ngComponentOutlet="ex" />
             </div>
             <app-code-block [title]="tag() + ' example'" [code]="source()" />
           } @else {
-            <p class="nova-caption">No live example for this component yet. Its properties, events and methods are below.</p>
+            <p class="kvui-caption">No live example for this component yet. Its properties, events and methods are below.</p>
           }
         </section>
 
-        <section class="nova-stack nova-stack-sm" aria-labelledby="api-heading">
-          <h3 id="api-heading" class="nova-h4">API</h3>
+        <section class="kvui-stack kvui-stack-sm" aria-labelledby="api-heading">
+          <h3 id="api-heading" class="kvui-h4">API</h3>
           <app-api-table [decl]="d" />
         </section>
       </article>
     } @else {
-      <div class="nova-stack">
-        <h2 class="nova-h3">Unknown component</h2>
+      <div class="kvui-stack">
+        <h2 class="kvui-h3">Unknown component</h2>
         <p>No component is called <code>{{ tag() }}</code>. <a routerLink="/components">Choose one from the list.</a></p>
       </div>
     }

@@ -1,5 +1,5 @@
-:host { display: block; font-family: var(--nova-font-sans); color: var(--nova-color-fg); }
-.label { display: block; margin-bottom: var(--nova-space-2); font-size: var(--nova-text-sm); font-weight: var(--nova-weight-medium); }
-.req { color: var(--nova-color-danger); }
-.group { display: flex; flex-direction: column; gap: var(--nova-space-2); }
-:host([orientation='horizontal']) .group { flex-direction: row; flex-wrap: wrap; gap: var(--nova-space-4); }
+:host { display: block; font-family: var(--kvui-font-sans); color: var(--kvui-color-fg); }
+.label { display: block; margin-bottom: var(--kvui-space-2); font-size: var(--kvui-text-sm); font-weight: var(--kvui-weight-medium); }
+.req { color: var(--kvui-color-danger); }
+.group { display: flex; flex-direction: column; gap: var(--kvui-space-2); }
+:host([orientation='horizontal']) .group { flex-direction: row; flex-wrap: wrap; gap: var(--kvui-space-4); }

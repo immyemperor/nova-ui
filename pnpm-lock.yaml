@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@kvui/core':
+        specifier: ^0.1.0
+        version: 0.1.0
     devDependencies:
       '@changesets/cli':
         specifier: ^2.27.0
@@ -2083,6 +2087,9 @@ packages:
     engines: {node: '>=10.0'}
     peerDependencies:
       tslib: '2'
+
+  '@kvui/core@0.1.0':
+    resolution: {integrity: sha512-1TQ4rjUwXHPU8ewcodSe5fIeTxCIVH5HT7heClz9ZGZy1nZ8z/tWQ5aldmMZInBo5RaPSTk1qRdDWxGboypivw==}
 
   '@leichtgewicht/ip-codec@2.0.5':
     resolution: {integrity: sha512-Vo+PSpZG2/fmgmiNzYK9qWRh8h/CHrwD0mo1h1DzL4yzHNSfWYujGTYsWGreD000gcgmZ7K4Ys6Tx9TxtsKdDw==}
@@ -8030,6 +8037,10 @@ snapshots:
       '@jsonjoy.com/buffers': 17.67.0(tslib@2.9.1)
       '@jsonjoy.com/codegen': 17.67.0(tslib@2.9.1)
       tslib: 2.9.1
+
+  '@kvui/core@0.1.0':
+    dependencies:
+      '@stencil/core': 4.45.2
 
   '@leichtgewicht/ip-codec@2.0.5': {}
 

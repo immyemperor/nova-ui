@@ -1,10 +1,10 @@
 :host { display: inline-flex; }
-ui-popover { --ui-popover-padding: var(--nova-space-1); }
+ui-popover { --ui-popover-padding: var(--kvui-space-1); }
 .trigger {
-  all: unset; box-sizing: border-box; height: calc(var(--nova-control-sm)); padding: 0 var(--nova-space-3); display: inline-flex; align-items: center;
-  border-radius: calc(var(--nova-radius-control) - 2px); color: var(--nova-color-fg); font-size: var(--nova-text-sm); font-weight: var(--nova-weight-medium); cursor: pointer;
+  all: unset; box-sizing: border-box; height: calc(var(--kvui-control-sm)); padding: 0 var(--kvui-space-3); display: inline-flex; align-items: center;
+  border-radius: calc(var(--kvui-radius-control) - 2px); color: var(--kvui-color-fg); font-size: var(--kvui-text-sm); font-weight: var(--kvui-weight-medium); cursor: pointer;
 }
-.trigger:hover, :host([open]) .trigger { background: var(--nova-tint-hover); }
-.trigger:focus-visible { box-shadow: var(--nova-focus-ring); }
+.trigger:hover, :host([open]) .trigger { background: var(--kvui-tint-hover); }
+.trigger:focus-visible { box-shadow: var(--kvui-focus-ring); }
 .trigger:disabled { opacity: 0.5; cursor: not-allowed; }
 .menu { display: flex; flex-direction: column; min-width: 12rem; }

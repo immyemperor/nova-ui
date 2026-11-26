@@ -1,2 +1,2 @@
-:host { display: block; font-family: var(--nova-font-sans); }
-.list { display: flex; flex-wrap: wrap; align-items: center; gap: var(--nova-space-1); }
+:host { display: block; font-family: var(--kvui-font-sans); }
+.list { display: flex; flex-wrap: wrap; align-items: center; gap: var(--kvui-space-1); }

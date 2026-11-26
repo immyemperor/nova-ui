@@ -1,4 +1,4 @@
-:host { display: block; font-family: var(--nova-font-sans); }
+:host { display: block; font-family: var(--kvui-font-sans); }
 .viewport { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
 .track { display: flex; width: max-content; animation: scroll var(--_dur, 20s) linear infinite; }
 :host([direction='right']) .track { animation-direction: reverse; }

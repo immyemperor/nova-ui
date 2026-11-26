@@ -1,7 +1,7 @@
 {
   "name": "@kvui/vue",
-  "version": "0.1.0",
-  "description": "Vue 3 wrappers for Nova UI web components (generated from the component manifest).",
+  "version": "0.1.1",
+  "description": "Vue 3 wrappers for Kvui UI web components (generated from the component manifest).",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -37,11 +37,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/immyemperor/nova-ui.git",
+    "url": "git+https://github.com/immyemperor/kvui.git",
     "directory": "packages/vue"
   },
-  "homepage": "https://github.com/immyemperor/nova-ui#readme",
+  "homepage": "https://github.com/immyemperor/kvui#readme",
   "bugs": {
-    "url": "https://github.com/immyemperor/nova-ui/issues"
+    "url": "https://github.com/immyemperor/kvui/issues"
   }
 }

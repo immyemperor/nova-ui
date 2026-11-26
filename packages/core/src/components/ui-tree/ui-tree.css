@@ -1,14 +1,14 @@
-:host { display: block; font-family: var(--nova-font-sans); font-size: var(--nova-text-sm); color: var(--nova-color-fg); }
+:host { display: block; font-family: var(--kvui-font-sans); font-size: var(--kvui-text-sm); color: var(--kvui-color-fg); }
 .tree, .group { list-style: none; margin: 0; padding: 0; }
 .item { outline: none; }
-.row { display: flex; align-items: center; gap: var(--nova-space-2); min-height: var(--nova-control-md); padding-inline-end: var(--nova-space-3); border-radius: var(--nova-radius-control); cursor: pointer; user-select: none; }
-.row:hover:not(.disabled) { background: var(--nova-tint-hover); }
-.row.selected { background: var(--nova-tint-accent); color: var(--nova-color-accent-hover); font-weight: var(--nova-weight-medium); }
+.row { display: flex; align-items: center; gap: var(--kvui-space-2); min-height: var(--kvui-control-md); padding-inline-end: var(--kvui-space-3); border-radius: var(--kvui-radius-control); cursor: pointer; user-select: none; }
+.row:hover:not(.disabled) { background: var(--kvui-tint-hover); }
+.row.selected { background: var(--kvui-tint-accent); color: var(--kvui-color-accent-hover); font-weight: var(--kvui-weight-medium); }
 .row.disabled { opacity: 0.5; cursor: not-allowed; }
-.item:focus-visible > .row { box-shadow: var(--nova-focus-ring); }
-.toggle { display: inline-flex; flex: none; width: 1.25rem; height: 1.25rem; align-items: center; justify-content: center; border-radius: var(--nova-radius-control); color: var(--nova-color-fg-subtle); transition: transform var(--nova-duration-fast) var(--nova-ease-standard); }
+.item:focus-visible > .row { box-shadow: var(--kvui-focus-ring); }
+.toggle { display: inline-flex; flex: none; width: 1.25rem; height: 1.25rem; align-items: center; justify-content: center; border-radius: var(--kvui-radius-control); color: var(--kvui-color-fg-subtle); transition: transform var(--kvui-duration-fast) var(--kvui-ease-standard); }
 .toggle.leaf { visibility: hidden; }
 .toggle.open { transform: rotate(90deg); }
-.node-icon { color: var(--nova-color-fg-subtle); }
+.node-icon { color: var(--kvui-color-fg-subtle); }
 .row.selected .node-icon { color: inherit; }
 .text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

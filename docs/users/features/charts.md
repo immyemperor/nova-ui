@@ -23,7 +23,7 @@ chart.type = 'area';
 chart.labels = ['Jan', 'Feb', 'Mar', 'Apr'];
 chart.series = [
   { name: 'Revenue', values: [12, 18, 15, 22] },
-  { name: 'Target', values: [14, 14, 14, 14], color: 'var(--nova-color-fg-muted)' },
+  { name: 'Target', values: [14, 14, 14, 14], color: 'var(--kvui-color-fg-muted)' },
 ];
 ```
 

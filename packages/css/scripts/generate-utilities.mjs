@@ -14,16 +14,16 @@ const CQ = { sm: 24, md: 32, lg: 48, xl: 64 };
 
 const SPACE = {
   0: '0',
-  1: 'var(--nova-space-1)',
-  2: 'var(--nova-space-2)',
-  3: 'var(--nova-space-3)',
-  4: 'var(--nova-space-4)',
-  5: 'var(--nova-space-5)',
-  6: 'var(--nova-space-6)',
-  8: 'var(--nova-space-8)',
-  10: 'var(--nova-space-10)',
-  12: 'var(--nova-space-12)',
-  16: 'var(--nova-space-16)',
+  1: 'var(--kvui-space-1)',
+  2: 'var(--kvui-space-2)',
+  3: 'var(--kvui-space-3)',
+  4: 'var(--kvui-space-4)',
+  5: 'var(--kvui-space-5)',
+  6: 'var(--kvui-space-6)',
+  8: 'var(--kvui-space-8)',
+  10: 'var(--kvui-space-10)',
+  12: 'var(--kvui-space-12)',
+  16: 'var(--kvui-space-16)',
 };
 const GAP_KEYS = Object.keys(SPACE);
 const N12 = Array.from({ length: 12 }, (_, i) => i + 1);
@@ -114,7 +114,7 @@ base.push(
   ['w-screen', 'inline-size:100vw'],
   ['h-full', 'block-size:100%'], ['h-auto', 'block-size:auto'], ['h-fit', 'block-size:fit-content'], ['h-screen', 'block-size:100vh'], ['h-dvh', 'block-size:100dvh'],
   ['min-h-screen', 'min-block-size:100vh'], ['min-h-dvh', 'min-block-size:100dvh'], ['min-w-0', 'min-inline-size:0'], ['min-h-0', 'min-block-size:0'],
-  ['max-w-none', 'max-inline-size:none'], ['max-w-full', 'max-inline-size:100%'], ['max-w-prose', 'max-inline-size:var(--nova-measure)'],
+  ['max-w-none', 'max-inline-size:none'], ['max-w-full', 'max-inline-size:100%'], ['max-w-prose', 'max-inline-size:var(--kvui-measure)'],
   ...Object.entries({ xs: 20, sm: 24, md: 28, lg: 32, xl: 36, '2xl': 42, '3xl': 48, '4xl': 56, '5xl': 64 }).map(([k, v]) => [`max-w-${k}`, `max-inline-size:${v}rem`]),
 );
 
@@ -127,22 +127,22 @@ base.push(
 // Position, overflow, layering
 base.push(
   ['static', 'position:static'], ['relative', 'position:relative'], ['absolute', 'position:absolute'], ['fixed', 'position:fixed'], ['sticky', 'position:sticky'],
-  ['sticky-top', 'position:sticky;inset-block-start:var(--nova-sticky-offset,0)'],
+  ['sticky-top', 'position:sticky;inset-block-start:var(--kvui-sticky-offset,0)'],
   ['inset-0', 'inset:0'], ['top-0', 'inset-block-start:0'], ['bottom-0', 'inset-block-end:0'], ['start-0', 'inset-inline-start:0'], ['end-0', 'inset-inline-end:0'],
   ['overflow-hidden', 'overflow:hidden'], ['overflow-auto', 'overflow:auto'], ['overflow-clip', 'overflow:clip'], ['overflow-visible', 'overflow:visible'],
   ['overflow-x-auto', 'overflow-x:auto'], ['overflow-y-auto', 'overflow-y:auto'],
-  ['z-0', 'z-index:0'], ['z-10', 'z-index:10'], ['z-20', 'z-index:20'], ['z-30', 'z-index:30'], ['z-dropdown', 'z-index:var(--nova-z-dropdown)'], ['z-modal', 'z-index:var(--nova-z-modal)'],
+  ['z-0', 'z-index:0'], ['z-10', 'z-index:10'], ['z-20', 'z-index:20'], ['z-30', 'z-index:30'], ['z-dropdown', 'z-index:var(--kvui-z-dropdown)'], ['z-modal', 'z-index:var(--kvui-z-modal)'],
 );
 
 // Typography
 base.push(
-  ...['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl'].map((k) => [`text-${k}`, `font-size:var(--nova-text-${k})`]),
-  ['font-regular', 'font-weight:var(--nova-weight-regular)'], ['font-medium', 'font-weight:var(--nova-weight-medium)'],
-  ['font-semibold', 'font-weight:var(--nova-weight-semibold)'], ['font-bold', 'font-weight:var(--nova-weight-bold)'],
-  ['font-sans', 'font-family:var(--nova-font-sans)'], ['font-mono', 'font-family:var(--nova-font-mono)'],
-  ['leading-tight', 'line-height:var(--nova-leading-tight)'], ['leading-snug', 'line-height:var(--nova-leading-snug)'],
-  ['leading-normal', 'line-height:var(--nova-leading-normal)'], ['leading-relaxed', 'line-height:var(--nova-leading-relaxed)'],
-  ['tracking-tight', 'letter-spacing:var(--nova-tracking-tight)'], ['tracking-wide', 'letter-spacing:var(--nova-tracking-wide)'],
+  ...['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl'].map((k) => [`text-${k}`, `font-size:var(--kvui-text-${k})`]),
+  ['font-regular', 'font-weight:var(--kvui-weight-regular)'], ['font-medium', 'font-weight:var(--kvui-weight-medium)'],
+  ['font-semibold', 'font-weight:var(--kvui-weight-semibold)'], ['font-bold', 'font-weight:var(--kvui-weight-bold)'],
+  ['font-sans', 'font-family:var(--kvui-font-sans)'], ['font-mono', 'font-family:var(--kvui-font-mono)'],
+  ['leading-tight', 'line-height:var(--kvui-leading-tight)'], ['leading-snug', 'line-height:var(--kvui-leading-snug)'],
+  ['leading-normal', 'line-height:var(--kvui-leading-normal)'], ['leading-relaxed', 'line-height:var(--kvui-leading-relaxed)'],
+  ['tracking-tight', 'letter-spacing:var(--kvui-tracking-tight)'], ['tracking-wide', 'letter-spacing:var(--kvui-tracking-wide)'],
   ['uppercase', 'text-transform:uppercase'], ['capitalize', 'text-transform:capitalize'], ['normal-case', 'text-transform:none'],
   ['italic', 'font-style:italic'], ['underline', 'text-decoration:underline'], ['no-underline', 'text-decoration:none'], ['line-through', 'text-decoration:line-through'],
   ['text-balance', 'text-wrap:balance'], ['text-pretty', 'text-wrap:pretty'], ['tabular-nums', 'font-variant-numeric:tabular-nums'],
@@ -153,20 +153,20 @@ base.push(
 
 // Colour (tokens only, so light/dark theming needs no extra classes)
 const text = { fg: 'fg', muted: 'fg-muted', subtle: 'fg-subtle', accent: 'accent', success: 'success', warning: 'warning', danger: 'danger', info: 'info', 'on-accent': 'fg-on-accent' };
-for (const [k, v] of Object.entries(text)) base.push([`text-${k}`, `color:var(--nova-color-${v})`]);
+for (const [k, v] of Object.entries(text)) base.push([`text-${k}`, `color:var(--kvui-color-${v})`]);
 const bg = { page: 'bg', surface: 'surface', raised: 'surface-raised', sunken: 'surface-sunken', accent: 'accent', 'accent-soft': 'accent-soft',
   'success-soft': 'success-soft', 'warning-soft': 'warning-soft', 'danger-soft': 'danger-soft', 'info-soft': 'info-soft' };
-for (const [k, v] of Object.entries(bg)) base.push([`bg-${k}`, `background-color:var(--nova-color-${v})`]);
+for (const [k, v] of Object.entries(bg)) base.push([`bg-${k}`, `background-color:var(--kvui-color-${v})`]);
 base.push(['bg-transparent', 'background-color:transparent']);
 
 // Borders, radius, shadow
 base.push(
-  ['border', 'border:1px solid var(--nova-color-border)'], ['border-0', 'border:0'],
-  ['border-t', 'border-block-start:1px solid var(--nova-color-border)'], ['border-b', 'border-block-end:1px solid var(--nova-color-border)'],
-  ['border-s', 'border-inline-start:1px solid var(--nova-color-border)'], ['border-e', 'border-inline-end:1px solid var(--nova-color-border)'],
-  ['border-strong', 'border-color:var(--nova-color-border-strong)'], ['border-accent', 'border-color:var(--nova-color-accent)'], ['border-danger', 'border-color:var(--nova-color-danger)'],
-  ['rounded-none', 'border-radius:0'], ['rounded', 'border-radius:var(--nova-radius-control)'], ['rounded-lg', 'border-radius:var(--nova-radius-surface)'], ['rounded-full', 'border-radius:var(--nova-radius-pill)'],
-  ['shadow-none', 'box-shadow:none'], ['shadow-sm', 'box-shadow:var(--nova-shadow-sm)'], ['shadow-md', 'box-shadow:var(--nova-shadow-md)'], ['shadow-lg', 'box-shadow:var(--nova-shadow-lg)'],
+  ['border', 'border:1px solid var(--kvui-color-border)'], ['border-0', 'border:0'],
+  ['border-t', 'border-block-start:1px solid var(--kvui-color-border)'], ['border-b', 'border-block-end:1px solid var(--kvui-color-border)'],
+  ['border-s', 'border-inline-start:1px solid var(--kvui-color-border)'], ['border-e', 'border-inline-end:1px solid var(--kvui-color-border)'],
+  ['border-strong', 'border-color:var(--kvui-color-border-strong)'], ['border-accent', 'border-color:var(--kvui-color-accent)'], ['border-danger', 'border-color:var(--kvui-color-danger)'],
+  ['rounded-none', 'border-radius:0'], ['rounded', 'border-radius:var(--kvui-radius-control)'], ['rounded-lg', 'border-radius:var(--kvui-radius-surface)'], ['rounded-full', 'border-radius:var(--kvui-radius-pill)'],
+  ['shadow-none', 'box-shadow:none'], ['shadow-sm', 'box-shadow:var(--kvui-shadow-sm)'], ['shadow-md', 'box-shadow:var(--kvui-shadow-md)'], ['shadow-lg', 'box-shadow:var(--kvui-shadow-lg)'],
 );
 
 // Interaction and misc
@@ -176,20 +176,20 @@ base.push(
   ['invisible', 'visibility:hidden'], ['visible', 'visibility:visible'],
   ['opacity-50', 'opacity:.5'], ['opacity-75', 'opacity:.75'],
   ['object-cover', 'object-fit:cover'], ['object-contain', 'object-fit:contain'],
-  ['transition', 'transition:color var(--nova-duration-fast) var(--nova-ease-standard),background-color var(--nova-duration-fast) var(--nova-ease-standard),border-color var(--nova-duration-fast) var(--nova-ease-standard),box-shadow var(--nova-duration-fast) var(--nova-ease-standard),opacity var(--nova-duration-fast) var(--nova-ease-standard),transform var(--nova-duration-fast) var(--nova-ease-standard)'],
+  ['transition', 'transition:color var(--kvui-duration-fast) var(--kvui-ease-standard),background-color var(--kvui-duration-fast) var(--kvui-ease-standard),border-color var(--kvui-duration-fast) var(--kvui-ease-standard),box-shadow var(--kvui-duration-fast) var(--kvui-ease-standard),opacity var(--kvui-duration-fast) var(--kvui-ease-standard),transform var(--kvui-duration-fast) var(--kvui-ease-standard)'],
   // Hide visually, keep for screen readers
   ['sr-only', 'position:absolute;inline-size:1px;block-size:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0'],
   ['not-sr-only', 'position:static;inline-size:auto;block-size:auto;margin:0;overflow:visible;clip:auto;white-space:normal'],
 );
 
 /* ------------------------------------------------------------------ output */
-const rule = (cls, decl) => `.nova-${cls}{${decl}}`;
+const rule = (cls, decl) => `.kvui-${cls}{${decl}}`;
 const lines = [];
 const count = { base: 0, responsive: 0, hide: 0, cq: 0 };
 
 lines.push('/* GENERATED by scripts/generate-utilities.mjs. Do not edit by hand: change the generator and run `pnpm generate`. */');
-lines.push('@layer nova.reset, nova.tokens, nova.base, nova.layout, nova.components, nova.utilities;');
-lines.push('@layer nova.utilities {');
+lines.push('@layer kvui.reset, kvui.tokens, kvui.base, kvui.layout, kvui.components, kvui.utilities;');
+lines.push('@layer kvui.utilities {');
 
 lines.push('/* ---- base (all screen sizes) ---- */');
 for (const [k, d] of [...responsive, ...base]) { lines.push(rule(k, d)); count.base++; }
@@ -208,7 +208,7 @@ const cqFamilies = [
   ['d-none', 'display:none'], ['d-block', 'display:block'], ['d-flex', 'display:flex'], ['d-grid', 'display:grid'],
 ];
 for (const [bp, rem] of Object.entries(CQ)) {
-  lines.push(`/* ---- container query ${bp}: container min-width ${rem}rem (put .nova-cq on the parent) ---- */`);
+  lines.push(`/* ---- container query ${bp}: container min-width ${rem}rem (put .kvui-cq on the parent) ---- */`);
   lines.push(`@container (min-width:${rem}rem){`);
   for (const [k, d] of cqFamilies) { lines.push(rule(`cq-${bp}-${k}`, d)); count.cq++; }
   lines.push('}');
@@ -217,8 +217,8 @@ for (const [bp, rem] of Object.entries(CQ)) {
 // Show/hide last so they win over the display utilities above.
 lines.push('/* ---- visibility by screen size. -up hides at that size and larger; -below hides under it ---- */');
 for (const [bp, em] of Object.entries(BREAKPOINTS)) {
-  lines.push(`@media (min-width:${em}em){.nova-hide-${bp}-up{display:none}}`);
-  lines.push(`@media (max-width:${(em - 0.01).toFixed(2)}em){.nova-hide-below-${bp}{display:none}}`);
+  lines.push(`@media (min-width:${em}em){.kvui-hide-${bp}-up{display:none}}`);
+  lines.push(`@media (max-width:${(em - 0.01).toFixed(2)}em){.kvui-hide-below-${bp}{display:none}}`);
   count.hide += 2;
 }
 lines.push('}');

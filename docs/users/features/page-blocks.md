@@ -1,6 +1,6 @@
 # Page blocks
 
-Blocks are ready-made page compositions built from Nova components and layout classes. They're starting points: copy one into your app and change the content.
+Blocks are ready-made page compositions built from Kvui components and layout classes. They're starting points: copy one into your app and change the content.
 
 ```tsx
 import { LoginBlock, PricingBlock, SettingsBlock, DashboardBlock, OnboardingBlock } from '@kvui/react';

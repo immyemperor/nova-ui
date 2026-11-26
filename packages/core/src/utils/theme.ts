@@ -7,7 +7,7 @@ export type ThemeMode = 'light' | 'dark' | 'system';
 export type ResolvedTheme = 'light' | 'dark';
 type Listener = (mode: ThemeMode, resolved: ResolvedTheme) => void;
 
-export const THEME_STORAGE_KEY = 'nova-ui-theme';
+export const THEME_STORAGE_KEY = 'kvui-theme';
 
 const listeners = new Set<Listener>();
 let initialized = false;

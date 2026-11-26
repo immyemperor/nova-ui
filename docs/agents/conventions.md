@@ -1,6 +1,6 @@
 # Conventions for AI agents
 
-Read this before generating code that uses Nova UI. It states the rules that matter and the choices that agents most often get wrong. Also read [AGENTS.md](../../AGENTS.md) at the repository root.
+Read this before generating code that uses Kvui UI. It states the rules that matter and the choices that agents most often get wrong. Also read [AGENTS.md](../../AGENTS.md) at the repository root.
 
 ## Choose the component
 
@@ -10,16 +10,16 @@ Read this before generating code that uses Nova UI. It states the rules that mat
 | Multi-line text | `ui-textarea` | a bare `<textarea>` |
 | Pick one from a list | `ui-select` (searchable) or `ui-radio-group` (few options) | a native `<select>` for long lists |
 | Yes or no | `ui-switch` (immediate effect) or `ui-checkbox` (part of a form) | a button |
-| A date | `ui-date-picker` | `<input type="date">` when you need Nova styling or range |
+| A date | `ui-date-picker` | `<input type="date">` when you need Kvui styling or range |
 | A date range | `ui-date-range-picker` | two date inputs |
-| A time | `ui-time-picker` | `<input type="time">` when you need Nova styling |
+| A time | `ui-time-picker` | `<input type="time">` when you need Kvui styling |
 | A confirmation | `await confirm({...})` | `window.confirm` |
 | A short input prompt | `await prompt({...})` | `window.prompt` |
 | A notification | `toast.success/error/info/warning` | `alert()` |
 | A popup form or detail | `ui-modal` | a custom div |
 | Actions on an item | `ui-dropdown` with `ui-menu-item` | a custom menu |
 | Tabs | `ui-tabs` with `ui-tab` and `ui-tab-panel` | buttons toggling divs |
-| Collapsible content | `ui-accordion` or `ui-collapse` | `<details>` when you need Nova styling or animation |
+| Collapsible content | `ui-accordion` or `ui-collapse` | `<details>` when you need Kvui styling or animation |
 | A data grid | `ui-table` | a hand-built table with sorting |
 | Thousands of rows | `ui-table` with `virtual`, or `ui-virtual-list` | a plain long list |
 | A chart | `ui-chart` | an image or a hand-drawn SVG without a data table |
@@ -30,18 +30,18 @@ Read this before generating code that uses Nova UI. It states the rules that mat
 | Upload files | `ui-file-upload` | a bare `<input type="file">` for multiple files with validation |
 | Rich text | `ui-editor` (import from the editor package) | contenteditable |
 | Display HTML from elsewhere | `ui-html` | `innerHTML` |
-| Layout | `nova-container`, `nova-stack`, `nova-cluster`, `nova-grid-auto` | custom flex or grid for common patterns |
+| Layout | `kvui-container`, `kvui-stack`, `kvui-cluster`, `kvui-grid-auto` | custom flex or grid for common patterns |
 | A brand palette | `generateTheme` | hand-picked colours that may fail contrast |
 
 ## Rules
 
-1. **Import once.** `@import '@kvui/css/nova.css'` once per app. Import framework wrappers from the framework package.
+1. **Import once.** `@import '@kvui/css/kvui.css'` once per app. Import framework wrappers from the framework package.
 2. **Arrays and objects are properties.** Set `options`, `columns`, `rows`, `series`, `labels`, `nodes`, `commands`, `items`, `cards`, `layout`, `events`, `tiers`, `swatches`, `validate`, `uploadFn`, `renderRow`, `toolbar`, `mentionProvider`, `uploadHandler` as JavaScript values. Never as HTML attributes.
 3. **Use the event `detail`.** The new value is in `event.detail`. In React: `onUiChange={(e) => set(e.detail)}`. In Angular: `(uiChange)="set($event.detail)"`. In Vue: `@ui-change="(e) => set(e.detail)"`.
 4. **Every control has a name.** `label` on inputs and selects, `label` on icon-only buttons, `label` on charts and tables with a `caption`.
 5. **Forms use `name`.** Controls submit with their `name` inside `<form>`. Don't wire up hidden inputs yourself.
 6. **Don't mutate props.** Keep state in your framework and update it from events.
-7. **Use tokens, not hex.** `var(--nova-color-accent)`, not `#0b7a6c`. Tailwind: `bg-nova-accent`.
+7. **Use tokens, not hex.** `var(--kvui-color-accent)`, not `#0b7a6c`. Tailwind: `bg-kvui-accent`.
 8. **Sanitise HTML.** Use `<ui-html>` or `sanitizeHTML()`. Never `innerHTML` with untrusted input.
 9. **Respect motion.** Don't add animations that the user can't turn off. Components already do this.
 10. **Don't edit generated files.** See the table in [Architecture](../humans/architecture.md).
@@ -60,7 +60,7 @@ Read this before generating code that uses Nova UI. It states the rules that mat
 ## Common mistakes
 
 - `<ui-select options='[...]'>`: wrong. Set `select.options = [...]`.
-- `onChange` on a Nova component in React: use `onUiChange`.
+- `onChange` on a Kvui component in React: use `onUiChange`.
 - `(change)` in Angular: use `(uiChange)`.
 - `ui-datepicker`: the tag is `ui-date-picker`.
 - `ui-icon name="warning-circle"`: not in the registry. Use `alert-circle`, `alert-triangle` or `info`. Run `listIcons()` for the list.

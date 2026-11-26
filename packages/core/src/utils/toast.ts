@@ -23,7 +23,7 @@ function getToaster(): ToasterEl | null {
  */
 function show(input: string | ToastOptions): { id: string; dismiss: () => void } {
   const options: ToastOptions = typeof input === 'string' ? { title: input } : input;
-  const id = options.id ?? `nova-toast-${++seq}`;
+  const id = options.id ?? `kvui-toast-${++seq}`;
   const el = getToaster();
   if (!el) return { id, dismiss: () => undefined };
 
@@ -34,7 +34,7 @@ function show(input: string | ToastOptions): { id: string; dismiss: () => void }
     customElements.whenDefined('ui-toaster').then(run);
     setTimeout(() => {
       if (typeof el.show !== 'function') {
-        console.warn('[nova-ui] <ui-toaster> is not registered. Render <UiToaster /> (or import it) once in your app.');
+        console.warn('[kvui] <ui-toaster> is not registered. Render <UiToaster /> (or import it) once in your app.');
       }
     }, 2000);
   }

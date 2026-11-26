@@ -35,10 +35,10 @@ export function CodeBlock({ code, title }: { code: string; title: string }) {
       <div className="pg-code__bar">
         <span className="pg-code__title">{title}</span>
         <span className="pg-code__actions">
-          <button type="button" className="nova-btn nova-btn-ghost nova-btn-sm" aria-pressed={wrap} onClick={() => setWrap((w) => !w)}>
+          <button type="button" className="kvui-btn kvui-btn-ghost kvui-btn-sm" aria-pressed={wrap} onClick={() => setWrap((w) => !w)}>
             {wrap ? 'No wrap' : 'Wrap lines'}
           </button>
-          <button type="button" className="nova-btn nova-btn-sm" onClick={copy}>
+          <button type="button" className="kvui-btn kvui-btn-sm" onClick={copy}>
             {copied ? 'Copied' : 'Copy code'}
           </button>
         </span>

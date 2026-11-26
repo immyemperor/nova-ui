@@ -2,8 +2,8 @@
 
 `<ui-icon>` draws icons from one of two sets:
 
-- **Nova** (default): about 70 built-in line icons drawn as SVG. No font needed.
-- **Material**: Google's [Material Symbols](https://fonts.google.com/icons), drawn with the Material font. Nova names are mapped to Material names automatically, so every component works in either set.
+- **Kvui** (default): about 70 built-in line icons drawn as SVG. No font needed.
+- **Material**: Google's [Material Symbols](https://fonts.google.com/icons), drawn with the Material font. Kvui names are mapped to Material names automatically, so every component works in either set.
 
 ## Load the Material font (once)
 
@@ -13,7 +13,7 @@ Add this to your page's `<head>`. It's the same font your app loads from Google 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block" />
 ```
 
-Skip this if you use only the Nova set.
+Skip this if you use only the Kvui set.
 
 ## Offline: bundled Material icons
 
@@ -24,15 +24,15 @@ pnpm --filter @kvui/css icons:update
 pnpm --filter @kvui/css build
 ```
 
-Then load the generated stylesheet and use the `nova-icon` classes (no network needed):
+Then load the generated stylesheet and use the `kvui-icon` classes (no network needed):
 
 ```html
 <link rel="stylesheet" href="/node_modules/@kvui/css/icons.css" />
-<span class="nova-icon nova-icon-home" aria-hidden="true"></span>
-<span class="nova-icon nova-icon-star nova-icon-filled nova-icon-lg"></span>
+<span class="kvui-icon kvui-icon-home" aria-hidden="true"></span>
+<span class="kvui-icon kvui-icon-star kvui-icon-filled kvui-icon-lg"></span>
 ```
 
-Sizes: `nova-icon-xs`, `-sm`, `-md`, `-lg`, `-xl`. The icon names are listed in `@kvui/css/material-icon-names.json`. The official licence is copied alongside the font.
+Sizes: `kvui-icon-xs`, `-sm`, `-md`, `-lg`, `-xl`. The icon names are listed in `@kvui/css/material-icon-names.json`. The official licence is copied alongside the font.
 
 ## Choose the set
 
@@ -40,14 +40,14 @@ Sizes: `nova-icon-xs`, `-sm`, `-md`, `-lg`, `-xl`. The icon names are listed in 
 import { setIconLibrary } from '@kvui/core';
 
 setIconLibrary('material'); // every <ui-icon> on the page switches; icons redraw automatically
-setIconLibrary('nova');
+setIconLibrary('kvui');
 ```
 
 A single icon can override the page setting:
 
 ```html
 <ui-icon name="check" library="material"></ui-icon>
-<ui-icon name="check" library="nova"></ui-icon>
+<ui-icon name="check" library="kvui"></ui-icon>
 ```
 
 Read the current setting with `getIconLibrary()`. Listen for changes with `onIconLibraryChange(fn)`.
@@ -67,9 +67,9 @@ Read the current setting with `getIconLibrary()`. Listen for changes with `onIco
 
 ## Names
 
-In the Material set, Nova names map to Material names. Some common ones:
+In the Material set, Kvui names map to Material names. Some common ones:
 
-| Nova name | Material name | Nova name | Material name |
+| Kvui name | Material name | Kvui name | Material name |
 | --- | --- | --- | --- |
 | `check` | `check` | `trash` | `delete` |
 | `x` | `close` | `user` | `person` |

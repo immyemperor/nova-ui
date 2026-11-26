@@ -1,13 +1,13 @@
-/* Playground chrome only. Unlayered, so it beats Nova's layers without specificity tricks. */
+/* Playground chrome only. Unlayered, so it beats Kvui's layers without specificity tricks. */
 .pg-nav a {
   display: block;
-  padding: var(--nova-space-1) var(--nova-space-3);
-  border-radius: var(--nova-radius-control);
-  color: var(--nova-color-fg-muted);
-  font-size: var(--nova-text-sm);
+  padding: var(--kvui-space-1) var(--kvui-space-3);
+  border-radius: var(--kvui-radius-control);
+  color: var(--kvui-color-fg-muted);
+  font-size: var(--kvui-text-sm);
   text-decoration: none;
 }
-.pg-nav a:hover { background: var(--nova-color-surface-sunken); color: var(--nova-color-fg); }
+.pg-nav a:hover { background: var(--kvui-color-surface-sunken); color: var(--kvui-color-fg); }
 
 /* Drag the corner to see container queries react to the box, not the screen */
 .pg-resizable {
@@ -15,38 +15,38 @@
   overflow: auto;
   min-inline-size: 15rem;
   max-inline-size: 100%;
-  padding: var(--nova-space-4);
-  border: 1px dashed var(--nova-color-border-strong);
-  border-radius: var(--nova-radius-surface);
+  padding: var(--kvui-space-4);
+  border: 1px dashed var(--kvui-color-border-strong);
+  border-radius: var(--kvui-radius-surface);
 }
 
 /* Exit animations used by the presence demo */
 @keyframes pg-fade-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @keyframes pg-fade-out { to { opacity: 0; transform: translateY(-6px); } }
-.nova-fade-in { animation: pg-fade-in 180ms var(--nova-ease-emphasized) both; }
-.nova-fade-out { animation: pg-fade-out 180ms var(--nova-ease-standard) forwards; }
+.kvui-fade-in { animation: pg-fade-in 180ms var(--kvui-ease-emphasized) both; }
+.kvui-fade-out { animation: pg-fade-out 180ms var(--kvui-ease-standard) forwards; }
 
 /* Source code panels */
-.pg-code { border: 1px solid var(--nova-color-border); border-radius: var(--nova-radius-surface); overflow: hidden; background: var(--nova-color-surface); }
-.pg-code__bar { display: flex; align-items: center; justify-content: space-between; gap: var(--nova-space-2); padding: var(--nova-space-2) var(--nova-space-3); background: var(--nova-color-surface-sunken); border-bottom: 1px solid var(--nova-color-border); }
-.pg-code__title { font-family: var(--nova-font-mono); font-size: var(--nova-text-xs); color: var(--nova-color-fg-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.pg-code__actions { display: flex; gap: var(--nova-space-2); flex: none; }
-.pg-code__pre { margin: 0; max-height: 28rem; overflow: auto; padding: var(--nova-space-3) var(--nova-space-4); font-family: var(--nova-font-mono); font-size: 0.8125rem; line-height: 1.55; tab-size: 2; }
+.pg-code { border: 1px solid var(--kvui-color-border); border-radius: var(--kvui-radius-surface); overflow: hidden; background: var(--kvui-color-surface); }
+.pg-code__bar { display: flex; align-items: center; justify-content: space-between; gap: var(--kvui-space-2); padding: var(--kvui-space-2) var(--kvui-space-3); background: var(--kvui-color-surface-sunken); border-bottom: 1px solid var(--kvui-color-border); }
+.pg-code__title { font-family: var(--kvui-font-mono); font-size: var(--kvui-text-xs); color: var(--kvui-color-fg-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pg-code__actions { display: flex; gap: var(--kvui-space-2); flex: none; }
+.pg-code__pre { margin: 0; max-height: 28rem; overflow: auto; padding: var(--kvui-space-3) var(--kvui-space-4); font-family: var(--kvui-font-mono); font-size: 0.8125rem; line-height: 1.55; tab-size: 2; }
 .pg-code__pre code { font-family: inherit; }
 .pg-code__pre--wrap { white-space: pre-wrap; overflow-wrap: anywhere; }
-.pg-code__pre:focus-visible { outline: none; box-shadow: inset var(--nova-focus-ring); }
-.pg-source { border: 1px solid var(--nova-color-border); border-radius: var(--nova-radius-surface); padding: var(--nova-space-2) var(--nova-space-3); }
-.pg-source > summary { cursor: pointer; font-weight: var(--nova-weight-medium); color: var(--nova-color-accent-hover); }
-.pg-source[open] { display: grid; gap: var(--nova-space-3); padding-bottom: var(--nova-space-3); }
-.pg-icon-set { display: inline-flex; gap: var(--nova-space-1); }
+.pg-code__pre:focus-visible { outline: none; box-shadow: inset var(--kvui-focus-ring); }
+.pg-source { border: 1px solid var(--kvui-color-border); border-radius: var(--kvui-radius-surface); padding: var(--kvui-space-2) var(--kvui-space-3); }
+.pg-source > summary { cursor: pointer; font-weight: var(--kvui-weight-medium); color: var(--kvui-color-accent-hover); }
+.pg-source[open] { display: grid; gap: var(--kvui-space-3); padding-bottom: var(--kvui-space-3); }
+.pg-icon-set { display: inline-flex; gap: var(--kvui-space-1); }
 
 /* Component explorer sidebar */
-.explorer { display: grid; gap: var(--nova-space-2); }
+.explorer { display: grid; gap: var(--kvui-space-2); }
 .explorer__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
-.explorer__link { display: block; padding: var(--nova-space-1) var(--nova-space-2); border-radius: var(--nova-radius-control); color: var(--nova-color-fg-muted); text-decoration: none; font-size: var(--nova-text-sm); }
-.explorer__link:hover { background: var(--nova-tint-hover); color: var(--nova-color-fg); }
-.explorer__link[aria-current='page'] { background: var(--nova-tint-accent); color: var(--nova-color-accent-hover); font-weight: var(--nova-weight-medium); }
-.explorer__link:focus-visible { outline: none; box-shadow: var(--nova-focus-ring); }
-.explorer__group { padding-block: var(--nova-space-1); }
-.explorer__group > summary { cursor: pointer; font-size: var(--nova-text-xs); font-weight: var(--nova-weight-semibold); text-transform: uppercase; letter-spacing: var(--nova-tracking-wide); color: var(--nova-color-fg-subtle); padding: var(--nova-space-1) var(--nova-space-2); }
-.explorer__group > .explorer__list { padding-inline-start: var(--nova-space-2); }
+.explorer__link { display: block; padding: var(--kvui-space-1) var(--kvui-space-2); border-radius: var(--kvui-radius-control); color: var(--kvui-color-fg-muted); text-decoration: none; font-size: var(--kvui-text-sm); }
+.explorer__link:hover { background: var(--kvui-tint-hover); color: var(--kvui-color-fg); }
+.explorer__link[aria-current='page'] { background: var(--kvui-tint-accent); color: var(--kvui-color-accent-hover); font-weight: var(--kvui-weight-medium); }
+.explorer__link:focus-visible { outline: none; box-shadow: var(--kvui-focus-ring); }
+.explorer__group { padding-block: var(--kvui-space-1); }
+.explorer__group > summary { cursor: pointer; font-size: var(--kvui-text-xs); font-weight: var(--kvui-weight-semibold); text-transform: uppercase; letter-spacing: var(--kvui-tracking-wide); color: var(--kvui-color-fg-subtle); padding: var(--kvui-space-1) var(--kvui-space-2); }
+.explorer__group > .explorer__list { padding-inline-start: var(--kvui-space-2); }
